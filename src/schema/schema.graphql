@@ -1,0 +1,744 @@
+type Query {
+  user: User
+  users: [User]!
+  user2(id: ID!): User
+  product(id: ID!): Product
+  Cowdetail(id: ID!): Imslaughter
+  productSearch(description: String, price: Float): [Product]
+  products: [Product]!
+  postsOffset(limit: Int!, offset: Int!): [Product!]!
+  get_provinces: [Ad_provinces]
+  get_amphures(province_id: String): [Ad_amphures]
+  get_districts(province_id: String,amphur_id: String): [Ad_districts]
+  get_zipcodes(district_code: String): [Ad_zipcodes]
+
+  puntypeQuery: [PunType]!
+  #งานจริงๆ
+  Card1: [Imslaughter]!
+  Card1_5: [Imslaughter]!
+  Card2: [Halve]!
+  Card3: [Quarter]!
+  Card4: [Lump]!
+  Card5: [Imslaughter]!
+  Card6: [Imslaughter]!
+
+  Cardtreat: [Imslaughter]!
+  Cardregis: [Imslaughter]!
+
+  statusSearch: [Status]!
+  boxSearch: [Box]!
+  beeftypeSearch: [Beeftype]!
+  Allcow: [Imslaughter]!
+  cowfarmmer(numkun:String,passsport:String!): [Imslaughter]!
+  imslaughtersSearch: [Imslaughter]!
+  treatSearch: [Imslaughter]!
+  imslaughtersSearchNumkun(
+    importDate: String
+    numkun: String
+    statusIm: String
+  ): [Imslaughter]!
+  imslaughtersSearchList(
+    importslaughterDate: String
+    statusCa: String
+  ): [Imslaughter]!
+  imslaughtersSearchHalve(
+    numkun: String
+    importslaughterDate: String
+    statusCa: String
+  ): [Imslaughter]!
+  imslaughtersSearchGrade(
+    numkun: String
+    importslaughterDate: String
+    statusCa: String
+  ): [Imslaughter]!
+  imslaughtersSearchEntrails(
+    numkun: String
+    importslaughterDate: String
+    statusEn: String
+  ): [Imslaughter]!
+  SearchHalveForSent(
+    barcode: String
+    createdAt: String
+    status: String
+  ): [Halve]!
+  SearchHalveForCut(
+    barcode: String
+    sendAt: String
+    status: String
+    beeftype: String
+  ): [Halve]!
+
+  Selecttreat(numkun: String, statusIm: String): [Imslaughter]!
+
+  HalveForCut(barcode: String): Halve
+
+  SearchBeeftypefour(code: String): Beeftype
+
+  SearchQuarter(halve: String): [Quarter]
+  SearchQuarterForSent(barcode: String, createdAt: String): [Quarter]!
+  SearchQuarterForCut(
+    barcode: String
+    sendAt: String
+    status: String
+  ): [Quarter]!
+  QuarterForCut(barcode: String): Quarter
+
+  SearchBeeftypeLump(code: String): Beeftype
+  SearchBeeftypeLumpAll: [Beeftype]!
+
+  SearchLump(quarter: String): [Lump]
+  SearchLumpForSent(barcode: String, createdAt: String): [Lump]!
+  SearchLumpForCut(barcode: String, sendAt: String, status: String): [Lump]!
+  LumpForCut(barcode: String): Lump
+
+  SearchChop(lump: String): [Chop]
+
+  SearchBuy(fees: String, numkun: String): [Imslaughter]!
+  Tracking(barcode: String): Tracking!
+  Trackinginfo(numkun: String): Imslaughter
+  Selectcow(numkun: String): [Imslaughter]!
+
+  SlipChop(barcode: String): Chop
+  SlipLump(barcode: String): Lump
+  SlipQuarter(barcode: String): Quarter
+  SlipHalve(barcode: String): Halve
+
+  SettingBeeftype2: [Beeftype]!
+  SettingBeeftype4: [Beeftype]!
+  SettingBeeftype18: [Beeftype]!
+  SettingBeeftypeCheck: [Beeftype]!
+
+  trace(numkun: String): Imslaughter
+  ReportgetTreat(startdate: String, enddate: String): [Imslaughter]!
+  Reportgetin(startdate: String, enddate: String): [Imslaughter]!
+  ReportgetGroup(
+    startdate: String
+    enddate: String
+    group: String
+    district: String
+    province: String
+  ): [Imslaughter]!
+  Reportim(startdate: String, enddate: String): [Imslaughter]!
+  Reportcuttwo(startdate: String, enddate: String): [Halve]!
+  Reportentrail(startdate: String, enddate: String): [Entrail]!
+  Reportquarter(startdate: String, enddate: String): [Quarter]!
+  Reportlump(startdate: String, enddate: String): [Lump]!
+  Reportchop(startdate: String, enddate: String): [Chop]!
+
+  toslaughter: [Imslaughter]!
+  allDrug: [Drug]!
+  allDisease: [Disease]!
+
+  # ////////////////////////////////////////////////
+  datacow(id: ID!): Datacow
+  datacows: [Datacow]!
+  # datacow: (id: ID!): Datacow
+  datatreat(id: ID!): Datatreat
+  datatreats: [Datatreat]!
+  # datatreat: (id: ID!): Datatreat
+}
+
+type Mutation {
+  signup(name: String!, email: String!, password: String! ,passsport: String!): User
+  login(email: String!, password: String!): AuthData
+  requestResetPassword(email: String!): Message!
+  resetPassword(password: String!, token: String!): Message
+  createRole(nameTH: String!, nameEN: String!): Role
+  createProduct(
+    description: String!
+    price: Float!
+    imageUrl: String!
+  ): Product!
+  updateProduct(
+    id: ID!
+    description: String
+    price: Float
+    imageUrl: String
+  ): Product!
+  addToCart(id: ID!): CartItem!
+  deleteCart(id: ID!): CartItem!
+  createBox(name: String!): Box
+  createBox2(name: String!): Box2
+
+  createPun(name: String, numpun: String): PunType
+  deleteDrug(id: ID!): Drug!
+
+  #งานจริงๆ
+  createsetting(dateResetCount: Int!): Setting
+  createBeeftype(
+    code: String!
+    nameTH: String!
+    nameEN: String!
+    BBE: Int
+    priceG2h: Float
+    priceG3: Float
+    priceG3h: Float
+    priceG4: Float
+    priceG4h: Float
+    priceG5: Float
+  ): Beeftype
+  updateBeeftype(
+    id: ID!
+    code: String
+    nameTH: String
+    nameEN: String
+    BBE: Int
+    priceG2h: Float
+    priceG3: Float
+    priceG3h: Float
+    priceG4: Float
+    priceG4h: Float
+    priceG5: Float
+  ): Beeftype
+  deleteBeeftype(id: ID!): Beeftype!
+  updateTstatus(id: ID!, statuscow: String!): Imslaughter!
+  updateDead(id: ID!, statuscow: String!): Imslaughter!
+  createStatus(code: String!, nameTH: String!, nameEN: String!): Status!
+  updateStatus(id: ID!, code: String, nameTH: String, nameEN: String): Status!
+  deleteStatus(id: ID!): Status!
+
+  createCow(
+    statuscow: String
+    numcow: String!
+    numkun: String!
+    pun: String!
+    numfarmer: String!
+    passport: String
+    teeth: String
+    rfid: String
+    bodyscore: String
+    namefarmer: String!
+    date: String!
+    datebirhtday: String!
+    namecow: String!
+    sex: String!
+    weightstart: Float!
+    weightbirht: Float!
+    imagecow: String
+    group: String!
+    district: String!
+    province: String!
+  ): Imslaughter!
+  deletecow(id: ID!): Imslaughter!
+  createImslaughter(
+    numcow: String!
+    numkun: String!
+    pun: String!
+    numfarmer: String!
+    namefarmer: String!
+  ): Imslaughter!
+  updateImslaughter(
+    id: ID!
+    namefarmer: String
+    weight: Float
+    price: Float
+  ): Imslaughter!
+  updateImslaughterStatusCa(id: ID!): Imslaughter!
+  updateImslaughterStatusEn(id: ID!): Imslaughter!
+  updateGrade(id: ID!, grade: String!): Imslaughter!
+  updateCow(
+    id: String!
+    numkun: String
+    numcow: String
+    namecow: String
+    pun: String
+    weightstart: Float
+    numfarmer: String
+  ): Imslaughter!
+  deletePun(id: ID!): PunType!
+  deleteGrade(id: ID!): Imslaughter!
+  updateFees(id: ID!, fees: Float!): Imslaughter!
+  updateStatustreat(id: ID!, statuscow: String!): Imslaughter!
+  createHalve(
+    weightwarm: Float!
+    imslaughter: String!
+    beeftype: String!
+  ): Halve!
+  createHalveL(weightwarm: Float!, imslaughter: String!): Halve!
+  createHalveR(weightwarm: Float!, imslaughter: String!): Halve!
+  updateHalve(id: ID!, weightwarm: Float, sendAt: String): Halve!
+  deleteHalveSent(id: ID!): Halve!
+  updateHalveWeightCool(id: ID!, weightcool: Float): Halve!
+
+  createQuarter(
+    weight: Float!
+    imslaughter: String!
+    beeftype: String!
+    halve: String!
+  ): Quarter!
+
+  deleteQuarter(id: ID!): Quarter!
+  updateQuarterSent(id: ID!, sendAt: String): Quarter!
+  deleteQuarterSent(id: ID!): Quarter!
+
+  createLump(
+    weight: Float!
+    imslaughter: String!
+    beeftype: String!
+    quarter: String!
+  ): Lump!
+
+  deleteLump(id: ID!): Lump!
+  updateLumpSent(id: ID!, sendAt: String): Lump!
+  deleteLumpSent(id: ID!): Lump!
+
+  createChop(
+    weight: Float!
+    imslaughter: String!
+    beeftype: String!
+    lump: String!
+  ): Chop!
+
+  deleteChop(id: ID!): Chop!
+
+  createEntrail(
+    imslaughter: String!
+    offal: String!
+    toe: String!
+    head: String!
+    skin: String!
+    liver: String!
+    fat: String!
+    onkale: String!
+    tail: String!
+    gallbladder: String!
+    scrap: String!
+  ): Entrail
+  updateEntrail(
+    id: ID!
+    offal: String
+    toe: String
+    head: String
+    skin: String
+    liver: String
+    fat: String
+    onkale: String
+    tail: String
+    gallbladder: String
+    scrap: String
+  ): Entrail!
+
+  toSlaughter(id: ID!, importDate: String): Imslaughter!
+
+  createFeed(
+    datestart: String!
+    dateend: String!
+    typefood: String!
+    namefood: String!
+    namecop: String
+    cp: String
+    tdn: String
+    quantity: Float!
+    note: String
+    imslaughter: String!
+  ): Feed!
+
+  createTreat(
+    datet: String!
+    dise: String!
+    symptom: String!
+    medi: String!
+    nofity: Int
+    quantity: Float!
+    note: String
+    imslaughter: String!
+  ): Treat!
+
+  createTransport(
+    date: String
+    name: String!
+    place: String!
+    note: String
+    barcode: String!
+  ): Transport!
+
+  createDrug(name: String!, nofity: Int): Drug!
+
+  createDisease(name: String!, detail: String!): Disease!
+  # /////////////////////////////////////////////////////////////
+  createDatacow(numkun: String!, numcow: String!): Datacow!
+
+  createDatatreat(weight: String!, detail: String!): Datatreat!
+}
+
+scalar Date
+
+type Datacow {
+  id: ID!
+  numcow: String!
+  numkun: String!
+  # pun: String!
+  # numfarmer: String!
+  # passport: String
+  # teeth: String!
+  # rfid: String
+  # bodyscore: String!
+  # namefarmer: String!
+  # date: Date!
+  # datebirhtday:Date!
+  # namecow: String!
+  # sex: String!
+  # weightstart: Float
+  # weightbirht: Float
+  # weight: Float
+  # price: Float
+  # grade: String!
+  # fees: Float
+  # importDate: Date
+  # importslaughterDate: Date
+  datatreats: [Datatreat]
+}
+type Datatreat {
+  id: ID!
+  weight: String!
+  detail: String!
+  datacow: Datacow!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  passsport: String!
+  products: [Product]
+  carts: [CartItem]!
+  createdAt: Date!
+  role: Role
+  statuses: [Status]
+  imslaughters: [Imslaughter]
+  halves: [Halve]
+  quarters: [Quarter]
+  lumps: [Lump]
+  chops: [Chop]
+  entrails: [Entrail]
+}
+
+type Role {
+  id: ID!
+  nameTH: String!
+  nameEN: String!
+}
+
+type Product {
+  id: ID!
+  description: String!
+  price: Float!
+  imageUrl: String!
+  user: User!
+  createdAt: Date!
+}
+
+type CartItem {
+  id: ID!
+  product: Product!
+  quantity: Int!
+  user: User!
+  createdAt: Date!
+}
+
+type AuthData {
+  user: User
+  jwt: String
+}
+
+type Message {
+  message: String!
+}
+
+type Box {
+  id: ID!
+  name: String!
+  count: Int!
+}
+type Box2 {
+  id: ID!
+  name: String!
+}
+
+type Feed {
+  id: ID!
+  datestart: Date!
+  dateend: Date!
+  typefood: String!
+  namefood: String!
+  namecop: String
+  cp: String
+  tdn: String
+  quantity: Float!
+  note: String
+  imslaughter: Imslaughter!
+}
+
+type Treat {
+  id: ID!
+  datet: Date!
+  dise: String!
+  symptom: String!
+  medi: String!
+  nofity: Int
+  quantity: Float!
+  note: String
+  imslaughter: Imslaughter!
+}
+
+type Transport {
+  id: ID!
+  date: Date!
+  name: String!
+  place: String!
+  note: String
+  chop: Chop
+  lump: Lump
+  quarter: Quarter
+  halve: Halve
+}
+
+type Drug {
+  id: ID!
+  name: String!
+  nofity: Int
+}
+
+type Disease {
+  id: ID!
+  name: String!
+  detail: String!
+}
+
+# งานจริงๆ
+type Setting {
+  id: ID!
+  dateResetCount: Int!
+  dateResetCountH: Int!
+  dateResetCountQ: Int!
+  dateResetCountL: Int!
+  dateResetCountC: Int!
+  dateResetCountE: Int!
+}
+
+type Status {
+  id: ID!
+  """
+  รหัสค้นหา
+  """
+  code: String!
+  nameTH: String!
+  nameEN: String!
+  user: User!
+}
+
+type Beeftype {
+  id: ID!
+  """
+  รหัสค้นหา
+  """
+  code: String!
+  nameTH: String!
+  nameEN: String!
+  BBE: Int
+  codecount: Int
+  priceG2h: Float
+  priceG3: Float
+  priceG3h: Float
+  priceG4: Float
+  priceG4h: Float
+  priceG5: Float
+}
+
+type PunType {
+  id: ID!
+  name: String!
+  numpun: String!
+}
+type Imslaughter {
+  id: ID!
+  numcow: String!
+  imagecow: String
+  numkun: String!
+  pun: String!
+  numfarmer: String!
+  passport: String
+  teeth: String
+  rfid: String
+  bodyscore: String
+  namefarmer: String!
+  date: Date!
+  datebirhtday: Date!
+  namecow: String!
+  sex: String!
+  weightstart: Float!
+  weightbirht: Float!
+  statuscow: String
+  weight: Float
+  price: Float
+  grade: String
+  fees: Float
+  "ข้อมูลติดตัวโค"
+  group: String!
+  district: String!
+  province: String!
+  """
+  วันรับเข้า
+  """
+  importDate: Date
+  """
+  วันเชือด
+  """
+  importslaughterDate: Date
+  """
+  สถานะรับเข้า
+  """
+  statusIm: Status!
+  """
+  สถานะซาก2
+  """
+  statusCa: Status!
+  """
+  สถานะเครื่องใน
+  """
+  statusEn: Status!
+  user: User!
+  halves: [Halve]
+  quarters: [Quarter]
+  lumps: [Lump]
+  chops: [Chop]
+  entrails: Entrail
+  feeds: [Feed]
+  treats: [Treat]
+}
+
+type Halve {
+  id: ID!
+  weightwarm: Float!
+  weightcool: Float
+  barcode: String
+  createdAt: Date!
+  sendAt: Date
+  status: Status!
+  user: User!
+  imslaughter: Imslaughter!
+  beeftype: Beeftype!
+  quarters: [Quarter]
+  transports: [Transport]
+}
+
+type Quarter {
+  id: ID!
+  weight: Float!
+  price: Float
+  barcode: String
+  createdAt: Date!
+  sendAt: Date
+  status: Status!
+  user: User!
+  imslaughter: Imslaughter!
+  beeftype: Beeftype!
+  halve: Halve!
+  lumps: [Lump]
+  transports: [Transport]
+}
+
+type Lump {
+  id: ID!
+  weight: Float!
+  price: Float
+  barcode: String
+  createdAt: Date!
+  sendAt: Date
+  status: Status!
+  user: User!
+  imslaughter: Imslaughter!
+  beeftype: Beeftype!
+  quarter: Quarter!
+  chops: [Chop]
+  transports: [Transport]
+}
+
+type Chop {
+  id: ID!
+  weight: Float!
+  price: Float
+  barcode: String
+  createdAt: Date!
+  MFG: Date!
+  BBE: Date!
+  status: Status!
+  user: User!
+  imslaughter: Imslaughter!
+  beeftype: Beeftype!
+  lump: Lump!
+  transports: [Transport]
+}
+
+type Entrail {
+  id: ID!
+  offal: String!
+  toe: String!
+  head: String!
+  skin: String!
+  liver: String!
+  fat: String!
+  onkale: String!
+  tail: String!
+  gallbladder: String!
+  scrap: String!
+  barcode: String
+  createdAt: Date!
+  user: User!
+  imslaughter: Imslaughter!
+}
+
+type Tracking {
+  barcode: String
+  beeftype: String
+  grade: String
+  weight: Float
+  price: Float
+  MFG: Date
+  BBE: Date
+  farmer: String
+  numcow: String
+  numkun: String
+  pun: String
+  age: String
+  weightcow: Float
+  transports: [Transport]
+}
+
+type Ad_provinces {
+  province_id: String
+  province_code: String
+  province_name: String
+  province_name_eng: String
+  geo_id: String
+}
+
+type Ad_amphures {
+  amphur_id: String
+  amphur_code: String
+  amphur_name: String
+  amphur_name_eng: String
+  geo_id: String
+  province_id: String
+}
+
+type Ad_districts {
+  district_id: String
+  district_code: String
+  district_name: String
+  district_name_eng: String
+  geo_id: String
+  province_id: String
+  amphur_id: String
+}
+
+type Ad_zipcodes {
+  zipcode_id: String
+  district_code: String
+  zipcode_name: String
+}
+
+type Ad_geography {
+  geo_id: String
+  geo_name: String
+}
