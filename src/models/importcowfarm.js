@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 // รับโคเข้าเชือด
 
-const imslaughterSchema = new mongoose.Schema({
+const importcfarmSchema = new mongoose.Schema({
   pun: {
     type: String,
     required: true,
@@ -20,6 +20,8 @@ const imslaughterSchema = new mongoose.Schema({
   bodyscore: {
     type: String,
   },
+  imagecow:{type: String,},
+
   namefarmer: {
     type: String,
     required: true,
@@ -48,19 +50,22 @@ const imslaughterSchema = new mongoose.Schema({
     type: Number,
     // required: true,
   },
-  group: {
-    type: String,
-    required: true,
+  // group: {
+  //   type: String,
+  //   required: true,
+  // },
+  // district: {
+  //   type: String,
+  //   required: true,
+  // },
+  // province: {
+  //   type: String,
+  //   required: true,
+  // },
+  statusIm: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Status",
   },
-  district: {
-    type: String,
-    required: true,
-  },
-  province: {
-    type: String,
-    required: true,
-  },
-
 
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -68,6 +73,6 @@ const imslaughterSchema = new mongoose.Schema({
   },
 });
 
-const Imslaughter = mongoose.model("Imslaughter", imslaughterSchema);
+const Importcowfarm = mongoose.model("Importcowfarm", importcfarmSchema);
 
-export default Imslaughter;
+export default Importcowfarm;

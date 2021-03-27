@@ -61,6 +61,12 @@ const userSchema = new mongoose.Schema({
       ref: "Imslaughter",
     },
   ],
+  importcowfarm: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Imslaughter",
+    },
+  ],
   halves: [
     {
       type: mongoose.Schema.Types.ObjectId,

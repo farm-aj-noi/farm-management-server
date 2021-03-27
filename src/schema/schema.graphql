@@ -4,6 +4,7 @@ type Query {
   user2(id: ID!): User
   product(id: ID!): Product
   Cowdetail(id: ID!): Imslaughter
+  CowWaitting(id:ID!):Importcowfarm
   productSearch(description: String, price: Float): [Product]
   products: [Product]!
   postsOffset(limit: Int!, offset: Int!): [Product!]!
@@ -24,13 +25,15 @@ type Query {
 
   Cardtreat: [Imslaughter]!
   Cardregis: [Imslaughter]!
-
+CardWaitting:[Importcowfarm]!
   statusSearch: [Status]!
   boxSearch: [Box]!
   beeftypeSearch: [Beeftype]!
   Allcow: [Imslaughter]!
+  cowfarmmerweitting(passsport:String!): [Importcowfarm]!
   cowfarmmer(numkun:String,passsport:String!): [Imslaughter]!
   imslaughtersSearch: [Imslaughter]!
+  importcowfarmSearch: [Importcowfarm]!
   treatSearch: [Imslaughter]!
   imslaughtersSearchNumkun(
     importDate: String
@@ -67,7 +70,8 @@ type Query {
     status: String
     beeftype: String
   ): [Halve]!
-
+  Selectslaugerfarm(numkun: String, statusIm: String,passsport:String): [Imslaughter]!
+  Selecttreatfarm(numkun: String, statusIm: String,passsport:String): [Imslaughter]!
   Selecttreat(numkun: String, statusIm: String): [Imslaughter]!
 
   HalveForCut(barcode: String): Halve
@@ -139,6 +143,22 @@ type Query {
 }
 
 type Mutation {
+ importcowfarm(
+  pun: String ,
+  numfarmer: String,
+  passport: String,
+  teeth: String,
+  bodyscore: String,
+  namefarmer:String,
+  date:String,
+  datebirhtday:String,
+  namecow: String,
+  sex: String,
+  weightstart: Float,
+  weightbirht:Float,
+  imagecow:String,
+ ):Importcowfarm
+
   signup(name: String!, email: String!, password: String! ,passsport: String!): User
   login(email: String!, password: String!): AuthData
   requestResetPassword(email: String!): Message!
@@ -395,6 +415,24 @@ type Datatreat {
   datacow: Datacow!
 }
 
+type Importcowfarm{
+  id: ID!
+  pun: String
+  numfarmer: String
+  passport: String
+  teeth: String
+  bodyscore: String
+  namefarmer:String
+  date:Date!
+  datebirhtday:Date
+  namecow: String
+  sex: String
+  weightstart: String
+  weightbirht:String
+  imagecow:String
+    user: User!
+
+}
 type User {
   id: ID!
   name: String!
@@ -411,6 +449,7 @@ type User {
   lumps: [Lump]
   chops: [Chop]
   entrails: [Entrail]
+  importcowfarms:[Importcowfarm]
 }
 
 type Role {

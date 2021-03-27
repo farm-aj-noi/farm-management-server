@@ -5,7 +5,7 @@ import Imslaughter from "../../models/imslaughter";
 import Halve from "../../models/halve";
 import Beeftype from "../../models/beeftype";
 import Setting from "../../models/setting";
-
+import Importcowfarm from  "../../models/importcowfarm"
 const Mutation = {
 
   
@@ -562,6 +562,73 @@ const Mutation = {
       });
 
     return updatedFinish;
+  },
+
+
+  importcowfarm: async (parent, args, { userId }, info) => {
+
+    if (!userId) throw new Error("Please log in.");
+    console.log(args);
+
+    // const currentNumkun = await Imslaughter.find({});
+    // const isCodeExist =
+    //   currentNumkun.findIndex((prod) => prod.numkun === args.numkun) > -1;
+
+    // if (isCodeExist) {
+    //   throw new Error("รหัสซ้ำ");
+    // }
+
+    // ทดสอบนำเข้า
+    // console.log(args.date + "....." + args.datebirhtday)
+    const date = dayjs()
+    // console.log(date)
+    const datebirhtday = dayjs(args.datebirhtday);
+
+    // console.log(date + "....." + datebirhtday)
+
+    const importcowfarm = await Importcowfarm.create({
+      // numcow: args.numcow,
+      // numkun: args.numkun,
+      pun: args.pun,
+      numfarmer: args.numfarmer,
+      passport: args.passport,
+      teeth: args.teeth,
+      // rfid: args.rfid,
+      bodyscore: args.bodyscore,
+      namefarmer: args.namefarmer,
+      namecow: args.namecow,
+      sex: args.sex,
+      weightstart: args.weightstart,
+      weightbirht: args.weightbirht,
+      // statuscow: args.statuscow,
+      imagecow: args.imagecow,
+      date: date,
+      datebirhtday: datebirhtday,
+      user: userId,
+      // group: args.group,
+      // district: args.district,
+      // province: args.province,
+
+      statusIm: "605af3da9c7419287cdb3138"
+
+    });
+    const user = await User.findById(userId);
+    if (!user.importcowfarms) {
+      user.importcowfarms = [importcowfarm];
+    } else {
+      user.importcowfarms.push(importcowfarm);
+    }
+    await user.save();
+
+    return Importcowfarm.findById(importcowfarm.id)
+      .populate({
+        path: "user",
+        populate: { path: "importcowfarms" },
+      })
+      .populate({
+        path: "statusIm",
+      })
+     
   },
 
 };

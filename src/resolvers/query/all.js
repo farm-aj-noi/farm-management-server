@@ -6,6 +6,8 @@ import User from "../../models/user";
 import Product from "../../models/product";
 import Status from "../../models/status";
 import Imslaughter from "../../models/imslaughter";
+import Importcowfarm from "../../models/importcowfarm";
+
 import Halve from "../../models/halve";
 import Quarter from "../../models/quarter";
 import Lump from "../../models/lump";
@@ -109,6 +111,15 @@ const Query = {
     .populate({
       path:"treats"
   }).sort({ date: "desc" }),
+
+  CowWaitting: (parent, args, context, info) =>
+  Importcowfarm.findById(args.id).populate({
+      path: "user",
+      populate: { path: "imslaughter" },
+    })
+    .populate({
+      path:"treats"
+  }).sort({ date: "desc" }),
   imslaughtersSearch: (parent, args, context, info) =>
     // Imslaughter.find({statusIm: "5f0fdb6502b40c2ab8506565"})
     Imslaughter.find({statusIm: "5f0fdb6502b40c2ab8506565"})
@@ -162,6 +173,17 @@ const Query = {
   return cursor;
 },
 
+cowfarmmerweitting: (parent, args, context, info) => {
+  // console.log("input : "+args.numkun.trim())
+  const cursor = Importcowfarm.find({
+    // passsport:  args.passsport
+        // namecow: { $regex: args.namecow.trim() },
+        statusIm: "605af3da9c7419287cdb3138"
+    })
+
+  
+  return cursor;
+},
 
 treatSearch: (parent, args, context, info) =>
       // Imslaughter.find({statuscow:'กำลังรักษา'})
@@ -888,6 +910,12 @@ treatSearch: (parent, args, context, info) =>
         $lt: dayjs(new Date()).endOf("D"),
       },
       statusIm: "5f0fdb6502b40c2ab8506565",
+    });
+    return cursor;
+  },
+  CardWaitting: async (parent, args, context, info) => {
+    const cursor = Importcowfarm.find({
+      statusIm: "605af3da9c7419287cdb3138",
     });
     return cursor;
   },
@@ -1625,11 +1653,77 @@ treatSearch: (parent, args, context, info) =>
         }
       return cursor;
     },
+    Selecttreatfarm: (parent, args, context, info) => {
+      // console.log("input : "+args.numkun.trim())
+      const cursor = Imslaughter.find({
+        numkun: { $regex: args.numkun.trim() ,
+        },
+        // statusIm: { $regex: args.statusIm.trim() ,
+        // },
 
+      })
+       .populate({
+          path: "feeds",
+          // populate: { path: "beeftype" },
+        })
+        .populate({
+          path: "treats",
+          // populate: { path: "beeftype" },
+        }) .populate({
+          path: "statusIm",
+        })
+        .populate({
+          path: "statusCa",
+        })
+        .populate({
+          path: "statusEn",
+        })
+        .sort({ statusIm: "ASC" });
+        if (args.statusIm) {
+          cursor.find({
+            statusIm: args.statusIm,
+          });
+        }
+      return cursor;
+    },
     puntypeQuery: async (parent, args, context, info) => {
       const cursor = PunType.find({});
       return cursor;
     },
-};
+    Selectslaugerfarm: (parent, args, context, info) => {
+      // console.log("input : "+args.numkun.trim())
+      const cursor = Imslaughter.find({
+        numkun: { $regex: args.numkun.trim() ,
+        },
+        // statusIm: { $regex: args.statusIm.trim() ,
+        // },
 
+      })
+       .populate({
+          path: "feeds",
+          // populate: { path: "beeftype" },
+        })
+        .populate({
+          path: "treats",
+          // populate: { path: "beeftype" },
+        }) .populate({
+          path: "statusIm",
+        })
+        .populate({
+          path: "statusCa",
+        })
+        .populate({
+          path: "statusEn",
+        })
+        .sort({ statusIm: "ASC" });
+        if (args.statusIm) {
+          cursor.find({
+            statusIm: args.statusIm,
+          });
+        }
+      return cursor;
+    },
+
+};
+//5f0fdb4b02b40c2ab8506563
 export default Query;
