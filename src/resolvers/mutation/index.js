@@ -19,6 +19,7 @@ import disease from './Raise/disease'
 import datacow from '../mutationcow/cow'
 import datatreat from '../mutationcow/treatcow'
 
+
 export default _.merge(
     allin,
     status,

@@ -30,7 +30,7 @@ CardWaitting:[Importcowfarm]!
   boxSearch: [Box]!
   beeftypeSearch: [Beeftype]!
   Allcow: [Imslaughter]!
-  cowfarmmerweitting(passsport:String!): [Importcowfarm]!
+  cowfarmmerweitting(passsport:String! statusIm:String): [Importcowfarm]!
   cowfarmmer(numkun:String,passsport:String!): [Imslaughter]!
   imslaughtersSearch: [Imslaughter]!
   importcowfarmSearch: [Importcowfarm]!
@@ -157,7 +157,6 @@ type Mutation {
   weightstart: Float,
   weightbirht:Float,
   imagecow:String,
-    numaccount:String,
   district: String,
   province: String,
   amphur:String,
@@ -441,11 +440,12 @@ type Importcowfarm{
   weightstart: String
   weightbirht:String
   imagecow:String
-  numaccount:String
   district: String
   province: String
   amphur:String
   zipcode: String
+    statusIm: Status!
+
     user: User!
 
 }

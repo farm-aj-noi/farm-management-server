@@ -547,6 +547,7 @@ const Mutation = {
 
   importcowfarm: async (parent, args, { userId }, info) => {
 
+     console.log(args)
     if (!userId) throw new Error("Please log in.");
     console.log(args);
 
@@ -585,9 +586,10 @@ const Mutation = {
       date: date,
       datebirhtday: datebirhtday,
       user: userId,
-      // group: args.group,
-      // district: args.district,
-      // province: args.province,
+      district: args.district,
+      province: args.province,
+      amphur:args.amphur,
+      zipcode: args.zipcode,
 
       statusIm: "605af3da9c7419287cdb3138"
 

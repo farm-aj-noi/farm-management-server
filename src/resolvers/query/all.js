@@ -176,10 +176,16 @@ const Query = {
 cowfarmmerweitting: (parent, args, context, info) => {
   // console.log("input : "+args.numkun.trim())
   const cursor = Importcowfarm.find({
-    // passsport:  args.passsport
         // namecow: { $regex: args.namecow.trim() },
-        statusIm: "605af3da9c7419287cdb3138"
+    }) .populate({
+      path: "statusIm",
     })
+    .sort({ statusIm: "ASC" });
+    if (args.statusIm) {
+      cursor.find({
+        statusIm: args.statusIm,
+      });
+    }
 
   
   return cursor;
