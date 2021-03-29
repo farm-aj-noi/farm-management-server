@@ -50,6 +50,26 @@ const importcfarmSchema = new mongoose.Schema({
     type: Number,
     // required: true,
   },
+  numaccount:{
+    type: String,
+    required: true,
+  },
+  district: {
+    type: String,
+    required: true,
+  },
+   province: {
+    type: String,
+    required: true,
+  },
+    amphur:{
+      type: String,
+      required: true,
+    },
+     zipcode: {
+      type: String,
+      required: true,
+    },
   // group: {
   //   type: String,
   //   required: true,

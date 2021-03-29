@@ -157,9 +157,18 @@ type Mutation {
   weightstart: Float,
   weightbirht:Float,
   imagecow:String,
+    numaccount:String,
+  district: String,
+  province: String,
+  amphur:String,
+  zipcode: String
  ):Importcowfarm
 
-  signup(name: String!, email: String!, password: String! ,passsport: String!): User
+  signup(name: String!, email: String!, password: String! ,passsport: String!,  numaccount: String!,
+          district: String!,
+           province: String!,
+            amphur: String!,
+             zipcode: String!): User
   login(email: String!, password: String!): AuthData
   requestResetPassword(email: String!): Message!
   resetPassword(password: String!, token: String!): Message
@@ -253,6 +262,8 @@ type Mutation {
     weight: Float
     price: Float
   ): Imslaughter!
+   updatecowfarm(id: String!): Importcowfarm!
+
   updateImslaughterStatusCa(id: ID!): Imslaughter!
   updateImslaughterStatusEn(id: ID!): Imslaughter!
   updateGrade(id: ID!, grade: String!): Imslaughter!
@@ -430,6 +441,11 @@ type Importcowfarm{
   weightstart: String
   weightbirht:String
   imagecow:String
+  numaccount:String
+  district: String
+  province: String
+  amphur:String
+  zipcode: String
     user: User!
 
 }
@@ -438,6 +454,11 @@ type User {
   name: String!
   email: String!
   passsport: String!
+  numaccount: String!,
+  district: String!
+  province: String!
+  amphur: String!
+  zipcode: String!
   products: [Product]
   carts: [CartItem]!
   createdAt: Date!

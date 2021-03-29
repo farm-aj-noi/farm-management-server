@@ -517,18 +517,7 @@ const Mutation = {
       weightstart: weightstart,
       numfarmer: numfarmer
     };
-    // TODO: Check if user logged in
-    // if (!userId) throw new Error("Please log in.");
 
-    // if (!id || numkun  || numcow
-    //   || namecow
-    //   || pun
-    //   || weightstart
-    //   || numfarmer) {
-    //   throw new Error("Please provide all required fields.");
-    // }
-
-    // Update  in database
     await Imslaughter.findByIdAndUpdate (id ,     { 
          numkun: numkun ,
          numcow: numcow,
@@ -537,15 +526,6 @@ const Mutation = {
          weightstart: weightstart,
          numfarmer: numfarmer
        });
-    // { 
-    //   numkun: numkun ,
-    //   numcow: numcow,
-    //   namecow: namecow,
-    //   pun: pun,
-    //   weightstart: weightstart,
-    //   numfarmer: numfarmer
-    // }
-    // Find the updated Product
     const updatedFinish = await Imslaughter.findById(id)
       .populate({
         path: "user",
@@ -631,6 +611,29 @@ const Mutation = {
      
   },
 
+  updatecowfarm: async (parent, args, { userId }, info) => {
+    const { id } = args;
+
+    // TODO: Check if user logged in
+    if (!userId) throw new Error("Please log in.");
+
+    const statusImId = "6061d400a8f9ea2bc848608a";
+
+    // Update product in database
+    await Importcowfarm.findByIdAndUpdate(id, { statusIm: statusImId });
+
+    // Find the updated Product
+    const updatedFinish = await Importcowfarm.findById(id)
+      .populate({
+        path: "user",
+        populate: { path: "importcowfarm" },
+      })
+      .populate({
+        path: "statusIm",
+      })
+      
+    return updatedFinish;
+  },
 };
 
 export default Mutation;

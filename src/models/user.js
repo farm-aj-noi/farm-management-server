@@ -20,6 +20,26 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  numaccount:{
+    type: String,
+    required: true,
+  },
+  district: {
+    type: String,
+    required: true,
+  },
+   province: {
+    type: String,
+    required: true,
+  },
+    amphur:{
+      type: String,
+      required: true,
+    },
+     zipcode: {
+      type: String,
+      required: true,
+    },
   resetPasswordToken: {
     type: String,
   },
