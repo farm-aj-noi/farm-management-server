@@ -24,6 +24,12 @@ const treatSchema = new mongoose.Schema({
   note: {
     type: String,
   },
+  importDate: {
+    type: Date,
+  },
+  notedead: {
+    type: String,
+  },
   imslaughter: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Imslaughter",

@@ -115,6 +115,9 @@ CardWaitting:[Importcowfarm]!
   trace(numkun: String): Imslaughter
   ReportgetTreat(startdate: String, enddate: String): [Imslaughter]!
   Reportgetin(startdate: String, enddate: String): [Imslaughter]!
+  Reportdead(startdate: String, enddate: String ): [Imslaughter]!
+  Reportage(startdate: String, enddate: String): [Imslaughter]!
+
   ReportgetGroup(
     startdate: String
     enddate: String
@@ -132,7 +135,7 @@ CardWaitting:[Importcowfarm]!
   toslaughter: [Imslaughter]!
   allDrug: [Drug]!
   allDisease: [Disease]!
-
+showDayslaugh: [Dayslaugh]!
   # ////////////////////////////////////////////////
   datacow(id: ID!): Datacow
   datacows: [Datacow]!
@@ -163,6 +166,10 @@ type Mutation {
   zipcode: String
  ):Importcowfarm
 
+ setmedi(
+  name: String ,
+  dateStop: Float,
+ ):SettingMedi
   signup(name: String!, email: String!, password: String! ,passsport: String!,  numaccount: String!,
           district: String!,
            province: String!,
@@ -220,7 +227,7 @@ type Mutation {
   ): Beeftype
   deleteBeeftype(id: ID!): Beeftype!
   updateTstatus(id: ID!, statuscow: String!): Imslaughter!
-  updateDead(id: ID!, statuscow: String!): Imslaughter!
+  updateDead(id: ID!, statuscow:String! ,  importDateDead: String , notedead:String): Imslaughter!
   createStatus(code: String!, nameTH: String!, nameEN: String!): Status!
   updateStatus(id: ID!, code: String, nameTH: String, nameEN: String): Status!
   deleteStatus(id: ID!): Status!
@@ -275,6 +282,10 @@ type Mutation {
     weightstart: Float
     numfarmer: String
   ): Imslaughter!
+  updateDrug(
+    id:String 
+    dateStop:Int
+    ): Drug!
   deletePun(id: ID!): PunType!
   deleteGrade(id: ID!): Imslaughter!
   updateFees(id: ID!, fees: Float!): Imslaughter!
@@ -349,6 +360,8 @@ type Mutation {
   ): Entrail!
 
   toSlaughter(id: ID!, importDate: String): Imslaughter!
+  createDayslaugh( year:Int ,month:Int ,weight:Float):Dayslaugh!
+  updateDayslaugh( id:String, year:Int ,month:Int ,weight:Float):Dayslaugh!
 
   createFeed(
     datestart: String!
@@ -371,6 +384,8 @@ type Mutation {
     nofity: Int
     quantity: Float!
     note: String
+    importDate: String
+    notedead:String
     imslaughter: String!
   ): Treat!
 
@@ -382,7 +397,7 @@ type Mutation {
     barcode: String!
   ): Transport!
 
-  createDrug(name: String!, nofity: Int): Drug!
+  createDrug(name: String!, nofity: Int , dateStop: Int): Drug!
 
   createDisease(name: String!, detail: String!): Disease!
   # /////////////////////////////////////////////////////////////
@@ -557,8 +572,15 @@ type Drug {
   id: ID!
   name: String!
   nofity: Int
+  dateStop: Int
 }
 
+type Dayslaugh{
+  id:ID!
+  year: Int
+  month: Int
+  weight : Float
+}
 type Disease {
   id: ID!
   name: String!
@@ -574,6 +596,11 @@ type Setting {
   dateResetCountL: Int!
   dateResetCountC: Int!
   dateResetCountE: Int!
+}
+type SettingMedi {
+  id: ID!
+  name:String
+  dateStop: Float
 }
 
 type Status {
@@ -656,6 +683,8 @@ type Imslaughter {
   """
   สถานะเครื่องใน
   """
+  importDateDead: Date
+  notedead: String
   statusEn: Status!
   user: User!
   halves: [Halve]

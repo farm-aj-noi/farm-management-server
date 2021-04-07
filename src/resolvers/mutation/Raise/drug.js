@@ -3,7 +3,7 @@ import Drug from '../../../models/Raise/drug'
 const Mutation = {
   createDrug: async (parent, args, { userId }, info) => {
 
-    if (!args.name || args.nofity < 0) {
+    if (!args.name || args.nofity < 0 || args.nofity < 0) {
       throw new Error("Please provide all required fields.");
     }
 
@@ -22,6 +22,17 @@ const Mutation = {
     const drug = await Drug.findByIdAndDelete(args.id);
 
     return drug;
+  },
+
+  updateDrug: async (parent, args, { userId }, info) => {
+    const { 
+      id,
+      dateStop
+    } = args;
+
+    await Drug.findByIdAndUpdate ( id,{dateStop:dateStop});
+    const updatedFinish = await Drug.findById(id)
+  return updatedFinish;
   },
 };
 

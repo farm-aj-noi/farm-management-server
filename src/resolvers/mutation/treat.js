@@ -109,8 +109,9 @@ const Mutation = {
       }
       ,
       updateDead: async (parent, args, { userId }, info) => {
-        const { id, statuscow } = args;
-    
+        const { id ,importDateDead,notedead} = args;
+        const importDatenew = dayjs(importDateDead);
+
         // TODO: Check if user logged in
         // if (!userId) throw new Error("Please log in.");
     
@@ -118,8 +119,10 @@ const Mutation = {
   
         const statusImId = "601f968a8443a40c74357c2f";
         const updateInfo = {
+          importDateDead: !!importDatenew ? importDatenew : imslaughter.importDateDead,
           statusIm: statusImId,
-          statuscow:"ตาย"
+          statuscow:"ตาย",
+          notedead:notedead
         };
         await Imslaughter.findByIdAndUpdate(id, updateInfo);
         // await Halve.findByIdAndUpdate(id, {sendAt:null});

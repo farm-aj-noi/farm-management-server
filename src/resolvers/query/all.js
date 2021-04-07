@@ -7,6 +7,7 @@ import Product from "../../models/product";
 import Status from "../../models/status";
 import Imslaughter from "../../models/imslaughter";
 import Importcowfarm from "../../models/importcowfarm";
+import Dayslaugh from "../../models/dayslaugh";
 
 import Halve from "../../models/halve";
 import Quarter from "../../models/quarter";
@@ -1531,8 +1532,6 @@ treatSearch: (parent, args, context, info) =>
           $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
           $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
-        
-        
       })
         .populate({
           path: "user",
@@ -1550,6 +1549,26 @@ treatSearch: (parent, args, context, info) =>
         .sort({ date: "ASC" });
       if (!cursor) return null;
       return cursor;
+    },
+    Reportdead: (parent, args, context, info) => {
+      // console.log("input : "+args.numkun.trim())
+      const cursor = Imslaughter.find({
+        importDateDead: {
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+        },
+        statusIm: "601f968a8443a40c74357c2f"
+      })
+       .populate({
+          path: "feeds",
+          // populate: { path: "beeftype" },
+        })
+        .populate({
+          path: "treats",
+          // populate: { path: "beeftype" },
+        })        .sort({ date: "ASC" });
+         if (!cursor) return null;
+         return cursor;
     },
 
     ReportgetGroup: async (parent, args, context, info) => {
@@ -1657,6 +1676,13 @@ treatSearch: (parent, args, context, info) =>
             statusIm: args.statusIm,
           });
         }
+      return cursor;
+    },
+
+    showDayslaugh: (parent, args, context, info) => {
+      // console.log("input : "+args.numkun.trim())
+      const cursor = Dayslaugh.find({})
+       
       return cursor;
     },
     Selecttreatfarm: (parent, args, context, info) => {

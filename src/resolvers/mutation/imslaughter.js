@@ -78,7 +78,6 @@ const Mutation = {
       group: args.group,
       district: args.district,
       province: args.province,
-
       statusIm: "5f0fdb6502b40c2ab8506565"
 
     });
@@ -467,6 +466,7 @@ const Mutation = {
 
     return updatedFinish;
   },
+  
 
   updateStatustreat: async (parent, args, { userId }, info) => {
     const { id , statuscow} = args;

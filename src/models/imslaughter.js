@@ -92,6 +92,12 @@ const imslaughterSchema = new mongoose.Schema({
   importDate: {
     type: Date,
   },
+  importDateDead: {
+    type: Date,
+  },
+  notedead: {
+    type: String,
+  },
   importslaughterDate: {
     type: Date,
   },

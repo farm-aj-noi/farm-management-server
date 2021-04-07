@@ -9,6 +9,10 @@ const drugSchema = new mongoose.Schema({
   nofity: {
     type: Number,
   },
+  dateStop: {
+    type: Number,
+    required: true,
+  } ,
 });
 
 const Drug = mongoose.model("Drug", drugSchema);
