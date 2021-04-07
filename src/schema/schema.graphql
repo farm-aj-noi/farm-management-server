@@ -73,6 +73,7 @@ CardWaitting:[Importcowfarm]!
   Selectslaugerfarm(numkun: String, statusIm: String,passsport:String): [Imslaughter]!
   Selecttreatfarm(numkun: String, statusIm: String,passsport:String): [Imslaughter]!
   Selecttreat(numkun: String, statusIm: String): [Imslaughter]!
+  selectFood(type: String): [Foodset]!
 
   HalveForCut(barcode: String): Halve
 
@@ -106,7 +107,6 @@ CardWaitting:[Importcowfarm]!
   SlipLump(barcode: String): Lump
   SlipQuarter(barcode: String): Quarter
   SlipHalve(barcode: String): Halve
-
   SettingBeeftype2: [Beeftype]!
   SettingBeeftype4: [Beeftype]!
   SettingBeeftype18: [Beeftype]!
@@ -134,6 +134,8 @@ CardWaitting:[Importcowfarm]!
 
   toslaughter: [Imslaughter]!
   allDrug: [Drug]!
+ allFood: [Foodset]!
+allFoodF2: [Foodset]!
   allDisease: [Disease]!
 showDayslaugh: [Dayslaugh]!
   # ////////////////////////////////////////////////
@@ -166,6 +168,7 @@ type Mutation {
   zipcode: String
  ):Importcowfarm
 
+ createFoodset(name:String , CP:Float , TDN:Float , type:String):[Foodset]!
  setmedi(
   name: String ,
   dateStop: Float,
@@ -362,7 +365,7 @@ type Mutation {
   toSlaughter(id: ID!, importDate: String): Imslaughter!
   createDayslaugh( year:Int ,month:Int ,weight:Float):Dayslaugh!
   updateDayslaugh( id:String, year:Int ,month:Int ,weight:Float):Dayslaugh!
-
+updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset!
   createFeed(
     datestart: String!
     dateend: String!
@@ -612,6 +615,13 @@ type Status {
   nameTH: String!
   nameEN: String!
   user: User!
+}
+type Foodset {
+  id:ID!
+  name:String
+  CP: Float
+  TDN:Float
+  type:String
 }
 
 type Beeftype {

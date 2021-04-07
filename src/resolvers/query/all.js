@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dayjs from "dayjs";
+import Foodset from "../../models/foodset";
 
 import User from "../../models/user";
 import Product from "../../models/product";
@@ -1509,6 +1510,25 @@ treatSearch: (parent, args, context, info) =>
 
     return cursor;
   },
+  allFood: (parent, args, context, info) => {
+    const cursor = Foodset.find({type:"F1"});
+
+    return cursor;
+  },
+  allFoodF2: (parent, args, context, info) => {
+    const cursor = Foodset.find({type:"F2"});
+
+    return cursor;
+  },
+  selectFood: (parent, args, context, info) => {
+    // console.log("input : "+args.numkun.trim())
+    const cursor = Foodset.find({
+      type:{ $regex: args.type.trim()},
+
+    })
+    return cursor;
+  },
+
   allDisease: (parent, args, context, info) => {
     const cursor = Disease.find({});
 

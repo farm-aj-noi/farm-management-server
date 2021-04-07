@@ -9,6 +9,7 @@ import Setting from "../../models/setting";
 import Counter from "../../models/identitycounter";
 import Treat from "../../models/treat";
 import PunType from "../../models/puntype"
+import Foodset from "../../models/foodset"
 
 const Mutation = {
   createTreat: async (parent, args, { userId }, info) => {
@@ -68,6 +69,30 @@ const Mutation = {
     });
     return PunType.findById(puntype.id)
     PunType
+  },
+  createFoodset: async (parent, args, { userId }, info) => {
+    // Check if user logged in
+    // if (!userId) throw new Error("Please log in.");
+    const foodset = await Foodset.create({
+      name: args.name,
+      CP: args.CP,
+      TDN:args.TDN,
+      type:args.type
+    });
+    return Foodset.findById(foodset.id)
+    
+  },
+  updateFoodset: async (parent, args, { userId }, info) => {
+    const { id, name , CP , TDN ,type } = args;
+
+    // const imslaughter = await Dayslaugh.findById(id);
+
+    // Update product in database
+    await Foodset.findByIdAndUpdate(id, {name:name , CP:CP , TDN:TDN ,type:type});
+
+    const updatedFinish = await Foodset.findById(id)
+
+    return updatedFinish;
   },
   deletePun: async (parent, args, { userId }, info) => {
     // TODO: Check if user logged in
