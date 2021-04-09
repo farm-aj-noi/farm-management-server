@@ -74,7 +74,7 @@ CardWaitting:[Importcowfarm]!
   Selecttreatfarm(numkun: String, statusIm: String,passsport:String): [Imslaughter]!
   Selecttreat(numkun: String, statusIm: String): [Imslaughter]!
   selectFood(type: String): [Foodset]!
-
+selectFoodName(name: String): [Foodset]!
   HalveForCut(barcode: String): Halve
 
   SearchBeeftypefour(code: String): Beeftype
@@ -372,8 +372,8 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     typefood: String!
     namefood: String!
     namecop: String
-    cp: String
-    tdn: String
+    cp: Float
+    tdn: Float
     quantity: Float!
     note: String
     imslaughter: String!
@@ -540,8 +540,8 @@ type Feed {
   typefood: String!
   namefood: String!
   namecop: String
-  cp: String
-  tdn: String
+  cp: Float
+  tdn: Float
   quantity: Float!
   note: String
   imslaughter: Imslaughter!

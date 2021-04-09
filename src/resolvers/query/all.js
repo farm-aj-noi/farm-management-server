@@ -1528,7 +1528,14 @@ treatSearch: (parent, args, context, info) =>
     })
     return cursor;
   },
+  selectFoodName: (parent, args, context, info) => {
+    // console.log("input : "+args.numkun.trim())
+    const cursor = Foodset.find({
+      name:args.name,
 
+    })
+    return cursor;
+  },
   allDisease: (parent, args, context, info) => {
     const cursor = Disease.find({});
 

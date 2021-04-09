@@ -18,10 +18,10 @@ const feedSchema = new mongoose.Schema({
     type: String,
   },
   cp: {
-    type: String,
+    type: Number,
   },
   tdn: {
-    type: String,
+    type: Number,
   },
   quantity: {
     type: Number,
