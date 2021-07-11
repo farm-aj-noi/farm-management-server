@@ -8,7 +8,7 @@ const getUser = token => {
 
   try {
     const decodedToken = jwt.verify(parsedToken, process.env.SECRET)
-  //test
+  //test222
     return decodedToken.userId
   } catch (error) {
     return null
