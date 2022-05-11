@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 import server from "./server";
 
-// const { MONGO_USER, MONGO_PASSWORD, MONGO_DB, PORT } = process.env...  
+// const { MONGO_USER, MONGO_PASSWORD, MONGO_DB, PORT } = process.env...  d
 
 const PORT = process.env.PORT || 9000;
 
