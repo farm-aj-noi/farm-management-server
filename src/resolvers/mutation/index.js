@@ -18,6 +18,9 @@ import drug from './Raise/drug'
 import disease from './Raise/disease'
 import datacow from '../mutationcow/cow'
 import datatreat from '../mutationcow/treatcow'
+import beefstore from '../mutationstore/beefstore'
+import imhalve from '../mutationstore/imhalve'
+import imquarter from '../mutationstore/imquarter'
 
 
 export default _.merge(
@@ -39,5 +42,10 @@ export default _.merge(
     setting,
     ////////////////////////////// chine ////////
     datacow,
-    datatreat
+    datatreat,
+    ////////////////////////////// kim,pak,yiw ////////
+    beefstore,
+    imhalve,
+    imquarter,
+
 )

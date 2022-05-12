@@ -24,7 +24,6 @@ import PunType from "../../models/puntype"
 import DataCow from "../../modelsregister/datacow";
 import Datatreat from "../../modelsregister/datatreat";
 
-
 const Query = {
   postsOffset: async (parent, { limit, offset }) => {
     const cursor = Product.find();
@@ -1783,6 +1782,7 @@ treatSearch: (parent, args, context, info) =>
       return cursor;
     },
 
+    
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;

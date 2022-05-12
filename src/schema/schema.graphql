@@ -145,6 +145,18 @@ showDayslaugh: [Dayslaugh]!
   datatreat(id: ID!): Datatreat
   datatreats: [Datatreat]!
   # datatreat: (id: ID!): Datatreat
+  # ////////////////////////////////////////////////
+
+  liststore: [List]
+
+  imhalveSearch(
+    beeftype: String
+  ): [Imhalve]!
+
+  imquartSearch(
+    beeftype: String
+  ): [Imquarter]
+
 }
 
 type Mutation {
@@ -407,6 +419,20 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
   createDatacow(numkun: String!, numcow: String!): Datacow!
 
   createDatatreat(weight: String!, detail: String!): Datatreat!
+  #//////////////////////////////////////////////////////////////
+
+  createImHalve(
+    barcode: String!
+    beefstore: String!
+  ): Imhalve
+
+  createImQuarter(
+    barcode: String!
+    beefstore: String!
+  ): Imquarter
+
+  createBeefStore: BeefStore
+  
 }
 
 scalar Date
@@ -489,6 +515,8 @@ type User {
   chops: [Chop]
   entrails: [Entrail]
   importcowfarms:[Importcowfarm]
+  imhalves: [Imhalve]
+  imquarters: [Imquarter]
 }
 
 type Role {
@@ -840,4 +868,48 @@ type Ad_zipcodes {
 type Ad_geography {
   geo_id: String
   geo_name: String
+}
+
+type Imhalve{
+  id: ID
+  importdate: Date!
+  user: User!
+  beeftype: Beeftype
+  halve: Halve
+  barcode: String
+  beefstore: String
+}
+
+type Imquarter{
+  id: ID
+  importdate: Date!
+  user: User!
+  beeftype: Beeftype
+  quarter: Quarter
+  barcode: String
+  beefstore: String
+}
+
+type Chill{
+  id: ID
+  chillday: String
+  Chillroom: String
+}
+
+type BeefStore {
+  id: ID
+  imhalves: [Imhalve]
+  imquarters: [Imquarter]
+}
+
+type List {
+  id: String
+  barcode: String
+  status: String
+  cownum: String
+  beeftype: String
+  code: String
+  weightwarm: Float
+  weight: Float
+  importdate: Date
 }

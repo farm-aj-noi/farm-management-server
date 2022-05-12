@@ -117,6 +117,18 @@ const userSchema = new mongoose.Schema({
       ref: "Entrail",
     },
   ],
+  imhalves: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Imhalve",
+    },
+  ],
+  imquarters: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Imquarter",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);
