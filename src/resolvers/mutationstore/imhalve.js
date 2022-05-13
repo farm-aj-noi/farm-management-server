@@ -3,6 +3,7 @@ import Imhalve from "../../models/Beefstore/imhalve";
 import dayjs from "dayjs";
 import BeefStore from "../../models/Beefstore/beefstore";
 import Beeftype from "../../models/beeftype";
+import Imslaughter from "../../models/imslaughter";
 
 
 const Mutation = {
@@ -28,10 +29,6 @@ const Mutation = {
         barcode: args.barcode,
     });
 
-    const code = halve.beeftype
-
-    
-    console.log(code)
 
     if (halve){
     const imhalve = await Imhalve.create({

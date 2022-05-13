@@ -20,8 +20,12 @@ const imhalveSchema = new mongoose.Schema({
     barcode: {
         type: String,
     }, 
-      
-
+    chill: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Chill",
+    },
+    
+     
 
 })
 const Imhalve = mongoose.model("Imhalve", imhalveSchema);

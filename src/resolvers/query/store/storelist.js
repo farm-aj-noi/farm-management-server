@@ -3,6 +3,8 @@ import BeefStore from "../../../models/Beefstore/beefstore";
 import Imhalve from "../../../models/Beefstore/imhalve";
 import Imquarter from "../../../models/Beefstore/imquarter";
 
+import dayjs from "dayjs";
+
 
 const Query = {
 
@@ -94,9 +96,11 @@ const Query = {
     },
 
     imhalveSearch: async (parent, args, context, info) =>{
-    
       const cursor = Imhalve.find({
-
+        importdate: {
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+        },
       })
       .populate({
         path: "user",
@@ -122,6 +126,40 @@ const Query = {
         path: "halve",
         populate: {path: "curing", populate: {path: "cureroom"}}
       }) */
+      .sort({ importdate: "DESC"})
+      if (args.beeftype){
+        cursor.find({
+          beeftype: args.beeftype,
+        });
+        
+      }
+      
+      return cursor;
+    },
+
+    imquartSearch: async (parent, args, context, info) =>{
+      const cursor = Imquarter.find({
+        importdate: {
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+        },
+      })
+      .populate({
+        path: "user",
+        populate: {path: "imquarter"}
+      })
+      .populate({
+        path: "quarter",
+        populate: {path: "status"}
+      })
+      .populate({
+        path: "quarter",    
+        populate: {path: "imslaughter",}
+      })
+      .populate({
+        path: "quarter",
+        populate: {path: "beeftype"}
+      })
       .sort({ importdate: "DESC"})
       if (args.beeftype){
         cursor.find({

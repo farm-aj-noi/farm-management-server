@@ -150,10 +150,12 @@ showDayslaugh: [Dayslaugh]!
   liststore: [List]
 
   imhalveSearch(
+    importdate: String
     beeftype: String
   ): [Imhalve]!
 
   imquartSearch(
+    importdate: String
     beeftype: String
   ): [Imquarter]
 
@@ -432,6 +434,16 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
   ): Imquarter
 
   createBeefStore: BeefStore
+
+  createChill(
+    barcode: String
+    chillroom: String
+    chillday: String
+  ): Chill
+
+  creatChillroom(
+    roomnum: String
+  ): Chillroom
   
 }
 
@@ -746,7 +758,8 @@ type Halve {
   imslaughter: Imslaughter!
   beeftype: Beeftype!
   quarters: [Quarter]
-  transports: [Transport]
+  transports: [Transport] 
+  chill: Chill
 }
 
 type Quarter {
@@ -878,6 +891,8 @@ type Imhalve{
   halve: Halve
   barcode: String
   beefstore: String
+  name: String
+  
 }
 
 type Imquarter{
@@ -892,9 +907,19 @@ type Imquarter{
 
 type Chill{
   id: ID
+  chilldate: Date
   chillday: String
-  Chillroom: String
+  chillroom: Chillroom
+  user: User
+  halve: Halve
+  barcode: String
 }
+
+type Chillroom{
+  id: ID
+  roomnum: String
+}
+
 
 type BeefStore {
   id: ID

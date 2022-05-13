@@ -38,14 +38,6 @@ const Mutation = {
         quarterq: quarter.id,
     });
 
-    const link = await Quarter.findById(quarter.id);
-    if (!link.quarter) {
-        link.quarter = [imquarter];
-    } else  {
-        link.quarter.push(imquarter);
-    }
-    await link.save();
-
     const store = await BeefStore.findById(args.beefstore);
     if (!store.imquarters) {
         store.imquarters = [imquarter];
@@ -75,8 +67,6 @@ const Mutation = {
     //เหลือตำเเหน่งห้อง
     }
 }
-
-
 
 
 

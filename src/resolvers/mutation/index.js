@@ -21,6 +21,8 @@ import datatreat from '../mutationcow/treatcow'
 import beefstore from '../mutationstore/beefstore'
 import imhalve from '../mutationstore/imhalve'
 import imquarter from '../mutationstore/imquarter'
+import chill from '../mutationstore/chill'
+import chillroom from '../mutationstore/chillroom'
 
 
 export default _.merge(
@@ -47,5 +49,7 @@ export default _.merge(
     beefstore,
     imhalve,
     imquarter,
+    chill,
+    chillroom,
 
 )
