@@ -17,7 +17,9 @@ const Mutation = {
     const halve = await Halve.findOne({
         barcode: args.barcode,
     });
-        
+    
+    
+
     const chill = await Chill.create({
         halve: halve,
         chillroom: args.chillroom,
@@ -28,29 +30,26 @@ const Mutation = {
         barcode: args.barcode
     });
 
-    if (!halve.chill) {
-        halve.chill = [chill];
-    } else  {
-        halve.chill.push(chill);
-    }
-    await halve.save();
 
-    return Chill.findById(chill.id)
+    let test = Chill.findById(chill.id)
     .populate({
         path: "halve",
         populate: { path: "imslaughter" },
     })
     .populate({
+        path: "halve",
+        populate: { path: "beeftype" },
+    })
+    .populate({
+        path: "halve",
+        populate: { path: "status" },
+    })
+    .populate({
         path: "chillroom"
     })
-    .populate({
-        path: "chilldate"
-    })
-    .populate({
-        path: "barcode"
-    })
-
-    },
+    return test
+    
+},
 
 };
 export default Mutation

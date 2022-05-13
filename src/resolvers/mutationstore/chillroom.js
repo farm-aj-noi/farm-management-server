@@ -22,9 +22,6 @@ const Mutation = {
         });
 
         return Chillroom.findById(chillrooms.id)
-        .populate({
-            path: "roomnum"
-        })
     },
 
 };

@@ -132,8 +132,8 @@ const Query = {
       if (args.importdate){
         cursor.find({
           importdate: {
-            $gte: dayjs(args.importdate).startOf("D"),
-            $lt: dayjs(args.importdate).endOf("D"),
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
           },  
         })
       }
@@ -142,10 +142,7 @@ const Query = {
 
     imquartSearch: async (parent, args, context, info) =>{
       const cursor = Imquarter.find({
-        importdate: {
-          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
-        },
+        
       })
       .populate({
         path: "user",
@@ -168,7 +165,14 @@ const Query = {
         cursor.find({
           beeftype: args.beeftype,
         });
-        
+      }
+      if (args.importdate){
+        cursor.find({
+          importdate: {
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+          },  
+        })
       }
       
       return cursor;

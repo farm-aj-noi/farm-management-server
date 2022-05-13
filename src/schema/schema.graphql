@@ -150,12 +150,14 @@ showDayslaugh: [Dayslaugh]!
   liststore: [List]
 
   imhalveSearch(
-    importdate: String
+    startdate: String
+    enddate: String
     beeftype: String
   ): [Imhalve]!
 
   imquartSearch(
-    importdate: String
+    startdate: String
+    enddate: String
     beeftype: String
   ): [Imquarter]
 

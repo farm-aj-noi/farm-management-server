@@ -28,7 +28,8 @@ const Mutation = {
     const halve = await Halve.findOne({
         barcode: args.barcode,
     });
-
+    
+    
 
     if (halve){
     const imhalve = await Imhalve.create({
