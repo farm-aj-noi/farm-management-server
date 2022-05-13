@@ -97,7 +97,7 @@ const Query = {
 
     imhalveSearch: async (parent, args, context, info) =>{
       const cursor = Imhalve.find({
-         
+        
       })
       .populate({
         path: "user",
@@ -129,7 +129,7 @@ const Query = {
           beeftype: args.beeftype,
         });
       }
-      if (args.importdate){
+      if (args.startdate){
         cursor.find({
           importdate: {
             $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
@@ -166,7 +166,7 @@ const Query = {
           beeftype: args.beeftype,
         });
       }
-      if (args.importdate){
+      if (args.startdate){
         cursor.find({
           importdate: {
             $gte: dayjs(args.startdate).add(0, "d").startOf("D"),

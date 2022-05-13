@@ -940,3 +940,9 @@ type List {
   weight: Float
   importdate: Date
 }
+
+type Beefroom{
+  id: ID!
+  roomnum: String
+  totalshelf: String
+}
