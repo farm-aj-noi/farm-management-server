@@ -1,74 +1,66 @@
-import Quarter from "../../models/quarter";
-import Imquarter from "../../models/Beefstore/imquarter";
+import Entrail from "../../models/entrail";
+import Imentrail from "../../models/Beefstore/imentrail";
 import dayjs from "dayjs";
 import BeefStore from "../../models/Beefstore/beefstore";
 
 const Mutation = {
-    createImQuarter: async (parent, args, { userId }, info) => {
-    
+    createImentrail: async (parent, args, { userId }, info) => {
+
     if (!userId) throw new Error("Please log in.");
 
     if (!args.barcode || !args.beefstore){
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
-    const currentRoom = await Imquarter.find();
+    const currentRoom = await Imentrail.find();
         const isRoomExist = 
             currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
             
         if (isRoomExist) {
             throw new Error("บาร์โค้ดของคุณซ้ำ");
-        } 
+        }
 
     const date = dayjs()
 
-   
-    const quarter = await Quarter.findOne({
+    const entrail = await Entrail.findOne({
         barcode: args.barcode,
     });
 
-    
-    if (quarter){
-    const imquarter = await Imquarter.create({
+    if (entrail){
+    const imentrail = await Imentrail.create({
         importdate: date,
         user: userId,
-        quarter: quarter.id,
-        beeftype: quarter.beeftype,
+        entrail: entrail,
         barcode: args.barcode,
-        quarterq: quarter.id,
     });
-
+    
     const store = await BeefStore.findById(args.beefstore);
-    if (!store.imquarters) {
-        store.imquarters = [imquarter];
+    if (!store.imentrails) {
+        store.imentrails = [imentrail];
     } else  {
-        store.imquarters.push(imquarter);
+        store.imentrails.push(imentrail);
     }
     await store.save();
 
-
-    return Imquarter.findById(imquarter.id)
+    let test = await Imentrail.findById(imentrail.id)
     .populate({
         path: "user",
-        populate: {path: "imquarters"}
+        populate: {path: "imentrails",}
     })
     .populate({
-        path: "quarter",
-        populate: {path: "status"}
-    })
-    .populate({
-        path: "quarter",    
+        path: "entrail",    
         populate: {path: "imslaughter",}
     })
     .populate({
-        path: "quarter",
-        populate: {path: "beeftype"}
+        path: "beeftype",
     })
-    //เหลือตำเเหน่งห้อง
+    
+    console.log(test)
+    return test
+    
     }
+},
+
+
 }
-
-
-
-};
 export default Mutation

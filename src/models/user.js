@@ -129,6 +129,18 @@ const userSchema = new mongoose.Schema({
       ref: "Imquarter",
     },
   ],
+  imlumps: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Imlump",
+    },
+  ],
+  imchops: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Imchop",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

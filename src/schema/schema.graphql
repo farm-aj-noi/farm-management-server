@@ -161,6 +161,8 @@ showDayslaugh: [Dayslaugh]!
     beeftype: String
   ): [Imquarter]
 
+
+
 }
 
 type Mutation {
@@ -435,6 +437,21 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     beefstore: String!
   ): Imquarter
 
+  createImlump(
+    barcode: String!
+    beefstore: String!
+  ): Imlump
+
+  createImchop(
+    barcode: String!
+    beefstore: String!
+  ): Imchop
+
+  createImentrail(
+    barcode: String!
+    beefstore: String!
+  ): Imentrail
+
   createBeefStore: BeefStore
 
   createChill(
@@ -447,6 +464,27 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     roomnum: String
   ): Chillroom
   
+  createBeefroom(
+    roomnum: String
+    shelfnum: String
+    bucketnum: String
+  ): Beefroom
+
+  createShelf(
+    roomnum: String
+    shelfnum: String
+  ): Beefroom
+
+  createBucket(
+    roomnum: String
+    shelfnum: String
+    bucketnum: String
+  ): Beefroom
+
+  exportHalve(
+    beeftype: String
+    barcode: String
+  ): Imhalve
 }
 
 scalar Date
@@ -531,6 +569,9 @@ type User {
   importcowfarms:[Importcowfarm]
   imhalves: [Imhalve]
   imquarters: [Imquarter]
+  imlumps: [Imlump]
+  imchops: [Imchop]
+  imentrails: [Imentrail]
 }
 
 type Role {
@@ -894,7 +935,6 @@ type Imhalve{
   barcode: String
   beefstore: String
   name: String
-  
 }
 
 type Imquarter{
@@ -903,6 +943,36 @@ type Imquarter{
   user: User!
   beeftype: Beeftype
   quarter: Quarter
+  barcode: String
+  beefstore: String
+}
+
+type Imlump{
+  id: ID
+  importdate: Date!
+  user: User
+  beeftype: Beeftype
+  lump: Lump
+  barcode: String
+  beefstore: String
+}
+
+type Imchop{
+  id: ID
+  importdate: Date!
+  user: User
+  beeftype: Beeftype
+  chop: Chop
+  barcode: String
+  beefstore: String
+}
+
+type Imentrail{
+  id: ID
+  importdate: Date!
+  user: User
+  beeftype: Beeftype
+  entrail: Entrail
   barcode: String
   beefstore: String
 }
@@ -927,6 +997,9 @@ type BeefStore {
   id: ID
   imhalves: [Imhalve]
   imquarters: [Imquarter]
+  imlumps: [Imlump]
+  imchops: [Imchop]
+  imentrails: [Imentrail]
 }
 
 type List {
@@ -939,10 +1012,14 @@ type List {
   weightwarm: Float
   weight: Float
   importdate: Date
+  namefarmer: String
 }
 
 type Beefroom{
   id: ID!
   roomnum: String
   totalshelf: String
+  totalbucket: String
 }
+
+

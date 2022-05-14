@@ -2,9 +2,6 @@ import Halve from "../../models/halve";
 import Imhalve from "../../models/Beefstore/imhalve";
 import dayjs from "dayjs";
 import BeefStore from "../../models/Beefstore/beefstore";
-import Beeftype from "../../models/beeftype";
-import Imslaughter from "../../models/imslaughter";
-
 
 const Mutation = {
     createImHalve: async (parent, args, { userId }, info) => {
@@ -15,13 +12,13 @@ const Mutation = {
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
-   /*  const currentRoom = await Imhalve.find();
+    const currentRoom = await Imhalve.find();
         const isRoomExist = 
             currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
             
         if (isRoomExist) {
             throw new Error("บาร์โค้ดของคุณซ้ำ");
-        } */
+        }
 
     const date = dayjs()
 
@@ -30,7 +27,6 @@ const Mutation = {
     });
     
     
-
     if (halve){
     const imhalve = await Imhalve.create({
         importdate: date,
@@ -65,6 +61,9 @@ const Mutation = {
         path: "halve",
         populate: {path: "beeftype"}
     })
+    .populate({
+        path: "beeftype",
+    })
     
     /* .populate({
         path: "halve",
@@ -73,6 +72,54 @@ const Mutation = {
     console.log(test)
     return test
     }
+},
+
+exportHalve: async (parent, args, { userId }, info) => {
+    const { barcode, beeftype } = args;
+
+    if (!barcode || !beeftype) {
+        throw new Error("Please provide all required fields.");
+      }
+
+    const halve = await Imhalve.findOneAndUpdate(
+        {barcode: args.barcode,},
+        {beeftype: args.beeftype}
+    );
+
+    let result = await BeefStore.updateOne({_id:"627f7c1f5a28733be04a760f"}, {$pull: {imhalves : halve.id}})
+
+    //{$pull: {rooms: {_id: "611efbb06986120738b4092f"}}}
+    
+    console.log(halve.id)
+    
+
+    const updatedFinish = await Imhalve.findById(barcode)
+    .populate({
+        path: "user",
+        populate: {path: "imhalves",}
+    })
+    .populate({
+        path: "halve",
+        populate: {path: "status"}
+    })
+    .populate({
+        path: "halve",    
+        populate: {path: "imslaughter",}
+    })
+    .populate({
+        path: "halve",
+        populate: {path: "beeftype"}
+    })
+    .populate({
+        path: "beeftype",
+    })
+
+    return updatedFinish
+
+
+
+
+
 }
 
 

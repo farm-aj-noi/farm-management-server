@@ -34,6 +34,7 @@ const Query = {
         populate: {path: "halve", 
         populate: {path: "beeftype"}}
       }) 
+      ///////////////////////////////////////
       .populate({
           path: "imquarters",
           populate: {path: "quarter"}
@@ -52,8 +53,62 @@ const Query = {
           path: "imquarters",
           populate: {path: "quarter", 
           populate: {path: "beeftype"}}
-      }) 
-  
+      })
+      /////////////////////////////////////
+      .populate({
+          path: "imlumps",
+          populate: {path: "lump"}
+      })
+      .populate({
+          path: "imlumps",
+          populate: {path: "lump", 
+          populate: {path: "status"}}
+      })
+      .populate({
+          path: "imlumps",    
+          populate: {path: "lump", 
+          populate: {path: "imslaughter"}}
+      })
+      .populate({
+          path: "imlumps",
+          populate: {path: "lump", 
+          populate: {path: "beeftype"}}
+      })
+      /////////////////////////////////////
+      .populate({
+          path: "imchops",
+          populate: {path: "chop"}
+      })
+      .populate({
+          path: "imchops",
+          populate: {path: "chop", 
+          populate: {path: "status"}}
+      })
+      .populate({
+          path: "imchops",    
+          populate: {path: "chop", 
+          populate: {path: "imslaughter"}}
+      })
+      .populate({
+          path: "imchops",
+          populate: {path: "chop", 
+          populate: {path: "beeftype"}}
+      })
+      /////////////////////////////////////
+      .populate({
+          path: "imentrails",
+          populate: {path: "entrail"}
+      })
+      .populate({
+          path: "imentrails",
+          populate: {path: "entrail", 
+      }})
+      .populate({
+          path: "imentrails",    
+          populate: {path: "entrail", 
+          populate: {path: "imslaughter"}}
+      })
+      
       var returnData = []
   
       console.log(result)
@@ -68,12 +123,13 @@ const Query = {
             beeftype: item.halve.beeftype.nameTH,
             cownum: item.halve.imslaughter.numcow,
             status: item.halve.status.nameTH,
-            code: item.halve.beeftype.code
+            code: item.halve.beeftype.code,
+            namefarmer: item.halve.imslaughter.namefarmer
             /* oom: item.halve[0].curing.cureroom.room */
           }
-          
           returnData.push(data)
         }
+        ////////////////////////////////////////////////////////////
         for (const item of result[0].imquarters) {
           let data = {
             id: 'quarter',
@@ -83,9 +139,52 @@ const Query = {
             beeftype: item.quarter.beeftype.nameTH,
             cownum: item.quarter.imslaughter.numcow,
             code: item.quarter.beeftype.code,
-            status: item.quarter.status.nameTH
+            status: item.quarter.status.nameTH,
+            namefarmer: item.quarter.imslaughter.namefarmer
           }
-          
+          returnData.push(data)
+        }
+        ////////////////////////////////////////////////////////////
+        for (const item of result[0].imlumps) {
+          let data = {
+            id: 'lump',
+            barcode: item.barcode,
+            importdate: item.importdate,
+            weight: item.lump.weight,
+            beeftype: item.lump.beeftype.nameTH,
+            cownum: item.lump.imslaughter.numcow,
+            code: item.lump.beeftype.code,
+            status: item.lump.status.nameTH,
+            namefarmer: item.lump.imslaughter.namefarmer
+          }
+          returnData.push(data)
+        }
+        ////////////////////////////////////////////////////////////
+        for (const item of result[0].imchops) {
+          let data = {
+            id: 'chop',
+            barcode: item.barcode,
+            importdate: item.importdate,
+            weight: item.chop.weight,
+            beeftype: item.chop.beeftype.nameTH,
+            cownum: item.chop.imslaughter.numcow,
+            code: item.chop.beeftype.code,
+            status: item.chop.status.nameTH,
+            namefarmer: item.chop.imslaughter.namefarmer
+          }
+          returnData.push(data)
+        }
+        ////////////////////////////////////////////////////////////
+        for (const item of result[0].imentrails) {
+          let data = {
+            id: 'entrail',
+            barcode: item.barcode,
+            importdate: item.importdate,
+            //ติดไว้
+            weight: item.entrail.weight,
+            cownum: item.entrail.imslaughter.numcow,
+            namefarmer: item.entrail.imslaughter.namefarmer
+          }
           returnData.push(data)
         }
       }
@@ -118,6 +217,9 @@ const Query = {
       .populate({
         path: "halve",
         populate: {path: "beeftype"}
+      })
+      .populate({
+        path: "beeftype",
       })
       /* .populate({
         path: "halve",
