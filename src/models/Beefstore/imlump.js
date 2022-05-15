@@ -19,7 +19,15 @@ const imlumpSchema = new mongoose.Schema({
     },
     barcode: {
         type: String,
-    }, 
+    },
+    storestatus: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Status",
+    },
+    beeftypechange: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Beeftype",
+    },
     
     
      

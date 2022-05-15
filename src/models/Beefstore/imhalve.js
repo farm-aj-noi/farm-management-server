@@ -24,6 +24,18 @@ const imhalveSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Chill",
     },
+    storestatus: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Status",
+    },
+    beeftypechange: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Beeftype",
+    },
+    exportdate: {
+        type: Date,
+    },
+
     
      
 

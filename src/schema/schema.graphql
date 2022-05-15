@@ -482,8 +482,9 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
   ): Beefroom
 
   exportHalve(
-    beeftype: String
     barcode: String
+    storestatus: String
+    beeftypechange: String
   ): Imhalve
 }
 
@@ -934,7 +935,9 @@ type Imhalve{
   halve: Halve
   barcode: String
   beefstore: String
-  name: String
+  storestatus: Status
+  beeftypechange: Beeftype
+  exportdate: Date
 }
 
 type Imquarter{
@@ -945,6 +948,8 @@ type Imquarter{
   quarter: Quarter
   barcode: String
   beefstore: String
+  storestatus: Status
+  beeftypechange: Beeftype
 }
 
 type Imlump{
@@ -955,6 +960,8 @@ type Imlump{
   lump: Lump
   barcode: String
   beefstore: String
+  storestatus: Status
+  beeftypechange: Beeftype
 }
 
 type Imchop{
@@ -965,6 +972,8 @@ type Imchop{
   chop: Chop
   barcode: String
   beefstore: String
+  storestatus: Status
+  beeftypechange: Beeftype
 }
 
 type Imentrail{
@@ -975,6 +984,7 @@ type Imentrail{
   entrail: Entrail
   barcode: String
   beefstore: String
+  storestatus: Status
 }
 
 type Chill{
