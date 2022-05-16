@@ -5,6 +5,16 @@ const imhalveSchema = new mongoose.Schema({
     importdate: {
         type: Date,
     },
+    exportdate: {
+        type: Date,
+    },
+    name: {
+        type: String,
+        
+    },
+    barcode: {
+        type: String,
+    },  
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -17,9 +27,7 @@ const imhalveSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Beeftype",
     },
-    barcode: {
-        type: String,
-    }, 
+    
     chill: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Chill",
@@ -32,9 +40,7 @@ const imhalveSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Beeftype",
     },
-    exportdate: {
-        type: Date,
-    },
+    
 
     
      

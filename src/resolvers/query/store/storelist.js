@@ -196,7 +196,7 @@ const Query = {
 
     imhalveSearch: async (parent, args, context, info) =>{
       const cursor = Imhalve.find({
-        
+        name: 'นำเข้า'
       })
       .populate({
         path: "user",
@@ -221,6 +221,13 @@ const Query = {
       .populate({
         path: "beeftype",
       })
+      .populate({
+        path: "beeftypechange"
+      })
+      .populate({
+        path: "storestatus"
+      })
+      
       /* .populate({
         path: "halve",
         populate: {path: "curing", populate: {path: "cureroom"}}
@@ -279,6 +286,64 @@ const Query = {
       
       return cursor;
     },
+
+    exporthalve: async (parent, args, context, info) =>{
+      const cursor = Imhalve.find({
+        name: 'นำออก'
+      })
+      .populate({
+        path: "user",
+        populate: {path: "imhalves"}
+      })
+      /* .populate({
+        path: "user",
+        populate: {path: "curings"}
+      }) */
+      .populate({
+        path: "halve",
+        populate: {path: "status"}
+      })
+      .populate({
+        path: "halve",    
+        populate: {path: "imslaughter",}
+      })
+      .populate({
+        path: "halve",
+        populate: {path: "beeftype"}
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "beeftypechange"
+      })
+      .populate({
+        path: "storestatus"
+      })
+      
+      /* .populate({
+        path: "halve",
+        populate: {path: "curing", populate: {path: "cureroom"}}
+      }) */
+      .sort({ exportdate: "DESC"})
+      if (args.beeftype){
+        cursor.find({
+          beeftype: args.beeftype,
+        });
+      }
+      if (args.startdate){
+        cursor.find({
+          exportdate: {
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+          },  
+        })
+      }
+      return cursor;
+    },
+      
+      
+    
 
 
 };

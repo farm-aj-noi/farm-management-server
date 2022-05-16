@@ -161,6 +161,12 @@ showDayslaugh: [Dayslaugh]!
     beeftype: String
   ): [Imquarter]
 
+  exporthalve(
+    startdate: String
+    enddate: String
+    beeftype: String
+  ):[Imhalve]
+
 
 
 }
@@ -481,7 +487,7 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     bucketnum: String
   ): Beefroom
 
-  exportHalve(
+  createExporth(
     barcode: String
     storestatus: String
     beeftypechange: String
@@ -937,7 +943,8 @@ type Imhalve{
   beefstore: String
   storestatus: Status
   beeftypechange: Beeftype
-  exportdate: Date
+  exportdate: Date!
+  name: String
 }
 
 type Imquarter{
