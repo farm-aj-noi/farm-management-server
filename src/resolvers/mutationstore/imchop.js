@@ -113,7 +113,7 @@ const Mutation = {
     let test = await Imchop.findById(imchop.id)
     .populate({
         path: "user",
-        populate: {path: "chops"}
+        populate: {path: "imchops"}
     })
     .populate({
         path: "chop",

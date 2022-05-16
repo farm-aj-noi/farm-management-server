@@ -197,6 +197,16 @@ showDayslaugh: [Dayslaugh]!
     beeftype: String
   ): [Imchop]
 
+  imentrailSearch(
+    startdate: String
+    enddate: String
+  ): [Imentrail]
+
+  exportentrail(
+    startdate: String
+    enddate: String
+  ): [Imentrail]
+
 
 }
 
@@ -538,6 +548,11 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     barcode: String
     storestatus: String
   ): Imchop
+
+  createExporte(
+    barcode: String
+    storestatus: String
+  ): Imentrail
 }
 
 scalar Date
@@ -1038,11 +1053,12 @@ type Imentrail{
   id: ID
   importdate: Date!
   user: User
-  beeftype: Beeftype
   entrail: Entrail
   barcode: String
   beefstore: String
   storestatus: Status
+  exportdate: Date!
+  name: String
 }
 
 type Chill{
@@ -1081,6 +1097,16 @@ type List {
   weight: Float
   importdate: Date
   namefarmer: String
+  offal: String
+  toe: String
+  head: String
+  skin: String
+  liver: String
+  fat: String
+  onkale: String
+  tail: String
+  gallbladder: String
+  scrap: String
 }
 
 type Beefroom{

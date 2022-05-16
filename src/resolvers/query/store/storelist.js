@@ -6,6 +6,7 @@ import Imquarter from "../../../models/Beefstore/imquarter";
 import dayjs from "dayjs";
 import Imlump from "../../../models/Beefstore/imlump";
 import Imchop from "../../../models/Beefstore/imchop";
+import Imentrail from "../../../models/Beefstore/imentrail";
 
 
 const Query = {
@@ -98,13 +99,9 @@ const Query = {
       })
       /////////////////////////////////////
       .populate({
-          path: "imentrails",
-          populate: {path: "entrail"}
-      })
-      .populate({
-          path: "imentrails",
-          populate: {path: "entrail", 
-      }})
+        path: "imentrails",
+        populate: {path: "entrail"}
+    })
       .populate({
           path: "imentrails",    
           populate: {path: "entrail", 
@@ -182,10 +179,18 @@ const Query = {
             id: 'entrail',
             barcode: item.barcode,
             importdate: item.importdate,
-            //ติดไว้
-            weight: item.entrail.weight,
             cownum: item.entrail.imslaughter.numcow,
-            namefarmer: item.entrail.imslaughter.namefarmer
+            namefarmer: item.entrail.imslaughter.namefarmer,
+            offal: item.entrail.offal,
+            toe: item.entrail.toe,
+            head: item.entrail.head,
+            skin: item.entrail.skin,
+            liver: item.entrail.liver,
+            fat: item.entrail.fat,
+            onkale: item.entrail.onkale,
+            tail: item.entrail.tail,
+            gallbladder: item.entrail.gallbladder,
+            scrap: item.entrail.scrap
           }
           returnData.push(data)
         }
@@ -560,6 +565,72 @@ const Query = {
       })
       .populate({
         path: "beeftype",
+      })
+      .populate({
+        path: "storestatus"
+      })
+      .sort({ exportdate: "DESC"})
+      if (args.beeftype){
+        cursor.find({
+          beeftype: args.beeftype,
+        });
+      }
+      if (args.startdate){
+        cursor.find({
+          exportdate: {
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+          },  
+        })
+      }
+      
+      return cursor;
+    },
+
+    imentrailSearch: async (parent, args, context, info) =>{
+      const cursor = Imentrail.find({
+        name: 'นำเข้า'
+      })
+      .populate({
+        path: "user",
+        populate: {path: "imentrails"}
+      })
+      .populate({
+        path: "entrail",    
+        populate: {path: "imslaughter",}
+      })
+      .populate({
+        path: "storestatus"
+      })
+      .sort({ importdate: "DESC"})
+      if (args.beeftype){
+        cursor.find({
+          beeftype: args.beeftype,
+        });
+      }
+      if (args.startdate){
+        cursor.find({
+          importdate: {
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+          },  
+        })
+      }
+      
+      return cursor;
+    },
+
+    exportentrail: async (parent, args, context, info) =>{
+      const cursor = Imentrail.find({
+        name: 'นำออก'
+      })
+      .populate({
+        path: "user",
+        populate: {path: "imentrails"}
+      })
+      .populate({
+        path: "entrail",    
+        populate: {path: "imslaughter",}
       })
       .populate({
         path: "storestatus"
