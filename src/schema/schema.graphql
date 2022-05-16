@@ -155,18 +155,47 @@ showDayslaugh: [Dayslaugh]!
     beeftype: String
   ): [Imhalve]!
 
-  imquartSearch(
-    startdate: String
-    enddate: String
-    beeftype: String
-  ): [Imquarter]
-
   exporthalve(
     startdate: String
     enddate: String
     beeftype: String
   ):[Imhalve]
 
+  imquartSearch(
+    startdate: String
+    enddate: String
+    beeftype: String
+  ): [Imquarter]
+
+  exportquart(
+    startdate: String
+    enddate: String
+    beeftype: String
+  ): [Imquarter]
+  
+  imlumpSearch(
+    startdate: String
+    enddate: String
+    beeftype: String
+  ): [Imlump]
+
+  exportlump(
+    startdate: String
+    enddate: String
+    beeftype: String
+  ): [Imlump]
+
+  imchopSearch(
+    startdate: String
+    enddate: String
+    beeftype: String
+  ): [Imchop]
+
+  exportchop(
+    startdate: String
+    enddate: String
+    beeftype: String
+  ): [Imchop]
 
 
 }
@@ -492,6 +521,23 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     storestatus: String
     beeftypechange: String
   ): Imhalve
+
+  createExportq(
+    barcode: String
+    storestatus: String
+    beeftypechange: String
+  ): Imquarter
+
+  createExportl(
+    barcode: String
+    storestatus: String
+    beeftypechange: String
+  ): Imlump
+
+  createExportc(
+    barcode: String
+    storestatus: String
+  ): Imchop
 }
 
 scalar Date
@@ -957,6 +1003,8 @@ type Imquarter{
   beefstore: String
   storestatus: Status
   beeftypechange: Beeftype
+  exportdate: Date!
+  name: String
 }
 
 type Imlump{
@@ -969,6 +1017,8 @@ type Imlump{
   beefstore: String
   storestatus: Status
   beeftypechange: Beeftype
+  exportdate: Date!
+  name: String
 }
 
 type Imchop{
@@ -980,7 +1030,8 @@ type Imchop{
   barcode: String
   beefstore: String
   storestatus: Status
-  beeftypechange: Beeftype
+  exportdate: Date!
+  name: String
 }
 
 type Imentrail{

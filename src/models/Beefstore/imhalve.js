@@ -10,7 +10,7 @@ const imhalveSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        
+
     },
     barcode: {
         type: String,
@@ -27,7 +27,6 @@ const imhalveSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Beeftype",
     },
-    
     chill: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Chill",

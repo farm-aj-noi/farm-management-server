@@ -5,6 +5,16 @@ const imlumpSchema = new mongoose.Schema({
     importdate: {
         type: Date,
     },
+    exportdate: {
+        type: Date,
+    },
+    name: {
+        type: String,
+
+    },
+    barcode: {
+        type: String,
+    }, 
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -16,9 +26,6 @@ const imlumpSchema = new mongoose.Schema({
     beeftype: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Beeftype",
-    },
-    barcode: {
-        type: String,
     },
     storestatus: {
         type: mongoose.Schema.Types.ObjectId,

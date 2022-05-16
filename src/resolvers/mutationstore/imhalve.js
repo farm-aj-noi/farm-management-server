@@ -74,7 +74,6 @@ const Mutation = {
     .populate({
         path: "storestatus",
     })
-    
     /* .populate({
         path: "halve",
         populate: {path: "curing", populate: {path: "cureroom"}}

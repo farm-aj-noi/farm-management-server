@@ -4,6 +4,8 @@ import Imhalve from "../../../models/Beefstore/imhalve";
 import Imquarter from "../../../models/Beefstore/imquarter";
 
 import dayjs from "dayjs";
+import Imlump from "../../../models/Beefstore/imlump";
+import Imchop from "../../../models/Beefstore/imchop";
 
 
 const Query = {
@@ -251,7 +253,7 @@ const Query = {
 
     imquartSearch: async (parent, args, context, info) =>{
       const cursor = Imquarter.find({
-        
+        name: 'นำเข้า'
       })
       .populate({
         path: "user",
@@ -268,6 +270,15 @@ const Query = {
       .populate({
         path: "quarter",
         populate: {path: "beeftype"}
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "beeftypechange"
+      })
+      .populate({
+        path: "storestatus"
       })
       .sort({ importdate: "DESC"})
       if (args.beeftype){
@@ -341,10 +352,236 @@ const Query = {
       }
       return cursor;
     },
-      
-      
-    
 
+    exportquart: async (parent, args, context, info) =>{
+      const cursor = Imquarter.find({
+        name: 'นำออก'
+      })
+      .populate({
+        path: "user",
+        populate: {path: "imquarters"}
+      })
+      .populate({
+        path: "quarter",
+        populate: {path: "status"}
+      })
+      .populate({
+        path: "quarter",    
+        populate: {path: "imslaughter",}
+      })
+      .populate({
+        path: "quarter",
+        populate: {path: "beeftype"}
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "beeftypechange"
+      })
+      .populate({
+        path: "storestatus"
+      })
+      .sort({ exportdate: "DESC"})
+      if (args.beeftype){
+        cursor.find({
+          beeftype: args.beeftype,
+        });
+      }
+      if (args.startdate){
+        cursor.find({
+          exportdate: {
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+          },  
+        })
+      }
+      
+      return cursor;
+    },
+
+    imlumpSearch: async (parent, args, context, info) =>{
+      const cursor = Imlump.find({
+        name: 'นำเข้า'
+      })
+      .populate({
+        path: "user",
+        populate: {path: "imlumps"}
+      })
+      .populate({
+        path: "lump",
+        populate: {path: "status"}
+      })
+      .populate({
+        path: "lump",    
+        populate: {path: "imslaughter",}
+      })
+      .populate({
+        path: "lump",
+        populate: {path: "beeftype"}
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "beeftypechange"
+      })
+      .populate({
+        path: "storestatus"
+      })
+      .sort({ importdate: "DESC"})
+      if (args.beeftype){
+        cursor.find({
+          beeftype: args.beeftype,
+        });
+      }
+      if (args.startdate){
+        cursor.find({
+          importdate: {
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+          },  
+        })
+      }
+      
+      return cursor;
+    },
+
+    exportlump: async (parent, args, context, info) =>{
+      const cursor = Imlump.find({
+        name: 'นำออก'
+      })
+      .populate({
+        path: "user",
+        populate: {path: "imlumps"}
+      })
+      .populate({
+        path: "lump",
+        populate: {path: "status"}
+      })
+      .populate({
+        path: "lump",    
+        populate: {path: "imslaughter",}
+      })
+      .populate({
+        path: "lump",
+        populate: {path: "beeftype"}
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "beeftypechange"
+      })
+      .populate({
+        path: "storestatus"
+      })
+      .sort({ exportdate: "DESC"})
+      if (args.beeftype){
+        cursor.find({
+          beeftype: args.beeftype,
+        });
+      }
+      if (args.startdate){
+        cursor.find({
+          exportdate: {
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+          },  
+        })
+      }
+      
+      return cursor;
+    },
+      
+    imchopSearch: async (parent, args, context, info) =>{
+      const cursor = Imchop.find({
+        name: 'นำเข้า'
+      })
+      .populate({
+        path: "user",
+        populate: {path: "imchops"}
+      })
+      .populate({
+        path: "chop",
+        populate: {path: "status"}
+      })
+      .populate({
+        path: "chop",    
+        populate: {path: "imslaughter",}
+      })
+      .populate({
+        path: "chop",
+        populate: {path: "beeftype"}
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus"
+      })
+      .sort({ importdate: "DESC"})
+      if (args.beeftype){
+        cursor.find({
+          beeftype: args.beeftype,
+        });
+      }
+      if (args.startdate){
+        cursor.find({
+          importdate: {
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+          },  
+        })
+      }
+      
+      return cursor;
+    },
+
+    exportchop: async (parent, args, context, info) =>{
+      const cursor = Imchop.find({
+        name: 'นำออก'
+      })
+      .populate({
+        path: "user",
+        populate: {path: "imchops"}
+      })
+      .populate({
+        path: "chop",
+        populate: {path: "status"}
+      })
+      .populate({
+        path: "chop",    
+        populate: {path: "imslaughter",}
+      })
+      .populate({
+        path: "chop",
+        populate: {path: "beeftype"}
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus"
+      })
+      .sort({ exportdate: "DESC"})
+      if (args.beeftype){
+        cursor.find({
+          beeftype: args.beeftype,
+        });
+      }
+      if (args.startdate){
+        cursor.find({
+          exportdate: {
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+          },  
+        })
+      }
+      
+      return cursor;
+    },
+      
 
 };
 //5f0fdb4b02b40c2ab8506563
