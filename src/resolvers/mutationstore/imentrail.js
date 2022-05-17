@@ -1,14 +1,14 @@
 import Entrail from "../../models/entrail";
 import Imentrail from "../../models/Beefstore/imentrail";
 import dayjs from "dayjs";
-import BeefStore from "../../models/Beefstore/beefstore";
+import EntrailStore from "../../models/Beefstore/entrailstore";
 
 const Mutation = {
     createImentrail: async (parent, args, { userId }, info) => {
 
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.beefstore){
+    if (!args.barcode || !args.entrailstore){
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
@@ -38,7 +38,7 @@ const Mutation = {
         name: 'นำเข้า'
     });
     
-    const store = await BeefStore.findById(args.beefstore);
+    const store = await EntrailStore.findById(args.entrailstore);
     if (!store.imentrails) {
         store.imentrails = [imentrail];
     } else  {
@@ -95,9 +95,9 @@ const Mutation = {
             name: 'นำออก'
         });
     
-    let result = await BeefStore.findByIdAndUpdate({
-        _id:"627f7c1f5a28733be04a760f"}, 
-        {$pull: {entrails : exentrail.id}})
+    let result = await EntrailStore.findByIdAndUpdate({
+        _id:"62837e7631ace600dc6caa23"}, 
+        {$pull: {imentrails : exentrail.id}})
 
     let test = await Imentrail.findById(imentrail.id)
     .populate({

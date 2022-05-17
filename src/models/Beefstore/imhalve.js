@@ -39,11 +39,10 @@ const imhalveSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Beeftype",
     },
+
     
 
     
-     
-
 })
 const Imhalve = mongoose.model("Imhalve", imhalveSchema);
 

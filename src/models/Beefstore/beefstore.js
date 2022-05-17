@@ -25,12 +25,6 @@ const BeefStoreSchema = new mongoose.Schema({
       ref: "Imchop",
       }
     ],
-    imentrails: [
-      {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Imentrail",
-      }
-    ],
       
       
 })

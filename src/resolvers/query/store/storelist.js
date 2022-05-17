@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import Imlump from "../../../models/Beefstore/imlump";
 import Imchop from "../../../models/Beefstore/imchop";
 import Imentrail from "../../../models/Beefstore/imentrail";
+import EntrailStore from "../../../models/Beefstore/entrailstore";
 
 
 const Query = {
@@ -25,7 +26,7 @@ const Query = {
       .populate({
           path: "imhalves",
           populate: {path: "halve", 
-          populate: {path: "status"}}
+          populate: {path: "storestatus"}}
       })
       .populate({
           path: "imhalves",    
@@ -36,7 +37,7 @@ const Query = {
         path: "imhalves",    
         populate: {path: "halve", 
         populate: {path: "beeftype"}}
-      }) 
+      })
       ///////////////////////////////////////
       .populate({
           path: "imquarters",
@@ -45,7 +46,7 @@ const Query = {
        .populate({
           path: "imquarters",
           populate: {path: "quarter", 
-          populate: {path: "status"}}
+          populate: {path: "storestatus"}}
       })
       .populate({
           path: "imquarters",    
@@ -65,7 +66,7 @@ const Query = {
       .populate({
           path: "imlumps",
           populate: {path: "lump", 
-          populate: {path: "status"}}
+          populate: {path: "storestatus"}}
       })
       .populate({
           path: "imlumps",    
@@ -85,7 +86,7 @@ const Query = {
       .populate({
           path: "imchops",
           populate: {path: "chop", 
-          populate: {path: "status"}}
+          populate: {path: "storestatus"}}
       })
       .populate({
           path: "imchops",    
@@ -97,17 +98,6 @@ const Query = {
           populate: {path: "chop", 
           populate: {path: "beeftype"}}
       })
-      /////////////////////////////////////
-      .populate({
-        path: "imentrails",
-        populate: {path: "entrail"}
-    })
-      .populate({
-          path: "imentrails",    
-          populate: {path: "entrail", 
-          populate: {path: "imslaughter"}}
-      })
-      
       var returnData = []
   
       console.log(result)
@@ -121,7 +111,7 @@ const Query = {
             importdate: item.importdate,
             beeftype: item.halve.beeftype.nameTH,
             cownum: item.halve.imslaughter.numcow,
-            status: item.halve.status.nameTH,
+            status: item.halve.storestatus.nameTH,
             code: item.halve.beeftype.code,
             namefarmer: item.halve.imslaughter.namefarmer
             /* oom: item.halve[0].curing.cureroom.room */
@@ -138,7 +128,7 @@ const Query = {
             beeftype: item.quarter.beeftype.nameTH,
             cownum: item.quarter.imslaughter.numcow,
             code: item.quarter.beeftype.code,
-            status: item.quarter.status.nameTH,
+            status: item.quarter.storestatus.nameTH,
             namefarmer: item.quarter.imslaughter.namefarmer
           }
           returnData.push(data)
@@ -153,7 +143,7 @@ const Query = {
             beeftype: item.lump.beeftype.nameTH,
             cownum: item.lump.imslaughter.numcow,
             code: item.lump.beeftype.code,
-            status: item.lump.status.nameTH,
+            status: item.lump.storestatus.nameTH,
             namefarmer: item.lump.imslaughter.namefarmer
           }
           returnData.push(data)
@@ -168,12 +158,32 @@ const Query = {
             beeftype: item.chop.beeftype.nameTH,
             cownum: item.chop.imslaughter.numcow,
             code: item.chop.beeftype.code,
-            status: item.chop.status.nameTH,
+            status: item.chop.storestatus.nameTH,
             namefarmer: item.chop.imslaughter.namefarmer
           }
           returnData.push(data)
         }
-        ////////////////////////////////////////////////////////////
+      }
+  
+      returnData.sort((a , b) => b.importdate - a.importdate)
+      
+      return returnData
+    },
+
+    listentrail: async (parent, args, context, info) =>{
+      let result = await EntrailStore.find({})
+      .populate({
+        path: "imentrails",
+        populate: {path: "entrail"}
+      })
+      .populate({
+          path: "imentrails",    
+          populate: {path: "entrail", 
+          populate: {path: "imslaughter"}}
+      })
+
+      var returnData = []
+      console.log(result)
         for (const item of result[0].imentrails) {
           let data = {
             id: 'entrail',
@@ -194,11 +204,9 @@ const Query = {
           }
           returnData.push(data)
         }
-      }
-  
-      returnData.sort((a , b) => b.importdate - a.importdate)
+        returnData.sort((a , b) => b.importdate - a.importdate)
       
-      return returnData
+        return returnData
     },
 
     imhalveSearch: async (parent, args, context, info) =>{
@@ -652,8 +660,15 @@ const Query = {
       
       return cursor;
     },
-      
 
+   
+
+  
+
+
+
+
+      
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;

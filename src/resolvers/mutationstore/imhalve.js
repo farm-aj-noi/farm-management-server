@@ -40,7 +40,8 @@ const Mutation = {
         beeftype: halve.beeftype,
         barcode: args.barcode,
         storestatus: statusIM,
-        name: 'นำเข้า'
+        name: 'นำเข้า',
+
     });
 
     const store = await BeefStore.findById(args.beefstore);

@@ -27,6 +27,7 @@ import imentrail from '../mutationstore/imentrail'
 import chill from '../mutationstore/chill'
 import chillroom from '../mutationstore/chillroom'
 import beefroom from '../mutationstore/beefroom'
+import entrailstore from '../mutationstore/entrailstore'
 
 export default _.merge(
     allin,
@@ -58,4 +59,5 @@ export default _.merge(
     chill,
     chillroom,
     beefroom,
+    entrailstore,
 )
