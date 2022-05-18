@@ -2,6 +2,8 @@ import Entrail from "../../models/entrail";
 import Imentrail from "../../models/Beefstore/imentrail";
 import dayjs from "dayjs";
 import EntrailStore from "../../models/Beefstore/entrailstore";
+import Imslaughter from "../../models/imslaughter";
+import User from "../../models/user";
 
 const Mutation = {
     createImentrail: async (parent, args, { userId }, info) => {
@@ -28,14 +30,23 @@ const Mutation = {
 
     const statusIM = "5f448d5d4ef8ed48806f1b53";
 
+    const findfarmer = entrail.imslaughter
+    const farmerName = await Imslaughter.findById(findfarmer)
+
+    const finduser = userId
+    const username = await User.findById(finduser)
+
     if (entrail){
     const imentrail = await Imentrail.create({
+        name: 'นำเข้า',
         importdate: date,
         user: userId,
         entrail: entrail,
         barcode: args.barcode,
+        namefarmer: farmerName.namefarmer,
+        userName: username.name,
         storestatus: statusIM,
-        name: 'นำเข้า'
+        
     });
     
     const store = await EntrailStore.findById(args.entrailstore);
@@ -85,14 +96,22 @@ const Mutation = {
         barcode: args.barcode,
     });
 
+    const findfarmer = entrail.imslaughter
+    const farmerName = await Imslaughter.findById(findfarmer)
+
+    const finduser = userId
+    const username = await User.findById(finduser)
+
     if(entrail){
         const imentrail = await Imentrail.create({
+            name: 'นำออก',
+            exportdate: date,
             user: userId,
             entrail: entrail,
             barcode: args.barcode,
+            namefarmer: farmerName.namefarmer,
+            userName: username.name,
             storestatus: args.storestatus,
-            exportdate: date, 
-            name: 'นำออก'
         });
     
     let result = await EntrailStore.findByIdAndUpdate({

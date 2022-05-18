@@ -41,7 +41,6 @@ const Mutation = {
     
     if (halve){
     const imhalve = await Imhalve.create({
-        
         name: 'นำเข้า',
         importdate: date,
         user: userId,

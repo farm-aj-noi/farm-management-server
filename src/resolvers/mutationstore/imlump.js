@@ -2,6 +2,8 @@ import Lump from "../../models/lump";
 import Imlump from "../../models/Beefstore/imlump";
 import dayjs from "dayjs";
 import BeefStore from "../../models/Beefstore/beefstore";
+import Imslaughter from "../../models/imslaughter";
+import User from "../../models/user";
 
 const Mutation = {
     createImlump: async (parent, args, { userId }, info) => {
@@ -28,15 +30,24 @@ const Mutation = {
 
     const statusIM = "5f448d5d4ef8ed48806f1b53";
 
+    const findfarmer = lump.imslaughter
+    const farmerName = await Imslaughter.findById(findfarmer)
+
+    const finduser = userId
+    const username = await User.findById(finduser)
+
     if (lump){
     const imlump = await Imlump.create({
+        name: 'นำเข้า',
         importdate: date,
         user: userId,
         lump: lump,
-        beeftype: lump.beeftype,
         barcode: args.barcode,
+        beeftype: lump.beeftype,
+        namefarmer: farmerName.namefarmer,
+        userName: username.name,
         storestatus: statusIM,
-        name: 'นำเข้า',
+        
     });
 
     const store = await BeefStore.findById(args.beefstore);
@@ -94,16 +105,24 @@ const Mutation = {
         barcode: args.barcode,
     });
 
+    const findfarmer = lump.imslaughter
+    const farmerName = await Imslaughter.findById(findfarmer)
+
+    const finduser = userId
+    const username = await User.findById(finduser)
+
     if(lump){
         const imlump = await Imlump.create({
+            name: 'นำออก',
+            exportdate: date,
             user: userId,
             lump: lump,
+            barcode: args.barcode,
             beeftype: lump.beeftype,
             beeftypechange: args.beeftypechange,
-            barcode: args.barcode,
+            namefarmer: farmerName.namefarmer,
+            userName: username.name,
             storestatus: args.storestatus,
-            exportdate: date, 
-            name: 'นำออก'
         });
 
     let result = await BeefStore.findByIdAndUpdate({

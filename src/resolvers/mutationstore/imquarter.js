@@ -39,14 +39,15 @@ const Mutation = {
 
     if (quarter){
     const imquarter = await Imquarter.create({
+        name: 'นำเข้า',
         importdate: date,
         user: userId,
         quarter: quarter.id,
-        beeftype: quarter.beeftype,
         barcode: args.barcode,
+        beeftype: quarter.beeftype,
+        namefarmer: farmerName.namefarmer,
+        userName: username.name,
         storestatus: statusIM,
-        exportdate: date,
-        name: 'นำเข้า'
     });
 
     const store = await BeefStore.findById(args.beefstore);
@@ -89,7 +90,6 @@ const Mutation = {
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
     
-
     const date = dayjs()
 
     const quarter = await Quarter.findOne({
@@ -100,16 +100,24 @@ const Mutation = {
         barcode: args.barcode,
     });
 
+    const findfarmer = quarter.imslaughter
+    const farmerName = await Imslaughter.findById(findfarmer)
+
+    const finduser = userId
+    const username = await User.findById(finduser)
+
     if(quarter){
         const imquarter = await Imquarter.create({
+            name: 'นำออก',
+            exportdate: date, 
             user: userId,
             quarter: quarter,
+            barcode: args.barcode,
             beeftype: quarter.beeftype,
             beeftypechange: args.beeftypechange,
-            barcode: args.barcode,
+            namefarmer: farmerName.namefarmer,
+            userName: username.name,
             storestatus: args.storestatus,
-            exportdate: date, 
-            name: 'นำออก'
         });
     
     let result = await BeefStore.findByIdAndUpdate({

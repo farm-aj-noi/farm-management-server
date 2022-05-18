@@ -13,7 +13,13 @@ const imchopSchema = new mongoose.Schema({
     },
     barcode: {
         type: String,
-    }, 
+    },
+    namefarmer: {
+        type: String,
+    },
+    userName: {
+        type: String,
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

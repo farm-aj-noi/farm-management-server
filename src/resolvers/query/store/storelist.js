@@ -250,6 +250,16 @@ const Query = {
           beeftype: args.beeftype,
         });
       }
+      if (args.namefarmer){
+        cursor.find({
+          namefarmer: args.namefarmer,
+        });
+      }
+      if (args.userName){
+        cursor.find({
+          userName: args.userName,
+        });
+      }
       if (args.startdate){
         cursor.find({
           importdate: {
@@ -294,6 +304,16 @@ const Query = {
       if (args.beeftype){
         cursor.find({
           beeftype: args.beeftype,
+        });
+      }
+      if (args.namefarmer){
+        cursor.find({
+          namefarmer: args.namefarmer,
+        });
+      }
+      if (args.userName){
+        cursor.find({
+          userName: args.userName,
         });
       }
       if (args.startdate){
@@ -352,6 +372,16 @@ const Query = {
           beeftype: args.beeftype,
         });
       }
+      if (args.namefarmer){
+        cursor.find({
+          namefarmer: args.namefarmer,
+        });
+      }
+      if (args.userName){
+        cursor.find({
+          userName: args.userName,
+        });
+      }
       if (args.startdate){
         cursor.find({
           exportdate: {
@@ -396,6 +426,16 @@ const Query = {
       if (args.beeftype){
         cursor.find({
           beeftype: args.beeftype,
+        });
+      }
+      if (args.namefarmer){
+        cursor.find({
+          namefarmer: args.namefarmer,
+        });
+      }
+      if (args.userName){
+        cursor.find({
+          userName: args.userName,
         });
       }
       if (args.startdate){
@@ -445,6 +485,16 @@ const Query = {
           beeftype: args.beeftype,
         });
       }
+      if (args.namefarmer){
+        cursor.find({
+          namefarmer: args.namefarmer,
+        });
+      }
+      if (args.userName){
+        cursor.find({
+          userName: args.userName,
+        });
+      }
       if (args.startdate){
         cursor.find({
           importdate: {
@@ -492,6 +542,16 @@ const Query = {
           beeftype: args.beeftype,
         });
       }
+      if (args.namefarmer){
+        cursor.find({
+          namefarmer: args.namefarmer,
+        });
+      }
+      if (args.userName){
+        cursor.find({
+          userName: args.userName,
+        });
+      }
       if (args.startdate){
         cursor.find({
           exportdate: {
@@ -534,6 +594,16 @@ const Query = {
       if (args.beeftype){
         cursor.find({
           beeftype: args.beeftype,
+        });
+      }
+      if (args.namefarmer){
+        cursor.find({
+          namefarmer: args.namefarmer,
+        });
+      }
+      if (args.userName){
+        cursor.find({
+          userName: args.userName,
         });
       }
       if (args.startdate){
@@ -580,6 +650,16 @@ const Query = {
           beeftype: args.beeftype,
         });
       }
+      if (args.namefarmer){
+        cursor.find({
+          namefarmer: args.namefarmer,
+        });
+      }
+      if (args.userName){
+        cursor.find({
+          userName: args.userName,
+        });
+      }
       if (args.startdate){
         cursor.find({
           exportdate: {
@@ -613,6 +693,16 @@ const Query = {
           beeftype: args.beeftype,
         });
       }
+      if (args.namefarmer){
+        cursor.find({
+          namefarmer: args.namefarmer,
+        });
+      }
+      if (args.userName){
+        cursor.find({
+          userName: args.userName,
+        });
+      }
       if (args.startdate){
         cursor.find({
           importdate: {
@@ -644,6 +734,16 @@ const Query = {
       if (args.beeftype){
         cursor.find({
           beeftype: args.beeftype,
+        });
+      }
+      if (args.namefarmer){
+        cursor.find({
+          namefarmer: args.namefarmer,
+        });
+      }
+      if (args.userName){
+        cursor.find({
+          userName: args.userName,
         });
       }
       if (args.startdate){

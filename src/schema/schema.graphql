@@ -154,58 +154,78 @@ showDayslaugh: [Dayslaugh]!
     startdate: String
     enddate: String
     beeftype: String
+    namefarmer: String
+    userName: String
   ): [Imhalve]!
 
   exporthalve(
     startdate: String
     enddate: String
     beeftype: String
+    namefarmer: String
+    userName: String
   ):[Imhalve]
 
   imquartSearch(
     startdate: String
     enddate: String
     beeftype: String
+    namefarmer: String
+    userName: String
   ): [Imquarter]
 
   exportquart(
     startdate: String
     enddate: String
     beeftype: String
+    namefarmer: String
+    userName: String
   ): [Imquarter]
   
   imlumpSearch(
     startdate: String
     enddate: String
     beeftype: String
+    namefarmer: String
+    userName: String
   ): [Imlump]
 
   exportlump(
     startdate: String
     enddate: String
     beeftype: String
+    namefarmer: String
+    userName: String
   ): [Imlump]
 
   imchopSearch(
     startdate: String
     enddate: String
     beeftype: String
+    namefarmer: String
+    userName: String
   ): [Imchop]
 
   exportchop(
     startdate: String
     enddate: String
     beeftype: String
+    namefarmer: String
+    userName: String
   ): [Imchop]
 
   imentrailSearch(
     startdate: String
     enddate: String
+    namefarmer: String
+    userName: String
   ): [Imentrail]
 
   exportentrail(
     startdate: String
     enddate: String
+    namefarmer: String
+    userName: String
   ): [Imentrail]
 
  listchill(
@@ -1011,6 +1031,8 @@ type Imquarter{
   beeftypechange: Beeftype
   exportdate: Date!
   name: String
+  namefarmer: String
+  userName: String
 }
 
 type Imlump{
@@ -1025,6 +1047,8 @@ type Imlump{
   beeftypechange: Beeftype
   exportdate: Date!
   name: String
+  namefarmer: String
+  userName: String
 }
 
 type Imchop{
@@ -1038,6 +1062,8 @@ type Imchop{
   storestatus: Status
   exportdate: Date!
   name: String
+  namefarmer: String
+  userName: String
 }
 
 type Imentrail{
@@ -1050,6 +1076,8 @@ type Imentrail{
   storestatus: Status
   exportdate: Date!
   name: String
+  namefarmer: String
+  userName: String
 }
 
 type Chill{
