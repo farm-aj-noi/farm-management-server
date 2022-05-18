@@ -208,7 +208,11 @@ showDayslaugh: [Dayslaugh]!
     enddate: String
   ): [Imentrail]
 
- 
+ listchill(
+    startdate: String
+    enddate: String
+    beeftype: String
+ ): [Chill]
 
 
 }
@@ -991,6 +995,8 @@ type Imhalve{
   beeftypechange: Beeftype
   exportdate: Date!
   name: String
+  namefarmer: String
+  userName: String
 }
 
 type Imquarter{
@@ -1055,6 +1061,7 @@ type Chill{
   halve: Halve
   barcode: String
   storestatus: Status
+  beeftype: Beeftype
 }
 
 type Chillroom{

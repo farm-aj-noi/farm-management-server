@@ -26,6 +26,10 @@ const chillSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Status",
     },
+    beeftype: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Beeftype",
+    }
     
 })
 

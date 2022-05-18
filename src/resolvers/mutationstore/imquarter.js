@@ -2,6 +2,8 @@ import Quarter from "../../models/quarter";
 import Imquarter from "../../models/Beefstore/imquarter";
 import dayjs from "dayjs";
 import BeefStore from "../../models/Beefstore/beefstore";
+import Imslaughter from "../../models/imslaughter";
+import User from "../../models/user";
 
 const Mutation = {
     createImQuarter: async (parent, args, { userId }, info) => {
@@ -28,6 +30,12 @@ const Mutation = {
     });
 
     const statusIM = "5f448d5d4ef8ed48806f1b53";
+
+    const findfarmer = quarter.imslaughter
+    const farmerName = await Imslaughter.findById(findfarmer)
+
+    const finduser = userId
+    const username = await User.findById(finduser)
 
     if (quarter){
     const imquarter = await Imquarter.create({

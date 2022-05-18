@@ -8,6 +8,7 @@ import Imlump from "../../../models/Beefstore/imlump";
 import Imchop from "../../../models/Beefstore/imchop";
 import Imentrail from "../../../models/Beefstore/imentrail";
 import EntrailStore from "../../../models/Beefstore/entrailstore";
+import Chill from "../../../models/Beefstore/chill";
 
 
 const Query = {
@@ -634,7 +635,7 @@ const Query = {
       })
       .populate({
         path: "entrail",    
-        populate: {path: "imslaughter",}
+        populate: {path: "imslaughter"}
       })
       .populate({
         path: "storestatus"
@@ -656,6 +657,48 @@ const Query = {
       
       return cursor;
     },
+
+    listchill: async (parent, args, context, info) =>{
+      const cursor = Chill.find({
+        storestatus: "6284ad73fbfac22364a6e430"
+      })
+      .populate({
+        path: "user"
+        
+      })
+      .populate({
+        path: "halve",
+        populate: {path: "beeftype"}
+      })
+      .populate({
+        path: "halve",
+        populate: {path: "imslaughter"}
+      })
+      .populate({
+        path: "storestatus"
+      })
+      .populate({
+        path: "chillroom"
+      })
+      .sort({ chilldate: "DESC"})
+      if (args.beeftype){
+        cursor.find({
+          beeftype: args.beeftype,
+          storestatus: "6284ad73fbfac22364a6e430"
+        });
+      }
+      if (args.startdate){
+        cursor.find({
+          storestatus: "6284ad73fbfac22364a6e430",
+          chilldate: {
+            $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+            $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+          },  
+        })
+      }
+      return cursor
+    },
+
 
 };
 //5f0fdb4b02b40c2ab8506563

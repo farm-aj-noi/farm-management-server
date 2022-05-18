@@ -2,6 +2,10 @@ import Halve from "../../models/halve";
 import Imhalve from "../../models/Beefstore/imhalve";
 import dayjs from "dayjs";
 import BeefStore from "../../models/Beefstore/beefstore";
+import Imslaughter from "../../models/imslaughter";
+import User from "../../models/user";
+
+
 
 const Mutation = {
     createImHalve: async (parent, args, { userId }, info) => {
@@ -27,21 +31,26 @@ const Mutation = {
     });
 
     const statusIM = "5f448d5d4ef8ed48806f1b53";
-    
-    
-    //await Halve.findByIdAndUpdate(halve.id, { status : statusIM})
 
+    const findfarmer = halve.imslaughter
+    const farmerName = await Imslaughter.findById(findfarmer)
+
+    const finduser = userId
+    const username = await User.findById(finduser)
+    
     
     if (halve){
     const imhalve = await Imhalve.create({
+        
+        name: 'นำเข้า',
         importdate: date,
         user: userId,
         halve: halve,
-        beeftype: halve.beeftype,
         barcode: args.barcode,
+        beeftype: halve.beeftype,
+        namefarmer: farmerName.namefarmer,
+        userName: username.name,
         storestatus: statusIM,
-        name: 'นำเข้า',
-
     });
 
     const store = await BeefStore.findById(args.beefstore);
@@ -63,7 +72,7 @@ const Mutation = {
     })
     .populate({
         path: "halve",    
-        populate: {path: "imslaughter",}
+        populate: {path: "imslaughter"}
     })
     .populate({
         path: "halve",
@@ -101,24 +110,30 @@ const Mutation = {
         barcode: args.barcode,
     });
 
-    
+    const f = halve.imslaughter
+    const farmerName = await Imslaughter.findById(f)
+
+    const finduser = userId
+    const username = await User.findById(finduser)
+
     if(halve){
         const imhalve = await Imhalve.create({
+            name: 'นำออก',
+            exportdate: date,
             user: userId,
             halve: halve,
+            barcode: args.barcode,
             beeftype: halve.beeftype,
             beeftypechange: args.beeftypechange,
-            barcode: args.barcode,
+            namefarmer: farmerName.namefarmer,
+            userName: username.name,
             storestatus: args.storestatus,
-            exportdate: date, 
-            name: 'นำออก'
         });
     
     let result = await BeefStore.findByIdAndUpdate({
         _id:"627f7c1f5a28733be04a760f"}, 
         {$pull: {imhalves : exhalve.id}})
 
-        
     let test = await Imhalve.findById(imhalve.id)
     .populate({
         path: "user",

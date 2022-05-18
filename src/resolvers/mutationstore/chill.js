@@ -21,16 +21,18 @@ const Mutation = {
     
     const statusCh = "6284ad73fbfac22364a6e430"
 
-    await Imhalve.findOneAndUpdate({barcode: args.barcode},{storestatus : statusCh})
+    //await Imhalve.findOneAndUpdate({barcode: args.barcode},{storestatus : statusCh})
 
     const chill = await Chill.create({
         halve: halve,
+        beeftype: halve.beeftype,
         chillroom: args.chillroom,
         chilldate: DateNow,
         chillday: args.chillday,
         //statuscure : statuscureId,
         user: userId,
-        barcode: args.barcode
+        barcode: args.barcode,
+        storestatus: statusCh
     });
 
 
@@ -50,11 +52,14 @@ const Mutation = {
     .populate({
         path: "chillroom"
     })
+    .populate({
+        path: "storestatus",
+    })
     return test
     
     },
 
-    
+
 
 };
 export default Mutation
