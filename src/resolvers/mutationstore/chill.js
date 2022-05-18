@@ -2,6 +2,7 @@ import Chill from "../../models/Beefstore/chill";
 import dayjs from "dayjs";
 import Chillroom from "../../models/Beefstore/chillroom";
 import Halve from "../../models/halve";
+import Imhalve from "../../models/Beefstore/imhalve";
 
 const Mutation = {
     createChill: async (parent, args, { userId }, info) => {
@@ -18,7 +19,9 @@ const Mutation = {
         barcode: args.barcode,
     });
     
-    
+    const statusCh = "6284ad73fbfac22364a6e430"
+
+    await Imhalve.findOneAndUpdate({barcode: args.barcode},{storestatus : statusCh})
 
     const chill = await Chill.create({
         halve: halve,
@@ -49,7 +52,9 @@ const Mutation = {
     })
     return test
     
-},
+    },
+
+    
 
 };
 export default Mutation

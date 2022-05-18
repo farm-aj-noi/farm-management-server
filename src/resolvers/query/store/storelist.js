@@ -25,8 +25,7 @@ const Query = {
       }) */
       .populate({
           path: "imhalves",
-          populate: {path: "halve", 
-          populate: {path: "storestatus"}}
+          populate: {path: "storestatus"}
       })
       .populate({
           path: "imhalves",    
@@ -45,8 +44,7 @@ const Query = {
       })
        .populate({
           path: "imquarters",
-          populate: {path: "quarter", 
-          populate: {path: "storestatus"}}
+          populate: {path: "storestatus"}
       })
       .populate({
           path: "imquarters",    
@@ -65,8 +63,7 @@ const Query = {
       })
       .populate({
           path: "imlumps",
-          populate: {path: "lump", 
-          populate: {path: "storestatus"}}
+          populate: {path: "storestatus"}
       })
       .populate({
           path: "imlumps",    
@@ -85,8 +82,7 @@ const Query = {
       })
       .populate({
           path: "imchops",
-          populate: {path: "chop", 
-          populate: {path: "storestatus"}}
+          populate: {path: "storestatus"}
       })
       .populate({
           path: "imchops",    
@@ -103,7 +99,7 @@ const Query = {
       console.log(result)
       if(result.length) {
         for (const item of result[0].imhalves) {
-          console.log(item.halve)
+          console.log(item.storestatus.nameTH)
           let data = {
             id: 'halve',
             barcode: item.barcode,
@@ -111,7 +107,7 @@ const Query = {
             importdate: item.importdate,
             beeftype: item.halve.beeftype.nameTH,
             cownum: item.halve.imslaughter.numcow,
-            status: item.halve.storestatus.nameTH,
+            status: item.storestatus.nameTH,
             code: item.halve.beeftype.code,
             namefarmer: item.halve.imslaughter.namefarmer
             /* oom: item.halve[0].curing.cureroom.room */
@@ -128,7 +124,7 @@ const Query = {
             beeftype: item.quarter.beeftype.nameTH,
             cownum: item.quarter.imslaughter.numcow,
             code: item.quarter.beeftype.code,
-            status: item.quarter.storestatus.nameTH,
+            status: item.storestatus.nameTH,
             namefarmer: item.quarter.imslaughter.namefarmer
           }
           returnData.push(data)
@@ -143,7 +139,7 @@ const Query = {
             beeftype: item.lump.beeftype.nameTH,
             cownum: item.lump.imslaughter.numcow,
             code: item.lump.beeftype.code,
-            status: item.lump.storestatus.nameTH,
+            status: item.storestatus.nameTH,
             namefarmer: item.lump.imslaughter.namefarmer
           }
           returnData.push(data)
@@ -158,7 +154,7 @@ const Query = {
             beeftype: item.chop.beeftype.nameTH,
             cownum: item.chop.imslaughter.numcow,
             code: item.chop.beeftype.code,
-            status: item.chop.storestatus.nameTH,
+            status: item.storestatus.nameTH,
             namefarmer: item.chop.imslaughter.namefarmer
           }
           returnData.push(data)
@@ -661,14 +657,6 @@ const Query = {
       return cursor;
     },
 
-   
-
-  
-
-
-
-
-      
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;

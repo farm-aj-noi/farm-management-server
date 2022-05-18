@@ -1054,6 +1054,7 @@ type Chill{
   user: User
   halve: Halve
   barcode: String
+  storestatus: Status
 }
 
 type Chillroom{
