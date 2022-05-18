@@ -130,7 +130,7 @@ const Mutation = {
         });
     
     let result = await BeefStore.findByIdAndUpdate({
-        _id:"627f7c1f5a28733be04a760f"}, 
+        _id:"6284d7035415c34e54b2fc2c"}, 
         {$pull: {imhalves : exhalve.id}})
 
     let test = await Imhalve.findById(imhalve.id)
