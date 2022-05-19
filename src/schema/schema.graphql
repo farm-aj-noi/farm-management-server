@@ -147,7 +147,9 @@ showDayslaugh: [Dayslaugh]!
   # datatreat: (id: ID!): Datatreat
   # ////////////////////////////////////////////////
 
-  liststore: [List]
+  liststore(
+    beeftype: String
+  ): [List]
   listentrail: [EntrailList]
 
   imhalveSearch(
@@ -562,6 +564,9 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     barcode: String
     storestatus: String
   ): Imentrail
+
+  createRequestExport(name: String, beef:String, quantity:String): RequestExport
+  deleteRequest(id: ID): RequestExport
 }
 
 scalar Date
@@ -1176,4 +1181,11 @@ type Beefroom{
   totalbucket: String
 }
 
+type RequestExport{
+  name: String
+  beef: String
+  quantity: String
+  requestdate: Date
+
+}
 

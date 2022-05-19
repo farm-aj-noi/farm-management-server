@@ -28,6 +28,7 @@ import chill from '../mutationstore/chill'
 import chillroom from '../mutationstore/chillroom'
 import beefroom from '../mutationstore/beefroom'
 import entrailstore from '../mutationstore/entrailstore'
+import requestexport from '../mutationstore/requestexport'
 
 export default _.merge(
     allin,
@@ -60,4 +61,5 @@ export default _.merge(
     chillroom,
     beefroom,
     entrailstore,
+    requestexport,
 )

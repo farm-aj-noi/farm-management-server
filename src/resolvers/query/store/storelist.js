@@ -9,12 +9,12 @@ import Imchop from "../../../models/Beefstore/imchop";
 import Imentrail from "../../../models/Beefstore/imentrail";
 import EntrailStore from "../../../models/Beefstore/entrailstore";
 import Chill from "../../../models/Beefstore/chill";
+import Halve from "../../../models/halve";
 
 
 const Query = {
-
     liststore: async (parent, args, context, info) =>{
-      let result = await BeefStore.find({})
+      const cursor = await BeefStore.find({})
       .populate({
           path: "imhalves",
           populate: {path: "halve"}
@@ -95,13 +95,13 @@ const Query = {
           populate: {path: "chop", 
           populate: {path: "beeftype"}}
       })
+
       var returnData = []
-  
-      console.log(result)
-      if(result.length) {
-        for (const item of result[0].imhalves) {
-          console.log(item.storestatus.nameTH)
-          let data = {
+    
+      if(cursor.length) {
+        for (const item of cursor[0].imhalves){ 
+            let data = {
+            beeftypeid : item.halve.beeftype.id,
             id: 'halve',
             barcode: item.barcode,
             weightwarm: item.halve.weightwarm,
@@ -116,8 +116,9 @@ const Query = {
           returnData.push(data)
         }
         ////////////////////////////////////////////////////////////
-        for (const item of result[0].imquarters) {
+        for (const item of cursor[0].imquarters) {
           let data = {
+            beeftypeid : item.quarter.beeftype.id,
             id: 'quarter',
             barcode: item.barcode,
             importdate: item.importdate,
@@ -131,8 +132,9 @@ const Query = {
           returnData.push(data)
         }
         ////////////////////////////////////////////////////////////
-        for (const item of result[0].imlumps) {
+        for (const item of cursor[0].imlumps) {
           let data = {
+            beeftypeid : item.lump.beeftype.id,
             id: 'lump',
             barcode: item.barcode,
             importdate: item.importdate,
@@ -146,8 +148,9 @@ const Query = {
           returnData.push(data)
         }
         ////////////////////////////////////////////////////////////
-        for (const item of result[0].imchops) {
+        for (const item of cursor[0].imchops) {
           let data = {
+            beeftypeid : item.chop.beeftype.id,
             id: 'chop',
             barcode: item.barcode,
             importdate: item.importdate,
@@ -161,9 +164,10 @@ const Query = {
           returnData.push(data)
         }
       }
-  
       returnData.sort((a , b) => b.importdate - a.importdate)
-      
+      if(args.beeftype){
+        returnData = returnData.filter(e => e.beeftypeid == args.beeftype)
+      }
       return returnData
     },
 
