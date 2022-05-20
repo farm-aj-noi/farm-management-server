@@ -4,23 +4,29 @@ import dayjs from "dayjs";
 import BeefStore from "../../models/Beefstore/beefstore";
 import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
+import Beefroom from "../../models/Beefstore/beefroom";
+import Shelf from "../../models/Beefstore/shelf";
 
 const Mutation = {
     createImlump: async (parent, args, { userId }, info) => {
     
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.beefstore){
+    if (!args.barcode || 
+        !args.beefstore|| 
+        !args.beefroom || 
+        !args.shelf || 
+        !args.basket){
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
-    const currentRoom = await Imlump.find();
+    /* const currentRoom = await Imlump.find();
         const isRoomExist = 
             currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
             
         if (isRoomExist) {
             throw new Error("บาร์โค้ดของคุณซ้ำ");
-        }
+        } */
 
     const date = dayjs()
 
@@ -36,6 +42,10 @@ const Mutation = {
     const finduser = userId
     const username = await User.findById(finduser)
 
+    const room = await Beefroom.findById(args.beefroom)
+
+    const shelf = await Shelf.findById(args.shelf)
+    
     if (lump){
     const imlump = await Imlump.create({
         name: 'นำเข้า',
@@ -47,9 +57,11 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: statusIM,
-        
+        beefroom: room.roomname,
+        shelf: shelf.shelfname,
+        basket: args.basket,
     });
-
+    
     const store = await BeefStore.findById(args.beefstore);
     if (!store.imlumps) {
         store.imlumps = [imlump];
@@ -57,6 +69,14 @@ const Mutation = {
         store.imlumps.push(imlump);
     }
     await store.save();
+
+    const rooms = await Beefroom.findById(args.beefroom);
+    if (!rooms.lump) {
+        rooms.lump = [lump];
+    } else  {
+        rooms.lump.push(lump);
+    }
+    await rooms.save();
 
     let test = await Imlump.findById(imlump.id)
     .populate({

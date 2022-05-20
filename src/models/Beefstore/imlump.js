@@ -21,6 +21,15 @@ const imlumpSchema = new mongoose.Schema({
     userName: {
         type: String,
     },
+    beefroom: {
+        type: String
+    },
+    shelf: {
+        type: String
+    },
+    basket: {
+        type: String
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

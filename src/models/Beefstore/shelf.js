@@ -8,6 +8,10 @@ const ShelfSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Typekeep",
     }],
+    beefroom: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Beefroom",
+    },
 
 
 })
