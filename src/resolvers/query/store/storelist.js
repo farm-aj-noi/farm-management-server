@@ -825,8 +825,15 @@ const Query = {
         path: "beefroom"
       })
       return cursor
-    }
+    },
 
+    roomsearch: (parent, args, context, info) => {
+      const cursor = Beefroom.find({_id: args.id})
+      .populate({
+        path: "shelf",
+      })
+      return cursor
+    }
 
 };
 //5f0fdb4b02b40c2ab8506563
