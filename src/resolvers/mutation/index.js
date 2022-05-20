@@ -29,6 +29,7 @@ import chillroom from '../mutationstore/chillroom'
 import beefroom from '../mutationstore/beefroom'
 import entrailstore from '../mutationstore/entrailstore'
 import requestexport from '../mutationstore/requestexport'
+import typekeep from '../mutationstore/typekeep'
 
 export default _.merge(
     allin,
@@ -62,4 +63,5 @@ export default _.merge(
     beefroom,
     entrailstore,
     requestexport,
+    typekeep
 )

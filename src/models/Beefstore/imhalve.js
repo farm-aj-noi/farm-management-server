@@ -21,6 +21,9 @@ const imhalveSchema = new mongoose.Schema({
     userName: {
         type: String,
     },
+    beefroom: {
+        type: String
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -45,6 +48,7 @@ const imhalveSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Beeftype",
     },
+    
     
     //idห้อง
 
