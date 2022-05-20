@@ -1127,6 +1127,7 @@ type List {
   weight: Float
   importdate: Date
   namefarmer: String
+  beeftypeid: String
 }
 
 type EntrailList{
