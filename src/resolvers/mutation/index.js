@@ -30,6 +30,7 @@ import beefroom from '../mutationstore/beefroom'
 import entrailstore from '../mutationstore/entrailstore'
 import requestexport from '../mutationstore/requestexport'
 import typekeep from '../mutationstore/typekeep'
+import shelf from '../mutationstore/shelf'
 
 export default _.merge(
     allin,
@@ -63,5 +64,6 @@ export default _.merge(
     beefroom,
     entrailstore,
     requestexport,
-    typekeep
+    typekeep,
+    shelf,
 )

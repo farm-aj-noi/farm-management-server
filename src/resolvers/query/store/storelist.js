@@ -10,6 +10,8 @@ import Imentrail from "../../../models/Beefstore/imentrail";
 import EntrailStore from "../../../models/Beefstore/entrailstore";
 import Chill from "../../../models/Beefstore/chill";
 import Halve from "../../../models/halve";
+import Beefroom from "../../../models/Beefstore/beefroom";
+import Shelf from "../../../models/Beefstore/shelf";
 
 
 const Query = {
@@ -128,7 +130,8 @@ const Query = {
             cownum: item.quarter.imslaughter.numcow,
             code: item.quarter.beeftype.code,
             status: item.storestatus.nameTH,
-            namefarmer: item.quarter.imslaughter.namefarmer
+            namefarmer: item.quarter.imslaughter.namefarmer,
+            beefroom: item.beefroom,
           }
           returnData.push(data)
         }
@@ -144,7 +147,10 @@ const Query = {
             cownum: item.lump.imslaughter.numcow,
             code: item.lump.beeftype.code,
             status: item.storestatus.nameTH,
-            namefarmer: item.lump.imslaughter.namefarmer
+            namefarmer: item.lump.imslaughter.namefarmer,
+            beefroom: item.beefroom,
+            shelf: item.shelf,
+            basket: item.basket,
           }
           returnData.push(data)
         }
@@ -160,7 +166,10 @@ const Query = {
             cownum: item.chop.imslaughter.numcow,
             code: item.chop.beeftype.code,
             status: item.storestatus.nameTH,
-            namefarmer: item.chop.imslaughter.namefarmer
+            namefarmer: item.chop.imslaughter.namefarmer,
+            beefroom: item.beefroom,
+            shelf: item.shelf,
+            basket: item.basket,
           }
           returnData.push(data)
         }
@@ -803,6 +812,20 @@ const Query = {
       }
       return cursor
     },
+
+    allRoom: (parent, args, context, info) => {
+      const cursor = Beefroom.find({});
+
+      return cursor
+    },
+
+    listShelf: (parent, args, context, info) => {
+      const cursor = Shelf.find({beefroom: args.id})
+      .populate({
+        path: "beefroom"
+      })
+      return cursor
+    }
 
 
 };

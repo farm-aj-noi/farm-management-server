@@ -4,7 +4,7 @@ const Mutation = {
     createBeefroom: async (parent, args, { userId }, info) => {
         //if (!userId) throw new Error("Please log in.");
 
-        if (!args.roomname || !args.Shelfnum) {
+        if (!args.roomname) {
             throw new Error("Please provide all required fields.");
         } 
 

@@ -230,13 +230,14 @@ showDayslaugh: [Dayslaugh]!
     userName: String
   ): [Imentrail]
 
- listchill(
+  listchill(
     startdate: String
     enddate: String
     beeftype: String
  ): [Chill]
 
-
+  allRoom:[Beefroom]
+  listShelf(id: ID): [Shelf]
 }
 
 type Mutation {
@@ -501,10 +502,10 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
   createDatatreat(weight: String!, detail: String!): Datatreat!
   #//////////////////////////////////////////////////////////////
 
-  createImHalve(barcode: String!, beefstore: String!, beefroom: String!): Imhalve
-  createImQuarter(barcode: String!, beefstore: String!): Imquarter
-  createImlump(barcode: String!, beefstore: String!): Imlump
-  createImchop(barcode: String!, beefstore: String!): Imchop
+  createImHalve(barcode: String!, beefstore: String!, beefroom: String!, ): Imhalve
+  createImQuarter(barcode: String!, beefstore: String!, beefroom: String!, ): Imquarter
+  createImlump(barcode: String!, beefstore: String!, beefroom: String!, shelf:String, basket: String): Imlump
+  createImchop(barcode: String!, beefstore: String!, beefroom: String!,shelf:String, basket: String): Imchop
   createImentrail(barcode: String!, entrailstore: String!): Imentrail
 
   createBeefStore: BeefStore
@@ -551,16 +552,21 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
   createRequestExport(name: String, beef:String, quantity:String): RequestExport
   deleteRequest(id: ID): RequestExport
 
+  createBeefroom(
+    roomname: String
+  ): Beefroom
+
+  createShelf(
+    shelfname: String
+    beefroom: String
+  ): Shelf
+
   createtypekeep(
     totalbeef: String
     beeftype: String
     beefroom: String
+    shelf: String
   ): Typekeep
-
-  createBeefroom(
-    roomname: String
-    Shelfnum: String
-  ): Beefroom
 }
 
 scalar Date
@@ -1017,7 +1023,7 @@ type Imhalve{
   namefarmer: String
   userName: String
   beefroom: String
-
+  
 }
 
 type Imquarter{
@@ -1034,6 +1040,8 @@ type Imquarter{
   name: String
   namefarmer: String
   userName: String
+  beefroom: String
+  shelf: String
 }
 
 type Imlump{
@@ -1050,6 +1058,9 @@ type Imlump{
   name: String
   namefarmer: String
   userName: String
+  beefroom: String
+  shelf: String
+  basket: String
 }
 
 type Imchop{
@@ -1065,6 +1076,9 @@ type Imchop{
   name: String
   namefarmer: String
   userName: String
+  beefroom: String
+  shelf: String
+  basket: String
 }
 
 type Imentrail{
@@ -1127,7 +1141,12 @@ type List {
   beeftypeid: String
 =======
   beefroom: String
+<<<<<<< HEAD
 >>>>>>> 462cc708c047c5a6d336ab28055a73489ab4bf3d
+=======
+  shelf: String
+  basket: String
+>>>>>>> 4d7149f0cea767a03b9754a89cebf43f3a8cd694
 }
 
 type EntrailList{
@@ -1177,9 +1196,20 @@ type exportList {
 type Beefroom{
   id: ID!
   roomname: String
-  Shelfnum: String
   typekeep: [Typekeep]
   roomstatus: Status
+  shelf: [Shelf]
+  halves: [Halve]
+  quarters: [Quarter]
+  lumps: [Lump]
+  chops: [Chop]
+}
+
+type Shelf{
+  id: ID!
+  shelfname: String
+  beefroom: Beefroom
+  typekeep: [Typekeep]
 }
 
 type Typekeep{
@@ -1187,6 +1217,7 @@ type Typekeep{
   totalbeef: String
   beeftype: Beeftype
   beefroom: Beefroom
+  shelf: Shelf
 }
 
 type RequestExport{

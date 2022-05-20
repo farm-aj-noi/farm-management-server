@@ -10,7 +10,7 @@ const Mutation = {
     
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.beefstore){
+    if (!args.barcode || !args.beefstore || !args.beefroom){
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
@@ -37,6 +37,8 @@ const Mutation = {
     const finduser = userId
     const username = await User.findById(finduser)
 
+    const room = await Beefroom.findById(args.beefroom)
+
     if (quarter){
     const imquarter = await Imquarter.create({
         name: 'นำเข้า',
@@ -48,6 +50,7 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: statusIM,
+        beefroom: room.roomname
     });
 
     const store = await BeefStore.findById(args.beefstore);
@@ -57,6 +60,14 @@ const Mutation = {
         store.imquarters.push(imquarter);
     }
     await store.save();
+
+    const rooms = await Beefroom.findById(args.beefroom);
+    if (!rooms.quarter) {
+        rooms.quarter = [quarter];
+    } else  {
+        rooms.quarter.push(quarter);
+    }
+    await rooms.save();
 
 
     return Imquarter.findById(imquarter.id)

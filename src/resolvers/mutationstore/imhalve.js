@@ -39,7 +39,7 @@ const Mutation = {
     const finduser = userId
     const username = await User.findById(finduser)
 
-    const room = await Beefroom.findById(arg.beefroosm)
+    const room = await Beefroom.findById(args.beefroom)
     
     
     if (halve){
@@ -63,6 +63,14 @@ const Mutation = {
         store.imhalves.push(imhalve);
     }
     await store.save();
+
+    const rooms = await Beefroom.findById(args.beefroom);
+    if (!rooms.halve) {
+        rooms.halve = [halve];
+    } else  {
+        rooms.halve.push(halve);
+    }
+    await rooms.save();
     
     let test = await Imhalve.findById(imhalve.id)
     .populate({

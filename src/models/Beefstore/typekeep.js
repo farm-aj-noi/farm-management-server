@@ -12,6 +12,10 @@ const  TypekeepSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Beeftype",
     },
+    shelf: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Shelf",
+    },
     
     
     
