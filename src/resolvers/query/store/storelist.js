@@ -38,6 +38,7 @@ const Query = {
         populate: {path: "halve", 
         populate: {path: "beeftype"}}
       })
+      
       ///////////////////////////////////////
       .populate({
           path: "imquarters",
@@ -110,8 +111,8 @@ const Query = {
             cownum: item.halve.imslaughter.numcow,
             status: item.storestatus.nameTH,
             code: item.halve.beeftype.code,
-            namefarmer: item.halve.imslaughter.namefarmer
-            /* oom: item.halve[0].curing.cureroom.room */
+            namefarmer: item.halve.imslaughter.namefarmer,
+            beefroom: item.beefroom,
           }
           returnData.push(data)
         }

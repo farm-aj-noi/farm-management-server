@@ -501,7 +501,7 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
   createDatatreat(weight: String!, detail: String!): Datatreat!
   #//////////////////////////////////////////////////////////////
 
-  createImHalve(barcode: String!, beefstore: String!): Imhalve
+  createImHalve(barcode: String!, beefstore: String!, beefroom: String!): Imhalve
   createImQuarter(barcode: String!, beefstore: String!): Imquarter
   createImlump(barcode: String!, beefstore: String!): Imlump
   createImchop(barcode: String!, beefstore: String!): Imchop
@@ -520,23 +520,6 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     roomnum: String
   ): Chillroom
   
-  createBeefroom(
-    roomnum: String
-    shelfnum: String
-    bucketnum: String
-  ): Beefroom
-
-  createShelf(
-    roomnum: String
-    shelfnum: String
-  ): Beefroom
-
-  createBucket(
-    roomnum: String
-    shelfnum: String
-    bucketnum: String
-  ): Beefroom
-
   createExporth(
     barcode: String
     storestatus: String
@@ -567,6 +550,17 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
 
   createRequestExport(name: String, beef:String, quantity:String): RequestExport
   deleteRequest(id: ID): RequestExport
+
+  createtypekeep(
+    totalbeef: String
+    beeftype: String
+    beefroom: String
+  ): Typekeep
+
+  createBeefroom(
+    roomname: String
+    Shelfnum: String
+  ): Beefroom
 }
 
 scalar Date
@@ -1022,6 +1016,8 @@ type Imhalve{
   name: String
   namefarmer: String
   userName: String
+  beefroom: String
+
 }
 
 type Imquarter{
@@ -1127,7 +1123,11 @@ type List {
   weight: Float
   importdate: Date
   namefarmer: String
+<<<<<<< HEAD
   beeftypeid: String
+=======
+  beefroom: String
+>>>>>>> 462cc708c047c5a6d336ab28055a73489ab4bf3d
 }
 
 type EntrailList{
@@ -1174,12 +1174,19 @@ type exportList {
   namefarmer: String
 } 
 
-
 type Beefroom{
   id: ID!
-  roomnum: String
-  totalshelf: String
-  totalbucket: String
+  roomname: String
+  Shelfnum: String
+  typekeep: [Typekeep]
+  roomstatus: Status
+}
+
+type Typekeep{
+  id: ID!
+  totalbeef: String
+  beeftype: Beeftype
+  beefroom: Beefroom
 }
 
 type RequestExport{
@@ -1187,6 +1194,7 @@ type RequestExport{
   beef: String
   quantity: String
   requestdate: Date
-
 }
+
+
 

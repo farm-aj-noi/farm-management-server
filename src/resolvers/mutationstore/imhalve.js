@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import BeefStore from "../../models/Beefstore/beefstore";
 import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
+import Beefroom from "../../models/Beefstore/beefroom";
 
 
 
@@ -12,7 +13,7 @@ const Mutation = {
     
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.beefstore){
+    if (!args.barcode || !args.beefstore || !args.beefroom){
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
@@ -37,6 +38,8 @@ const Mutation = {
 
     const finduser = userId
     const username = await User.findById(finduser)
+
+    const room = await Beefroom.findById(arg.beefroosm)
     
     
     if (halve){
@@ -50,6 +53,7 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: statusIM,
+        beefroom: room.roomname
     });
 
     const store = await BeefStore.findById(args.beefstore);
