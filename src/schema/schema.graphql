@@ -230,12 +230,13 @@ showDayslaugh: [Dayslaugh]!
     userName: String
   ): [Imentrail]
 
- listchill(
+  listchill(
     startdate: String
     enddate: String
     beeftype: String
  ): [Chill]
 
+  allRoom:[Beefroom]
 
 }
 
@@ -551,16 +552,20 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
   createRequestExport(name: String, beef:String, quantity:String): RequestExport
   deleteRequest(id: ID): RequestExport
 
+  createBeefroom(
+    roomname: String
+  ): Beefroom
+
+  createShelf(
+    beefroom: String
+
+  ): Shelf
+
   createtypekeep(
     totalbeef: String
     beeftype: String
     beefroom: String
   ): Typekeep
-
-  createBeefroom(
-    roomname: String
-    Shelfnum: String
-  ): Beefroom
 }
 
 scalar Date
@@ -1173,9 +1178,15 @@ type exportList {
 type Beefroom{
   id: ID!
   roomname: String
-  Shelfnum: String
   typekeep: [Typekeep]
   roomstatus: Status
+  shelf: [Shelf]
+}
+
+type Shelf{
+  id: ID!
+  shelfname: String
+  typekeep: [Typekeep]
 }
 
 type Typekeep{

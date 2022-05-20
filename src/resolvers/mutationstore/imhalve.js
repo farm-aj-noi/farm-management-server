@@ -39,7 +39,7 @@ const Mutation = {
     const finduser = userId
     const username = await User.findById(finduser)
 
-    const room = await Beefroom.findById(arg.beefroosm)
+    const room = await Beefroom.findById(args.beefroom)
     
     
     if (halve){

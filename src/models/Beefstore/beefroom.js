@@ -4,9 +4,6 @@ const BeefroomSchema = new mongoose.Schema({
     roomname: {
         type: String,
     },
-    Shelfnum: {
-        type: String,
-    },
     typekeep: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Typekeep",

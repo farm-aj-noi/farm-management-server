@@ -10,6 +10,7 @@ import Imentrail from "../../../models/Beefstore/imentrail";
 import EntrailStore from "../../../models/Beefstore/entrailstore";
 import Chill from "../../../models/Beefstore/chill";
 import Halve from "../../../models/halve";
+import Beefroom from "../../../models/Beefstore/beefroom";
 
 
 const Query = {
@@ -803,6 +804,12 @@ const Query = {
       }
       return cursor
     },
+
+    allRoom: (parent, args, context, info) => {
+      const cursor = Beefroom.find({});
+
+      return cursor
+    }
 
 
 };
