@@ -22,7 +22,8 @@ const imquarterSchema = new mongoose.Schema({
         type: String,
     },
     beefroom: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Beefroom",
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

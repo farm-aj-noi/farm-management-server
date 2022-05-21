@@ -40,7 +40,10 @@ const Query = {
         populate: {path: "halve", 
         populate: {path: "beeftype"}}
       })
-      
+      .populate({
+        path: "imhalves",    
+        populate: {path: "beefroom"}
+      })
       ///////////////////////////////////////
       .populate({
           path: "imquarters",
@@ -59,6 +62,10 @@ const Query = {
           path: "imquarters",
           populate: {path: "quarter", 
           populate: {path: "beeftype"}}
+      })
+      .populate({
+        path: "imquarters",    
+        populate: {path: "beefroom"}
       })
       /////////////////////////////////////
       .populate({
@@ -79,6 +86,14 @@ const Query = {
           populate: {path: "lump", 
           populate: {path: "beeftype"}}
       })
+      .populate({
+        path: "imlumps",    
+        populate: {path: "beefroom"}
+      })
+      .populate({
+        path: "imlumps",    
+        populate: {path: "shelf"}
+      })
       /////////////////////////////////////
       .populate({
           path: "imchops",
@@ -98,14 +113,23 @@ const Query = {
           populate: {path: "chop", 
           populate: {path: "beeftype"}}
       })
+      .populate({
+        path: "imchops",    
+        populate: {path: "beefroom"}
+      })
+      .populate({
+        path: "imchops",    
+        populate: {path: "shelf"}
+      })
 
       var returnData = []
     
       if(cursor.length) {
         for (const item of cursor[0].imhalves){ 
+            console.log(item.beefroom)
             let data = {
             beeftypeid : item.halve.beeftype.id,
-            id: 'halve',
+            id: 'ซากโคผ่าซีก',
             barcode: item.barcode,
             weightwarm: item.halve.weightwarm,
             importdate: item.importdate,
@@ -114,7 +138,7 @@ const Query = {
             status: item.storestatus.nameTH,
             code: item.halve.beeftype.code,
             namefarmer: item.halve.imslaughter.namefarmer,
-            beefroom: item.beefroom,
+            beefroom: item.beefroom.roomname,
           }
           returnData.push(data)
         }
@@ -122,7 +146,7 @@ const Query = {
         for (const item of cursor[0].imquarters) {
           let data = {
             beeftypeid : item.quarter.beeftype.id,
-            id: 'quarter',
+            id: 'ซากโคสี่เสี้ยว',
             barcode: item.barcode,
             importdate: item.importdate,
             weight: item.quarter.weight,
@@ -131,7 +155,7 @@ const Query = {
             code: item.quarter.beeftype.code,
             status: item.storestatus.nameTH,
             namefarmer: item.quarter.imslaughter.namefarmer,
-            beefroom: item.beefroom,
+            beefroom: item.beefroom.roomname,
           }
           returnData.push(data)
         }
@@ -139,7 +163,7 @@ const Query = {
         for (const item of cursor[0].imlumps) {
           let data = {
             beeftypeid : item.lump.beeftype.id,
-            id: 'lump',
+            id: 'ก้อนเนื้อ',
             barcode: item.barcode,
             importdate: item.importdate,
             weight: item.lump.weight,
@@ -148,8 +172,8 @@ const Query = {
             code: item.lump.beeftype.code,
             status: item.storestatus.nameTH,
             namefarmer: item.lump.imslaughter.namefarmer,
-            beefroom: item.beefroom,
-            shelf: item.shelf,
+            beefroom: item.beefroom.roomname,
+            shelf: item.shelf.shelfname,
             basket: item.basket,
           }
           returnData.push(data)
@@ -158,7 +182,7 @@ const Query = {
         for (const item of cursor[0].imchops) {
           let data = {
             beeftypeid : item.chop.beeftype.id,
-            id: 'chop',
+            id: 'ชิ้นเนื้อ',
             barcode: item.barcode,
             importdate: item.importdate,
             weight: item.chop.weight,
@@ -167,8 +191,8 @@ const Query = {
             code: item.chop.beeftype.code,
             status: item.storestatus.nameTH,
             namefarmer: item.chop.imslaughter.namefarmer,
-            beefroom: item.beefroom,
-            shelf: item.shelf,
+            beefroom: item.beefroom.roomname,
+            shelf: item.shelf.shelfname,
             basket: item.basket,
           }
           returnData.push(data)
@@ -177,6 +201,9 @@ const Query = {
       returnData.sort((a , b) => b.importdate - a.importdate)
       if(args.beeftype){
         returnData = returnData.filter(e => e.beeftypeid == args.beeftype)
+      }
+      if(args.type){
+        returnData = returnData.filter(e => e.id == args.type)
       }
       return returnData
     },
@@ -197,7 +224,7 @@ const Query = {
       console.log(result)
         for (const item of result[0].imentrails) {
           let data = {
-            id: 'entrail',
+            id: 'เครื่องใน',
             barcode: item.barcode,
             importdate: item.importdate,
             cownum: item.entrail.imslaughter.numcow,
@@ -252,6 +279,9 @@ const Query = {
       })
       .populate({
         path: "storestatus"
+      })
+      .populate({
+        path: "beefroom"
       })
       
       /* .populate({
@@ -314,6 +344,9 @@ const Query = {
       .populate({
         path: "storestatus"
       })
+      .populate({
+        path: "beefroom"
+      })
       .sort({ importdate: "DESC"})
       if (args.beeftype){
         cursor.find({
@@ -374,6 +407,9 @@ const Query = {
       })
       .populate({
         path: "storestatus"
+      })
+      .populate({
+        path: "beefroom"
       })
       
       /* .populate({
@@ -436,6 +472,9 @@ const Query = {
       .populate({
         path: "storestatus"
       })
+      .populate({
+        path: "beefroom"
+      })
       .sort({ exportdate: "DESC"})
       if (args.beeftype){
         cursor.find({
@@ -492,6 +531,12 @@ const Query = {
       })
       .populate({
         path: "storestatus"
+      })
+      .populate({
+        path: "beefroom"
+      })
+      .populate({
+        path: "shelf"
       })
       .sort({ importdate: "DESC"})
       if (args.beeftype){
@@ -550,6 +595,12 @@ const Query = {
       .populate({
         path: "storestatus"
       })
+      .populate({
+        path: "beefroom"
+      })
+      .populate({
+        path: "shelf"
+      })
       .sort({ exportdate: "DESC"})
       if (args.beeftype){
         cursor.find({
@@ -604,6 +655,12 @@ const Query = {
       .populate({
         path: "storestatus"
       })
+      .populate({
+        path: "beefroom"
+      })
+      .populate({
+        path: "shelf"
+      })
       .sort({ importdate: "DESC"})
       if (args.beeftype){
         cursor.find({
@@ -657,6 +714,12 @@ const Query = {
       })
       .populate({
         path: "storestatus"
+      })
+      .populate({
+        path: "beefroom"
+      })
+      .populate({
+        path: "shelf"
       })
       .sort({ exportdate: "DESC"})
       if (args.beeftype){
@@ -825,8 +888,15 @@ const Query = {
         path: "beefroom"
       })
       return cursor
-    }
+    },
 
+    roomsearch: (parent, args, context, info) => {
+      const cursor = Beefroom.find({_id: args.id})
+      .populate({
+        path: "shelf",
+      })
+      return cursor
+    }
 
 };
 //5f0fdb4b02b40c2ab8506563

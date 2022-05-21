@@ -39,9 +39,6 @@ const Mutation = {
     const finduser = userId
     const username = await User.findById(finduser)
 
-    const room = await Beefroom.findById(args.beefroom)
-    
-    
     if (halve){
     const imhalve = await Imhalve.create({
         name: 'นำเข้า',
@@ -53,7 +50,7 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: statusIM,
-        beefroom: room.roomname
+        beefroom: args.beefroom
     });
 
     const store = await BeefStore.findById(args.beefstore);
@@ -95,6 +92,9 @@ const Mutation = {
     .populate({
         path: "storestatus",
     })
+    .populate({
+        path: "beefroom",
+    })
     /* .populate({
         path: "halve",
         populate: {path: "curing", populate: {path: "cureroom"}}
@@ -127,6 +127,8 @@ const Mutation = {
     const finduser = userId
     const username = await User.findById(finduser)
 
+    const room = exhalve.beefroom
+    
     if(halve){
         const imhalve = await Imhalve.create({
             name: 'นำออก',
@@ -144,6 +146,11 @@ const Mutation = {
     let result = await BeefStore.findByIdAndUpdate({
         _id:"6284d7035415c34e54b2fc2c"}, 
         {$pull: {imhalves : exhalve.id}})
+
+    let r = await Beefroom.findByIdAndUpdate({
+        _id: room },
+        {$pull: {halve : halve}})
+    
 
     let test = await Imhalve.findById(imhalve.id)
     .populate({
@@ -171,100 +178,16 @@ const Mutation = {
     .populate({
         path: "beeftypechange"
     })
+    .populate({
+        path: "beefroom",
+    })
+    .populate({
+        path: "shelf",
+    })
     
     return test
     }
 },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* exportHalve: async (parent, args, { userId }, info) => {
-    const { barcode, storestatus, beeftypechange } = args;
-
-    if (!barcode || !storestatus || !beeftypechange) {
-        throw new Error("Please provide all required fields.");
-      }
-    
-    const date = dayjs()
-    
-    const halve = await Imhalve.findOneAndUpdate(
-        {barcode: args.barcode,},
-        {storestatus: args.storestatus, beeftypechange: args.beeftypechange, exportdate: date}
-    );
-    
-
-    let result = await BeefStore.findByIdAndUpdate({
-        _id:"627f7c1f5a28733be04a760f"}, 
-        {$pull: {imhalves : halve.id}})
-    
-        
-        
-    {$pull: {rooms: {_id: "611efbb06986120738b4092f"}}}
-    
-    
-    
-    const updatedFinish = await Imhalve.findById(halve.id)
-    .populate({
-        path: "user",
-        populate: {path: "imhalves",}
-    })
-    .populate({
-        path: "halve",
-        populate: {path: "status"}
-    })
-    .populate({
-        path: "halve",    
-        populate: {path: "imslaughter",}
-    })
-    .populate({
-        path: "halve",
-        populate: {path: "beeftype"}
-    })
-    .populate({
-        path: "exportdate"
-    })
-    .populate({
-        path: "storestatus"
-    })
-    .populate({
-        path: "beeftypechange"
-    })
-    
-    
-
-    return updatedFinish
-
-
-
-
-
-} */
-
-
-
 
 
 };

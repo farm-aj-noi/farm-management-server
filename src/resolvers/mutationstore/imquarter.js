@@ -37,8 +37,6 @@ const Mutation = {
     const finduser = userId
     const username = await User.findById(finduser)
 
-    const room = await Beefroom.findById(args.beefroom)
-
     if (quarter){
     const imquarter = await Imquarter.create({
         name: 'นำเข้า',
@@ -50,7 +48,7 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: statusIM,
-        beefroom: room.roomname
+        beefroom: args.beefroom
     });
 
     const store = await BeefStore.findById(args.beefstore);
@@ -90,7 +88,9 @@ const Mutation = {
     .populate({
         path: "storestatus",
     })
-    //เหลือตำเเหน่งห้อง
+    .populate({
+        path: "beefroom",
+    })
     }
 },
 
@@ -117,6 +117,8 @@ const Mutation = {
     const finduser = userId
     const username = await User.findById(finduser)
 
+    const room = exquart.beefroom
+
     if(quarter){
         const imquarter = await Imquarter.create({
             name: 'นำออก',
@@ -134,6 +136,10 @@ const Mutation = {
     let result = await BeefStore.findByIdAndUpdate({
         _id:"6284d7035415c34e54b2fc2c"}, 
         {$pull: {imquarters : exquart.id}})
+
+    let r = await Beefroom.findByIdAndUpdate({
+        _id: room },
+        {$pull: {quarter : quarter}})
 
 
     let test = await Imquarter.findById(imquarter.id)
@@ -161,6 +167,12 @@ const Mutation = {
     })
     .populate({
         path: "beeftypechange"
+    })
+    .populate({
+        path: "beefroom",
+    })
+    .populate({
+        path: "shelf",
     })
 
     return test

@@ -149,6 +149,7 @@ showDayslaugh: [Dayslaugh]!
 
   liststore(
     beeftype: String
+    type: String
   ): [List]
   listentrail: [EntrailList]
 
@@ -238,6 +239,7 @@ showDayslaugh: [Dayslaugh]!
 
   allRoom:[Beefroom]
   listShelf(id: ID): [Shelf]
+  roomsearch(id: ID): [Beefroom]
 }
 
 type Mutation {
@@ -747,7 +749,7 @@ type Dayslaugh{
   id:ID!
   year: Int
   month: Int
-  weight : Float
+  weight: Float
 }
 type Disease {
   id: ID!
@@ -1022,8 +1024,7 @@ type Imhalve{
   name: String
   namefarmer: String
   userName: String
-  beefroom: String
-  
+  beefroom: Beefroom
 }
 
 type Imquarter{
@@ -1040,8 +1041,7 @@ type Imquarter{
   name: String
   namefarmer: String
   userName: String
-  beefroom: String
-  shelf: String
+  beefroom: Beefroom
 }
 
 type Imlump{
@@ -1058,8 +1058,8 @@ type Imlump{
   name: String
   namefarmer: String
   userName: String
-  beefroom: String
-  shelf: String
+  beefroom: Beefroom
+  shelf: Shelf
   basket: String
 }
 
@@ -1076,8 +1076,8 @@ type Imchop{
   name: String
   namefarmer: String
   userName: String
-  beefroom: String
-  shelf: String
+  beefroom: Beefroom
+  shelf: Shelf
   basket: String
 }
 
