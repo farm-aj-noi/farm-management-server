@@ -21,14 +21,16 @@ const imlumpSchema = new mongoose.Schema({
     userName: {
         type: String,
     },
-    beefroom: {
-        type: String
-    },
-    shelf: {
-        type: String
-    },
     basket: {
         type: String
+    },
+    beefroom: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Beefroom",
+    },
+    shelf: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Shelf",
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

@@ -41,10 +41,6 @@ const Mutation = {
 
     const finduser = userId
     const username = await User.findById(finduser)
-
-    const room = await Beefroom.findById(args.beefroom)
-
-    const shelf = await Shelf.findById(args.shelf)
     
     if (lump){
     const imlump = await Imlump.create({
@@ -57,8 +53,8 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: statusIM,
-        beefroom: room.roomname,
-        shelf: shelf.shelfname,
+        beefroom: args.beefroom,
+        shelf: args.shelf,
         basket: args.basket,
     });
     
@@ -101,6 +97,12 @@ const Mutation = {
     .populate({
         path: "storestatus",
     })
+    .populate({
+        path: "beefroom",
+    })
+    .populate({
+        path: "shelf",
+    })
     
     console.log(test)
     return test
@@ -114,7 +116,6 @@ const Mutation = {
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
     
-
     const date = dayjs()
 
     const lump = await Lump.findOne({
@@ -130,6 +131,8 @@ const Mutation = {
 
     const finduser = userId
     const username = await User.findById(finduser)
+
+    const room = exlump.beefroom
 
     if(lump){
         const imlump = await Imlump.create({
@@ -148,6 +151,10 @@ const Mutation = {
     let result = await BeefStore.findByIdAndUpdate({
         _id:"6284d7035415c34e54b2fc2c"}, 
         {$pull: {imlumps : exlump.id}})
+
+    let r = await Beefroom.findByIdAndUpdate({
+        _id: room },
+        {$pull: {lump : lump}})
 
     let test = await Imlump.findById(imlump.id)
     .populate({
@@ -174,6 +181,12 @@ const Mutation = {
     })
     .populate({
         path: "beeftypechange"
+    })
+    .populate({
+        path: "beefroom",
+    })
+    .populate({
+        path: "shelf",
     })
 
     return test   
