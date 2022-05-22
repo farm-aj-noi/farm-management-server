@@ -26,6 +26,9 @@ const Mutation = {
         }
  */
     const date = dayjs()
+    
+    //const test = await Imhalve.find( {name: "นำเข้า"} ).count()
+    
 
     const halve = await Halve.findOne({
         barcode: args.barcode,

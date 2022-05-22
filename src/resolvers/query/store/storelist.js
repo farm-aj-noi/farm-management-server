@@ -9,10 +9,8 @@ import Imchop from "../../../models/Beefstore/imchop";
 import Imentrail from "../../../models/Beefstore/imentrail";
 import EntrailStore from "../../../models/Beefstore/entrailstore";
 import Chill from "../../../models/Beefstore/chill";
-import Halve from "../../../models/halve";
 import Beefroom from "../../../models/Beefstore/beefroom";
 import Shelf from "../../../models/Beefstore/shelf";
-
 
 const Query = {
     liststore: async (parent, args, context, info) =>{
@@ -896,7 +894,12 @@ const Query = {
         path: "shelf",
       })
       return cursor
-    }
+    },
+
+    allhalve: (parent, args, context, info) => {
+      const cursor = Imhalve.find({})
+      return cursor
+    }, 
 
 };
 //5f0fdb4b02b40c2ab8506563
