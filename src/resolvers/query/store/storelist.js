@@ -885,19 +885,21 @@ const Query = {
     return cursor;
   },
 
-  allhalve: (parent, args, context, info) => {
-  /*   if (!args.barcode) {
+  allhalve: async (parent, args, context, info) => {
+    if (!args.barcode) {
       const cursor = null;
       return cursor;
-    } */
-   /*  if (args.barcode) { */
-      const cursor = Halve.findOne({
+    }
+    if (args.barcode) {
+      const cursor = await Halve.findOne({
         barcode: args.barcode,
-      });
+      })
+      .populate({
+        path: "user",
+        populate: { path: "halves" },
+      })
       return cursor;  
-    /* } */
-    /* const cursor = Halve.findOne({ barcode: args.barcode });
-    return cursor; */
+    } 
   },
 };
 //5f0fdb4b02b40c2ab8506563
