@@ -898,6 +898,10 @@ const Query = {
     },
 
     allhalve: (parent, args, context, info) => {
+      if (!args.code) {
+        const cursor = null;
+        return cursor;
+      }
       const cursor = Halve.find({barcode: args.barcode})
       return cursor
     }, 
