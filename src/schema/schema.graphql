@@ -241,7 +241,7 @@ showDayslaugh: [Dayslaugh]!
   listShelf(id: ID): [Shelf]
   roomsearch(id: ID): [Beefroom]
 
-  allhalve:[Imhalve]
+  allhalve:[Halve]
 }
 
 type Mutation {

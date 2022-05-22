@@ -11,6 +11,7 @@ import EntrailStore from "../../../models/Beefstore/entrailstore";
 import Chill from "../../../models/Beefstore/chill";
 import Beefroom from "../../../models/Beefstore/beefroom";
 import Shelf from "../../../models/Beefstore/shelf";
+import Halve from "../../../models/halve";
 
 const Query = {
     liststore: async (parent, args, context, info) =>{
@@ -897,7 +898,7 @@ const Query = {
     },
 
     allhalve: (parent, args, context, info) => {
-      const cursor = Imhalve.find({})
+      const cursor = Halve.find({})
       return cursor
     }, 
 
