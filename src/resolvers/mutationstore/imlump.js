@@ -165,10 +165,10 @@ const Mutation = {
     const room = exlump.beefroom
     const shelf = exlump.shelf
 
-    const find = await Imlump.findOne({barcode: args.barcode},{name: "นำออก"}).countDocuments() > 0
+    const find = await Imlump.findOne({barcode: args.barcode, name: "นำออก"}).countDocuments() > 0
     
     if (find){
-        throw new Error("เครื่องในนี้ถูกนำออกไปเเล้ว");
+        throw new Error("ก้อนเนื้อนี้ถูกนำออกไปเเล้ว");
     }
     
     if(lump){

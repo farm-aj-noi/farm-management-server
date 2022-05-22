@@ -142,10 +142,10 @@ const Mutation = {
 
     const room = exquart.beefroom
 
-    const find = await Imquarter.findOne({barcode: args.barcode},{name: "นำออก"}).countDocuments() > 0
+    const find = await Imquarter.findOne({barcode: args.barcode, name: "นำออก"}).countDocuments() > 0
     
     if (find){
-        throw new Error("เครื่องในนี้ถูกนำออกไปเเล้ว");
+        throw new Error("ซากโคสี่เสี้ยวนี้ถูกนำออกไปเเล้ว");
     }
 
     if(quarter){

@@ -165,7 +165,7 @@ const Mutation = {
 
     const room = exchop.beefroom
 
-    const find = await Imchop.findOne({barcode: args.barcode},{name: "นำออก"}).countDocuments() > 0
+    const find = await Imchop.findOne({barcode: args.barcode, name: "นำออก"}).countDocuments() > 0
     
     if (find){
         throw new Error("เครื่องในนี้ถูกนำออกไปเเล้ว");

@@ -116,7 +116,7 @@ const Mutation = {
 
     const room = exentrail.beefroom
 
-    const find = await Imentrail.findOne({barcode: args.barcode},{name: "นำออก"}).countDocuments() > 0
+    const find = await Imentrail.findOne({barcode: args.barcode, name: "นำออก"}).countDocuments() > 0
     
     if (find){
         throw new Error("เครื่องในนี้ถูกนำออกไปเเล้ว");

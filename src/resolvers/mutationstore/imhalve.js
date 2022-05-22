@@ -154,10 +154,10 @@ const Mutation = {
 
     const room = exhalve.beefroom
 
-    const find = await Imhalve.findOne({barcode: args.barcode},{name: "นำออก"}).countDocuments() > 0
+    const find = await Imhalve.findOne({barcode: args.barcode, name: "นำออก"}).countDocuments() > 0
     
     if (find){
-        throw new Error("เครื่องในนี้ถูกนำออกไปเเล้ว");
+        throw new Error("ซากโคผ่าเสี้ยวนี้ถูกนำออกไปเเล้ว");
     }
     
     if(halve){
