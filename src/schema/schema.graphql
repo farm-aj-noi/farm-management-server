@@ -1142,6 +1142,7 @@ type List {
   beefroom: String
   shelf: String
   basket: String
+  beeftypeid: String
 }
 
 type EntrailList{
