@@ -4,13 +4,14 @@ import dayjs from "dayjs";
 import EntrailStore from "../../models/Beefstore/entrailstore";
 import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
+import Beefroom from "../../models/Beefstore/beefroom";
 
 const Mutation = {
     createImentrail: async (parent, args, { userId }, info) => {
 
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.entrailstore){
+    if (!args.barcode || !args.entrailstore || !args.beefroom){
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
@@ -36,6 +37,7 @@ const Mutation = {
     const finduser = userId
     const username = await User.findById(finduser)
 
+
     if (entrail){
     const imentrail = await Imentrail.create({
         name: 'นำเข้า',
@@ -46,7 +48,7 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: statusIM,
-        
+        beefroom: args.beefroom
     });
     
     const store = await EntrailStore.findById(args.entrailstore);
@@ -56,6 +58,14 @@ const Mutation = {
         store.imentrails.push(imentrail);
     }
     await store.save();
+
+    const rooms = await Beefroom.findById(args.beefroom);
+    if (!rooms.entrail) {
+        rooms.entrail = [entrail];
+    } else  {
+        rooms.entrail.push(entrail);
+    }
+    await rooms.save();
 
     let test = await Imentrail.findById(imentrail.id)
     .populate({
@@ -72,6 +82,9 @@ const Mutation = {
     .populate({
         path: "storestatus",
     })
+    .populate({
+        path: "beefroom",
+    })
     console.log(test)
     return test
     
@@ -85,7 +98,6 @@ const Mutation = {
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
     
-
     const date = dayjs()
 
     const entrail = await Entrail.findOne({
@@ -101,6 +113,14 @@ const Mutation = {
 
     const finduser = userId
     const username = await User.findById(finduser)
+
+    const room = exentrail.beefroom
+
+    const find = await Imentrail.findOne({barcode: args.barcode},{name: "นำออก"}).countDocuments() > 0
+    
+    if (find){
+        throw new Error("เครื่องในนี้ถูกนำออกไปเเล้ว");
+    }
 
     if(entrail){
         const imentrail = await Imentrail.create({
@@ -118,6 +138,10 @@ const Mutation = {
         _id:"62837e7631ace600dc6caa23"}, 
         {$pull: {imentrails : exentrail.id}})
 
+    let r = await Beefroom.findByIdAndUpdate({
+        _id: room },
+        {$pull: {entrail : entrail}})
+
     let test = await Imentrail.findById(imentrail.id)
     .populate({
         path: "user",
@@ -129,6 +153,9 @@ const Mutation = {
     })
     .populate({
         path: "storestatus",
+    })
+    .populate({
+        path: "beefroom",
     })
 
     return test

@@ -43,16 +43,16 @@ const Mutation = {
     const finduser = userId
     const username = await User.findById(finduser)
 
-    const test = await Shelf.findById(args.shelf)
-    const y = test.typekeep
-    const totallump = test.lump
+    const shelfs = await Shelf.findById(args.shelf)
+    const y = shelfs.typekeep
+    const totallump = shelfs.lump
 
-    const ee = await Typekeep.findById(y)
-    const findtype = ee.beeftype.toString()
+    const typekeeps = await Typekeep.findById(y)
+    const findtype = typekeeps.beeftype.toString()
     
     const type = lump.beeftype.toString()
 
-    const totalbeef = ee.totalbeef.toString()
+    const totalbeef = typekeeps.totalbeef.toString()
 
     const isRoomEmpty = totallump.length == totalbeef
     
@@ -164,6 +164,12 @@ const Mutation = {
 
     const room = exlump.beefroom
     const shelf = exlump.shelf
+
+    const find = await Imlump.findOne({barcode: args.barcode},{name: "นำออก"}).countDocuments() > 0
+    
+    if (find){
+        throw new Error("เครื่องในนี้ถูกนำออกไปเเล้ว");
+    }
     
     if(lump){
         const imlump = await Imlump.create({

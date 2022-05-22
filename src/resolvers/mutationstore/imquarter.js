@@ -4,6 +4,8 @@ import dayjs from "dayjs";
 import BeefStore from "../../models/Beefstore/beefstore";
 import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
+import Beefroom from "../../models/Beefstore/beefroom";
+import Typekeep from "../../models/Beefstore/typekeep";
 
 const Mutation = {
     createImQuarter: async (parent, args, { userId }, info) => {
@@ -36,6 +38,27 @@ const Mutation = {
 
     const finduser = userId
     const username = await User.findById(finduser)
+
+    const room = await Beefroom.findById(args.beefroom)
+    const y = room.typekeep
+    const totalquarter = room.quarter
+
+    const typekeeps = await Typekeep.findById(y)
+    const findtype = typekeeps.beeftype.toString()
+
+    const type = quarter.beeftype.toString()
+
+    const totalbeef = typekeeps.totalbeef.toString()
+
+    const isRoomEmpty = totalquarter.length == totalbeef
+
+    if(isRoomEmpty){
+        throw new Error ("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
+    }
+
+    if (type !== findtype){
+        throw new Error ("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
+    }
 
     if (quarter){
     const imquarter = await Imquarter.create({
@@ -118,6 +141,12 @@ const Mutation = {
     const username = await User.findById(finduser)
 
     const room = exquart.beefroom
+
+    const find = await Imquarter.findOne({barcode: args.barcode},{name: "นำออก"}).countDocuments() > 0
+    
+    if (find){
+        throw new Error("เครื่องในนี้ถูกนำออกไปเเล้ว");
+    }
 
     if(quarter){
         const imquarter = await Imquarter.create({

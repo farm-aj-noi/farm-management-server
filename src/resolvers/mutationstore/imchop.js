@@ -4,6 +4,9 @@ import dayjs from "dayjs";
 import BeefStore from "../../models/Beefstore/beefstore";
 import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
+import Beefroom from "../../models/Beefstore/beefroom";
+import Shelf from "../../models/Beefstore/shelf";
+import Typekeep from "../../models/Beefstore/typekeep";
 
 const Mutation = {
     createImchop: async (parent, args, { userId }, info) => {
@@ -39,6 +42,27 @@ const Mutation = {
 
     const finduser = userId
     const username = await User.findById(finduser)
+    
+    const shelfs = await Shelf.findById(args.shelf)
+    const y = shelfs.typekeep
+    const totalchop = shelfs.chop
+
+    const typekeeps = await Typekeep.findById(y)
+    const findtype = typekeeps.beeftype.toString()
+    
+    const type = chop.beeftype.toString()
+
+    const totalbeef = typekeeps.totalbeef.toString()
+
+    const isRoomEmpty = totalchop.length == totalbeef
+    
+    if(isRoomEmpty){
+        throw new Error ("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
+    }
+
+    if (type !== findtype){
+        throw new Error ("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
+    }
 
     if (chop){
     const imchop = await Imchop.create({
@@ -71,6 +95,14 @@ const Mutation = {
         rooms.chop.push(chop);
     }
     await rooms.save();
+
+    const shelfs = await Shelf.findById(args.shelf);
+    if (!shelfs.chop) {
+        shelfs.chop = [chop];
+    } else  {
+        shelfs.chop.push(chop);
+    }
+    await shelfs.save();
 
     let test = await Imchop.findById(imchop.id)
     .populate({
@@ -132,6 +164,12 @@ const Mutation = {
     const username = await User.findById(finduser)
 
     const room = exchop.beefroom
+
+    const find = await Imchop.findOne({barcode: args.barcode},{name: "นำออก"}).countDocuments() > 0
+    
+    if (find){
+        throw new Error("เครื่องในนี้ถูกนำออกไปเเล้ว");
+    }
 
     if(chop){
         const imchop = await Imchop.create({

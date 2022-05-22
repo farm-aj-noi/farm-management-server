@@ -5,6 +5,8 @@ import BeefStore from "../../models/Beefstore/beefstore";
 import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
 import Beefroom from "../../models/Beefstore/beefroom";
+import Typekeep from "../../models/Beefstore/typekeep";
+
 
 
 
@@ -29,7 +31,6 @@ const Mutation = {
     
     //const test = await Imhalve.find( {name: "นำเข้า"} ).count()
     
-
     const halve = await Halve.findOne({
         barcode: args.barcode,
     });
@@ -41,6 +42,27 @@ const Mutation = {
 
     const finduser = userId
     const username = await User.findById(finduser)
+
+    const room = await Beefroom.findById(args.beefroom)
+    const y = room.typekeep
+    const totalhalve = room.halve
+
+    const typekeeps = await Typekeep.findById(y)
+    const findtype = typekeeps.beeftype.toString()
+
+    const type = halve.beeftype.toString()
+
+    const totalbeef = typekeeps.totalbeef.toString()
+
+    const isRoomEmpty = totalhalve.length == totalbeef
+
+    if(isRoomEmpty){
+        throw new Error ("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
+    }
+
+    if (type !== findtype){
+        throw new Error ("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
+    }
 
     if (halve){
     const imhalve = await Imhalve.create({
@@ -131,6 +153,12 @@ const Mutation = {
     const username = await User.findById(finduser)
 
     const room = exhalve.beefroom
+
+    const find = await Imhalve.findOne({barcode: args.barcode},{name: "นำออก"}).countDocuments() > 0
+    
+    if (find){
+        throw new Error("เครื่องในนี้ถูกนำออกไปเเล้ว");
+    }
     
     if(halve){
         const imhalve = await Imhalve.create({

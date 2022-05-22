@@ -208,6 +208,10 @@ const Query = {
       .populate({
         path: "imentrails",
         populate: { path: "entrail", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "imentrails",
+        populate: { path: "beefroom" },
       });
 
     var returnData = [];
@@ -229,6 +233,7 @@ const Query = {
         tail: item.entrail.tail,
         gallbladder: item.entrail.gallbladder,
         scrap: item.entrail.scrap,
+        beefroom: item.beefroom.roomname,
       };
       returnData.push(data);
     }

@@ -23,22 +23,28 @@ const BeefroomSchema = new mongoose.Schema({
           ref: "Halve",
         }
       ],
-      quarter: [
+    quarter: [
         {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Quarter",
         }
       ],
-      lump: [
+    lump: [
         {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Lump",
         }
       ],
-      chop: [
+    chop: [
         {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Chop",
+        }
+      ],
+    entrail: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Entrail",
         }
       ],
 })

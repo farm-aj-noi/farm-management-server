@@ -510,7 +510,7 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
   createImQuarter(barcode: String!, beefstore: String!, beefroom: String!, ): Imquarter
   createImlump(barcode: String!, beefstore: String!, beefroom: String!, shelf:String, basket: String): Imlump
   createImchop(barcode: String!, beefstore: String!, beefroom: String!,shelf:String, basket: String): Imchop
-  createImentrail(barcode: String!, entrailstore: String!): Imentrail
+  createImentrail(barcode: String!, entrailstore: String!, beefroom: String!): Imentrail
 
   createBeefStore: BeefStore
   createEntrailStore: EntrailStore
@@ -1095,6 +1095,7 @@ type Imentrail{
   name: String
   namefarmer: String
   userName: String
+  beefroom: Beefroom
 }
 
 type Chill{
@@ -1161,6 +1162,7 @@ type EntrailList{
   tail: String
   gallbladder: String
   scrap: String
+  beefroom: String
 }
 
 type importList {
@@ -1199,6 +1201,7 @@ type Beefroom{
   quarter: [Quarter]
   lump: [Lump]
   chop: [Chop]
+  entrail: [Entrail]
 }
 
 type Shelf{

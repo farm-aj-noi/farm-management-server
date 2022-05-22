@@ -21,6 +21,10 @@ const imentrailSchema = new mongoose.Schema({
     userName: {
         type: String,
     },
+    beefroom: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Beefroom",
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
