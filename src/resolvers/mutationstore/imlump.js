@@ -45,12 +45,23 @@ const Mutation = {
 
     const test = await Shelf.findById(args.shelf)
     const y = test.typekeep
+    const totallump = test.lump
 
     const ee = await Typekeep.findById(y)
-    const findtype = ee.beeftype
+    const findtype = ee.beeftype.toString()
+    
+    const type = lump.beeftype.toString()
 
-    if (lump.beeftype !== findtype){
-        throw new Error ("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง")
+    const totalbeef = ee.totalbeef.toString()
+
+    const isRoomEmpty = totallump.length == totalbeef
+    
+    if(isRoomEmpty){
+        throw new Error ("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
+    }
+
+    if (type !== findtype){
+        throw new Error ("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
     }
     
     if (lump){
