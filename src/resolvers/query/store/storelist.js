@@ -898,7 +898,7 @@ const Query = {
     },
 
     allhalve: (parent, args, context, info) => {
-      const cursor = Halve.find({})
+      const cursor = Halve.find({barcode: args.barcode})
       return cursor
     }, 
 

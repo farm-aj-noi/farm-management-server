@@ -241,7 +241,7 @@ showDayslaugh: [Dayslaugh]!
   listShelf(id: ID): [Shelf]
   roomsearch(id: ID): [Beefroom]
 
-  allhalve:[Halve]
+  allhalve(barcode: String):[Halve]
 }
 
 type Mutation {
@@ -1194,10 +1194,10 @@ type Beefroom{
   typekeep: [Typekeep]
   roomstatus: Status
   shelf: [Shelf]
-  halves: [Halve]
-  quarters: [Quarter]
-  lumps: [Lump]
-  chops: [Chop]
+  halve: [Halve]
+  quarter: [Quarter]
+  lump: [Lump]
+  chop: [Chop]
 }
 
 type Shelf{
@@ -1205,6 +1205,8 @@ type Shelf{
   shelfname: String
   beefroom: Beefroom
   typekeep: [Typekeep]
+  lump: [Lump]
+  chop: [Chop]
 }
 
 type Typekeep{

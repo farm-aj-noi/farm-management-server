@@ -6,6 +6,7 @@ import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
 import Beefroom from "../../models/Beefstore/beefroom";
 import Shelf from "../../models/Beefstore/shelf";
+import Typekeep from "../../models/Beefstore/typekeep";
 
 const Mutation = {
     createImlump: async (parent, args, { userId }, info) => {
@@ -41,6 +42,16 @@ const Mutation = {
 
     const finduser = userId
     const username = await User.findById(finduser)
+
+    const test = await Shelf.findById(args.shelf)
+    const y = test.typekeep
+
+    const ee = await Typekeep.findById(y)
+    const findtype = ee.beeftype
+
+    if (lump.beeftype !== findtype){
+        throw new Error ("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง")
+    }
     
     if (lump){
     const imlump = await Imlump.create({
@@ -73,6 +84,14 @@ const Mutation = {
         rooms.lump.push(lump);
     }
     await rooms.save();
+
+    const shelfs = await Shelf.findById(args.shelf);
+    if (!shelfs.lump) {
+        shelfs.lump = [lump];
+    } else  {
+        shelfs.lump.push(lump);
+    }
+    await shelfs.save();
 
     let test = await Imlump.findById(imlump.id)
     .populate({
@@ -133,7 +152,8 @@ const Mutation = {
     const username = await User.findById(finduser)
 
     const room = exlump.beefroom
-
+    const shelf = exlump.shelf
+    
     if(lump){
         const imlump = await Imlump.create({
             name: 'นำออก',
@@ -154,6 +174,10 @@ const Mutation = {
 
     let r = await Beefroom.findByIdAndUpdate({
         _id: room },
+        {$pull: {lump : lump}})
+
+    let s = await Shelf.findByIdAndUpdate({
+        _id:  shelf},
         {$pull: {lump : lump}})
 
     let test = await Imlump.findById(imlump.id)

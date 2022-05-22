@@ -12,6 +12,18 @@ const ShelfSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Beefroom",
     },
+    lump: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Lump",
+        }
+      ],
+    chop: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Chop",
+        }
+      ],
 
 
 })
