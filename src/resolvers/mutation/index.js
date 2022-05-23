@@ -31,6 +31,7 @@ import entrailstore from '../mutationstore/entrailstore'
 import requestexport from '../mutationstore/requestexport'
 import typekeep from '../mutationstore/typekeep'
 import shelf from '../mutationstore/shelf'
+import Chillday from '../mutationstore/chillday'
 
 export default _.merge(
     allin,
@@ -66,4 +67,5 @@ export default _.merge(
     requestexport,
     typekeep,
     shelf,
+    Chillday,
 )

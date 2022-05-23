@@ -1,15 +1,20 @@
 import mongoose from "mongoose";
 
 const chillSchema = new mongoose.Schema({
-    chilldate : {
+    chilldateStart : {
         type : Date,
     },
-    chillday: {
-        type : String,
+    chilldateEnd : {
+        type : Date,
     },
     barcode: {
         type : String,
     },
+    chillday: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Chillday",
+    },
+    
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

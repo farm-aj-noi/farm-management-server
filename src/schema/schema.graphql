@@ -521,6 +521,10 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     chillday: String
   ): Chill
 
+  updateChillday(
+    id: ID
+  ): Chill
+
   creatChillroom(
     roomnum: String
   ): Chillroom
@@ -571,6 +575,8 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     beefroom: String
     shelf: String
   ): Typekeep
+
+  createChillday(day: String): Chillday
 }
 
 scalar Date
@@ -1100,19 +1106,25 @@ type Imentrail{
 
 type Chill{
   id: ID
-  chilldate: Date
-  chillday: String
+  chilldateStart: Date
+  chilldateEnd: Date
   chillroom: Chillroom
   user: User
   halve: Halve
   barcode: String
   storestatus: Status
   beeftype: Beeftype
+  chillday: Chillday
 }
 
 type Chillroom{
   id: ID
   roomnum: String
+}
+
+type Chillday{
+  id: ID
+  day: String
 }
 
 
