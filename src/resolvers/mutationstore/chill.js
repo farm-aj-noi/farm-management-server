@@ -24,7 +24,7 @@ const Mutation = {
     
     const statusCh = "6284ad73fbfac22364a6e430"
 
-    const dateEnd = dayjs().startOf("h").add(chillday, "day").toISOString();
+    const dateEnd = dayjs().add(chillday, "day").toISOString();
 
     /* let result = await Imhalve.findOneAndUpdate({
         barcode: args.barcode},
