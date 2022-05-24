@@ -84,24 +84,25 @@ const Mutation = {
 
         if (!userId) throw new Error("Please log in.");
 
-        const chill = await Chill.findById(id);
-
-        const dateEnd = chill.chilldateEnd
+        //const chill = await Chill.findById(id);
+        
+        /* const dateEnd = chill.chilldateEnd
         const chillenddate = (dayjs(dateEnd).format("YYYYMMDD").toString())
 
         const checkdate =  (dayjs().format("YYYYMMDD").toString());
         
-        const checkchilldate =  checkdate >= chillenddate
-      
-        if(checkchilldate){
+        const checkchilldate =  checkdate >= chillenddate */
+        
+        const statusCh = "6284ad91fbfac22364a6e431";
+
+        await Chill.findByIdAndUpdate(id, {chillstatus: statusCh} );
+        /* f(checkchilldate){
             const statusCh = "6284ad91fbfac22364a6e431";
-            const updateInfo = {
-                chillstatus: !!statusCh? statusCh: chill.chillstatus,
-            };
-            await Chill.findByIdAndUpdate(id, updateInfo);
+
+            await Chill.findByIdAndUpdate(id, {chillstatus: statusCh} );
         }else {
             throw new Error("ซากโคผ่าซีกกำลังบ่ม")
-        }
+        } */
         const updatedFinish = await Chill.findById(id)
         .populate({
             path: "chillstatus"
