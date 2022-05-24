@@ -9,7 +9,6 @@ const Mutation = {
     createChill: async (parent, args, { userId }, info) => {
         if (!userId) throw new Error("Please log in.");
         
-
     if (!args.barcode || !args.chillroom || !args.chillday) {
         throw new Error("Please provide all required fields.");
     }   
@@ -27,10 +26,11 @@ const Mutation = {
 
     const dateEnd = dayjs().startOf("h").add(chillday, "day").toISOString();
 
-    
+    /* let result = await Imhalve.findOneAndUpdate({
+        barcode: args.barcode},
+        {storestatus: statusCh }) */
 
-
-    //await Imhalve.findOneAndUpdate({barcode: args.barcode},{storestatus : statusCh})
+        //await Imhalve.findOneAndUpdate({barcode: args.barcode},{storestatus : statusCh})
 
     const chill = await Chill.create({
         halve: halve,
@@ -41,8 +41,16 @@ const Mutation = {
         chillday: find,
         user: userId,
         barcode: args.barcode,
-        storestatus: statusCh
+        chillstatus: statusCh
     });
+
+    const halves = await Halve.findById(halve.id);
+    if(!halves.chill){
+        halves.chill = [chill];
+    } else {
+        halves.chill.push(chill);
+    }
+    await halves.save();
 
 
     let test = Chill.findById(chill.id)
@@ -62,7 +70,7 @@ const Mutation = {
         path: "chillroom"
     })
     .populate({
-        path: "storestatus",
+        path: "chillstatus",
     })
     .populate({
         path: "chillday",
@@ -88,7 +96,7 @@ const Mutation = {
         if(checkchilldate){
             const statusCh = "6284ad91fbfac22364a6e431";
             const updateInfo = {
-                storestatus: !!statusCh? statusCh: chill.storestatus,
+                chillstatus: !!statusCh? statusCh: chill.chillstatus,
             };
             await Chill.findByIdAndUpdate(id, updateInfo);
         }else {
@@ -96,7 +104,7 @@ const Mutation = {
         }
         const updatedFinish = await Chill.findById(id)
         .populate({
-            path: "storestatus"
+            path: "chillstatus"
         })
 
         return updatedFinish;

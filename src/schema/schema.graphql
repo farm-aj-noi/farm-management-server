@@ -246,6 +246,8 @@ showDayslaugh: [Dayslaugh]!
   listRequestEx: [RequestExport]
 
   listChillday:[Chillday]
+
+  test2: [Halve]
 }
 
 type Mutation {
@@ -905,7 +907,7 @@ type Halve {
   beeftype: Beeftype!
   quarters: [Quarter]
   transports: [Transport] 
-  chill: Chill
+  chill: [Chill]
 }
 
 type Quarter {
@@ -1128,7 +1130,7 @@ type Chill{
   user: User
   halve: Halve
   barcode: String
-  storestatus: Status
+  chillstatus: Status
   beeftype: Beeftype
   chillday: Chillday
 }
@@ -1239,6 +1241,11 @@ type Shelf{
   typekeep: [Typekeep]
   lump: [Lump]
   chop: [Chop]
+}
+
+type basket{
+  id: ID!
+  basketname: String
 }
 
 type Typekeep{

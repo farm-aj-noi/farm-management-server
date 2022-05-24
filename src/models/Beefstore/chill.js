@@ -26,7 +26,7 @@ const chillSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Halve",
     },
-    storestatus: {
+    chillstatus: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Status",
     },

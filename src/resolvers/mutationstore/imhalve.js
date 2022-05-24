@@ -115,6 +115,10 @@ const Mutation = {
         populate: {path: "beeftype"}
     })
     .populate({
+        path: "halve",
+        populate: {path: "chill", populate: {path: "chillstatus"}}
+    })
+    .populate({
         path: "beeftype",
     })
     .populate({

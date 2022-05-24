@@ -850,7 +850,7 @@ const Query = {
 
   listchill: async (parent, args, context, info) => {
     const cursor = Chill.find({
-      storestatus: "6284ad73fbfac22364a6e430",
+      
     })
       .populate({
         path: "user",
@@ -864,7 +864,7 @@ const Query = {
         populate: { path: "imslaughter" },
       })
       .populate({
-        path: "storestatus",
+        path: "chillstatus",
       })
       .populate({
         path: "chillroom",
@@ -872,6 +872,7 @@ const Query = {
       .populate({
         path: "chillday"
       })
+
       .sort({ chilldate: "DESC" });
     if (args.beeftype) {
       cursor.find({
@@ -937,6 +938,20 @@ const Query = {
     const cursor = Chillday.find({})
     return cursor
   },
+
+  test2: async (parent, args, context, info) => {
+    const cursor = Halve.find({})
+    .populate({
+      path: "chill",
+    })
+    .populate({
+      path: "chill",
+      populate: {path: "chillstatus"}
+    })
+    return cursor
+  },
+
+  
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;
