@@ -853,6 +853,9 @@ const Query = {
       .populate({
         path: "chillroom",
       })
+      .populate({
+        path: "chillday"
+      })
       .sort({ chilldate: "DESC" });
     if (args.beeftype) {
       cursor.find({
