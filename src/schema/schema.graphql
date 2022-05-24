@@ -537,28 +537,33 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     barcode: String
     storestatus: String
     beeftypechange: String
+    exporter:String
   ): Imhalve
 
   createExportq(
     barcode: String
     storestatus: String
     beeftypechange: String
+    exporter:String
   ): Imquarter
 
   createExportl(
     barcode: String
     storestatus: String
     beeftypechange: String
+    exporter:String
   ): Imlump
 
   createExportc(
     barcode: String
     storestatus: String
+    exporter:String
   ): Imchop
 
   createExporte(
     barcode: String
     storestatus: String
+    exporter:String
   ): Imentrail
 
   createRequestExport(name: String, beeftype:String, quantity:String): RequestExport
@@ -1039,6 +1044,7 @@ type Imhalve{
   namefarmer: String
   userName: String
   beefroom: Beefroom
+  exporter: RequestExport
 }
 
 type Imquarter{
@@ -1056,6 +1062,7 @@ type Imquarter{
   namefarmer: String
   userName: String
   beefroom: Beefroom
+  exporter: RequestExport
 }
 
 type Imlump{
@@ -1075,6 +1082,7 @@ type Imlump{
   beefroom: Beefroom
   shelf: Shelf
   basket: String
+  exporter: RequestExport
 }
 
 type Imchop{
@@ -1093,6 +1101,7 @@ type Imchop{
   beefroom: Beefroom
   shelf: Shelf
   basket: String
+  exporter: RequestExport
 }
 
 type Imentrail{
@@ -1108,6 +1117,7 @@ type Imentrail{
   namefarmer: String
   userName: String
   beefroom: Beefroom
+  exporter: RequestExport
 }
 
 type Chill{

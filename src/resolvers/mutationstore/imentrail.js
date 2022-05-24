@@ -5,6 +5,7 @@ import EntrailStore from "../../models/Beefstore/entrailstore";
 import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
 import Beefroom from "../../models/Beefstore/beefroom";
+import RequestExport from "../../models/Beefstore/requestexport";
 
 const Mutation = {
     createImentrail: async (parent, args, { userId }, info) => {
@@ -94,8 +95,8 @@ const Mutation = {
     createExporte: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.storestatus){
-        throw new Error("กรุณากรอกบาร์โค้ด");
+    if (!args.barcode || !args.storestatus || !args.exporter){
+        throw new Error("กรุณากรอกข้อมูลให้ครบ");
     }
     
     const date = dayjs()
@@ -107,6 +108,8 @@ const Mutation = {
     const exentrail = await Imentrail.findOne({
         barcode: args.barcode,
     });
+
+    const exporter = await RequestExport.findById(args.exporter)
 
     const findfarmer = entrail.imslaughter
     const farmerName = await Imslaughter.findById(findfarmer)
@@ -132,6 +135,7 @@ const Mutation = {
             namefarmer: farmerName.namefarmer,
             userName: username.name,
             storestatus: args.storestatus,
+            exporter: exporter,
         });
     
     let result = await EntrailStore.findByIdAndUpdate({
@@ -156,6 +160,9 @@ const Mutation = {
     })
     .populate({
         path: "beefroom",
+    })
+    .populate({
+        path: "exporter",
     })
 
     return test

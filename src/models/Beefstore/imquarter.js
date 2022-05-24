@@ -45,6 +45,10 @@ const imquarterSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Beeftype",
     },
+    exporter: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "RequestExport",
+    },
 
 
 })

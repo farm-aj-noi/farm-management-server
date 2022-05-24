@@ -37,6 +37,10 @@ const imentrailSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Status",
     },
+    exporter: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "RequestExport",
+    },
     
     
      

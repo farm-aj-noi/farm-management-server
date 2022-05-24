@@ -6,6 +6,7 @@ import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
 import Beefroom from "../../models/Beefstore/beefroom";
 import Typekeep from "../../models/Beefstore/typekeep";
+import RequestExport from "../../models/Beefstore/requestexport";
 
 const Mutation = {
     createImQuarter: async (parent, args, { userId }, info) => {
@@ -16,13 +17,13 @@ const Mutation = {
         throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
-    const currentRoom = await Imquarter.find();
+    /* const currentRoom = await Imquarter.find();
         const isRoomExist = 
             currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
             
         if (isRoomExist) {
             throw new Error("บาร์โค้ดของคุณซ้ำ");
-        } 
+        }  */
 
     const date = dayjs()
 
@@ -43,17 +44,19 @@ const Mutation = {
     const y = room.typekeep
     const totalquarter = room.quarter
 
-    const typekeeps = await Typekeep.findById(y)
-    const findtype = typekeeps.beeftype.toString()
-
     const type = quarter.beeftype.toString()
 
-    const totalbeef = typekeeps.totalbeef.toString()
+    const typebeef = await Typekeep.findOne({_id: y ,beeftype: type })
+    
+    const findtype = typebeef.beeftype.toString()
+
+    const totalbeef = typebeef.totalbeef.toString()
 
     const isRoomEmpty = totalquarter.length == totalbeef
-
+    
+    
     if(isRoomEmpty){
-        throw new Error ("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
+        throw new Error ("ห้องของคุณเต็มกรุณาเพิ่มประเภทจัดเก็บ");
     }
 
     if (type !== findtype){
@@ -120,8 +123,8 @@ const Mutation = {
     createExportq: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.storestatus || !args.beeftypechange){
-        throw new Error("กรุณากรอกบาร์โค้ด");
+    if (!args.barcode || !args.storestatus || !args.exporter){
+        throw new Error("กรุณากรอกข้อมูลให้ครบ");
     }
     
     const date = dayjs()
@@ -133,6 +136,8 @@ const Mutation = {
     const exquart = await Imquarter.findOne({
         barcode: args.barcode,
     });
+
+    const exporter = await RequestExport.findById(args.exporter)
 
     const findfarmer = quarter.imslaughter
     const farmerName = await Imslaughter.findById(findfarmer)
@@ -160,6 +165,7 @@ const Mutation = {
             namefarmer: farmerName.namefarmer,
             userName: username.name,
             storestatus: args.storestatus,
+            exporter: exporter,
         });
     
     let result = await BeefStore.findByIdAndUpdate({
@@ -202,6 +208,9 @@ const Mutation = {
     })
     .populate({
         path: "shelf",
+    })
+    .populate({
+        path: "exporter",
     })
 
     return test

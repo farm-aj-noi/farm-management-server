@@ -7,6 +7,7 @@ import User from "../../models/user";
 import Beefroom from "../../models/Beefstore/beefroom";
 import Shelf from "../../models/Beefstore/shelf";
 import Typekeep from "../../models/Beefstore/typekeep";
+import RequestExport from "../../models/Beefstore/requestexport";
 
 const Mutation = {
     createImlump: async (parent, args, { userId }, info) => {
@@ -47,12 +48,13 @@ const Mutation = {
     const y = shelfs.typekeep
     const totallump = shelfs.lump
 
-    const typekeeps = await Typekeep.findById(y)
-    const findtype = typekeeps.beeftype.toString()
-    
     const type = lump.beeftype.toString()
 
-    const totalbeef = typekeeps.totalbeef.toString()
+    const typebeef = await Typekeep.findOne({_id: y ,beeftype: type })
+    
+    const findtype = typebeef.beeftype.toString()
+
+    const totalbeef = typebeef.totalbeef.toString()
 
     const isRoomEmpty = totallump.length == totalbeef
     
@@ -142,8 +144,8 @@ const Mutation = {
     createExportl: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.storestatus || !args.beeftypechange){
-        throw new Error("กรุณากรอกบาร์โค้ด");
+    if (!args.barcode || !args.storestatus || !args.exporter){
+        throw new Error("กรุณากรอกข้อมูลให้ครบ");
     }
     
     const date = dayjs()
@@ -155,6 +157,8 @@ const Mutation = {
     const exlump = await Imlump.findOne({
         barcode: args.barcode,
     });
+
+    const exporter = await RequestExport.findById(args.exporter)
 
     const findfarmer = lump.imslaughter
     const farmerName = await Imslaughter.findById(findfarmer)
@@ -183,6 +187,7 @@ const Mutation = {
             namefarmer: farmerName.namefarmer,
             userName: username.name,
             storestatus: args.storestatus,
+            exporter: exporter,
         });
 
     let result = await BeefStore.findByIdAndUpdate({
@@ -228,6 +233,9 @@ const Mutation = {
     })
     .populate({
         path: "shelf",
+    })
+    .populate({
+        path: "exporter",
     })
 
     return test   

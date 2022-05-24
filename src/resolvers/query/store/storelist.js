@@ -344,6 +344,7 @@ const Query = {
       .populate({
         path: "beefroom",
       })
+      
       .sort({ importdate: "DESC" });
     if (args.beeftype) {
       cursor.find({
@@ -408,6 +409,9 @@ const Query = {
       .populate({
         path: "beefroom",
       })
+      .populate({
+        path: "exporter",
+      })
 
       /* .populate({
         path: "halve",
@@ -471,6 +475,9 @@ const Query = {
       })
       .populate({
         path: "beefroom",
+      })
+      .populate({
+        path: "exporter",
       })
       .sort({ exportdate: "DESC" });
     if (args.beeftype) {
@@ -598,6 +605,9 @@ const Query = {
       .populate({
         path: "shelf",
       })
+      .populate({
+        path: "exporter",
+      })
       .sort({ exportdate: "DESC" });
     if (args.beeftype) {
       cursor.find({
@@ -718,6 +728,9 @@ const Query = {
       .populate({
         path: "shelf",
       })
+      .populate({
+        path: "exporter",
+      })
       .sort({ exportdate: "DESC" });
     if (args.beeftype) {
       cursor.find({
@@ -803,6 +816,9 @@ const Query = {
       })
       .populate({
         path: "storestatus",
+      })
+      .populate({
+        path: "exporter",
       })
       .sort({ exportdate: "DESC" });
     if (args.beeftype) {

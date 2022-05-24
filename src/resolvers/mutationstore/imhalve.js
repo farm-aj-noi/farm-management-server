@@ -6,6 +6,7 @@ import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
 import Beefroom from "../../models/Beefstore/beefroom";
 import Typekeep from "../../models/Beefstore/typekeep";
+import RequestExport from "../../models/Beefstore/requestexport";
 
 
 
@@ -47,17 +48,19 @@ const Mutation = {
     const y = room.typekeep
     const totalhalve = room.halve
 
-    const typekeeps = await Typekeep.findById(y)
-    const findtype = typekeeps.beeftype.toString()
-
     const type = halve.beeftype.toString()
 
-    const totalbeef = typekeeps.totalbeef.toString()
+    const typebeef = await Typekeep.findOne({_id: y ,beeftype: type })
+    
+    const findtype = typebeef.beeftype.toString()
+
+    const totalbeef = typebeef.totalbeef.toString()
 
     const isRoomEmpty = totalhalve.length == totalbeef
+    
 
     if(isRoomEmpty){
-        throw new Error ("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
+        throw new Error ("ห้องของคุณเต็มกรุณาเพิ่มประเภทจัดเก็บ");
     }
 
     if (type !== findtype){
@@ -120,10 +123,7 @@ const Mutation = {
     .populate({
         path: "beefroom",
     })
-    /* .populate({
-        path: "halve",
-        populate: {path: "curing", populate: {path: "cureroom"}}
-    }) */
+    
     console.log(test)
     return test
     }
@@ -132,8 +132,8 @@ const Mutation = {
     createExporth: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.storestatus || !args.beeftypechange){
-        throw new Error("กรุณากรอกบาร์โค้ด");
+    if (!args.barcode || !args.storestatus || !args.exporter){
+        throw new Error("กรุณากรอกข้อมูลให้ครบ");
     }
 
     const date = dayjs()
@@ -146,6 +146,8 @@ const Mutation = {
         barcode: args.barcode,
     });
 
+    const exporter = await RequestExport.findById(args.exporter)
+
     const f = halve.imslaughter
     const farmerName = await Imslaughter.findById(f)
 
@@ -155,6 +157,7 @@ const Mutation = {
     const room = exhalve.beefroom
 
     const find = await Imhalve.findOne({barcode: args.barcode, name: "นำออก"}).countDocuments() > 0
+
     
     if (find){
         throw new Error("ซากโคผ่าเสี้ยวนี้ถูกนำออกไปเเล้ว");
@@ -172,6 +175,7 @@ const Mutation = {
             namefarmer: farmerName.namefarmer,
             userName: username.name,
             storestatus: args.storestatus,
+            exporter: exporter,
         });
     
     let result = await BeefStore.findByIdAndUpdate({
@@ -214,6 +218,9 @@ const Mutation = {
     })
     .populate({
         path: "shelf",
+    })
+    .populate({
+        path: "exporter",
     })
     
     return test
