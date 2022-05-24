@@ -14,7 +14,6 @@ const chillSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Chillday",
     },
-    
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

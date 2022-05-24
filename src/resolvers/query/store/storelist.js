@@ -12,6 +12,8 @@ import Beefroom from "../../../models/Beefstore/beefroom";
 import Shelf from "../../../models/Beefstore/shelf";
 import Halve from "../../../models/halve";
 import { argsToArgsConfig } from "graphql/type/definition";
+import RequestExport from "../../../models/Beefstore/requestexport"
+import Chillday from "../../../models/Beefstore/chillday";
 
 const Query = {
   liststore: async (parent, args, context, info) => {
@@ -905,6 +907,16 @@ const Query = {
       })
       return cursor;  
     } 
+  },
+
+  listRequestEx: async (parent, args, context, info) => {
+    const cursor = RequestExport.find({})
+    return cursor
+  },
+
+  listChillday: async (parent, args, context, info) => {
+    const cursor = Chillday.find({})
+    return cursor
   },
 };
 //5f0fdb4b02b40c2ab8506563

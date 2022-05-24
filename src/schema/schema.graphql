@@ -242,6 +242,10 @@ showDayslaugh: [Dayslaugh]!
   roomsearch(id: ID): [Beefroom]
 
   allhalve(barcode: String): Halve
+
+  listRequestEx: [RequestExport]
+
+  listChillday:[Chillday]
 }
 
 type Mutation {
@@ -557,7 +561,7 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     storestatus: String
   ): Imentrail
 
-  createRequestExport(name: String, beef:String, quantity:String): RequestExport
+  createRequestExport(name: String, beeftype:String, quantity:String): RequestExport
   deleteRequest(id: ID): RequestExport
 
   createBeefroom(
@@ -577,6 +581,8 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
   ): Typekeep
 
   createChillday(day: String): Chillday
+
+  
 }
 
 scalar Date
@@ -1235,7 +1241,7 @@ type Typekeep{
 
 type RequestExport{
   name: String
-  beef: String
+  beeftype: Beeftype
   quantity: String
   requestdate: Date
 }

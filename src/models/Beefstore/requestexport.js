@@ -4,15 +4,16 @@ const RequestExportSchema = new mongoose.Schema({
     name : {
         type : String,
     },
-    beef : {
-        type: String,
-    },
     quantity : {
         type: String,
     },
     requestdate : {
         type: Date,
-    }
+    },
+    beeftype: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Beeftype",
+    },
 })
 
 const RequestExport = mongoose.model("RequestExport", RequestExportSchema);

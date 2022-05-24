@@ -7,7 +7,7 @@ import Chillday from "../../models/Beefstore/chillday";
 
 const Mutation = {
     createChill: async (parent, args, { userId }, info) => {
-        //if (!userId) throw new Error("Please log in.");
+        if (!userId) throw new Error("Please log in.");
         
 
     if (!args.barcode || !args.chillroom || !args.chillday) {
@@ -27,6 +27,7 @@ const Mutation = {
 
     const dateEnd = dayjs().startOf("h").add(chillday, "day").toISOString();
 
+    
 
 
     //await Imhalve.findOneAndUpdate({barcode: args.barcode},{storestatus : statusCh})
@@ -37,6 +38,7 @@ const Mutation = {
         chillroom: args.chillroom,
         chilldateStart: DateNow,
         chilldateEnd: dateEnd,
+        chillday: find,
         user: userId,
         barcode: args.barcode,
         storestatus: statusCh
@@ -62,6 +64,9 @@ const Mutation = {
     .populate({
         path: "storestatus",
     })
+    .populate({
+        path: "chillday",
+    })
     return test
     
     },
@@ -69,7 +74,7 @@ const Mutation = {
     updateChillday: async (parent, args, { userId }, info) => {
         const { id } = args;
 
-        //if (!userId) throw new Error("Please log in.");
+        if (!userId) throw new Error("Please log in.");
 
         const chill = await Chill.findById(id);
 
