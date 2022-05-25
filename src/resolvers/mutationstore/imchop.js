@@ -8,6 +8,7 @@ import Beefroom from "../../models/Beefstore/beefroom";
 import Shelf from "../../models/Beefstore/shelf";
 import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
+import Basket from "../../models/Beefstore/basket";
 
 const Mutation = {
     createImchop: async (parent, args, { userId }, info) => {
@@ -57,6 +58,8 @@ const Mutation = {
     const totalbeef = typebeef.totalbeef.toString()
 
     const isRoomEmpty = totalchop.length == totalbeef
+
+    const basket = await Basket.findById(args.basket)
     
     if(isRoomEmpty){
         throw new Error ("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
@@ -79,7 +82,7 @@ const Mutation = {
         storestatus: statusIM,
         beefroom: args.beefroom,
         shelf: args.shelf,
-        basket: args.basket,
+        basket: basket.basketname,
     });
     
     const store = await BeefStore.findById(args.beefstore);

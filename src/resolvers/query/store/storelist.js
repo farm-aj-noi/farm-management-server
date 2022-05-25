@@ -14,6 +14,7 @@ import Halve from "../../../models/halve";
 import { argsToArgsConfig } from "graphql/type/definition";
 import RequestExport from "../../../models/Beefstore/requestexport"
 import Chillday from "../../../models/Beefstore/chillday";
+import Basket from "../../../models/Beefstore/basket";
 
 const Query = {
   liststore: async (parent, args, context, info) => {
@@ -877,12 +878,10 @@ const Query = {
     if (args.beeftype) {
       cursor.find({
         beeftype: args.beeftype,
-        storestatus: "6284ad73fbfac22364a6e430",
       });
     }
     if (args.startdate) {
       cursor.find({
-        storestatus: "6284ad73fbfac22364a6e430",
         chilldate: {
           $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
           $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
@@ -948,6 +947,11 @@ const Query = {
       path: "chill",
       populate: {path: "chillstatus"}
     })
+    return cursor
+  },
+
+  allBasket: async (parent, args, context, info) => {
+    const cursor = Basket.find({})
     return cursor
   },
 
