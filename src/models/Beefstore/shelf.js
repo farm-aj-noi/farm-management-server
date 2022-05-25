@@ -23,7 +23,13 @@ const ShelfSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Chop",
         }
-      ],
+    ],
+    basket: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Basket",
+        }
+    ],
 
 
 })

@@ -117,10 +117,10 @@ const Query = {
       });
 
     var returnData = [];
-
+      
     if (cursor.length) {
       for (const item of cursor[0].imhalves) {
-        console.log(item.beefroom);
+        //console.log(cursor[0].imhalves.length)
         let data = {
           beeftypeid: item.halve.beeftype.id,
           id: "ซากโคผ่าซีก",
@@ -896,10 +896,18 @@ const Query = {
   },
 
   listShelf: (parent, args, context, info) => {
-    const cursor = Shelf.find({ beefroom: args.id }).populate({
-      path: "beefroom",
-    });
-    return cursor;
+    if (!args.id) {
+      const cursor = [];
+      return cursor;
+    }
+    if(args.id){
+      const cursor = Shelf.find({ 
+        beefroom: args.id 
+      }).populate({
+        path: "beefroom",
+      });
+      return cursor
+    };
   },
 
   roomsearch: (parent, args, context, info) => {
