@@ -877,12 +877,12 @@ const Query = {
     if (args.beeftype) {
       cursor.find({
         beeftype: args.beeftype,
-        storestatus: "6284ad73fbfac22364a6e430",
+      
       });
     }
     if (args.startdate) {
       cursor.find({
-        storestatus: "6284ad73fbfac22364a6e430",
+      
         chilldate: {
           $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
           $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
