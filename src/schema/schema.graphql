@@ -249,7 +249,7 @@ showDayslaugh: [Dayslaugh]!
 
   test2: [Halve]
 
-  allBasket: [Basket]
+  allBasket(id: ID): [Basket]
 
   
 }

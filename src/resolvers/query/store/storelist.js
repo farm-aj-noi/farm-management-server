@@ -958,8 +958,21 @@ const Query = {
   },
 
   allBasket: async (parent, args, context, info) => {
-    const cursor = Basket.find({})
-    return cursor
+    if (!args.id) {
+      const cursor = [];
+      return cursor;
+    }
+    if(args.id){
+      const cursor = Basket.find({
+        shelf: args.id
+      })
+      .populate({
+        path: "shelf"
+      })
+      return cursor
+    }
+    
+    
   },
 
   
