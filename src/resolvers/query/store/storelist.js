@@ -948,8 +948,6 @@ const Query = {
       });
     return cursor;
   },
-<<<<<<< HEAD
-=======
 
   allBasket: async (parent, args, context, info) => {
     const cursor = Basket.find({})
@@ -957,7 +955,6 @@ const Query = {
   },
 
   
->>>>>>> 20a705817627237b198def9e234b2f3f64a5accc
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;
