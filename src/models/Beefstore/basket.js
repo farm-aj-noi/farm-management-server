@@ -8,6 +8,10 @@ const basketSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Shelf",
     },
+    beefroom: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Beefroom",
+    },
 })
 
 const Basket = mongoose.model("Basket", basketSchema)

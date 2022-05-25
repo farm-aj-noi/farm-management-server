@@ -117,7 +117,7 @@ const Query = {
       });
 
     var returnData = [];
-      
+
     if (cursor.length) {
       for (const item of cursor[0].imhalves) {
         //console.log(cursor[0].imhalves.length)
@@ -900,14 +900,14 @@ const Query = {
       const cursor = [];
       return cursor;
     }
-    if(args.id){
-      const cursor = Shelf.find({ 
-        beefroom: args.id 
+    if (args.id) {
+      const cursor = Shelf.find({
+        beefroom: args.id,
       }).populate({
         path: "beefroom",
       });
-      return cursor
-    };
+      return cursor;
+    }
   },
 
   roomsearch: (parent, args, context, info) => {
@@ -962,20 +962,19 @@ const Query = {
       const cursor = [];
       return cursor;
     }
-    if(args.id){
+    if (args.id) {
       const cursor = Basket.find({
-        shelf: args.id
+        shelf: args.id,
       })
       .populate({
-        path: "shelf"
+        path: "shelf",
       })
-      return cursor
+      .populate({
+        path: "beefroom"
+      });
+      return cursor;
     }
-    
-    
   },
-
-  
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;

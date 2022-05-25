@@ -20,6 +20,9 @@ const imhalveSchema = new mongoose.Schema({
     userName: {
         type: String,
     },
+    almostExpdate: {
+        type: Date,
+    },
     beefroom: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Beefroom",

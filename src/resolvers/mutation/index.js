@@ -33,6 +33,7 @@ import typekeep from '../mutationstore/typekeep'
 import shelf from '../mutationstore/shelf'
 import Chillday from '../mutationstore/chillday'
 import Basket from '../mutationstore/basket'
+import ExpdateSetting from '../mutationstore/expdatesetting'
 
 export default _.merge(
     allin,
@@ -70,4 +71,5 @@ export default _.merge(
     shelf,
     Chillday,
     Basket,
+    ExpdateSetting,
 )

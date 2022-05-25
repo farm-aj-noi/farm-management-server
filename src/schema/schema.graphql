@@ -4,13 +4,13 @@ type Query {
   user2(id: ID!): User
   product(id: ID!): Product
   Cowdetail(id: ID!): Imslaughter
-  CowWaitting(id:ID!):Importcowfarm
+  CowWaitting(id: ID!): Importcowfarm
   productSearch(description: String, price: Float): [Product]
   products: [Product]!
   postsOffset(limit: Int!, offset: Int!): [Product!]!
   get_provinces: [Ad_provinces]
   get_amphures(province_id: String): [Ad_amphures]
-  get_districts(province_id: String,amphur_id: String): [Ad_districts]
+  get_districts(province_id: String, amphur_id: String): [Ad_districts]
   get_zipcodes(district_code: String): [Ad_zipcodes]
 
   puntypeQuery: [PunType]!
@@ -25,13 +25,13 @@ type Query {
 
   Cardtreat: [Imslaughter]!
   Cardregis: [Imslaughter]!
-CardWaitting:[Importcowfarm]!
+  CardWaitting: [Importcowfarm]!
   statusSearch: [Status]!
   boxSearch: [Box]!
   beeftypeSearch: [Beeftype]!
   Allcow: [Imslaughter]!
-  cowfarmmerweitting(passsport:String! statusIm:String): [Importcowfarm]!
-  cowfarmmer(numkun:String,passsport:String!): [Imslaughter]!
+  cowfarmmerweitting(passsport: String!, statusIm: String): [Importcowfarm]!
+  cowfarmmer(numkun: String, passsport: String!): [Imslaughter]!
   imslaughtersSearch: [Imslaughter]!
   importcowfarmSearch: [Importcowfarm]!
   treatSearch: [Imslaughter]!
@@ -70,11 +70,19 @@ CardWaitting:[Importcowfarm]!
     status: String
     beeftype: String
   ): [Halve]!
-  Selectslaugerfarm(numkun: String, statusIm: String,passsport:String): [Imslaughter]!
-  Selecttreatfarm(numkun: String, statusIm: String,passsport:String): [Imslaughter]!
+  Selectslaugerfarm(
+    numkun: String
+    statusIm: String
+    passsport: String
+  ): [Imslaughter]!
+  Selecttreatfarm(
+    numkun: String
+    statusIm: String
+    passsport: String
+  ): [Imslaughter]!
   Selecttreat(numkun: String, statusIm: String): [Imslaughter]!
   selectFood(type: String): [Foodset]!
-selectFoodName(name: String): [Foodset]!
+  selectFoodName(name: String): [Foodset]!
   HalveForCut(barcode: String): Halve
 
   SearchBeeftypefour(code: String): Beeftype
@@ -115,7 +123,7 @@ selectFoodName(name: String): [Foodset]!
   trace(numkun: String): Imslaughter
   ReportgetTreat(startdate: String, enddate: String): [Imslaughter]!
   Reportgetin(startdate: String, enddate: String): [Imslaughter]!
-  Reportdead(startdate: String, enddate: String ): [Imslaughter]!
+  Reportdead(startdate: String, enddate: String): [Imslaughter]!
   Reportage(startdate: String, enddate: String): [Imslaughter]!
 
   ReportgetGroup(
@@ -134,10 +142,10 @@ selectFoodName(name: String): [Foodset]!
 
   toslaughter: [Imslaughter]!
   allDrug: [Drug]!
- allFood: [Foodset]!
-allFoodF2: [Foodset]!
+  allFood: [Foodset]!
+  allFoodF2: [Foodset]!
   allDisease: [Disease]!
-showDayslaugh: [Dayslaugh]!
+  showDayslaugh: [Dayslaugh]!
   # ////////////////////////////////////////////////
   datacow(id: ID!): Datacow
   datacows: [Datacow]!
@@ -147,10 +155,7 @@ showDayslaugh: [Dayslaugh]!
   # datatreat: (id: ID!): Datatreat
   # ////////////////////////////////////////////////
 
-  liststore(
-    beeftype: String
-    type: String
-  ): [List]
+  liststore(beeftype: String, type: String): [List]
   listentrail: [EntrailList]
 
   imhalveSearch(
@@ -167,7 +172,7 @@ showDayslaugh: [Dayslaugh]!
     beeftype: String
     namefarmer: String
     userName: String
-  ):[Imhalve]
+  ): [Imhalve]
 
   imquartSearch(
     startdate: String
@@ -184,7 +189,7 @@ showDayslaugh: [Dayslaugh]!
     namefarmer: String
     userName: String
   ): [Imquarter]
-  
+
   imlumpSearch(
     startdate: String
     enddate: String
@@ -231,13 +236,9 @@ showDayslaugh: [Dayslaugh]!
     userName: String
   ): [Imentrail]
 
-  listchill(
-    startdate: String
-    enddate: String
-    beeftype: String
- ): [Chill]
+  listchill(startdate: String, enddate: String, beeftype: String): [Chill]
 
-  allRoom:[Beefroom]
+  allRoom: [Beefroom]
   listShelf(id: ID): [Shelf]
   roomsearch(id: ID): [Beefroom]
 
@@ -245,46 +246,47 @@ showDayslaugh: [Dayslaugh]!
 
   listRequestEx: [RequestExport]
 
-  listChillday:[Chillday]
+  listChillday: [Chillday]
 
   test2: [Halve]
 
   allBasket(id: ID): [Basket]
-
-  
 }
 
 type Mutation {
- importcowfarm(
-  pun: String ,
-  numfarmer: String,
-  passport: String,
-  teeth: String,
-  bodyscore: String,
-  namefarmer:String,
-  date:String,
-  datebirhtday:String,
-  namecow: String,
-  sex: String,
-  weightstart: Float,
-  weightbirht:Float,
-  imagecow:String,
-  district: String,
-  province: String,
-  amphur:String,
-  zipcode: String
- ):Importcowfarm
+  importcowfarm(
+    pun: String
+    numfarmer: String
+    passport: String
+    teeth: String
+    bodyscore: String
+    namefarmer: String
+    date: String
+    datebirhtday: String
+    namecow: String
+    sex: String
+    weightstart: Float
+    weightbirht: Float
+    imagecow: String
+    district: String
+    province: String
+    amphur: String
+    zipcode: String
+  ): Importcowfarm
 
- createFoodset(name:String , CP:Float , TDN:Float , type:String):[Foodset]!
- setmedi(
-  name: String ,
-  dateStop: Float,
- ):SettingMedi
-  signup(name: String!, email: String!, password: String! ,passsport: String!,  numaccount: String!,
-          district: String!,
-           province: String!,
-            amphur: String!,
-             zipcode: String!): User
+  createFoodset(name: String, CP: Float, TDN: Float, type: String): [Foodset]!
+  setmedi(name: String, dateStop: Float): SettingMedi
+  signup(
+    name: String!
+    email: String!
+    password: String!
+    passsport: String!
+    numaccount: String!
+    district: String!
+    province: String!
+    amphur: String!
+    zipcode: String!
+  ): User
   login(email: String!, password: String!): AuthData
   requestResetPassword(email: String!): Message!
   resetPassword(password: String!, token: String!): Message
@@ -337,7 +339,12 @@ type Mutation {
   ): Beeftype
   deleteBeeftype(id: ID!): Beeftype!
   updateTstatus(id: ID!, statuscow: String!): Imslaughter!
-  updateDead(id: ID!, statuscow:String! ,  importDateDead: String , notedead:String): Imslaughter!
+  updateDead(
+    id: ID!
+    statuscow: String!
+    importDateDead: String
+    notedead: String
+  ): Imslaughter!
   createStatus(code: String!, nameTH: String!, nameEN: String!): Status!
   updateStatus(id: ID!, code: String, nameTH: String, nameEN: String): Status!
   deleteStatus(id: ID!): Status!
@@ -378,7 +385,7 @@ type Mutation {
     weight: Float
     price: Float
   ): Imslaughter!
-   updatecowfarm(id: String!): Importcowfarm!
+  updatecowfarm(id: String!): Importcowfarm!
 
   updateImslaughterStatusCa(id: ID!): Imslaughter!
   updateImslaughterStatusEn(id: ID!): Imslaughter!
@@ -392,10 +399,7 @@ type Mutation {
     weightstart: Float
     numfarmer: String
   ): Imslaughter!
-  updateDrug(
-    id:String 
-    dateStop:Int
-    ): Drug!
+  updateDrug(id: String, dateStop: Int): Drug!
   deletePun(id: ID!): PunType!
   deleteGrade(id: ID!): Imslaughter!
   updateFees(id: ID!, fees: Float!): Imslaughter!
@@ -470,9 +474,15 @@ type Mutation {
   ): Entrail!
 
   toSlaughter(id: ID!, importDate: String): Imslaughter!
-  createDayslaugh( year:Int ,month:Int ,weight:Float):Dayslaugh!
-  updateDayslaugh( id:String, year:Int ,month:Int ,weight:Float):Dayslaugh!
-updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset!
+  createDayslaugh(year: Int, month: Int, weight: Float): Dayslaugh!
+  updateDayslaugh(id: String, year: Int, month: Int, weight: Float): Dayslaugh!
+  updateFoodset(
+    id: String
+    name: String
+    TDN: Float
+    CP: Float
+    type: String
+  ): Foodset!
   createFeed(
     datestart: String!
     dateend: String!
@@ -495,7 +505,7 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     quantity: Float!
     note: String
     importDate: String
-    notedead:String
+    notedead: String
     imslaughter: String!
   ): Treat!
 
@@ -507,7 +517,7 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
     barcode: String!
   ): Transport!
 
-  createDrug(name: String!, nofity: Int , dateStop: Int): Drug!
+  createDrug(name: String!, nofity: Int, dateStop: Int): Drug!
 
   createDisease(name: String!, detail: String!): Disease!
   # /////////////////////////////////////////////////////////////
@@ -516,73 +526,84 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
   createDatatreat(weight: String!, detail: String!): Datatreat!
   #//////////////////////////////////////////////////////////////
 
-  createImHalve(barcode: String!, beefstore: String!, beefroom: String!, ): Imhalve
-  createImQuarter(barcode: String!, beefstore: String!, beefroom: String!, ): Imquarter
-  createImlump(barcode: String!, beefstore: String!, beefroom: String!, shelf:String, basket: String): Imlump
-  createImchop(barcode: String!, beefstore: String!, beefroom: String!,shelf:String, basket: String): Imchop
-  createImentrail(barcode: String!, entrailstore: String!, beefroom: String!): Imentrail
+  createImHalve(
+    barcode: String!
+    beefstore: String!
+    beefroom: String!
+  ): Imhalve
+  createImQuarter(
+    barcode: String!
+    beefstore: String!
+    beefroom: String!
+  ): Imquarter
+  createImlump(
+    barcode: String!
+    beefstore: String!
+    beefroom: String!
+    shelf: String
+    basket: String
+  ): Imlump
+  createImchop(
+    barcode: String!
+    beefstore: String!
+    beefroom: String!
+    shelf: String
+    basket: String
+  ): Imchop
+  createImentrail(
+    barcode: String!
+    entrailstore: String!
+    beefroom: String!
+  ): Imentrail
 
   createBeefStore: BeefStore
   createEntrailStore: EntrailStore
 
-  createChill(
-    barcode: String
-    chillroom: String
-    chillday: String
-  ): Chill
+  createChill(barcode: String, chillroom: String, chillday: String): Chill
 
-  updateChillday(
-    id: ID
-  ): Chill
+  updateChillday(id: ID): Chill
 
-  creatChillroom(
-    roomnum: String
-  ): Chillroom
-  
+  creatChillroom(roomnum: String): Chillroom
+
   createExporth(
     barcode: String
     storestatus: String
     beeftypechange: String
-    exporter:String
+    exporter: String
   ): Imhalve
 
   createExportq(
     barcode: String
     storestatus: String
     beeftypechange: String
-    exporter:String
+    exporter: String
   ): Imquarter
 
   createExportl(
     barcode: String
     storestatus: String
     beeftypechange: String
-    exporter:String
+    exporter: String
   ): Imlump
 
-  createExportc(
-    barcode: String
-    storestatus: String
-    exporter:String
-  ): Imchop
+  createExportc(barcode: String, storestatus: String, exporter: String): Imchop
 
   createExporte(
     barcode: String
     storestatus: String
-    exporter:String
+    exporter: String
   ): Imentrail
 
-  createRequestExport(name: String, beeftype:String, quantity:String): RequestExport
+  createRequestExport(
+    name: String
+    beeftype: String
+    quantity: String
+  ): RequestExport
   deleteRequest(id: ID): RequestExport
 
-  createBeefroom(
-    roomname: String
-  ): Beefroom
+  createBeefroom(roomname: String): Beefroom
 
-  createShelf(
-    shelfname: String
-    beefroom: String
-  ): Shelf
+  createShelf(shelfname: String, beefroom: String): Shelf
 
   createtypekeep(
     totalbeef: String
@@ -593,7 +614,11 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
 
   createChillday(day: String): Chillday
 
-  createBasket(shelf: String, basketname: String): Basket
+  createBasket(beefroom:String, shelf: String, basketname: String): Basket
+
+  createExpdatesetting(totalday: String): ExpdateSetting
+
+  updateExpdateh(ExpdateSetting: String): Imhalve
 }
 
 scalar Date
@@ -630,36 +655,35 @@ type Datatreat {
   datacow: Datacow!
 }
 
-type Importcowfarm{
+type Importcowfarm {
   id: ID!
   pun: String
   numfarmer: String
   passport: String
   teeth: String
   bodyscore: String
-  namefarmer:String
-  date:Date!
-  datebirhtday:Date
+  namefarmer: String
+  date: Date!
+  datebirhtday: Date
   namecow: String
   sex: String
   weightstart: String
-  weightbirht:String
-  imagecow:String
+  weightbirht: String
+  imagecow: String
   district: String
   province: String
-  amphur:String
+  amphur: String
   zipcode: String
-    statusIm: Status!
+  statusIm: Status!
 
-    user: User!
-
+  user: User!
 }
 type User {
   id: ID!
   name: String!
   email: String!
   passsport: String!
-  numaccount: String!,
+  numaccount: String!
   district: String!
   province: String!
   amphur: String!
@@ -675,7 +699,7 @@ type User {
   lumps: [Lump]
   chops: [Chop]
   entrails: [Entrail]
-  importcowfarms:[Importcowfarm]
+  importcowfarms: [Importcowfarm]
   imhalves: [Imhalve]
   imquarters: [Imquarter]
   imlumps: [Imlump]
@@ -770,8 +794,8 @@ type Drug {
   dateStop: Int
 }
 
-type Dayslaugh{
-  id:ID!
+type Dayslaugh {
+  id: ID!
   year: Int
   month: Int
   weight: Float
@@ -794,7 +818,7 @@ type Setting {
 }
 type SettingMedi {
   id: ID!
-  name:String
+  name: String
   dateStop: Float
 }
 
@@ -809,11 +833,11 @@ type Status {
   user: User!
 }
 type Foodset {
-  id:ID!
-  name:String
+  id: ID!
+  name: String
   CP: Float
-  TDN:Float
-  type:String
+  TDN: Float
+  type: String
 }
 
 type Beeftype {
@@ -910,7 +934,7 @@ type Halve {
   imslaughter: Imslaughter!
   beeftype: Beeftype!
   quarters: [Quarter]
-  transports: [Transport] 
+  transports: [Transport]
   chill: [Chill]
 }
 
@@ -1035,7 +1059,7 @@ type Ad_geography {
   geo_name: String
 }
 
-type Imhalve{
+type Imhalve {
   id: ID
   importdate: Date!
   user: User!
@@ -1051,9 +1075,10 @@ type Imhalve{
   userName: String
   beefroom: Beefroom
   exporter: RequestExport
+  almostExpdate: Date
 }
 
-type Imquarter{
+type Imquarter {
   id: ID
   importdate: Date!
   user: User!
@@ -1069,9 +1094,10 @@ type Imquarter{
   userName: String
   beefroom: Beefroom
   exporter: RequestExport
+  almostExpdate: Date
 }
 
-type Imlump{
+type Imlump {
   id: ID
   importdate: Date!
   user: User
@@ -1089,9 +1115,10 @@ type Imlump{
   shelf: Shelf
   basket: String
   exporter: RequestExport
+  almostExpdate: Date
 }
 
-type Imchop{
+type Imchop {
   id: ID
   importdate: Date!
   user: User
@@ -1108,9 +1135,10 @@ type Imchop{
   shelf: Shelf
   basket: String
   exporter: RequestExport
+  almostExpdate: Date
 }
 
-type Imentrail{
+type Imentrail {
   id: ID
   importdate: Date!
   user: User
@@ -1124,9 +1152,10 @@ type Imentrail{
   userName: String
   beefroom: Beefroom
   exporter: RequestExport
+  almostExpdate: Date
 }
 
-type Chill{
+type Chill {
   id: ID
   chilldateStart: Date
   chilldateEnd: Date
@@ -1139,16 +1168,15 @@ type Chill{
   chillday: Chillday
 }
 
-type Chillroom{
+type Chillroom {
   id: ID
   roomnum: String
 }
 
-type Chillday{
+type Chillday {
   id: ID
   day: String
 }
-
 
 type BeefStore {
   id: ID
@@ -1180,7 +1208,7 @@ type List {
   beeftypeid: String
 }
 
-type EntrailList{
+type EntrailList {
   id: String
   barcode: String
   cownum: String
@@ -1223,9 +1251,9 @@ type exportList {
   weight: Float
   exportdate: Date
   namefarmer: String
-} 
+}
 
-type Beefroom{
+type Beefroom {
   id: ID!
   roomname: String
   typekeep: [Typekeep]
@@ -1236,9 +1264,10 @@ type Beefroom{
   lump: [Lump]
   chop: [Chop]
   entrail: [Entrail]
+  basket: [Basket]
 }
 
-type Shelf{
+type Shelf {
   id: ID!
   shelfname: String
   beefroom: Beefroom
@@ -1248,13 +1277,14 @@ type Shelf{
   basket: [Basket]
 }
 
-type Basket{
+type Basket {
   id: ID!
   basketname: String
   shelf: Shelf
+  beefroom: Beefroom
 }
 
-type Typekeep{
+type Typekeep {
   id: ID!
   totalbeef: String
   beeftype: Beeftype
@@ -1262,12 +1292,15 @@ type Typekeep{
   shelf: Shelf
 }
 
-type RequestExport{
+type RequestExport {
+  id: ID!
   name: String
   beeftype: Beeftype
   quantity: String
   requestdate: Date
 }
 
-
-
+type ExpdateSetting{
+  id: ID
+  totalday: String
+}
