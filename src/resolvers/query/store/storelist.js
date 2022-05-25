@@ -12,7 +12,7 @@ import Beefroom from "../../../models/Beefstore/beefroom";
 import Shelf from "../../../models/Beefstore/shelf";
 import Halve from "../../../models/halve";
 import { argsToArgsConfig } from "graphql/type/definition";
-import RequestExport from "../../../models/Beefstore/requestexport"
+import RequestExport from "../../../models/Beefstore/requestexport";
 import Chillday from "../../../models/Beefstore/chillday";
 
 const Query = {
@@ -344,7 +344,7 @@ const Query = {
       .populate({
         path: "beefroom",
       })
-      
+
       .sort({ importdate: "DESC" });
     if (args.beeftype) {
       cursor.find({
@@ -849,9 +849,7 @@ const Query = {
   },
 
   listchill: async (parent, args, context, info) => {
-    const cursor = Chill.find({
-      
-    })
+    const cursor = Chill.find({})
       .populate({
         path: "user",
       })
@@ -870,19 +868,17 @@ const Query = {
         path: "chillroom",
       })
       .populate({
-        path: "chillday"
+        path: "chillday",
       })
 
       .sort({ chilldate: "DESC" });
     if (args.beeftype) {
       cursor.find({
         beeftype: args.beeftype,
-      
       });
     }
     if (args.startdate) {
       cursor.find({
-      
         chilldate: {
           $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
           $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
@@ -920,38 +916,37 @@ const Query = {
     if (args.barcode) {
       const cursor = await Halve.findOne({
         barcode: args.barcode,
-      })
-      .populate({
+      }).populate({
         path: "user",
         populate: { path: "halves" },
-      })
-      return cursor;  
-    } 
+      });
+      return cursor;
+    }
   },
 
   listRequestEx: async (parent, args, context, info) => {
-    const cursor = RequestExport.find({})
-    return cursor
+    const cursor = RequestExport.find({}).populate({
+      path: "beeftype",
+    });
+    return cursor;
   },
 
   listChillday: async (parent, args, context, info) => {
-    const cursor = Chillday.find({})
-    return cursor
+    const cursor = Chillday.find({});
+    return cursor;
   },
 
   test2: async (parent, args, context, info) => {
     const cursor = Halve.find({})
-    .populate({
-      path: "chill",
-    })
-    .populate({
-      path: "chill",
-      populate: {path: "chillstatus"}
-    })
-    return cursor
+      .populate({
+        path: "chill",
+      })
+      .populate({
+        path: "chill",
+        populate: { path: "chillstatus" },
+      });
+    return cursor;
   },
-
-  
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;
