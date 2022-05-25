@@ -2,7 +2,7 @@ import Beefroom from "../../models/Beefstore/beefroom";
 
 const Mutation = {
     createBeefroom: async (parent, args, { userId }, info) => {
-        //if (!userId) throw new Error("Please log in.");
+        if (!userId) throw new Error("Please log in.");
 
         if (!args.roomname) {
             throw new Error("Please provide all required fields.");

@@ -14,6 +14,7 @@ import Halve from "../../../models/halve";
 import { argsToArgsConfig } from "graphql/type/definition";
 import RequestExport from "../../../models/Beefstore/requestexport";
 import Chillday from "../../../models/Beefstore/chillday";
+import Basket from "../../../models/Beefstore/basket";
 
 const Query = {
   liststore: async (parent, args, context, info) => {
@@ -947,6 +948,16 @@ const Query = {
       });
     return cursor;
   },
+<<<<<<< HEAD
+=======
+
+  allBasket: async (parent, args, context, info) => {
+    const cursor = Basket.find({})
+    return cursor
+  },
+
+  
+>>>>>>> 20a705817627237b198def9e234b2f3f64a5accc
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;

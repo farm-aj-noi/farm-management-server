@@ -32,6 +32,7 @@ import requestexport from '../mutationstore/requestexport'
 import typekeep from '../mutationstore/typekeep'
 import shelf from '../mutationstore/shelf'
 import Chillday from '../mutationstore/chillday'
+import Basket from '../mutationstore/basket'
 
 export default _.merge(
     allin,
@@ -68,4 +69,5 @@ export default _.merge(
     typekeep,
     shelf,
     Chillday,
+    Basket,
 )

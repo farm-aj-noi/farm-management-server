@@ -248,6 +248,8 @@ showDayslaugh: [Dayslaugh]!
   listChillday:[Chillday]
 
   test2: [Halve]
+
+  allBasket: [Basket]
 }
 
 type Mutation {
@@ -589,7 +591,7 @@ updateFoodset( id:String, name:String ,TDN:Float ,CP:Float ,type:String):Foodset
 
   createChillday(day: String): Chillday
 
-  
+  createBasket(basketname: String): Basket
 }
 
 scalar Date
@@ -1243,7 +1245,7 @@ type Shelf{
   chop: [Chop]
 }
 
-type basket{
+type Basket{
   id: ID!
   basketname: String
 }
