@@ -906,9 +906,11 @@ const Query = {
   },
 
   listRequestEx: async (parent, args, context, info) => {
-    const cursor = RequestExport.find({}).populate({
-      path: "beeftype",
-    });
+    const cursor = RequestExport.find({})
+      .populate({
+        path: "beeftype",
+      })
+      .sort({ requestdate: "DESC" });
     return cursor;
   },
 
@@ -977,7 +979,32 @@ const Query = {
         $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำเข้า",
-    });
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imhalves" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
+      });
     return cursor;
   },
   CardImq: async (parent, args, context, info) => {
@@ -987,7 +1014,32 @@ const Query = {
         $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำเข้า",
-    });
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imquarter" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
+      });
     return cursor;
   },
   CardIml: async (parent, args, context, info) => {
@@ -997,7 +1049,32 @@ const Query = {
         $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำเข้า",
-    });
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imlumps" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
+      });
     return cursor;
   },
   CardImc: async (parent, args, context, info) => {
@@ -1007,7 +1084,32 @@ const Query = {
         $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำเข้า",
-    });
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imchops" },
+      })
+      .populate({
+        path: "chop",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "chop",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "chop",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
+      });
     return cursor;
   },
   CardIme: async (parent, args, context, info) => {
@@ -1017,7 +1119,18 @@ const Query = {
         $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำเข้า",
-    });
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imentrails" },
+      })
+      .populate({
+        path: "entrail",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "storestatus",
+      });
     return cursor;
   },
   ///////////////////////////////////////////////////////////
@@ -1028,7 +1141,40 @@ const Query = {
         $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำออก",
-    });
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imhalves" },
+      })
+      /* .populate({
+      path: "user",
+      populate: {path: "curings"}
+    }) */
+      .populate({
+        path: "halve",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom", 
+      })
+      .populate({
+        path: "exporter",
+      });
     return cursor;
   },
   CardExq: async (parent, args, context, info) => {
