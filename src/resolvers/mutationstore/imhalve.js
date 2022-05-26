@@ -17,14 +17,14 @@ const Mutation = {
       throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
-    /* const currentRoom = await Imhalve.find();
-        const isRoomExist = 
-            currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
-            
-        if (isRoomExist) {
-            throw new Error("บาร์โค้ดของคุณซ้ำ");
-        }
- */
+    const currentRoom = await Imhalve.find();
+    const isRoomExist =
+      currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
+
+    if (isRoomExist) {
+      throw new Error("บาร์โค้ดของคุณซ้ำ");
+    }
+
     const date = dayjs();
 
     //const test = await Imhalve.find( {name: "นำเข้า"} ).count()
@@ -127,7 +127,7 @@ const Mutation = {
       console.log(test);
       return test;
     }
-  }, 
+  },
 
   createExporth: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
@@ -232,37 +232,25 @@ const Mutation = {
   },
 
   updateExpdateh: async (parent, args, { userId }, info) => {
-    
-    const imhalve = await Imhalve.find({name: "นำเข้า"})
+    const imhalve = await Imhalve.find({ name: "นำเข้า" });
 
-    const find = await ExpdateSetting.findById(args.ExpdateSetting)
+    const find = await ExpdateSetting.findById(args.ExpdateSetting);
 
     const checkdate = dayjs().format("YYYYMMDD").toString();
-    
-    const y = find.totalday
-    const exp = Number(y)
 
-    
+    const y = find.totalday;
+    const exp = Number(y);
+
     /* console.log(exp)
     return */
 
-    for(let i=0; i < imhalve.length; i++){
-        const date = dayjs(imhalve[i].importdate).add(30, 'days').subtract(exp, 'days')//.format("YYYYMMDD")//.toString()  
-        
-        
-        await Imhalve.findByIdAndUpdate(imhalve[i].id, {almostExpdate : date})
-        
-    
+    for (let i = 0; i < imhalve.length; i++) {
+      const date = dayjs(imhalve[i].importdate)
+        .add(30, "days")
+        .subtract(exp, "days"); //.format("YYYYMMDD")//.toString()
+
+      await Imhalve.findByIdAndUpdate(imhalve[i].id, { almostExpdate: date });
     }
-    
-    
-    
-    
-
-
-
-
-
-  }
+  },
 };
 export default Mutation;

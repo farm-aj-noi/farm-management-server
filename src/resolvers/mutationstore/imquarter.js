@@ -9,63 +9,60 @@ import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
 
 const Mutation = {
-    createImQuarter: async (parent, args, { userId }, info) => {
-    
+  createImQuarter: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.beefstore || !args.beefroom){
-        throw new Error("กรุณากรอกบาร์โค้ด");
+    if (!args.barcode || !args.beefstore || !args.beefroom) {
+      throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
-    /* const currentRoom = await Imquarter.find();
-        const isRoomExist = 
-            currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
-            
-        if (isRoomExist) {
-            throw new Error("บาร์โค้ดของคุณซ้ำ");
-        }  */
+    const currentRoom = await Imquarter.find();
+    const isRoomExist =
+      currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
 
-    const date = dayjs()
+    if (isRoomExist) {
+      throw new Error("บาร์โค้ดของคุณซ้ำ");
+    }
 
-   
+    const date = dayjs();
+
     const quarter = await Quarter.findOne({
-        barcode: args.barcode,
+      barcode: args.barcode,
     });
 
     const statusIM = "5f448d5d4ef8ed48806f1b53";
 
-    const findfarmer = quarter.imslaughter
-    const farmerName = await Imslaughter.findById(findfarmer)
+    const findfarmer = quarter.imslaughter;
+    const farmerName = await Imslaughter.findById(findfarmer);
 
-    const finduser = userId
-    const username = await User.findById(finduser)
+    const finduser = userId;
+    const username = await User.findById(finduser);
 
-    const room = await Beefroom.findById(args.beefroom)
-    const y = room.typekeep
-    const totalquarter = room.quarter
+    const room = await Beefroom.findById(args.beefroom);
+    const y = room.typekeep;
+    const totalquarter = room.quarter;
 
-    const type = quarter.beeftype.toString()
+    const type = quarter.beeftype.toString();
 
-    const typebeef = await Typekeep.findOne({_id: y ,beeftype: type })
-    
-    const findtype = typebeef.beeftype.toString()
+    const typebeef = await Typekeep.findOne({ _id: y, beeftype: type });
 
-    const totalbeef = typebeef.totalbeef.toString()
+    const findtype = typebeef.beeftype.toString();
 
-    const isRoomEmpty = totalquarter.length == totalbeef
-    
-    
-    if(isRoomEmpty){
-        throw new Error ("ห้องของคุณเต็มกรุณาเพิ่มประเภทจัดเก็บ");
+    const totalbeef = typebeef.totalbeef.toString();
+
+    const isRoomEmpty = totalquarter.length == totalbeef;
+
+    if (isRoomEmpty) {
+      throw new Error("ห้องของคุณเต็มกรุณาเพิ่มประเภทจัดเก็บ");
     }
 
-    if (type !== findtype){
-        throw new Error ("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
+    if (type !== findtype) {
+      throw new Error("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
     }
 
-    if (quarter){
-    const imquarter = await Imquarter.create({
-        name: 'นำเข้า',
+    if (quarter) {
+      const imquarter = await Imquarter.create({
+        name: "นำเข้า",
         importdate: date,
         user: userId,
         quarter: quarter.id,
@@ -74,145 +71,151 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: statusIM,
-        beefroom: args.beefroom
-    });
+        beefroom: args.beefroom,
+      });
 
-    const store = await BeefStore.findById(args.beefstore);
-    if (!store.imquarters) {
+      const store = await BeefStore.findById(args.beefstore);
+      if (!store.imquarters) {
         store.imquarters = [imquarter];
-    } else  {
+      } else {
         store.imquarters.push(imquarter);
-    }
-    await store.save();
+      }
+      await store.save();
 
-    const rooms = await Beefroom.findById(args.beefroom);
-    if (!rooms.quarter) {
+      const rooms = await Beefroom.findById(args.beefroom);
+      if (!rooms.quarter) {
         rooms.quarter = [quarter];
-    } else  {
+      } else {
         rooms.quarter.push(quarter);
+      }
+      await rooms.save();
+
+      return Imquarter.findById(imquarter.id)
+        .populate({
+          path: "user",
+          populate: { path: "imquarters" },
+        })
+        .populate({
+          path: "quarter",
+          populate: { path: "status" },
+        })
+        .populate({
+          path: "quarter",
+          populate: { path: "imslaughter" },
+        })
+        .populate({
+          path: "quarter",
+          populate: { path: "beeftype" },
+        })
+        .populate({
+          path: "storestatus",
+        })
+        .populate({
+          path: "beefroom",
+        });
     }
-    await rooms.save();
+  },
 
-
-    return Imquarter.findById(imquarter.id)
-    .populate({
-        path: "user",
-        populate: {path: "imquarters"}
-    })
-    .populate({
-        path: "quarter",
-        populate: {path: "status"}
-    })
-    .populate({
-        path: "quarter",    
-        populate: {path: "imslaughter",}
-    })
-    .populate({
-        path: "quarter",
-        populate: {path: "beeftype"}
-    })
-    .populate({
-        path: "storestatus",
-    })
-    .populate({
-        path: "beefroom",
-    })
-    }
-},
-
-    createExportq: async (parent, args, { userId }, info) => {
+  createExportq: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.storestatus || !args.exporter){
-        throw new Error("กรุณากรอกข้อมูลให้ครบ");
+    if (!args.barcode || !args.storestatus || !args.exporter) {
+      throw new Error("กรุณากรอกข้อมูลให้ครบ");
     }
-    
-    const date = dayjs()
+
+    const date = dayjs();
 
     const quarter = await Quarter.findOne({
-        barcode: args.barcode,
+      barcode: args.barcode,
     });
 
     const exquart = await Imquarter.findOne({
-        barcode: args.barcode,
+      barcode: args.barcode,
     });
 
-    const exporter = await RequestExport.findById(args.exporter)
+    const exporter = await RequestExport.findById(args.exporter);
 
-    const findfarmer = quarter.imslaughter
-    const farmerName = await Imslaughter.findById(findfarmer)
+    const findfarmer = quarter.imslaughter;
+    const farmerName = await Imslaughter.findById(findfarmer);
 
-    const finduser = userId
-    const username = await User.findById(finduser)
+    const finduser = userId;
+    const username = await User.findById(finduser);
 
-    const room = exquart.beefroom
+    const room = exquart.beefroom;
 
-    const find = await Imquarter.findOne({barcode: args.barcode, name: "นำออก"}).countDocuments() > 0
-    
-    if (find){
-        throw new Error("ซากโคสี่เสี้ยวนี้ถูกนำออกไปเเล้ว");
+    const find =
+      (await Imquarter.findOne({
+        barcode: args.barcode,
+        name: "นำออก",
+      }).countDocuments()) > 0;
+
+    if (find) {
+      throw new Error("ซากโคสี่เสี้ยวนี้ถูกนำออกไปเเล้ว");
     }
 
-    if(quarter){
-        const imquarter = await Imquarter.create({
-            name: 'นำออก',
-            exportdate: date, 
-            user: userId,
-            quarter: quarter,
-            barcode: args.barcode,
-            beeftype: quarter.beeftype,
-            namefarmer: farmerName.namefarmer,
-            userName: username.name,
-            storestatus: args.storestatus,
-            exporter: exporter,
+    if (quarter) {
+      const imquarter = await Imquarter.create({
+        name: "นำออก",
+        exportdate: date,
+        user: userId,
+        quarter: quarter,
+        barcode: args.barcode,
+        beeftype: quarter.beeftype,
+        namefarmer: farmerName.namefarmer,
+        userName: username.name,
+        storestatus: args.storestatus,
+        exporter: exporter,
+      });
+
+      let result = await BeefStore.findByIdAndUpdate(
+        {
+          _id: "6284d7035415c34e54b2fc2c",
+        },
+        { $pull: { imquarters: exquart.id } }
+      );
+
+      let r = await Beefroom.findByIdAndUpdate(
+        {
+          _id: room,
+        },
+        { $pull: { quarter: quarter } }
+      );
+
+      let test = await Imquarter.findById(imquarter.id)
+        .populate({
+          path: "user",
+          populate: { path: "imquarters" },
+        })
+        .populate({
+          path: "quarter",
+          populate: { path: "status" },
+        })
+        .populate({
+          path: "quarter",
+          populate: { path: "imslaughter" },
+        })
+        .populate({
+          path: "quarter",
+          populate: { path: "beeftype" },
+        })
+        .populate({
+          path: "beeftype",
+        })
+        .populate({
+          path: "storestatus",
+        })
+        .populate({
+          path: "beefroom",
+        })
+        .populate({
+          path: "shelf",
+        })
+        .populate({
+          path: "exporter",
         });
-    
-    let result = await BeefStore.findByIdAndUpdate({
-        _id:"6284d7035415c34e54b2fc2c"}, 
-        {$pull: {imquarters : exquart.id}})
 
-    let r = await Beefroom.findByIdAndUpdate({
-        _id: room },
-        {$pull: {quarter : quarter}})
-
-
-    let test = await Imquarter.findById(imquarter.id)
-    .populate({
-        path: "user",
-        populate: {path: "imquarters"}
-    })
-    .populate({
-        path: "quarter",
-        populate: {path: "status"}
-    })
-    .populate({
-        path: "quarter",    
-        populate: {path: "imslaughter",}
-    })
-    .populate({
-        path: "quarter",
-        populate: {path: "beeftype"}
-    })
-    .populate({
-        path: "beeftype",
-    })
-    .populate({
-        path: "storestatus",
-    })
-    .populate({
-        path: "beefroom",
-    })
-    .populate({
-        path: "shelf",
-    })
-    .populate({
-        path: "exporter",
-    })
-
-    return test
+      return test;
     }
-
-},
-
+  },
 };
-export default Mutation
+export default Mutation;

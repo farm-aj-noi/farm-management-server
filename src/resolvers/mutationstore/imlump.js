@@ -10,69 +10,69 @@ import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
 import Basket from "../../models/Beefstore/basket";
 
-
 const Mutation = {
-    createImlump: async (parent, args, { userId }, info) => {
-    
+  createImlump: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || 
-        !args.beefstore|| 
-        !args.beefroom || 
-        !args.shelf || 
-        !args.basket){
-        throw new Error("กรุณากรอกบาร์โค้ด");
+    if (
+      !args.barcode ||
+      !args.beefstore ||
+      !args.beefroom ||
+      !args.shelf ||
+      !args.basket
+    ) {
+      throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
-    /* const currentRoom = await Imlump.find();
-        const isRoomExist = 
-            currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
-            
-        if (isRoomExist) {
-            throw new Error("บาร์โค้ดของคุณซ้ำ");
-        } */
+    const currentRoom = await Imlump.find();
+    const isRoomExist =
+      currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
 
-    const date = dayjs()
+    if (isRoomExist) {
+      throw new Error("บาร์โค้ดของคุณซ้ำ");
+    }
+
+    const date = dayjs();
 
     const lump = await Lump.findOne({
-        barcode: args.barcode,
+      barcode: args.barcode,
     });
 
     const statusIM = "5f448d5d4ef8ed48806f1b53";
 
-    const findfarmer = lump.imslaughter
-    const farmerName = await Imslaughter.findById(findfarmer)
+    const findfarmer = lump.imslaughter;
+    const farmerName = await Imslaughter.findById(findfarmer);
 
-    const finduser = userId
-    const username = await User.findById(finduser)
+    const finduser = userId;
+    const username = await User.findById(finduser);
 
-    const shelfs = await Shelf.findById(args.shelf)
-    const y = shelfs.typekeep
-    const totallump = shelfs.lump
+    const shelfs = await Shelf.findById(args.shelf);
+    const y = shelfs.typekeep;
+    const totallump = shelfs.lump;
 
-    const type = lump.beeftype.toString()
+    const type = lump.beeftype.toString();
 
-    const typebeef = await Typekeep.findOne({_id: y ,beeftype: type })
-    
-    const findtype = typebeef.beeftype.toString()
+    const typebeef = await Typekeep.findOne({ _id: y, beeftype: type });
 
-    const totalbeef = typebeef.totalbeef.toString()
+    const findtype = typebeef.beeftype.toString();
 
-    const isRoomEmpty = totallump.length == totalbeef
+    const totalbeef = typebeef.totalbeef.toString();
 
-    const basket = await Basket.findById(args.basket)
-    
-    if(isRoomEmpty){
-        throw new Error ("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
+    const isRoomEmpty = totallump.length == totalbeef;
+
+    const basket = await Basket.findById(args.basket);
+
+    if (isRoomEmpty) {
+      throw new Error("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
     }
 
-    if (type !== findtype){
-        throw new Error ("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
+    if (type !== findtype) {
+      throw new Error("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
     }
-    
-    if (lump){
-    const imlump = await Imlump.create({
-        name: 'นำเข้า',
+
+    if (lump) {
+      const imlump = await Imlump.create({
+        name: "นำเข้า",
         importdate: date,
         user: userId,
         lump: lump,
@@ -84,164 +84,175 @@ const Mutation = {
         beefroom: args.beefroom,
         shelf: args.shelf,
         basket: basket.basketname,
-    });
-    
-    const store = await BeefStore.findById(args.beefstore);
-    if (!store.imlumps) {
+      });
+
+      const store = await BeefStore.findById(args.beefstore);
+      if (!store.imlumps) {
         store.imlumps = [imlump];
-    } else  {
+      } else {
         store.imlumps.push(imlump);
-    }
-    await store.save();
+      }
+      await store.save();
 
-    const rooms = await Beefroom.findById(args.beefroom);
-    if (!rooms.lump) {
+      const rooms = await Beefroom.findById(args.beefroom);
+      if (!rooms.lump) {
         rooms.lump = [lump];
-    } else  {
+      } else {
         rooms.lump.push(lump);
-    }
-    await rooms.save();
+      }
+      await rooms.save();
 
-    const shelfs = await Shelf.findById(args.shelf);
-    if (!shelfs.lump) {
+      const shelfs = await Shelf.findById(args.shelf);
+      if (!shelfs.lump) {
         shelfs.lump = [lump];
-    } else  {
+      } else {
         shelfs.lump.push(lump);
-    }
-    await shelfs.save();
+      }
+      await shelfs.save();
 
-    let test = await Imlump.findById(imlump.id)
-    .populate({
-        path: "user",
-        populate: {path: "imlumps",}
-    })
-    .populate({
-        path: "lump",
-        populate: {path: "status"}
-    })
-    .populate({
-        path: "lump",    
-        populate: {path: "imslaughter",}
-    })
-    .populate({
-        path: "lump",
-        populate: {path: "beeftype"}
-    })
-    .populate({
-        path: "beeftype",
-    })
-    .populate({
-        path: "storestatus",
-    })
-    .populate({
-        path: "beefroom",
-    })
-    .populate({
-        path: "shelf",
-    })
-    
-    console.log(test)
-    return test
-    }
-},
+      let test = await Imlump.findById(imlump.id)
+        .populate({
+          path: "user",
+          populate: { path: "imlumps" },
+        })
+        .populate({
+          path: "lump",
+          populate: { path: "status" },
+        })
+        .populate({
+          path: "lump",
+          populate: { path: "imslaughter" },
+        })
+        .populate({
+          path: "lump",
+          populate: { path: "beeftype" },
+        })
+        .populate({
+          path: "beeftype",
+        })
+        .populate({
+          path: "storestatus",
+        })
+        .populate({
+          path: "beefroom",
+        })
+        .populate({
+          path: "shelf",
+        });
 
-    createExportl: async (parent, args, { userId }, info) => {
+      console.log(test);
+      return test;
+    }
+  },
+
+  createExportl: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.storestatus || !args.exporter){
-        throw new Error("กรุณากรอกข้อมูลให้ครบ");
+    if (!args.barcode || !args.storestatus || !args.exporter) {
+      throw new Error("กรุณากรอกข้อมูลให้ครบ");
     }
-    
-    const date = dayjs()
+
+    const date = dayjs();
 
     const lump = await Lump.findOne({
-        barcode: args.barcode,
+      barcode: args.barcode,
     });
 
     const exlump = await Imlump.findOne({
-        barcode: args.barcode,
+      barcode: args.barcode,
     });
 
-    const exporter = await RequestExport.findById(args.exporter)
+    const exporter = await RequestExport.findById(args.exporter);
 
-    const findfarmer = lump.imslaughter
-    const farmerName = await Imslaughter.findById(findfarmer)
+    const findfarmer = lump.imslaughter;
+    const farmerName = await Imslaughter.findById(findfarmer);
 
-    const finduser = userId
-    const username = await User.findById(finduser)
+    const finduser = userId;
+    const username = await User.findById(finduser);
 
-    const room = exlump.beefroom
-    const shelf = exlump.shelf
+    const room = exlump.beefroom;
+    const shelf = exlump.shelf;
 
-    const find = await Imlump.findOne({barcode: args.barcode, name: "นำออก"}).countDocuments() > 0
-    
-    if (find){
-        throw new Error("ก้อนเนื้อนี้ถูกนำออกไปเเล้ว");
+    const find =
+      (await Imlump.findOne({
+        barcode: args.barcode,
+        name: "นำออก",
+      }).countDocuments()) > 0;
+
+    if (find) {
+      throw new Error("ก้อนเนื้อนี้ถูกนำออกไปเเล้ว");
     }
-    
-    if(lump){
-        const imlump = await Imlump.create({
-            name: 'นำออก',
-            exportdate: date,
-            user: userId,
-            lump: lump,
-            barcode: args.barcode,
-            beeftype: lump.beeftype,
-            namefarmer: farmerName.namefarmer,
-            userName: username.name,
-            storestatus: args.storestatus,
-            exporter: exporter,
+
+    if (lump) {
+      const imlump = await Imlump.create({
+        name: "นำออก",
+        exportdate: date,
+        user: userId,
+        lump: lump,
+        barcode: args.barcode,
+        beeftype: lump.beeftype,
+        namefarmer: farmerName.namefarmer,
+        userName: username.name,
+        storestatus: args.storestatus,
+        exporter: exporter,
+      });
+
+      let result = await BeefStore.findByIdAndUpdate(
+        {
+          _id: "6284d7035415c34e54b2fc2c",
+        },
+        { $pull: { imlumps: exlump.id } }
+      );
+
+      let r = await Beefroom.findByIdAndUpdate(
+        {
+          _id: room,
+        },
+        { $pull: { lump: lump } }
+      );
+
+      let s = await Shelf.findByIdAndUpdate(
+        {
+          _id: shelf,
+        },
+        { $pull: { lump: lump } }
+      );
+
+      let test = await Imlump.findById(imlump.id)
+        .populate({
+          path: "user",
+          populate: { path: "imlumps" },
+        })
+        .populate({
+          path: "lump",
+          populate: { path: "status" },
+        })
+        .populate({
+          path: "lump",
+          populate: { path: "imslaughter" },
+        })
+        .populate({
+          path: "lump",
+          populate: { path: "beeftype" },
+        })
+        .populate({
+          path: "beeftype",
+        })
+        .populate({
+          path: "storestatus",
+        })
+        .populate({
+          path: "beefroom",
+        })
+        .populate({
+          path: "shelf",
+        })
+        .populate({
+          path: "exporter",
         });
 
-    let result = await BeefStore.findByIdAndUpdate({
-        _id:"6284d7035415c34e54b2fc2c"}, 
-        {$pull: {imlumps : exlump.id}})
-
-    let r = await Beefroom.findByIdAndUpdate({
-        _id: room },
-        {$pull: {lump : lump}})
-
-    let s = await Shelf.findByIdAndUpdate({
-        _id:  shelf},
-        {$pull: {lump : lump}})
-
-    let test = await Imlump.findById(imlump.id)
-    .populate({
-        path: "user",
-        populate: {path: "imlumps"}
-    })
-    .populate({
-        path: "lump",
-        populate: {path: "status"}
-    })
-    .populate({
-        path: "lump",    
-        populate: {path: "imslaughter",}
-    })
-    .populate({
-        path: "lump",
-        populate: {path: "beeftype"}
-    })
-    .populate({
-        path: "beeftype",
-    })
-    .populate({
-        path: "storestatus",
-    })
-    .populate({
-        path: "beefroom",
-    })
-    .populate({
-        path: "shelf",
-    })
-    .populate({
-        path: "exporter",
-    })
-
-    return test   
+      return test;
     }
-
-},
-
-}
-export default Mutation
+  },
+};
+export default Mutation;

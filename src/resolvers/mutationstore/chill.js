@@ -1,8 +1,6 @@
 import Chill from "../../models/Beefstore/chill";
 import dayjs from "dayjs";
-import Chillroom from "../../models/Beefstore/chillroom";
 import Halve from "../../models/halve";
-import Imhalve from "../../models/Beefstore/imhalve";
 import Chillday from "../../models/Beefstore/chillday";
 
 const Mutation = {

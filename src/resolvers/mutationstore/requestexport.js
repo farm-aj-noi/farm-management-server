@@ -3,39 +3,35 @@ import dayjs from "dayjs";
 import Beeftype from "../../models/beeftype";
 
 const Mutation = {
-    createRequestExport: async (parent, args, { userId }, info) => {
+  createRequestExport: async (parent, args, { userId }, info) => {
+    if (!args.name || !args.beeftype || !args.quantity) {
+      throw new Error("Please provide all required fields.");
+    }
 
-        if (!args.name || !args.beeftype || !args.quantity) {
-            throw new Error("Please provide all required fields.");
-        }  
+    const date = dayjs();
 
-        const date = dayjs()
+    const beeftype = await Beeftype.findById(args.beeftype);
 
+    const req = await RequestExport.create({
+      name: args.name,
+      beeftype: beeftype,
+      quantity: args.quantity,
+      requestdate: date,
+    });
 
-        const beeftype = await Beeftype.findById(args.beeftype)
+    let data = RequestExport.findById(req.id).populate({
+      path: "beeftype",
+    });
 
-        const req = await RequestExport.create({
-            name: args.name,
-            beeftype : beeftype,
-            quantity: args.quantity,
-            requestdate: date,
-        });
+    return data;
+  },
 
-        let data = RequestExport.findById(req.id)
-        .populate({
-            path: "beeftype"
-        })
+  deleteRequest: async (parent, args, { userId }, info) => {
+    const { id } = args;
 
-        return data;
-    },
+    const request = await RequestExport.findByIdAndDelete(id);
 
-    deleteRequest: async (parent, args, { userId }, info) => {
-        const { id } = args;
-
-        const request = await RequestExport.findByIdAndDelete(id);
-
-        return request;
-    },
-
-}
-export default Mutation
+    return request;
+  },
+};
+export default Mutation;

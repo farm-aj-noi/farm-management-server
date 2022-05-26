@@ -266,9 +266,6 @@ type Query {
   CardExl: [Imlump]
   CardExc: [Imchop]
   CardExe: [Imentrail]
-
-
-
 }
 
 type Mutation {
@@ -583,11 +580,7 @@ type Mutation {
 
   creatChillroom(roomnum: String): Chillroom
 
-  createExporth(
-    barcode: String
-    storestatus: String
-    exporter: String
-  ): Imhalve
+  createExporth(barcode: String, storestatus: String, exporter: String): Imhalve
 
   createExportq(
     barcode: String
@@ -595,11 +588,7 @@ type Mutation {
     exporter: String
   ): Imquarter
 
-  createExportl(
-    barcode: String
-    storestatus: String
-    exporter: String
-  ): Imlump
+  createExportl(barcode: String, storestatus: String, exporter: String): Imlump
 
   createExportc(barcode: String, storestatus: String, exporter: String): Imchop
 
@@ -629,7 +618,7 @@ type Mutation {
 
   createChillday(day: String): Chillday
 
-  createBasket(beefroom:String, shelf: String, basketname: String): Basket
+  createBasket(beefroom: String, shelf: String, basketname: String): Basket
 
   createExpdatesetting(totalday: String): ExpdateSetting
 
@@ -638,7 +627,7 @@ type Mutation {
   deleteBeefroom(id: ID): Beefroom
   deleteShelf(id: ID): Shelf
   deleteBasket(id: ID): Basket
-  deleteChillroom(id: ID):Chillroom
+  deleteChillroom(id: ID): Chillroom
 }
 
 scalar Date
@@ -1317,7 +1306,7 @@ type RequestExport {
   requestdate: Date
 }
 
-type ExpdateSetting{
+type ExpdateSetting {
   id: ID
   totalday: String
 }

@@ -32,7 +32,6 @@ const Mutation = {
   deleteShelf: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    // Delete Beeftype
     const deleteshelf = await Shelf.findByIdAndDelete(args.id);
 
     return deleteshelf;

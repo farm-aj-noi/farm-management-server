@@ -22,6 +22,5 @@ const Mutation = {
 
     return deleteroom;
   },
-  
 };
 export default Mutation;

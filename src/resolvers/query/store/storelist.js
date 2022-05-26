@@ -1,7 +1,6 @@
 import BeefStore from "../../../models/Beefstore/beefstore";
 import Imhalve from "../../../models/Beefstore/imhalve";
 import Imquarter from "../../../models/Beefstore/imquarter";
-
 import dayjs from "dayjs";
 import Imlump from "../../../models/Beefstore/imlump";
 import Imchop from "../../../models/Beefstore/imchop";
@@ -11,7 +10,6 @@ import Chill from "../../../models/Beefstore/chill";
 import Beefroom from "../../../models/Beefstore/beefroom";
 import Shelf from "../../../models/Beefstore/shelf";
 import Halve from "../../../models/halve";
-import { argsToArgsConfig } from "graphql/type/definition";
 import RequestExport from "../../../models/Beefstore/requestexport";
 import Chillday from "../../../models/Beefstore/chillday";
 import Basket from "../../../models/Beefstore/basket";
@@ -253,10 +251,6 @@ const Query = {
         path: "user",
         populate: { path: "imhalves" },
       })
-      /* .populate({
-        path: "user",
-        populate: {path: "curings"}
-      }) */
       .populate({
         path: "halve",
         populate: { path: "status" },
@@ -278,11 +272,6 @@ const Query = {
       .populate({
         path: "beefroom",
       })
-
-      /* .populate({
-        path: "halve",
-        populate: {path: "curing", populate: {path: "cureroom"}}
-      }) */
       .sort({ importdate: "DESC" });
     if (args.beeftype) {
       cursor.find({
@@ -949,143 +938,139 @@ const Query = {
       const cursor = Basket.find({
         shelf: args.id,
       })
-      .populate({
-        path: "shelf",
-      })
-      .populate({
-        path: "beefroom"
-      });
+        .populate({
+          path: "shelf",
+        })
+        .populate({
+          path: "beefroom",
+        });
       return cursor;
     }
   },
 
   Card8: async (parent, args, context, info) => {
     const cursor = await Imhalve.find({
-      almostExpdate:{
+      almostExpdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
-      }
-    })
+      },
+    });
     return cursor;
   },
 
   Card9: async (parent, args, context, info) => {
     const cursor = await RequestExport.find({
-      requestdate:{
+      requestdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
-      }
+      },
     }).populate({
-      path: "beeftype"
-    })
+      path: "beeftype",
+    });
     return cursor;
   },
 
   CardImh: async (parent, args, context, info) => {
     const cursor = await Imhalve.find({
-      importdate:{
+      importdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      name: "นำเข้า"
-    })
+      name: "นำเข้า",
+    });
     return cursor;
   },
   CardImq: async (parent, args, context, info) => {
     const cursor = await Imquarter.find({
-      importdate:{
+      importdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      name: "นำเข้า"
-    })
+      name: "นำเข้า",
+    });
     return cursor;
   },
   CardIml: async (parent, args, context, info) => {
     const cursor = await Imlump.find({
-      importdate:{
+      importdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      name: "นำเข้า"
-    })
+      name: "นำเข้า",
+    });
     return cursor;
   },
   CardImc: async (parent, args, context, info) => {
     const cursor = await Imchop.find({
-      importdate:{
+      importdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      name: "นำเข้า"
-    })
+      name: "นำเข้า",
+    });
     return cursor;
   },
   CardIme: async (parent, args, context, info) => {
     const cursor = await Imentrail.find({
-      importdate:{
+      importdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      name: "นำเข้า"
-    })
+      name: "นำเข้า",
+    });
     return cursor;
   },
-///////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////
   CardExh: async (parent, args, context, info) => {
     const cursor = await Imhalve.find({
-      exportdate:{
+      exportdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      name: "นำออก"
-    })
+      name: "นำออก",
+    });
     return cursor;
   },
   CardExq: async (parent, args, context, info) => {
     const cursor = await Imquarter.find({
-      exportdate:{
+      exportdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      name: "นำออก"
-    })
+      name: "นำออก",
+    });
     return cursor;
   },
   CardExl: async (parent, args, context, info) => {
     const cursor = await Imlump.find({
-      exportdate:{
+      exportdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      name: "นำออก"
-    })
+      name: "นำออก",
+    });
     return cursor;
   },
   CardExc: async (parent, args, context, info) => {
     const cursor = await Imchop.find({
-      exportdate:{
+      exportdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      name: "นำออก"
-    })
+      name: "นำออก",
+    });
     return cursor;
   },
   CardExe: async (parent, args, context, info) => {
     const cursor = await Imentrail.find({
-      exportdate:{
+      exportdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      name: "นำออก"
-    })
+      name: "นำออก",
+    });
     return cursor;
   },
-
-
-
-
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;

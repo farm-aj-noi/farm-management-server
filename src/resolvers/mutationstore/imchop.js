@@ -11,67 +11,68 @@ import RequestExport from "../../models/Beefstore/requestexport";
 import Basket from "../../models/Beefstore/basket";
 
 const Mutation = {
-    createImchop: async (parent, args, { userId }, info) => {
-    
+  createImchop: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || 
-        !args.beefstore || 
-        !args.beefroom || 
-        !args.shelf || 
-        !args.basket){
-        throw new Error("กรุณากรอกบาร์โค้ด");
+    if (
+      !args.barcode ||
+      !args.beefstore ||
+      !args.beefroom ||
+      !args.shelf ||
+      !args.basket
+    ) {
+      throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
     const currentRoom = await Imchop.find();
-        const isRoomExist = 
-            currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
-            
-        if (isRoomExist) {
-            throw new Error("บาร์โค้ดของคุณซ้ำ");
-        }
+    const isRoomExist =
+      currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
 
-    const date = dayjs()
+    if (isRoomExist) {
+      throw new Error("บาร์โค้ดของคุณซ้ำ");
+    }
+
+    const date = dayjs();
 
     const chop = await Chop.findOne({
-        barcode: args.barcode,
+      barcode: args.barcode,
     });
 
     const statusIM = "5f448d5d4ef8ed48806f1b53";
 
-    const findfarmer = chop.imslaughter
-    const farmerName = await Imslaughter.findById(findfarmer)
+    const findfarmer = chop.imslaughter;
+    const farmerName = await Imslaughter.findById(findfarmer);
 
-    const finduser = userId
-    const username = await User.findById(finduser)
-    
-    const shelfs = await Shelf.findById(args.shelf)
-    const y = shelfs.typekeep
-    const totalchop = shelfs.chop
+    const finduser = userId;
+    const username = await User.findById(finduser);
 
-    const type = chop.beeftype.toString()
+    const shelfs = await Shelf.findById(args.shelf);
+    const y = shelfs.typekeep;
+    const totalchop = shelfs.chop;
 
-    const typebeef = await Typekeep.findOne({_id: y ,beeftype: type })
-    
-    const findtype = typebeef.beeftype.toString()
+    const type = chop.beeftype.toString();
 
-    const totalbeef = typebeef.totalbeef.toString()
+    const typebeef = await Typekeep.findOne({ _id: y, beeftype: type });
 
-    const isRoomEmpty = totalchop.length == totalbeef
+    const findtype = typebeef.beeftype.toString();
 
-    const basket = await Basket.findById(args.basket)
-    
-    if(isRoomEmpty){
-        throw new Error ("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
+    const totalbeef = typebeef.totalbeef.toString();
+
+    const isRoomEmpty = totalchop.length == totalbeef;
+
+    const basket = await Basket.findById(args.basket);
+
+    if (isRoomEmpty) {
+      throw new Error("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
     }
 
-    if (type !== findtype){
-        throw new Error ("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
+    if (type !== findtype) {
+      throw new Error("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
     }
 
-    if (chop){
-    const imchop = await Imchop.create({
-        name: 'นำเข้า',
+    if (chop) {
+      const imchop = await Imchop.create({
+        name: "นำเข้า",
         importdate: date,
         user: userId,
         chop: chop,
@@ -83,161 +84,167 @@ const Mutation = {
         beefroom: args.beefroom,
         shelf: args.shelf,
         basket: basket.basketname,
-    });
-    
-    const store = await BeefStore.findById(args.beefstore);
-    if (!store.imchops) {
+      });
+
+      const store = await BeefStore.findById(args.beefstore);
+      if (!store.imchops) {
         store.imchops = [imchop];
-    } else  {
+      } else {
         store.imchops.push(imchop);
-    }
-    await store.save();
+      }
+      await store.save();
 
-    const rooms = await Beefroom.findById(args.beefroom);
-    if (!rooms.chop) {
+      const rooms = await Beefroom.findById(args.beefroom);
+      if (!rooms.chop) {
         rooms.chop = [chop];
-    } else  {
+      } else {
         rooms.chop.push(chop);
-    }
-    await rooms.save();
+      }
+      await rooms.save();
 
-    const shelfs = await Shelf.findById(args.shelf);
-    if (!shelfs.chop) {
+      const shelfs = await Shelf.findById(args.shelf);
+      if (!shelfs.chop) {
         shelfs.chop = [chop];
-    } else  {
+      } else {
         shelfs.chop.push(chop);
+      }
+      await shelfs.save();
+
+      let test = await Imchop.findById(imchop.id)
+        .populate({
+          path: "user",
+          populate: { path: "imchops" },
+        })
+        .populate({
+          path: "chop",
+          populate: { path: "status" },
+        })
+        .populate({
+          path: "chop",
+          populate: { path: "imslaughter" },
+        })
+        .populate({
+          path: "chop",
+          populate: { path: "beeftype" },
+        })
+        .populate({
+          path: "beeftype",
+        })
+        .populate({
+          path: "storestatus",
+        })
+        .populate({
+          path: "beefroom",
+        })
+        .populate({
+          path: "shelf",
+        });
+
+      console.log(test);
+      return test;
     }
-    await shelfs.save();
+  },
 
-    let test = await Imchop.findById(imchop.id)
-    .populate({
-        path: "user",
-        populate: {path: "imchops",}
-    })
-    .populate({
-        path: "chop",
-        populate: {path: "status"}
-    })
-    .populate({
-        path: "chop",    
-        populate: {path: "imslaughter",}
-    })
-    .populate({
-        path: "chop",
-        populate: {path: "beeftype"}
-    })
-    .populate({
-        path: "beeftype",
-    })
-    .populate({
-        path: "storestatus",
-    })
-    .populate({
-        path: "beefroom",
-    })
-    .populate({
-        path: "shelf",
-    })
-    
-    console.log(test)
-    return test
-
-    }
-},
-
-    createExportc: async (parent, args, { userId }, info) => {
+  createExportc: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.storestatus || !args.exporter){
-        throw new Error("กรุณากรอกข้อมูลให้ครบ");
+    if (!args.barcode || !args.storestatus || !args.exporter) {
+      throw new Error("กรุณากรอกข้อมูลให้ครบ");
     }
-    
-    const date = dayjs()
+
+    const date = dayjs();
 
     const chop = await Chop.findOne({
-        barcode: args.barcode,
+      barcode: args.barcode,
     });
 
     const exchop = await Imchop.findOne({
-        barcode: args.barcode,
+      barcode: args.barcode,
     });
-    
-    const exporter = await RequestExport.findById(args.exporter)
-    
-    const findfarmer = chop.imslaughter
-    const farmerName = await Imslaughter.findById(findfarmer)
 
-    const finduser = userId
-    const username = await User.findById(finduser)
+    const exporter = await RequestExport.findById(args.exporter);
 
-    const room = exchop.beefroom
+    const findfarmer = chop.imslaughter;
+    const farmerName = await Imslaughter.findById(findfarmer);
 
-    const find = await Imchop.findOne({barcode: args.barcode, name: "นำออก"}).countDocuments() > 0
-    
-    if (find){
-        throw new Error("ชิ้นเนื้อถูกนำออกไปเเล้ว");
+    const finduser = userId;
+    const username = await User.findById(finduser);
+
+    const room = exchop.beefroom;
+
+    const find =
+      (await Imchop.findOne({
+        barcode: args.barcode,
+        name: "นำออก",
+      }).countDocuments()) > 0;
+
+    if (find) {
+      throw new Error("ชิ้นเนื้อถูกนำออกไปเเล้ว");
     }
 
-    if(chop){
-        const imchop = await Imchop.create({
-            name: 'นำออก',
-            exportdate: date,
-            user: userId,
-            chop: chop,
-            barcode: args.barcode,
-            beeftype: chop.beeftype,
-            namefarmer: farmerName.namefarmer,
-            userName: username.name,
-            storestatus: args.storestatus,
-            exporter: exporter,
+    if (chop) {
+      const imchop = await Imchop.create({
+        name: "นำออก",
+        exportdate: date,
+        user: userId,
+        chop: chop,
+        barcode: args.barcode,
+        beeftype: chop.beeftype,
+        namefarmer: farmerName.namefarmer,
+        userName: username.name,
+        storestatus: args.storestatus,
+        exporter: exporter,
+      });
+
+      let result = await BeefStore.findByIdAndUpdate(
+        {
+          _id: "6284d7035415c34e54b2fc2c",
+        },
+        { $pull: { imchops: exchop.id } }
+      );
+
+      let r = await Beefroom.findByIdAndUpdate(
+        {
+          _id: room,
+        },
+        { $pull: { chop: chop } }
+      );
+
+      let test = await Imchop.findById(imchop.id)
+        .populate({
+          path: "user",
+          populate: { path: "imchops" },
+        })
+        .populate({
+          path: "chop",
+          populate: { path: "status" },
+        })
+        .populate({
+          path: "chop",
+          populate: { path: "imslaughter" },
+        })
+        .populate({
+          path: "chop",
+          populate: { path: "beeftype" },
+        })
+        .populate({
+          path: "beeftype",
+        })
+        .populate({
+          path: "storestatus",
+        })
+        .populate({
+          path: "beefroom",
+        })
+        .populate({
+          path: "shelf",
+        })
+        .populate({
+          path: "exporter",
         });
 
-    let result = await BeefStore.findByIdAndUpdate({
-        _id:"6284d7035415c34e54b2fc2c"}, 
-        {$pull: {imchops : exchop.id}})
-
-    let r = await Beefroom.findByIdAndUpdate({
-        _id: room },
-        {$pull: {chop : chop}})
-
-    let test = await Imchop.findById(imchop.id)
-    .populate({
-        path: "user",
-        populate: {path: "imchops"}
-    })
-    .populate({
-        path: "chop",
-        populate: {path: "status"}
-    })
-    .populate({
-        path: "chop",    
-        populate: {path: "imslaughter",}
-    })
-    .populate({
-        path: "chop",
-        populate: {path: "beeftype"}
-    })
-    .populate({
-        path: "beeftype",
-    })
-    .populate({
-        path: "storestatus",
-    })
-    .populate({
-        path: "beefroom",
-    })
-    .populate({
-        path: "shelf",
-    })
-    .populate({
-        path: "exporter",
-    })
-
-    return test   
+      return test;
     }
-
-},    
-
-
-}
-export default Mutation
+  },
+};
+export default Mutation;
