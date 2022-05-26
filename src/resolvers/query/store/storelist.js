@@ -273,9 +273,6 @@ const Query = {
         path: "beeftype",
       })
       .populate({
-        path: "beeftypechange",
-      })
-      .populate({
         path: "storestatus",
       })
       .populate({
@@ -335,9 +332,6 @@ const Query = {
       })
       .populate({
         path: "beeftype",
-      })
-      .populate({
-        path: "beeftypechange",
       })
       .populate({
         path: "storestatus",
@@ -401,9 +395,7 @@ const Query = {
       .populate({
         path: "beeftype",
       })
-      .populate({
-        path: "beeftypechange",
-      })
+
       .populate({
         path: "storestatus",
       })
@@ -469,9 +461,6 @@ const Query = {
         path: "beeftype",
       })
       .populate({
-        path: "beeftypechange",
-      })
-      .populate({
         path: "storestatus",
       })
       .populate({
@@ -532,9 +521,6 @@ const Query = {
         path: "beeftype",
       })
       .populate({
-        path: "beeftypechange",
-      })
-      .populate({
         path: "storestatus",
       })
       .populate({
@@ -593,9 +579,6 @@ const Query = {
       })
       .populate({
         path: "beeftype",
-      })
-      .populate({
-        path: "beeftypechange",
       })
       .populate({
         path: "storestatus",
@@ -975,6 +958,134 @@ const Query = {
       return cursor;
     }
   },
+
+  Card8: async (parent, args, context, info) => {
+    const cursor = await Imhalve.find({
+      almostExpdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      }
+    })
+    return cursor;
+  },
+
+  Card9: async (parent, args, context, info) => {
+    const cursor = await RequestExport.find({
+      requestdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      }
+    }).populate({
+      path: "beeftype"
+    })
+    return cursor;
+  },
+
+  CardImh: async (parent, args, context, info) => {
+    const cursor = await Imhalve.find({
+      importdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำเข้า"
+    })
+    return cursor;
+  },
+  CardImq: async (parent, args, context, info) => {
+    const cursor = await Imquarter.find({
+      importdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำเข้า"
+    })
+    return cursor;
+  },
+  CardIml: async (parent, args, context, info) => {
+    const cursor = await Imlump.find({
+      importdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำเข้า"
+    })
+    return cursor;
+  },
+  CardImc: async (parent, args, context, info) => {
+    const cursor = await Imchop.find({
+      importdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำเข้า"
+    })
+    return cursor;
+  },
+  CardIme: async (parent, args, context, info) => {
+    const cursor = await Imentrail.find({
+      importdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำเข้า"
+    })
+    return cursor;
+  },
+///////////////////////////////////////////////////////////
+  CardExh: async (parent, args, context, info) => {
+    const cursor = await Imhalve.find({
+      exportdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำออก"
+    })
+    return cursor;
+  },
+  CardExq: async (parent, args, context, info) => {
+    const cursor = await Imquarter.find({
+      exportdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำออก"
+    })
+    return cursor;
+  },
+  CardExl: async (parent, args, context, info) => {
+    const cursor = await Imlump.find({
+      exportdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำออก"
+    })
+    return cursor;
+  },
+  CardExc: async (parent, args, context, info) => {
+    const cursor = await Imchop.find({
+      exportdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำออก"
+    })
+    return cursor;
+  },
+  CardExe: async (parent, args, context, info) => {
+    const cursor = await Imentrail.find({
+      exportdate:{
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำออก"
+    })
+    return cursor;
+  },
+
+
+
+
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;

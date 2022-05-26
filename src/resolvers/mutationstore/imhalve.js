@@ -7,6 +7,7 @@ import User from "../../models/user";
 import Beefroom from "../../models/Beefstore/beefroom";
 import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
+import ExpdateSetting from "../../models/Beefstore/expdatesetting";
 
 const Mutation = {
   createImHalve: async (parent, args, { userId }, info) => {
@@ -173,7 +174,6 @@ const Mutation = {
         halve: halve,
         barcode: args.barcode,
         beeftype: halve.beeftype,
-        beeftypechange: args.beeftypechange,
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: args.storestatus,
@@ -218,9 +218,6 @@ const Mutation = {
           path: "storestatus",
         })
         .populate({
-          path: "beeftypechange",
-        })
-        .populate({
           path: "beefroom",
         })
         .populate({
@@ -235,9 +232,34 @@ const Mutation = {
   },
 
   updateExpdateh: async (parent, args, { userId }, info) => {
-    const imhalve = await Imhalve.find({})
+    
+    const imhalve = await Imhalve.find({name: "นำเข้า"})
+
+    const find = await ExpdateSetting.findById(args.ExpdateSetting)
+
+    const checkdate = dayjs().format("YYYYMMDD").toString();
+    
+    const y = find.totalday
+    const exp = Number(y)
 
     
+    /* console.log(exp)
+    return */
+
+    for(let i=0; i < imhalve.length; i++){
+        const date = dayjs(imhalve[i].importdate).add(30, 'days').subtract(exp, 'days')//.format("YYYYMMDD")//.toString()  
+        
+        
+        await Imhalve.findByIdAndUpdate(imhalve[i].id, {almostExpdate : date})
+        
+    
+    }
+    
+    
+    
+    
+
+
 
 
 

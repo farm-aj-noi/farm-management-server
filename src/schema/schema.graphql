@@ -251,6 +251,24 @@ type Query {
   test2: [Halve]
 
   allBasket(id: ID): [Basket]
+
+  Card8: [Imhalve]
+  Card9: [RequestExport]
+
+  CardImh: [Imhalve]
+  CardImq: [Imquarter]
+  CardIml: [Imlump]
+  CardImc: [Imchop]
+  CardIme: [Imentrail]
+
+  CardExh: [Imhalve]
+  CardExq: [Imquarter]
+  CardExl: [Imlump]
+  CardExc: [Imchop]
+  CardExe: [Imentrail]
+
+
+
 }
 
 type Mutation {
@@ -568,21 +586,18 @@ type Mutation {
   createExporth(
     barcode: String
     storestatus: String
-    beeftypechange: String
     exporter: String
   ): Imhalve
 
   createExportq(
     barcode: String
     storestatus: String
-    beeftypechange: String
     exporter: String
   ): Imquarter
 
   createExportl(
     barcode: String
     storestatus: String
-    beeftypechange: String
     exporter: String
   ): Imlump
 
@@ -1068,7 +1083,6 @@ type Imhalve {
   barcode: String
   beefstore: String
   storestatus: Status
-  beeftypechange: Beeftype
   exportdate: Date!
   name: String
   namefarmer: String
@@ -1087,7 +1101,6 @@ type Imquarter {
   barcode: String
   beefstore: String
   storestatus: Status
-  beeftypechange: Beeftype
   exportdate: Date!
   name: String
   namefarmer: String
@@ -1106,7 +1119,6 @@ type Imlump {
   barcode: String
   beefstore: String
   storestatus: Status
-  beeftypechange: Beeftype
   exportdate: Date!
   name: String
   namefarmer: String

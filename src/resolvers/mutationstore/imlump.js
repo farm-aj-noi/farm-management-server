@@ -187,7 +187,6 @@ const Mutation = {
             lump: lump,
             barcode: args.barcode,
             beeftype: lump.beeftype,
-            beeftypechange: args.beeftypechange,
             namefarmer: farmerName.namefarmer,
             userName: username.name,
             storestatus: args.storestatus,
@@ -228,9 +227,6 @@ const Mutation = {
     })
     .populate({
         path: "storestatus",
-    })
-    .populate({
-        path: "beeftypechange"
     })
     .populate({
         path: "beefroom",
