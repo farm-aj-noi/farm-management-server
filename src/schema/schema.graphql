@@ -634,6 +634,11 @@ type Mutation {
   createExpdatesetting(totalday: String): ExpdateSetting
 
   updateExpdateh(ExpdateSetting: String): Imhalve
+
+  deleteBeefroom(id: ID): Beefroom
+  deleteShelf(id: ID): Shelf
+  deleteBasket(id: ID): Basket
+  deleteChillroom(id: ID):Chillroom
 }
 
 scalar Date
