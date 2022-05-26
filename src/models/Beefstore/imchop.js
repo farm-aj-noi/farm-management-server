@@ -25,6 +25,9 @@ const imchopSchema = new mongoose.Schema({
   almostExpdate: {
     type: Date,
   },
+  exporter: {
+    type: String,
+  },
   beefroom: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Beefroom",

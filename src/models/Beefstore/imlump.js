@@ -25,6 +25,9 @@ const imlumpSchema = new mongoose.Schema({
   almostExpdate: {
     type: Date,
   },
+  exporter: {
+    type: String,
+  },
   beefroom: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Beefroom",
@@ -48,10 +51,6 @@ const imlumpSchema = new mongoose.Schema({
   storestatus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",
-  },
-  exporter: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "RequestExport",
   },
 });
 const Imlump = mongoose.model("Imlump", imlumpSchema);

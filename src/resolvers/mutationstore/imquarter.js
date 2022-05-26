@@ -210,9 +210,7 @@ const Mutation = {
         .populate({
           path: "shelf",
         })
-        .populate({
-          path: "exporter",
-        });
+        
 
       return test;
     }

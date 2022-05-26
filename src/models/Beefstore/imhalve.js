@@ -19,6 +19,9 @@ const imhalveSchema = new mongoose.Schema({
   userName: {
     type: String,
   },
+  exporter: {
+    type: String,
+  },
   almostExpdate: {
     type: Date,
   },
@@ -45,10 +48,6 @@ const imhalveSchema = new mongoose.Schema({
   storestatus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",
-  },
-  exporter: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "RequestExport",
   },
 
   //idห้อง

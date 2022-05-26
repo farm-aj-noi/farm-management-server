@@ -1087,7 +1087,7 @@ type Imhalve {
   namefarmer: String
   userName: String
   beefroom: Beefroom
-  exporter: RequestExport
+  exporter: String
   almostExpdate: Date
 }
 
@@ -1105,7 +1105,7 @@ type Imquarter {
   namefarmer: String
   userName: String
   beefroom: Beefroom
-  exporter: RequestExport
+  exporter: String
   almostExpdate: Date
 }
 
@@ -1125,7 +1125,7 @@ type Imlump {
   beefroom: Beefroom
   shelf: Shelf
   basket: String
-  exporter: RequestExport
+  exporter: String
   almostExpdate: Date
 }
 
@@ -1145,7 +1145,7 @@ type Imchop {
   beefroom: Beefroom
   shelf: Shelf
   basket: String
-  exporter: RequestExport
+  exporter: String
   almostExpdate: Date
 }
 
@@ -1162,7 +1162,7 @@ type Imentrail {
   namefarmer: String
   userName: String
   beefroom: Beefroom
-  exporter: RequestExport
+  exporter: String
   almostExpdate: Date
 }
 

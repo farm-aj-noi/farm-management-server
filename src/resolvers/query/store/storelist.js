@@ -381,15 +381,11 @@ const Query = {
       .populate({
         path: "beeftype",
       })
-
       .populate({
         path: "storestatus",
       })
       .populate({
         path: "beefroom",
-      })
-      .populate({
-        path: "exporter",
       })
       .sort({ exportdate: "DESC" });
     if (args.beeftype) {
@@ -451,9 +447,6 @@ const Query = {
       })
       .populate({
         path: "beefroom",
-      })
-      .populate({
-        path: "exporter",
       })
       .sort({ exportdate: "DESC" });
     if (args.beeftype) {
@@ -580,9 +573,6 @@ const Query = {
       .populate({
         path: "shelf",
       })
-      .populate({
-        path: "exporter",
-      })
       .sort({ exportdate: "DESC" });
     if (args.beeftype) {
       cursor.find({
@@ -708,9 +698,6 @@ const Query = {
       .populate({
         path: "shelf",
       })
-      .populate({
-        path: "exporter",
-      })
       .sort({ exportdate: "DESC" });
     if (args.beeftype) {
       cursor.find({
@@ -801,9 +788,6 @@ const Query = {
       })
       .populate({
         path: "storestatus",
-      })
-      .populate({
-        path: "exporter",
       })
       .sort({ exportdate: "DESC" });
     if (args.beeftype) {
@@ -972,19 +956,19 @@ const Query = {
     const x = Number(y);
     const datenow = dayjs().format("YYYYMMDD").toString();
     const expdate = dayjs().add(x, "days").format("YYYYMMDD").toString();
-    /* console.log(expdate)
-    return */
-
-    if (datenow >= expdate) {
+    const compare = datenow <= expdate
+    
+    if (compare) {
       const cursor = await Imhalve.find({
         name: "นำเข้า",
         almostExpdate: {
-          $gte: dayjs().startOf("D"),
-          $lt: dayjs().endOf("D"),
+          $gte: dayjs().add(0, "d").startOf("D"),
+          $lt: dayjs().add(0, "d").endOf("D"),
         },
       });
       return cursor;
     }
+    
   },
 
   Card9: async (parent, args, context, info) => {

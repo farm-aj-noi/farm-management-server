@@ -168,9 +168,7 @@ const Mutation = {
         .populate({
           path: "beefroom",
         })
-        .populate({
-          path: "exporter",
-        });
+        
 
       return test;
     }

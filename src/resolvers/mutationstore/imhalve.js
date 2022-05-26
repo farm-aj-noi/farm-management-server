@@ -147,6 +147,7 @@ const Mutation = {
     });
 
     const exporter = await RequestExport.findById(args.exporter);
+    
 
     const f = halve.imslaughter;
     const farmerName = await Imslaughter.findById(f);
@@ -165,7 +166,7 @@ const Mutation = {
     if (find) {
       throw new Error("ซากโคผ่าเสี้ยวนี้ถูกนำออกไปเเล้ว");
     }
-
+    
     if (halve) {
       const imhalve = await Imhalve.create({
         name: "นำออก",
@@ -223,9 +224,6 @@ const Mutation = {
         .populate({
           path: "shelf",
         })
-        .populate({
-          path: "exporter",
-        });
 
       return test;
     }
