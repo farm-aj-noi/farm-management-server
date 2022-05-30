@@ -1188,6 +1188,37 @@ const Query = {
 
   Card9: async (parent, args, context, info) => {
     const cursor = await RequestExport.find({
+      chilldateEnd: {
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      chillstatus: "6284ad91fbfac22364a6e431"
+    })
+    .populate({
+      path: "user",
+    })
+    .populate({
+      path: "halve",
+      populate: { path: "beeftype" },
+    })
+    .populate({
+      path: "halve",
+      populate: { path: "imslaughter" },
+    })
+    .populate({
+      path: "chillstatus",
+    })
+    .populate({
+      path: "chillroom",
+    })
+    .populate({
+      path: "chillday",
+    })
+    return cursor;
+  },
+
+  Card10: async (parent, args, context, info) => {
+    const cursor = await Chill.find({
       requestdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
@@ -1448,6 +1479,8 @@ const Query = {
     const cursor = await TotalExpdate.find({});
     return cursor;
   },
+
+
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;

@@ -46,11 +46,37 @@ const Mutation = {
   },
 
   deleteBasket: async (parent, args, { userId }, info) => {
-    if (!userId) throw new Error("Please log in.");
+    const bask = await Basket.findById(args.id);
+
+    const shelf = await Shelf.findOne({basket: args.id});
+    const shelfs = shelf.id;
+    
+    let result = await Shelf.findByIdAndUpdate(
+      {
+        _id: shelfs,
+      },
+      { $pull: { basket: bask.id } }
+    );
 
     const deletebasket = await Basket.findByIdAndDelete(args.id);
 
     return deletebasket;
   },
+
+  updateBasket: async (parent, args, { userId }, info) => {
+    const { id, basketname } = args;
+
+    const basket = await Basket.findById(id);
+
+    const updateInfo = {
+      basketname: !!basketname ? basketname : basket.basketname,
+    };
+
+    await Basket.findByIdAndUpdate(id, updateInfo);
+
+    const updatedFinish = await Basket.findById(id);
+    return updatedFinish;
+
+  }
 };
 export default Mutation;

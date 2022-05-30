@@ -5,7 +5,6 @@ import Beeftype from "../../models/beeftype";
 
 const Mutation = {
   createtypekeep: async (parent, args, { userId }, info) => {
-
     if (!args.totalbeef || !args.beeftype) {
       throw new Error("กรุณากรอกข้อมูลให้ครบ");
     }
@@ -51,6 +50,50 @@ const Mutation = {
         path: "shelf",
       });
     return test;
+  },
+
+  uppdatetypekeep: async (parent, args, { userId }, info) => {
+    const { id, totalbeef } = args;
+
+    const typekeep = await Typekeep.findById(id);
+
+    const updateInfo = {
+      totalbeef: !!totalbeef ? totalbeef : typekeep.totalbeef,
+    };
+
+    await Typekeep.findByIdAndUpdate(id, updateInfo);
+
+    const updatedFinish = await Typekeep.findById(id);
+    return updatedFinish;
+  },
+
+  deletetypekeep: async (parent, args, { userId }, info) => {
+    const type = await Typekeep.findById(args.id);
+
+    if (type.shelf == null) {
+      const room = await Beefroom.findOne({ typekeep: args.id });
+      const rooms = room.id;
+
+      let result = await Beefroom.findByIdAndUpdate(
+        {
+          _id: rooms,
+        },
+        { $pull: { typekeep: type.id } }
+      );
+    } else {
+      const shelf = await Shelf.findOne({ typekeep: args.id });
+      const shelfs = shelf.id;
+
+      let r = await Shelf.findByIdAndUpdate(
+        {
+          _id: shelfs,
+        },
+        { $pull: { typekeep: type.id } }
+      );
+    }
+
+    const deletetype = await Typekeep.findByIdAndDelete(type);
+    return deletetype;
   },
 };
 export default Mutation;

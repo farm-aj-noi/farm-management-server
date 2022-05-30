@@ -48,5 +48,20 @@ const Mutation = {
 
     return deleteroom;
   },
+
+  updateBeefroom: async (parent, args, { userId }, info) => {
+    const { id, roomname } = args;
+
+    const beefroom = await Beefroom.findById(id)
+
+    const updateInfo = {
+      roomname: !!roomname ? roomname : beefroom.roomname,
+    };
+
+    await Beefroom.findByIdAndUpdate(id, updateInfo);
+
+    const updatedFinish = await Beefroom.findById(id);
+    return updatedFinish;
+  }
 };
 export default Mutation;
