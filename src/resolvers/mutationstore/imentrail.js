@@ -6,6 +6,7 @@ import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
 import Beefroom from "../../models/Beefstore/beefroom";
 import RequestExport from "../../models/Beefstore/requestexport";
+import TotalExpdate from "../../models/Beefstore/totalexpdate";
 
 const Mutation = {
   createImentrail: async (parent, args, { userId }, info) => {
@@ -171,6 +172,18 @@ const Mutation = {
         
 
       return test;
+    }
+  },
+
+  updateTotalExpe: async (parent, args, { userId }, info) => {
+    const imentrail = await Imentrail.find({ name: "นำเข้า" });
+
+    const exp = await TotalExpdate.findById(args.totalday);
+
+    const expdate = dayjs().add(exp.totalday, "d").toISOString();
+
+    for (let i = 0; i < imentrail.length; i++) {
+      await Imentrail.findByIdAndUpdate(imentrail[i].id, { Expdate: expdate });
     }
   },
 };

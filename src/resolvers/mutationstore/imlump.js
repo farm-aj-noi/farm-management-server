@@ -9,6 +9,7 @@ import Shelf from "../../models/Beefstore/shelf";
 import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
 import Basket from "../../models/Beefstore/basket";
+import TotalExpdate from "../../models/Beefstore/totalexpdate";
 
 const Mutation = {
   createImlump: async (parent, args, { userId }, info) => {
@@ -249,6 +250,18 @@ const Mutation = {
         })
 
       return test;
+    }
+  },
+
+  updateTotalExpl: async (parent, args, { userId }, info) => {
+    const imlump = await Imlump.find({ name: "นำเข้า" });
+
+    const exp = await TotalExpdate.findById(args.totalday);
+
+    const expdate = dayjs().add(exp.totalday, "d").toISOString();
+
+    for (let i = 0; i < imlump.length; i++) {
+      await Imlump.findByIdAndUpdate(imlump[i].id, { Expdate: expdate });
     }
   },
 };

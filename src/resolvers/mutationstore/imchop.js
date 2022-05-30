@@ -9,6 +9,7 @@ import Shelf from "../../models/Beefstore/shelf";
 import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
 import Basket from "../../models/Beefstore/basket";
+import TotalExpdate from "../../models/Beefstore/totalexpdate";
 
 const Mutation = {
   createImchop: async (parent, args, { userId }, info) => {
@@ -238,10 +239,21 @@ const Mutation = {
         })
         .populate({
           path: "shelf",
-        })
-        
+        });
 
       return test;
+    }
+  },
+
+  updateTotalExpc: async (parent, args, { userId }, info) => {
+    const imchop = await Imchop.find({ name: "นำเข้า" });
+
+    const exp = await TotalExpdate.findById(args.totalday);
+
+    const expdate = dayjs().add(exp.totalday, "d").toISOString();
+
+    for (let i = 0; i < imchop.length; i++) {
+      await Imchop.findByIdAndUpdate(imchop[i].id, { Expdate: expdate });
     }
   },
 };

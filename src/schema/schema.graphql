@@ -257,7 +257,12 @@ type Query {
 
   allBasket(id: ID): [Basket]
 
-  Card8(exp: String): [Imhalve]
+  Card8h(exp: String): [Imhalve]
+  Card8q(exp: String): [Imquarter]
+  Card8l(exp: String): [Imlump]
+  Card8c(exp: String): [Imchop]
+  Card8e(exp: String): [Imentrail]
+
   Card9: [RequestExport]
 
   CardImh: [Imhalve]
@@ -271,6 +276,8 @@ type Query {
   CardExl: [Imlump]
   CardExc: [Imchop]
   CardExe: [Imentrail]
+
+  Totalexpdate: [TotalExpdate]
 }
 
 type Mutation {
@@ -627,7 +634,12 @@ type Mutation {
 
   createExpdatesetting(totalday: String): ExpdateSetting
 
-  updateExpdateh(ExpdateSetting: String): Imhalve
+  createTotalExp(totalday: String): TotalExpdate
+  updateTotalExph(totalday: String): Imhalve
+  updateTotalExpq(totalday: String): Imquarter
+  updateTotalExpl(totalday: String): Imlump
+  updateTotalExpc(totalday: String): Imchop
+  updateTotalExpe(totalday: String): Imentrail
 
   deleteBeefroom(id: ID): Beefroom
   deleteShelf(id: ID): Shelf
@@ -1088,7 +1100,7 @@ type Imhalve {
   userName: String
   beefroom: Beefroom
   exporter: String
-  almostExpdate: Date
+  Expdate: Date
 }
 
 type Imquarter {
@@ -1106,7 +1118,7 @@ type Imquarter {
   userName: String
   beefroom: Beefroom
   exporter: String
-  almostExpdate: Date
+  Expdate: Date
 }
 
 type Imlump {
@@ -1126,7 +1138,7 @@ type Imlump {
   shelf: Shelf
   basket: String
   exporter: String
-  almostExpdate: Date
+  Expdate: Date
 }
 
 type Imchop {
@@ -1146,7 +1158,7 @@ type Imchop {
   shelf: Shelf
   basket: String
   exporter: String
-  almostExpdate: Date
+  Expdate: Date
 }
 
 type Imentrail {
@@ -1163,7 +1175,7 @@ type Imentrail {
   userName: String
   beefroom: Beefroom
   exporter: String
-  almostExpdate: Date
+  Expdate: Date
 }
 
 type Chill {
@@ -1312,6 +1324,11 @@ type RequestExport {
 }
 
 type ExpdateSetting {
+  id: ID
+  totalday: String
+}
+
+type TotalExpdate {
   id: ID
   totalday: String
 }

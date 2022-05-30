@@ -14,6 +14,7 @@ import RequestExport from "../../../models/Beefstore/requestexport";
 import Chillday from "../../../models/Beefstore/chillday";
 import Basket from "../../../models/Beefstore/basket";
 import ExpdateSetting from "../../../models/Beefstore/expdatesetting";
+import TotalExpdate from "../../../models/Beefstore/totalexpdate";
 
 const Query = {
   liststore: async (parent, args, context, info) => {
@@ -862,11 +863,10 @@ const Query = {
   },
 
   allRoom: (parent, args, context, info) => {
-    const cursor = Beefroom.find({})
-  .populate({
-    path: "typekeep",
-    populate: { path: "beeftype" }
-  })
+    const cursor = Beefroom.find({}).populate({
+      path: "typekeep",
+      populate: { path: "beeftype" },
+    });
     return cursor;
   },
 
@@ -953,25 +953,237 @@ const Query = {
     }
   },
 
-  Card8: async (parent, args, context, info) => {
+  Card8h: async (parent, args, context, info) => {
     const find = await ExpdateSetting.findById(args.exp);
     const y = find.totalday;
     const x = Number(y);
-    
-      const cursor = await Imhalve.find({
-        name: "นำเข้า",
-        $or: [{almostExpdate: {
-          $lte: dayjs().startOf("D").add(x, "d"),
-          $gte: dayjs().startOf("D")
-        }}, {almostExpdate: {
-          $lte: dayjs().startOf("D"),
-        }}]
-        
+
+    const cursor = await Imhalve.find({
+      name: "นำเข้า",
+      $or: [
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D").add(x, "d"),
+            $gte: dayjs().startOf("D"),
+          },
+        },
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D"),
+          },
+        },
+      ],
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imhalves" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
       });
-      //console.log(dayjs().startOf("D").add(4, "d"))
-      return cursor;
-    
-    
+    //console.log(dayjs().startOf("D").add(4, "d"))
+    return cursor;
+  },
+
+  Card8q: async (parent, args, context, info) => {
+    const find = await ExpdateSetting.findById(args.exp);
+    const y = find.totalday;
+    const x = Number(y);
+
+    const cursor = await Imquarter.find({
+      name: "นำเข้า",
+      $or: [
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D").add(x, "d"),
+            $gte: dayjs().startOf("D"),
+          },
+        },
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D"),
+          },
+        },
+      ],
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imquarters" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
+      });
+    //console.log(dayjs().startOf("D").add(4, "d"))
+    return cursor;
+  },
+
+  Card8l: async (parent, args, context, info) => {
+    const find = await ExpdateSetting.findById(args.exp);
+    const y = find.totalday;
+    const x = Number(y);
+
+    const cursor = await Imlump.find({
+      name: "นำเข้า",
+      $or: [
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D").add(x, "d"),
+            $gte: dayjs().startOf("D"),
+          },
+        },
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D"),
+          },
+        },
+      ],
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imlumps" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
+      });
+    return cursor;
+  },
+
+  Card8c: async (parent, args, context, info) => {
+    const find = await ExpdateSetting.findById(args.exp);
+    const y = find.totalday;
+    const x = Number(y);
+
+    const cursor = await Imchop.find({
+      name: "นำเข้า",
+      $or: [
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D").add(x, "d"),
+            $gte: dayjs().startOf("D"),
+          },
+        },
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D"),
+          },
+        },
+      ],
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imlumps" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
+      });
+    return cursor;
+  },
+
+  Card8e: async (parent, args, context, info) => {
+    const find = await ExpdateSetting.findById(args.exp);
+    const y = find.totalday;
+    const x = Number(y);
+
+    const cursor = await Imentrail.find({
+      name: "นำเข้า",
+      $or: [
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D").add(x, "d"),
+            $gte: dayjs().startOf("D"),
+          },
+        },
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D"),
+          },
+        },
+      ],
+    })
+      .populate({
+        path: "user",
+        populate: { path: "imentrails" },
+      })
+      .populate({
+        path: "entrail",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "storestatus",
+      });
+    return cursor;
   },
 
   Card9: async (parent, args, context, info) => {
@@ -1184,7 +1396,7 @@ const Query = {
         path: "storestatus",
       })
       .populate({
-        path: "beefroom", 
+        path: "beefroom",
       })
       .populate({
         path: "exporter",
@@ -1229,6 +1441,11 @@ const Query = {
       },
       name: "นำออก",
     });
+    return cursor;
+  },
+
+  Totalexpdate: async (parent, args, context, info) => {
+    const cursor = await TotalExpdate.find({});
     return cursor;
   },
 };

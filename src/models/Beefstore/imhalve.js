@@ -22,7 +22,7 @@ const imhalveSchema = new mongoose.Schema({
   exporter: {
     type: String,
   },
-  almostExpdate: {
+  Expdate: {
     type: Date,
   },
   beefroom: {

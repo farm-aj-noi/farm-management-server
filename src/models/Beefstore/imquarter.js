@@ -19,7 +19,7 @@ const imquarterSchema = new mongoose.Schema({
   userName: {
     type: String,
   },
-  almostExpdate: {
+  Expdate: {
     type: Date,
   },
   exporter: {

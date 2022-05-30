@@ -8,6 +8,7 @@ import Beefroom from "../../models/Beefstore/beefroom";
 import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
 import ExpdateSetting from "../../models/Beefstore/expdatesetting";
+import TotalExpdate from "../../models/Beefstore/totalexpdate";
 
 const Mutation = {
   createImHalve: async (parent, args, { userId }, info) => {
@@ -147,7 +148,6 @@ const Mutation = {
     });
 
     const exporter = await RequestExport.findById(args.exporter);
-    
 
     const f = halve.imslaughter;
     const farmerName = await Imslaughter.findById(f);
@@ -166,7 +166,7 @@ const Mutation = {
     if (find) {
       throw new Error("ซากโคผ่าเสี้ยวนี้ถูกนำออกไปเเล้ว");
     }
-    
+
     if (halve) {
       const imhalve = await Imhalve.create({
         name: "นำออก",
@@ -223,31 +223,22 @@ const Mutation = {
         })
         .populate({
           path: "shelf",
-        })
+        });
 
       return test;
     }
   },
 
-  updateExpdateh: async (parent, args, { userId }, info) => {
+  updateTotalExph: async (parent, args, { userId }, info) => {
     const imhalve = await Imhalve.find({ name: "นำเข้า" });
 
-    const find = await ExpdateSetting.findById(args.ExpdateSetting);
-
-    const checkdate = dayjs().format("YYYYMMDD").toString();
-
-    const y = find.totalday;
-    const exp = Number(y);
-
-    /* console.log(exp)
-    return */
+    const exp = await TotalExpdate.findById(args.totalday);
 
     for (let i = 0; i < imhalve.length; i++) {
-      const date = dayjs(imhalve[i].importdate)
-        .add(30, "days")
-        .subtract(exp, "days"); //.format("YYYYMMDD")//.toString()
-
-      await Imhalve.findByIdAndUpdate(imhalve[i].id, { almostExpdate: date });
+      const expdate = dayjs(imhalve[i].importdate)
+        .add(exp.totalday, "d")
+        .toISOString();
+      await Imhalve.findByIdAndUpdate(imhalve[i].id, { Expdate: expdate });
     }
   },
 };

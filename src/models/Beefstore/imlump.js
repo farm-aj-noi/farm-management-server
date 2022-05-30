@@ -22,7 +22,7 @@ const imlumpSchema = new mongoose.Schema({
   basket: {
     type: String,
   },
-  almostExpdate: {
+  Expdate: {
     type: Date,
   },
   exporter: {

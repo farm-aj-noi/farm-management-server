@@ -34,6 +34,7 @@ import shelf from '../mutationstore/shelf'
 import Chillday from '../mutationstore/chillday'
 import Basket from '../mutationstore/basket'
 import ExpdateSetting from '../mutationstore/expdatesetting'
+import TotalExpdate from '../mutationstore/totalexpdate'
 
 export default _.merge(
     allin,
@@ -72,4 +73,5 @@ export default _.merge(
     Chillday,
     Basket,
     ExpdateSetting,
+    TotalExpdate,
 )
