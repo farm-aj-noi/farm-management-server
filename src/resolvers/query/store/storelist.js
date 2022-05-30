@@ -862,8 +862,11 @@ const Query = {
   },
 
   allRoom: (parent, args, context, info) => {
-    const cursor = Beefroom.find({});
-
+    const cursor = Beefroom.find({})
+  .populate({
+    path: "typekeep",
+    populate: { path: "beeftype" }
+  })
     return cursor;
   },
 
@@ -954,20 +957,20 @@ const Query = {
     const find = await ExpdateSetting.findById(args.exp);
     const y = find.totalday;
     const x = Number(y);
-    const datenow = dayjs().format("YYYYMMDD").toString();
-    const expdate = dayjs().add(x, "days").format("YYYYMMDD").toString();
-    const compare = datenow <= expdate
     
-    if (compare) {
       const cursor = await Imhalve.find({
         name: "นำเข้า",
-        almostExpdate: {
-          $gte: dayjs().add(0, "d").startOf("D"),
-          $lt: dayjs().add(0, "d").endOf("D"),
-        },
+        $or: [{almostExpdate: {
+          $lte: dayjs().startOf("D").add(x, "d"),
+          $gte: dayjs().startOf("D")
+        }}, {almostExpdate: {
+          $lte: dayjs().startOf("D"),
+        }}]
+        
       });
+      //console.log(dayjs().startOf("D").add(4, "d"))
       return cursor;
-    }
+    
     
   },
 
