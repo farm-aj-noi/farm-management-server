@@ -15,6 +15,7 @@ import Chillday from "../../../models/Beefstore/chillday";
 import Basket from "../../../models/Beefstore/basket";
 import ExpdateSetting from "../../../models/Beefstore/expdatesetting";
 import TotalExpdate from "../../../models/Beefstore/totalexpdate";
+import Typekeep from "../../../models/Beefstore/typekeep"
 
 const Query = {
   liststore: async (parent, args, context, info) => {
@@ -867,6 +868,17 @@ const Query = {
       path: "typekeep",
       populate: { path: "beeftype" },
     });
+    return cursor;
+  },
+
+  TypeRoom: (parent, args, context, info) => {
+    const cursor = Typekeep.find({
+      beefroom : args.beefroom
+    })
+    .populate({
+      path: "beefroom",
+    });
+    
     return cursor;
   },
 

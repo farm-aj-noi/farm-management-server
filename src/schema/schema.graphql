@@ -244,6 +244,7 @@ type Query {
   listchill(startdate: String, enddate: String, beeftype: String): [Chill]
 
   allRoom: [Beefroom]
+  TypeRoom(beefroom: String): [Typekeep]
   listShelf(id: ID): [Shelf]
   roomsearch(id: ID): [Beefroom]
 
