@@ -254,8 +254,6 @@ type Query {
 
   listChillday: [Chillday]
 
-  test2: [Halve]
-
   allBasket(id: ID): [Basket]
 
   Card8h(exp: String): [Imhalve]
@@ -649,15 +647,30 @@ type Mutation {
   deleteBasket(id: ID): Basket
   deleteChillroom(id: ID): Chillroom
 
-  uppdatetypekeep(
-    id: ID
-    totalbeef: String
-  ): Typekeep
+  uppdatetypekeep(id: ID, totalbeef: String): Typekeep
 
   deletetypekeep(id: ID): Typekeep
 
-  updateBeefroom(id: ID, roomname: String):Beefroom
-  updateBasket(id: ID, basketname: String):Basket
+  updateBeefroom(id: ID, roomname: String): Beefroom
+  updateBasket(id: ID, basketname: String): Basket
+
+  #///////////////////////////////////////////////////////////////////#
+  createProducttype(
+    code: String!
+    nameTH: String!
+    nameEN: String!
+    BBE: Int
+  ): Producttype
+
+  updateProducttype(
+    id: ID!
+    code: String
+    nameTH: String
+    nameEN: String
+    BBE: Int
+  ): Producttype
+
+  deleteProducttype(id: ID): Producttype
 }
 
 scalar Date
@@ -1344,4 +1357,13 @@ type ExpdateSetting {
 type TotalExpdate {
   id: ID
   totalday: String
+}
+
+type Producttype {
+  id: ID
+  code: String!
+  nameTH: String!
+  nameEN: String!
+  BBE: Date
+  codecount: Int
 }

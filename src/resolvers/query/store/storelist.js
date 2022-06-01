@@ -890,9 +890,14 @@ const Query = {
     if (args.id) {
       const cursor = Shelf.find({
         beefroom: args.id,
-      }).populate({
+      })
+      .populate({
         path: "beefroom",
-      });
+      })
+      .populate({
+        path: "typekeep",
+        populate: { path: "beeftype"},
+      })
       return cursor;
     }
   },
@@ -931,18 +936,6 @@ const Query = {
 
   listChillday: async (parent, args, context, info) => {
     const cursor = Chillday.find({});
-    return cursor;
-  },
-
-  test2: async (parent, args, context, info) => {
-    const cursor = Halve.find({})
-      .populate({
-        path: "chill",
-      })
-      .populate({
-        path: "chill",
-        populate: { path: "chillstatus" },
-      });
     return cursor;
   },
 
