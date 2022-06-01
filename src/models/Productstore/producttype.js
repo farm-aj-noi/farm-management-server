@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { autoIncrement } from "mongoose-plugin-autoinc";
 
 const producttypeSchema = new mongoose.Schema({
   code: {
@@ -22,12 +21,6 @@ const producttypeSchema = new mongoose.Schema({
     unique: false,
     sparse: false,
   },
-});
-
-producttypeSchema.plugin(autoIncrement, {
-  model: "Producttype",
-  field: "codecount",
-  startAt: 1,
 });
 
 const Producttype = mongoose.model("Producttype", producttypeSchema);

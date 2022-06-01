@@ -958,6 +958,17 @@ const Query = {
     }
   },
 
+  Baskets: async (parent, args, context, info) => {
+    const cursor = Basket.find({})
+      .populate({
+        path: "shelf",
+      })
+      .populate({
+        path: "beefroom",
+      });
+    return cursor;
+  },
+
   Card8h: async (parent, args, context, info) => {
     const find = await ExpdateSetting.findById(args.exp);
     const y = find.totalday;

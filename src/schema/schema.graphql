@@ -255,6 +255,7 @@ type Query {
   listChillday: [Chillday]
 
   allBasket(id: ID): [Basket]
+  Baskets: [Basket]
 
   Card8h(exp: String): [Imhalve]
   Card8q(exp: String): [Imquarter]
@@ -654,7 +655,7 @@ type Mutation {
   updateBeefroom(id: ID, roomname: String): Beefroom
   updateBasket(id: ID, basketname: String): Basket
 
-  #///////////////////////////////////////////////////////////////////#
+  
   createProducttype(
     code: String!
     nameTH: String!
@@ -1359,11 +1360,24 @@ type TotalExpdate {
   totalday: String
 }
 
+
 type Producttype {
   id: ID
   code: String!
   nameTH: String!
   nameEN: String!
+  BBE: Int
+}
+
+
+
+type Beefproduct {
+  id: ID
+  weight: String
+  barcode: String
+  MFG: Date
   BBE: Date
-  codecount: Int
+  producttype: Producttype
+  chop: Chop
+  lump: Lump
 }
