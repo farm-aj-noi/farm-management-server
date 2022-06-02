@@ -1236,12 +1236,12 @@ const Query = {
 
   Card10: async (parent, args, context, info) => {
     const cursor = await Chill.find({
-      requestdate: {
+      chilldateEnd: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
     }).populate({
-      path: "beeftype",
+      path: "chillday",
     });
     return cursor;
   },
