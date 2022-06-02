@@ -36,6 +36,9 @@ import Basket from '../mutationstore/basket'
 import ExpdateSetting from '../mutationstore/expdatesetting'
 import TotalExpdate from '../mutationstore/totalexpdate'
 import Producttype from '../mutationproduct/producttype'
+import Unit from '../mutationproduct/unit'
+import Beefproduct from '../mutationproduct/beefproduct'
+import ProductStore from '../mutationproduct/productstore'
 
 export default _.merge(
     allin,
@@ -75,5 +78,8 @@ export default _.merge(
     Basket,
     ExpdateSetting,
     TotalExpdate,
-    Producttype
+    Producttype,
+    Unit,
+    Beefproduct,
+    ProductStore,
 )

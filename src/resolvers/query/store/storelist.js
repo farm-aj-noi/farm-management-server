@@ -16,6 +16,7 @@ import Basket from "../../../models/Beefstore/basket";
 import ExpdateSetting from "../../../models/Beefstore/expdatesetting";
 import TotalExpdate from "../../../models/Beefstore/totalexpdate";
 import Typekeep from "../../../models/Beefstore/typekeep"
+import Chillroom from "../../../models/Beefstore/chillroom";
 
 const Query = {
   liststore: async (parent, args, context, info) => {
@@ -1493,6 +1494,11 @@ const Query = {
 
   Totalexpdate: async (parent, args, context, info) => {
     const cursor = await TotalExpdate.find({});
+    return cursor;
+  },
+
+  listChillroom: async (parent, args, context, info) => {
+    const cursor = await Chillroom.find({});
     return cursor;
   },
 

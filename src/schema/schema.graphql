@@ -280,6 +280,11 @@ type Query {
   CardExe: [Imentrail]
 
   Totalexpdate: [TotalExpdate]
+  listChillroom: [Chillroom]
+  # ///////////////////////////////////////////////////
+  listunit: [Unit]
+
+  allproducttype: [Producttype]
 }
 
 type Mutation {
@@ -655,12 +660,13 @@ type Mutation {
   updateBeefroom(id: ID, roomname: String): Beefroom
   updateBasket(id: ID, basketname: String): Basket
 
-  
+  #//////////////////////////////////////////////////////////////
   createProducttype(
     code: String!
     nameTH: String!
     nameEN: String!
     BBE: Int
+    unit: String
   ): Producttype
 
   updateProducttype(
@@ -672,6 +678,13 @@ type Mutation {
   ): Producttype
 
   deleteProducttype(id: ID): Producttype
+
+  createUnit(name: String): Unit
+  createBeefproduct(
+    weight: String
+    producttype: String
+  ): Beefproduct
+  createProductstore: ProductStore
 }
 
 scalar Date
@@ -758,6 +771,7 @@ type User {
   imlumps: [Imlump]
   imchops: [Imchop]
   imentrails: [Imentrail]
+  beefproduct: [Beefproduct]
 }
 
 type Role {
@@ -868,6 +882,7 @@ type Setting {
   dateResetCountL: Int!
   dateResetCountC: Int!
   dateResetCountE: Int!
+  dateResetCountP: Int!
 }
 type SettingMedi {
   id: ID!
@@ -1360,16 +1375,19 @@ type TotalExpdate {
   totalday: String
 }
 
-
 type Producttype {
   id: ID
   code: String!
   nameTH: String!
   nameEN: String!
   BBE: Int
+  unit: Unit
 }
 
-
+type Unit {
+  id: ID
+  name: String
+}
 
 type Beefproduct {
   id: ID
@@ -1377,7 +1395,24 @@ type Beefproduct {
   barcode: String
   MFG: Date
   BBE: Date
+  status: Status
   producttype: Producttype
-  chop: Chop
-  lump: Lump
+  chop: [Chop]
+  lump: [Lump]
+}
+
+type ProductStore{
+  id: ID
+  beefproduct: [Beefproduct]
+}
+
+type Improduct{
+  id: ID
+  user: User!
+  beefproduct: Producttype
+  barcode: String
+  importdate: Date
+  exportdate: Date
+  producttype: Producttype
+  Expdate: Date
 }

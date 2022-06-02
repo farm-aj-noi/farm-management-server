@@ -25,6 +25,10 @@ const settingSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  dateResetCountP: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Setting = mongoose.model("Setting", settingSchema);

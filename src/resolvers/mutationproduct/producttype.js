@@ -1,10 +1,11 @@
 import Producttype from "../../models/Productstore/producttype";
+import Unit from "../../models/Productstore/unit";
 
 const Mutation = {
   createProducttype: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.code || !args.nameTH || !args.nameEN) {
+    if (!args.code || !args.nameTH || !args.nameEN || !args.unit) {
       throw new Error("Please provide all required fields.");
     }
 
@@ -16,7 +17,20 @@ const Mutation = {
       throw new Error("รหัสซ้ำ");
     }
 
-    return Producttype.create({ ...args });
+    const unit = await Unit.findById(args.unit);
+
+    const producttype = await Producttype.create({
+      code: args.code,
+      nameTH: args.nameTH,
+      nameEN: args.nameEN,
+      BBE: args.BBE,
+      unit: unit,
+    });
+
+    let product = await Producttype.findById(producttype.id).populate({
+      path: "unit",
+    });
+    return product
   },
 
   updateProducttype: async (parent, args, { userId }, info) => {
@@ -52,7 +66,6 @@ const Mutation = {
     const deleteProducttype = await Producttype.findByIdAndDelete(args.id);
 
     return deleteProducttype;
-
-  }
+  },
 };
 export default Mutation;

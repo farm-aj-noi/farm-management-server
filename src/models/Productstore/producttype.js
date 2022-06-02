@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { autoIncrement } from "mongoose-plugin-autoinc";
 
 const producttypeSchema = new mongoose.Schema({
   code: {
@@ -16,12 +17,13 @@ const producttypeSchema = new mongoose.Schema({
   BBE: {
     type: Number,
   },
-  codecount: {
-    type: Number,
-    unique: false,
-    sparse: false,
+  unit: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Unit"
   },
+  
 });
+
 
 const Producttype = mongoose.model("Producttype", producttypeSchema);
 
