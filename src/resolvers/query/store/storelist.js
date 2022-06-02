@@ -1502,6 +1502,12 @@ const Query = {
     return cursor;
   },
 
+  listExpSetting: async (parent, args, context, info) => {
+    const cursor = await ExpdateSetting.find({});
+    return cursor;
+  },
+
+
 
 };
 //5f0fdb4b02b40c2ab8506563

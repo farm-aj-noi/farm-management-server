@@ -281,6 +281,7 @@ type Query {
 
   Totalexpdate: [TotalExpdate]
   listChillroom: [Chillroom]
+  listExpSetting: [ExpdateSetting]
   # ///////////////////////////////////////////////////
   listunit: [Unit]
 
