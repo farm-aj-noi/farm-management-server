@@ -77,21 +77,42 @@ const Mutation = {
     const lump = await Lump.findById(args.lump);
     const chop = await Chop.findById(args.chop);
 
+    const findl =
+      (await Beefproduct.findOne({
+        _id: args.id,
+        lump: lump,
+      }).countDocuments()) > 0;
+
+    const findc =
+      (await Beefproduct.findOne({
+        _id: args.id,
+        chop: chop,
+      }).countDocuments()) > 0;
+
     const product = await Beefproduct.findById(args.id);
+
+    if (args.lump) {
+      if (findl) {
+        throw new Error("ข้อมูลก้อนเนื้อซ้ำ");
+      }
       if (!product.lump) {
         product.lump = [lump];
       } else {
         product.lump.push(lump);
       }
       await product.save();
-
+    } else {
+      if (findc) {
+        throw new Error("ข้อมูลชิ้นเนื้อซ้ำ");
+      }
       if (!product.chop) {
         product.chop = [chop];
       } else {
         product.chop.push(chop);
       }
       await product.save();
-    
+    }
+
     const updatedFinish = await Beefproduct.findById(args.id)
       .populate({
         path: "user",
