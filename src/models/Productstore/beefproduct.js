@@ -22,6 +22,14 @@ const beefproductSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",
   },
+  chop: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Chop",
+  }],
+  lump: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Lump",
+  }],
 });
 
 beefproductSchema.plugin(autoIncrement, {

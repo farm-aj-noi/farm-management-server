@@ -653,6 +653,7 @@ type Mutation {
   deleteShelf(id: ID): Shelf
   deleteBasket(id: ID): Basket
   deleteChillroom(id: ID): Chillroom
+  deleteChillday(id: ID): Chillday
 
   uppdatetypekeep(id: ID, totalbeef: String): Typekeep
 
@@ -660,6 +661,7 @@ type Mutation {
 
   updateBeefroom(id: ID, roomname: String): Beefroom
   updateBasket(id: ID, basketname: String): Basket
+
 
   #//////////////////////////////////////////////////////////////
   createProducttype(
@@ -686,6 +688,12 @@ type Mutation {
     producttype: String
   ): Beefproduct
   createProductstore: ProductStore
+
+  updateBeefProduct(
+    id: ID!
+    lump: String
+    chop: String
+  ):Beefproduct
 }
 
 scalar Date
