@@ -122,7 +122,7 @@ const Query = {
 
     if (cursor.length) {
       for (const item of cursor[0].imhalves) {
-        //console.log(cursor[0].imhalves.length)
+        //console.log(item.beefroom.id)
         let data = {
           beeftypeid: item.halve.beeftype.id,
           id: "ซากโคผ่าซีก",
@@ -134,6 +134,7 @@ const Query = {
           status: item.storestatus.nameTH,
           code: item.halve.beeftype.code,
           namefarmer: item.halve.imslaughter.namefarmer,
+          beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
         };
         returnData.push(data);
@@ -151,6 +152,7 @@ const Query = {
           code: item.quarter.beeftype.code,
           status: item.storestatus.nameTH,
           namefarmer: item.quarter.imslaughter.namefarmer,
+          beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
         };
         returnData.push(data);
@@ -168,6 +170,7 @@ const Query = {
           code: item.lump.beeftype.code,
           status: item.storestatus.nameTH,
           namefarmer: item.lump.imslaughter.namefarmer,
+          beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
           shelf: item.shelf.shelfname,
           basket: item.basket,
@@ -187,6 +190,7 @@ const Query = {
           code: item.chop.beeftype.code,
           status: item.storestatus.nameTH,
           namefarmer: item.chop.imslaughter.namefarmer,
+          beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
           shelf: item.shelf.shelfname,
           basket: item.basket,
@@ -200,6 +204,9 @@ const Query = {
     }
     if (args.type) {
       returnData = returnData.filter((e) => e.id == args.type);
+    }
+    if (args.beefroom) {
+      returnData = returnData.filter((e) => e.beefroomid == args.beefroom);
     }
     return returnData;
   },
@@ -239,10 +246,14 @@ const Query = {
         gallbladder: item.entrail.gallbladder,
         scrap: item.entrail.scrap,
         beefroom: item.beefroom.roomname,
+        beefroomid: item.beefroom.id,
       };
       returnData.push(data);
     }
     returnData.sort((a, b) => b.importdate - a.importdate);
+    if (args.beefroom) {
+      returnData = returnData.filter((e) => e.beefroomid == args.beefroom);
+    }
 
     return returnData;
   },
@@ -290,6 +301,11 @@ const Query = {
     if (args.userName) {
       cursor.find({
         userName: args.userName,
+      });
+    }
+    if (args.beefroom) {
+      cursor.find({
+        beefroom: args.beefroom,
       });
     }
     if (args.startdate) {
@@ -347,6 +363,11 @@ const Query = {
     if (args.userName) {
       cursor.find({
         userName: args.userName,
+      });
+    }
+    if (args.beefroom) {
+      cursor.find({
+        beefroom: args.beefroom,
       });
     }
     if (args.startdate) {
@@ -532,6 +553,11 @@ const Query = {
         userName: args.userName,
       });
     }
+    if (args.beefroom) {
+      cursor.find({
+        beefroom: args.beefroom,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         importdate: {
@@ -657,6 +683,11 @@ const Query = {
         userName: args.userName,
       });
     }
+    if (args.beefroom) {
+      cursor.find({
+        beefroom: args.beefroom,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         importdate: {
@@ -763,6 +794,11 @@ const Query = {
     if (args.userName) {
       cursor.find({
         userName: args.userName,
+      });
+    }
+    if (args.beefroom) {
+      cursor.find({
+        beefroom: args.beefroom,
       });
     }
     if (args.startdate) {
