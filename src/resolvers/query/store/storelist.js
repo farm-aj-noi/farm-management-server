@@ -172,6 +172,7 @@ const Query = {
           namefarmer: item.lump.imslaughter.namefarmer,
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
+          shelfid:item.shelf.id,
           shelf: item.shelf.shelfname,
           basket: item.basket,
         };
@@ -192,8 +193,10 @@ const Query = {
           namefarmer: item.chop.imslaughter.namefarmer,
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
+          shelfid:item.shelf.id,
           shelf: item.shelf.shelfname,
           basket: item.basket,
+
         };
         returnData.push(data);
       }
@@ -207,6 +210,9 @@ const Query = {
     }
     if (args.beefroom) {
       returnData = returnData.filter((e) => e.beefroomid == args.beefroom);
+    }
+    if (args.shelf) {
+      returnData = returnData.filter((e) => e.shelfid == args.shelf);
     }
     return returnData;
   },
@@ -558,6 +564,11 @@ const Query = {
         beefroom: args.beefroom,
       });
     }
+    if (args.shelf) {
+      cursor.find({
+        shelf: args.shelf,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         importdate: {
@@ -686,6 +697,11 @@ const Query = {
     if (args.beefroom) {
       cursor.find({
         beefroom: args.beefroom,
+      });
+    }
+    if (args.shelf) {
+      cursor.find({
+        shelf: args.shelf,
       });
     }
     if (args.startdate) {

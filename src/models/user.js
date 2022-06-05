@@ -147,6 +147,12 @@ const userSchema = new mongoose.Schema({
       ref: "Beefproduct",
     },
   ],
+  improducts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Improduct",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

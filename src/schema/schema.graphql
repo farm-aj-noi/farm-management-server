@@ -155,7 +155,13 @@ type Query {
   # datatreat: (id: ID!): Datatreat
   # ////////////////////////////////////////////////
 
-  liststore(beeftype: String, type: String, beefroom: String): [List]
+  liststore(
+    beeftype: String
+    type: String
+    beefroom: String
+    shelf: String
+  ): [List]
+
   listentrail(beefroom: String): [EntrailList]
 
   imhalveSearch(
@@ -201,6 +207,7 @@ type Query {
     namefarmer: String
     userName: String
     beefroom: String
+    shelf: String
   ): [Imlump]
 
   exportlump(
@@ -219,6 +226,7 @@ type Query {
     namefarmer: String
     userName: String
     beefroom: String
+    shelf: String
   ): [Imchop]
 
   exportchop(
@@ -666,7 +674,7 @@ type Mutation {
 
   updateBeefroom(id: ID, roomname: String): Beefroom
   updateBasket(id: ID, basketname: String): Basket
-
+  updateShelf(id: ID, shelfname: String): Shelf
 
   #//////////////////////////////////////////////////////////////
   createProducttype(
@@ -688,17 +696,48 @@ type Mutation {
   deleteProducttype(id: ID): Producttype
 
   createUnit(name: String): Unit
-  createBeefproduct(
-    weight: String
-    producttype: String
-  ): Beefproduct
+  createBeefproduct(weight: String, producttype: String): Beefproduct
   createProductstore: ProductStore
 
-  updateBeefProduct(
-    id: ID!
-    lump: String
-    chop: String
-  ):Beefproduct
+  updateBeefProduct(id: ID!, lump: String, chop: String): Beefproduct
+
+  createImproduct(
+    barcode: String
+    productstore: String
+    productroom: String
+    freezer: String
+    pbasket: String
+  ): Improduct
+
+  createExproduct(
+    barcode: String
+    exporter: String
+  ): Improduct
+
+  createProductroom(roomname: String): Productroom
+  createFreezer(freezername: String, productroom: String): Freezer
+  createPbasket(
+    productroom: String
+    freezer: String
+    basketname: String
+  ): Pbasket
+
+  createTypekeep2(
+    totalproduct: String
+    producttype: String
+    freezer: String
+  ): Typekeep2
+
+  deleteProductroom(id: ID): Productroom
+  deleteFreezer(id: ID): Freezer
+  deletePbasket(id: ID): Pbasket
+
+  uppdatetypekeep2(id: ID, totalproduct: String): Typekeep2
+
+  deletetypekeep2(id: ID): Typekeep2
+  updateProductroom(id: ID, productroomname: String): Productroom
+  updatePbasket(id: ID, basketname: String): Pbasket
+  updateFreezer(id: ID, freezername: String): Freezer
 }
 
 scalar Date
@@ -786,6 +825,7 @@ type User {
   imchops: [Imchop]
   imentrails: [Imentrail]
   beefproduct: [Beefproduct]
+  improducts: [Improduct]
 }
 
 type Role {
@@ -1286,6 +1326,7 @@ type List {
   basket: String
   beeftypeid: String
   beefroomid: String
+  shelfid: String
 }
 
 type EntrailList {
@@ -1338,7 +1379,6 @@ type Beefroom {
   id: ID!
   roomname: String
   typekeep: [Typekeep]
-  roomstatus: Status
   shelf: [Shelf]
   halve: [Halve]
   quarter: [Quarter]
@@ -1417,18 +1457,54 @@ type Beefproduct {
   lump: [Lump]
 }
 
-type ProductStore{
+type ProductStore {
   id: ID
   beefproduct: [Beefproduct]
 }
 
-type Improduct{
+type Improduct {
   id: ID
-  user: User!
-  beefproduct: Producttype
   barcode: String
   importdate: Date
   exportdate: Date
-  producttype: Producttype
   Expdate: Date
+  name: String
+  user: User!
+  storestatus: Status
+  beefproduct: Beefproduct
+  producttype: Producttype
+  productroom: Productroom
+  freezer: Freezer
+  pbasket: String
+}
+
+type Productroom {
+  id: ID
+  roomname: String
+  beefproduct: [Beefproduct]
+  freezer: [Freezer]
+  pbasket: [Pbasket]
+}
+
+type Freezer {
+  id: ID
+  freezername: String
+  productroom: Productroom
+  typekeep2: [Typekeep2]
+  beefproduct: [Beefproduct]
+  pbasket: [Pbasket]
+}
+
+type Pbasket {
+  id: ID
+  basketname: String
+  freezer: Freezer
+  productroom: Productroom
+}
+
+type Typekeep2 {
+  id: ID!
+  totalproduct: String
+  producttype: Producttype
+  freezer: Freezer
 }

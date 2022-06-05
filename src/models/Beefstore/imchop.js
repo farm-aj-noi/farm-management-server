@@ -22,7 +22,7 @@ const imchopSchema = new mongoose.Schema({
   basket: {
     type: String,
   },
-  almostExpdate: {
+  Expdate: {
     type: Date,
   },
   exporter: {
@@ -52,10 +52,7 @@ const imchopSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",
   },
-  exporter: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "RequestExport",
-  },
+  
 });
 const Imchop = mongoose.model("Imchop", imchopSchema);
 

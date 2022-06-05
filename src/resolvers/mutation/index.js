@@ -39,6 +39,11 @@ import Producttype from '../mutationproduct/producttype'
 import Unit from '../mutationproduct/unit'
 import Beefproduct from '../mutationproduct/beefproduct'
 import ProductStore from '../mutationproduct/productstore'
+import Improduct from '../mutationproduct/improduct'
+import Productroom from '../mutationproduct/productroom'
+import Freezer from '../mutationproduct/freezer'
+import Pbasket from '../mutationproduct/pbasket'
+import Typekeep2 from '../mutationproduct/typekeep2'
 
 export default _.merge(
     allin,
@@ -82,4 +87,9 @@ export default _.merge(
     Unit,
     Beefproduct,
     ProductStore,
+    Improduct,
+    Productroom,
+    Freezer,
+    Pbasket,
+    Typekeep2,
 )

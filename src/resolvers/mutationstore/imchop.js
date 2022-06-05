@@ -182,7 +182,7 @@ const Mutation = {
     if (find) {
       throw new Error("ชิ้นเนื้อถูกนำออกไปเเล้ว");
     }
-
+    
     if (chop) {
       const imchop = await Imchop.create({
         name: "นำออก",
@@ -196,6 +196,7 @@ const Mutation = {
         storestatus: args.storestatus,
         exporter: exporter.name,
       });
+      
 
       let result = await BeefStore.findByIdAndUpdate(
         {
@@ -239,7 +240,8 @@ const Mutation = {
         })
         .populate({
           path: "shelf",
-        });
+        })
+        
 
       return test;
     }
