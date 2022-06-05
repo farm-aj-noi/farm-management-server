@@ -4,6 +4,9 @@ const improductSchema = new mongoose.Schema({
   barcode: {
     type: String,
   },
+  name: {
+    type: String,
+  },
   importdate: {
     type: Date,
   },

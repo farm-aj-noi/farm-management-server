@@ -89,10 +89,10 @@ const Mutation = {
     });
 
     const store = await ProductStore.findById(args.productstore);
-    if (!store.beefproduct) {
-      store.beefproduct = [improduct];
+    if (!store.improduct) {
+      store.improduct = [improduct];
     } else {
-      store.beefproduct.push(improduct);
+      store.improduct.push(improduct);
     }
     await store.save();
 

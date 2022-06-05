@@ -299,6 +299,30 @@ type Query {
   listunit: [Unit]
 
   allproducttype: [Producttype]
+
+  allproduct(
+    producttype: String
+    productroom: String
+    freezer: String
+  ): [ListProduct]
+
+  improductSearch(
+    startdate: String
+    enddate: String
+    producttype: String
+    userName: String
+    productroom: String
+    freezer: String
+  ): [Improduct]
+
+  allproductroom: [Productroom]
+  allFreezer: [Freezer]
+  allpbasket(id: ID): [Pbasket]
+  pbasket: [Pbasket]
+
+  alltypkeep2: [Typekeep2]
+
+  
 }
 
 type Mutation {
@@ -1459,7 +1483,7 @@ type Beefproduct {
 
 type ProductStore {
   id: ID
-  beefproduct: [Beefproduct]
+  improduct: [Improduct]
 }
 
 type Improduct {
@@ -1507,4 +1531,19 @@ type Typekeep2 {
   totalproduct: String
   producttype: Producttype
   freezer: Freezer
+}
+
+type ListProduct {
+  barcode: String
+  status: String
+  producttype: String
+  code: String
+  weight: Float
+  importdate: Date
+  productroom: String
+  freezer: String
+  pbasket: String
+  producttypeid: String
+  productroomid: String
+  freezerid: String
 }

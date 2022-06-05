@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const ProductStoreSchema = new mongoose.Schema({
-  beefproduct: [
+  improduct: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "ProductStore",
+      ref: "Improduct",
     },
   ],
 });
