@@ -316,12 +316,15 @@ type Query {
   ): [Improduct]
 
   allproductroom: [Productroom]
+  productroomsearch(id: ID): [Productroom]
   allFreezer: [Freezer]
+  listFreezer(id: ID): [Freezer]
   allpbasket(id: ID): [Pbasket]
   pbasket: [Pbasket]
 
   alltypkeep2: [Typekeep2]
 
+  card8product(exp: String): [Improduct]
   
 }
 
@@ -733,10 +736,7 @@ type Mutation {
     pbasket: String
   ): Improduct
 
-  createExproduct(
-    barcode: String
-    exporter: String
-  ): Improduct
+  createExproduct(barcode: String, exporter: String): Improduct
 
   createProductroom(roomname: String): Productroom
   createFreezer(freezername: String, productroom: String): Freezer
@@ -762,6 +762,8 @@ type Mutation {
   updateProductroom(id: ID, productroomname: String): Productroom
   updatePbasket(id: ID, basketname: String): Pbasket
   updateFreezer(id: ID, freezername: String): Freezer
+
+  createExpdatesetting2(totalday: String): ExpdateSetting
 }
 
 scalar Date

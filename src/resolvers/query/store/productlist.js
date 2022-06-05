@@ -165,9 +165,31 @@ const Query = {
     return cursor;
   },
 
-  allFreezer: async (parent, args, context, info) => {
-    const cursor = Freezer.find({});
+  productroomsearch: (parent, args, context, info) => {
+    const cursor = Productroom.find({ _id: args.id }).populate({
+      path: "freezer",
+    });
     return cursor;
+  },
+
+  listFreezer: (parent, args, context, info) => {
+    if (!args.id) {
+      const cursor = [];
+      return cursor;
+    }
+    if (args.id) {
+      const cursor = Freezer.find({
+        productroom: args.id,
+      })
+        .populate({
+          path: "productroom",
+        })
+        .populate({
+          path: "typekeep2",
+          populate: { path: "producttype" },
+        });
+      return cursor;
+    }
   },
 
   allpbasket: async (parent, args, context, info) => {
@@ -198,11 +220,66 @@ const Query = {
         path: "productroom",
       });
     return cursor;
-
   },
 
   alltypkeep2: async (parent, args, context, info) => {
     const cursor = Typekeep2.find({});
+    return cursor;
+  },
+
+  card8product: async (parent, args, context, info) => {
+    const find = await ExpdateSetting.findById(args.exp);
+    const y = find.totalday;
+    const x = Number(y);
+
+    const cursor = await Improduct.find({
+      name: "นำเข้า",
+      $or: [
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D").add(x, "d"),
+            $gte: dayjs().startOf("D"),
+          },
+        },
+        {
+          Expdate: {
+            $lte: dayjs().startOf("D"),
+          },
+        },
+      ],
+    })
+      .populate({
+        path: "user",
+        populate: { path: "improducts" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "producttype" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "chop", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "lump", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "producttype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "productroom",
+      })
+      .populate({
+        path: "freezer",
+      });
     return cursor;
   },
 };

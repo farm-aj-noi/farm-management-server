@@ -1491,16 +1491,13 @@ const Query = {
       .populate({
         path: "beeftype",
       })
-
       .populate({
         path: "storestatus",
       })
       .populate({
         path: "beefroom",
       })
-      .populate({
-        path: "exporter",
-      });
+      
     return cursor;
   },
   CardExq: async (parent, args, context, info) => {
@@ -1510,6 +1507,31 @@ const Query = {
         $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำออก",
+    })
+    .populate({
+      path: "user",
+      populate: { path: "imquarters" },
+    })
+    .populate({
+      path: "quarter",
+      populate: { path: "status" },
+    })
+    .populate({
+      path: "quarter",
+      populate: { path: "imslaughter" },
+    })
+    .populate({
+      path: "quarter",
+      populate: { path: "beeftype" },
+    })
+    .populate({
+      path: "beeftype",
+    })
+    .populate({
+      path: "storestatus",
+    })
+    .populate({
+      path: "beefroom",
     });
     return cursor;
   },
@@ -1520,6 +1542,31 @@ const Query = {
         $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำออก",
+    })
+    .populate({
+      path: "user",
+      populate: { path: "imlumps" },
+    })
+    .populate({
+      path: "lump",
+      populate: { path: "status" },
+    })
+    .populate({
+      path: "lump",
+      populate: { path: "imslaughter" },
+    })
+    .populate({
+      path: "lump",
+      populate: { path: "beeftype" },
+    })
+    .populate({
+      path: "beeftype",
+    })
+    .populate({
+      path: "storestatus",
+    })
+    .populate({
+      path: "beefroom",
     });
     return cursor;
   },
@@ -1530,6 +1577,31 @@ const Query = {
         $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำออก",
+    })
+    .populate({
+      path: "user",
+      populate: { path: "imlumps" },
+    })
+    .populate({
+      path: "lump",
+      populate: { path: "status" },
+    })
+    .populate({
+      path: "lump",
+      populate: { path: "imslaughter" },
+    })
+    .populate({
+      path: "lump",
+      populate: { path: "beeftype" },
+    })
+    .populate({
+      path: "beeftype",
+    })
+    .populate({
+      path: "storestatus",
+    })
+    .populate({
+      path: "beefroom",
     });
     return cursor;
   },
@@ -1540,6 +1612,17 @@ const Query = {
         $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำออก",
+    })
+    .populate({
+      path: "user",
+      populate: { path: "imentrails" },
+    })
+    .populate({
+      path: "entrail",
+      populate: { path: "imslaughter" },
+    })
+    .populate({
+      path: "storestatus",
     });
     return cursor;
   },
