@@ -15,7 +15,7 @@ import Chillday from "../../../models/Beefstore/chillday";
 import Basket from "../../../models/Beefstore/basket";
 import ExpdateSetting from "../../../models/Beefstore/expdatesetting";
 import TotalExpdate from "../../../models/Beefstore/totalexpdate";
-import Typekeep from "../../../models/Beefstore/typekeep"
+import Typekeep from "../../../models/Beefstore/typekeep";
 import Chillroom from "../../../models/Beefstore/chillroom";
 
 const Query = {
@@ -25,11 +25,6 @@ const Query = {
         path: "imhalves",
         populate: { path: "halve" },
       })
-      /* .populate({
-          path: "imhalves",
-          populate: {path: "user", 
-          populate: {path: "curings"}}
-      }) */
       .populate({
         path: "imhalves",
         populate: { path: "storestatus" },
@@ -172,7 +167,7 @@ const Query = {
           namefarmer: item.lump.imslaughter.namefarmer,
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
-          shelfid:item.shelf.id,
+          shelfid: item.shelf.id,
           shelf: item.shelf.shelfname,
           basket: item.basket,
         };
@@ -193,10 +188,9 @@ const Query = {
           namefarmer: item.chop.imslaughter.namefarmer,
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
-          shelfid:item.shelf.id,
+          shelfid: item.shelf.id,
           shelf: item.shelf.shelfname,
           basket: item.basket,
-
         };
         returnData.push(data);
       }
@@ -926,12 +920,11 @@ const Query = {
 
   TypeRoom: (parent, args, context, info) => {
     const cursor = Typekeep.find({
-      beefroom : args.beefroom
-    })
-    .populate({
+      beefroom: args.beefroom,
+    }).populate({
       path: "beefroom",
     });
-    
+
     return cursor;
   },
 
@@ -944,13 +937,13 @@ const Query = {
       const cursor = Shelf.find({
         beefroom: args.id,
       })
-      .populate({
-        path: "beefroom",
-      })
-      .populate({
-        path: "typekeep",
-        populate: { path: "beeftype"},
-      })
+        .populate({
+          path: "beefroom",
+        })
+        .populate({
+          path: "typekeep",
+          populate: { path: "beeftype" },
+        });
       return cursor;
     }
   },
@@ -1261,28 +1254,28 @@ const Query = {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      chillstatus: "6284ad91fbfac22364a6e431"
+      chillstatus: "6284ad91fbfac22364a6e431",
     })
-    .populate({
-      path: "user",
-    })
-    .populate({
-      path: "halve",
-      populate: { path: "beeftype" },
-    })
-    .populate({
-      path: "halve",
-      populate: { path: "imslaughter" },
-    })
-    .populate({
-      path: "chillstatus",
-    })
-    .populate({
-      path: "chillroom",
-    })
-    .populate({
-      path: "chillday",
-    })
+      .populate({
+        path: "user",
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "chillstatus",
+      })
+      .populate({
+        path: "chillroom",
+      })
+      .populate({
+        path: "chillday",
+      });
     return cursor;
   },
 
@@ -1496,8 +1489,8 @@ const Query = {
       })
       .populate({
         path: "beefroom",
-      })
-      
+      });
+
     return cursor;
   },
   CardExq: async (parent, args, context, info) => {
@@ -1508,31 +1501,31 @@ const Query = {
       },
       name: "นำออก",
     })
-    .populate({
-      path: "user",
-      populate: { path: "imquarters" },
-    })
-    .populate({
-      path: "quarter",
-      populate: { path: "status" },
-    })
-    .populate({
-      path: "quarter",
-      populate: { path: "imslaughter" },
-    })
-    .populate({
-      path: "quarter",
-      populate: { path: "beeftype" },
-    })
-    .populate({
-      path: "beeftype",
-    })
-    .populate({
-      path: "storestatus",
-    })
-    .populate({
-      path: "beefroom",
-    });
+      .populate({
+        path: "user",
+        populate: { path: "imquarters" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
+      });
     return cursor;
   },
   CardExl: async (parent, args, context, info) => {
@@ -1543,31 +1536,31 @@ const Query = {
       },
       name: "นำออก",
     })
-    .populate({
-      path: "user",
-      populate: { path: "imlumps" },
-    })
-    .populate({
-      path: "lump",
-      populate: { path: "status" },
-    })
-    .populate({
-      path: "lump",
-      populate: { path: "imslaughter" },
-    })
-    .populate({
-      path: "lump",
-      populate: { path: "beeftype" },
-    })
-    .populate({
-      path: "beeftype",
-    })
-    .populate({
-      path: "storestatus",
-    })
-    .populate({
-      path: "beefroom",
-    });
+      .populate({
+        path: "user",
+        populate: { path: "imlumps" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
+      });
     return cursor;
   },
   CardExc: async (parent, args, context, info) => {
@@ -1578,31 +1571,31 @@ const Query = {
       },
       name: "นำออก",
     })
-    .populate({
-      path: "user",
-      populate: { path: "imlumps" },
-    })
-    .populate({
-      path: "lump",
-      populate: { path: "status" },
-    })
-    .populate({
-      path: "lump",
-      populate: { path: "imslaughter" },
-    })
-    .populate({
-      path: "lump",
-      populate: { path: "beeftype" },
-    })
-    .populate({
-      path: "beeftype",
-    })
-    .populate({
-      path: "storestatus",
-    })
-    .populate({
-      path: "beefroom",
-    });
+      .populate({
+        path: "user",
+        populate: { path: "imlumps" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
+      });
     return cursor;
   },
   CardExe: async (parent, args, context, info) => {
@@ -1613,17 +1606,17 @@ const Query = {
       },
       name: "นำออก",
     })
-    .populate({
-      path: "user",
-      populate: { path: "imentrails" },
-    })
-    .populate({
-      path: "entrail",
-      populate: { path: "imslaughter" },
-    })
-    .populate({
-      path: "storestatus",
-    });
+      .populate({
+        path: "user",
+        populate: { path: "imentrails" },
+      })
+      .populate({
+        path: "entrail",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "storestatus",
+      });
     return cursor;
   },
 
@@ -1641,9 +1634,6 @@ const Query = {
     const cursor = await ExpdateSetting.find({});
     return cursor;
   },
-
-
-
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;

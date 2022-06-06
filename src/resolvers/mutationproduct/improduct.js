@@ -23,13 +23,13 @@ const Mutation = {
       throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
-    /*  const currentRoom = await Improduct.find();
+     const currentRoom = await Improduct.find();
     const isRoomExist =
       currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
 
     if (isRoomExist) {
       throw new Error("บาร์โค้ดของคุณซ้ำ");
-    } */
+    }
 
     const date = dayjs();
 
@@ -61,7 +61,6 @@ const Mutation = {
     const producttype = await Producttype.findById(type);
 
     //const exp = dayjs(beefproduct.MFG).add(producttype.BBE, "d").toISOString();
-    
 
     await Beefproduct.findByIdAndUpdate(beefproduct.id, { status: statusIM });
 
@@ -148,6 +147,102 @@ const Mutation = {
 
     console.log(test);
     return test;
+  },
+
+  createExproduct: async (parent, args, { userId }, info) => {
+    if (!userId) throw new Error("Please log in.");
+
+    if (!args.barcode || !args.storestatus) {
+      throw new Error("กรุณากรอกข้อมูลให้ครบ");
+    }
+
+    const date = dayjs();
+
+    const product = await Beefproduct.findOne({
+      barcode: args.barcode,
+    });
+
+    const exproduct = await Improduct.findOne({
+      barcode: args.barcode,
+    });
+
+    const finduser = userId;
+    const username = await User.findById(finduser);
+
+    const room = exproduct.productroom;
+
+    const find =
+      (await Improduct.findOne({
+        barcode: args.barcode,
+        name: "นำออก",
+      }).countDocuments()) > 0;
+
+    if (find) {
+      throw new Error("ซากโคผ่าเสี้ยวนี้ถูกนำออกไปเเล้ว");
+    }
+
+    if (product) {
+      const improduct = await Improduct.create({
+        name: "นำออก",
+        exportdate: date,
+        user: userId,
+        beefproduct: product,
+        barcode: args.barcode,
+        producttype: product.producttype,
+        userName: username.name,
+        storestatus: args.storestatus,
+      });
+
+      let result = await ProductStore.findByIdAndUpdate(
+        {
+          _id: "629cb4035d8e2a65ce3e3800",
+        },
+        { $pull: { improduct: exproduct.id } }
+      );
+
+      let r = await Productroom.findByIdAndUpdate(
+        {
+          _id: room,
+        },
+        { $pull: { beefproduct: product } }
+      );
+
+      let test = await Improduct.findById(improduct.id)
+      .populate({
+        path: "user",
+        populate: { path: "improducts" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "producttype" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "chop", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "lump", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "producttype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "productroom",
+      })
+      .populate({
+        path: "freezer",
+      });
+
+      return test;
+    }
   },
 };
 export default Mutation;

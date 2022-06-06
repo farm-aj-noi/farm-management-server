@@ -7,6 +7,8 @@ import Productroom from "../../../models/Productstore/productroom";
 import Freezer from "../../../models/Productstore/freezer";
 import Pbasket from "../../../models/Productstore/pbasket";
 import Typekeep2 from "../../../models/Productstore/typekeep2";
+import ExpdateSetting2 from "../../../models/Productstore/expdatesetting2";
+import dayjs from "dayjs";
 
 const Query = {
   listunit: async (parent, args, context, info) => {
@@ -228,7 +230,7 @@ const Query = {
   },
 
   card8product: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById(args.exp);
+    const find = await ExpdateSetting2.findById(args.exp);
     const y = find.totalday;
     const x = Number(y);
 
@@ -247,6 +249,151 @@ const Query = {
           },
         },
       ],
+    })
+      .populate({
+        path: "user",
+        populate: { path: "improducts" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "producttype" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "chop", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "lump", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "producttype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "productroom",
+      })
+      .populate({
+        path: "freezer",
+      });
+    return cursor;
+  },
+
+  exproductSearch: async (parent, args, context, info) => {
+    const cursor = Improduct.find({
+      name: "นำออก",
+    })
+      .populate({
+        path: "user",
+        populate: { path: "improducts" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "producttype" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "chop", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "lump", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "producttype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "productroom",
+      })
+      .populate({
+        path: "freezer",
+      })
+      .sort({ exportdate: "DESC" });
+
+    if (args.producttype) {
+      cursor.find({
+        producttype: args.producttype,
+      });
+    }
+    if (args.userName) {
+      cursor.find({
+        userName: args.userName,
+      });
+    }
+    if (args.startdate) {
+      cursor.find({
+        exportdate: {
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+        },
+      });
+    }
+    return cursor;
+  },
+
+  cardImP: async (parent, args, context, info) => {
+    const cursor = await Improduct.find({
+      importdate: {
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำเข้า",
+    })
+      .populate({
+        path: "user",
+        populate: { path: "improducts" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "producttype" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "chop", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "beefproduct",
+        populate: { path: "lump", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "producttype",
+      })
+      .populate({
+        path: "storestatus",
+      })
+      .populate({
+        path: "productroom",
+      })
+      .populate({
+        path: "freezer",
+      });
+    return cursor;
+  },
+
+  cardExP: async (parent, args, context, info) => {
+    const cursor = await Improduct.find({
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+      name: "นำออก",
     })
       .populate({
         path: "user",

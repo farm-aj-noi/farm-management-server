@@ -44,6 +44,7 @@ import Productroom from '../mutationproduct/productroom'
 import Freezer from '../mutationproduct/freezer'
 import Pbasket from '../mutationproduct/pbasket'
 import Typekeep2 from '../mutationproduct/typekeep2'
+import ExpdateSetting2 from '../mutationproduct/expdatesetting2'
 
 export default _.merge(
     allin,
@@ -92,4 +93,5 @@ export default _.merge(
     Freezer,
     Pbasket,
     Typekeep2,
+    ExpdateSetting2,
 )
