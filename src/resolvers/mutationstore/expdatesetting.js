@@ -10,9 +10,8 @@ const Mutation = {
   },
 
   updateExpdatesetting: async (parent, args, { userId }, info) => {
-    const { dayH, dayQ, dayL, dayC, dayE } = args;
+    const { dayH, dayQ, dayL, dayC, dayE, id} = args;
 
-    const id = "629efd0e5cd8bb0418a587bf";
     const totalexp = await ExpdateSetting.findById(id);
 
     const updateInfo = {

@@ -14,9 +14,8 @@ const Mutation = {
   },
 
   updateTotalExp: async (parent, args, { userId }, info) => {
-    const { dayH, dayQ, dayL, dayC, dayE } = args;
+    const { dayH, dayQ, dayL, dayC, dayE, id} = args;
 
-    const id = "629eeaa60931a4ec74bc75fd";
     const totalexp = await TotalExpdate.findById(id);
 
     const updateInfo = {
