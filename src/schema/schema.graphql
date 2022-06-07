@@ -702,7 +702,7 @@ type Mutation {
   ): ExpdateSetting
 
   updateExpdatesetting(
-    id: String
+    id: ID
     dayH: Int
     dayQ: Int
     dayL: Int
@@ -719,7 +719,7 @@ type Mutation {
   ): TotalExpdate
 
   updateTotalExp(
-    id: String
+    id: ID
     dayH: Int
     dayQ: Int
     dayL: Int
