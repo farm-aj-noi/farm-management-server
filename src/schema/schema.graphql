@@ -702,6 +702,14 @@ type Mutation {
     dayE: Int
   ): TotalExpdate
 
+  updateTotalExp(
+    dayH: Int
+    dayQ: Int
+    dayL: Int
+    dayC: Int
+    dayE: Int
+  ): TotalExpdate
+
   deleteBeefroom(id: ID): Beefroom
   deleteShelf(id: ID): Shelf
   deleteBasket(id: ID): Basket

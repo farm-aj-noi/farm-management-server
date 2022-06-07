@@ -178,16 +178,6 @@ const Mutation = {
     }
   },
 
-  /* updateTotalExpe: async (parent, args, { userId }, info) => {
-    const imentrail = await Imentrail.find({ name: "นำเข้า" });
-
-    const exp = await TotalExpdate.findById(args.totalday);
-
-    const expdate = dayjs().add(exp.totalday, "d").toISOString();
-
-    for (let i = 0; i < imentrail.length; i++) {
-      await Imentrail.findByIdAndUpdate(imentrail[i].id, { Expdate: expdate });
-    }
-  }, */
+  
 };
 export default Mutation;

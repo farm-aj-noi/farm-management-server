@@ -220,16 +220,6 @@ const Mutation = {
     }
   },
 
-  /* updateTotalExpq: async (parent, args, { userId }, info) => {
-    const imquarter = await Imquarter.find({ name: "นำเข้า" });
 
-    const exp = await TotalExpdate.findById(args.totalday);
-
-    const expdate = dayjs().add(exp.totalday, "d").toISOString();
-
-    for (let i = 0; i < imquarter.length; i++) {
-      await Imquarter.findByIdAndUpdate(imquarter[i].id, { Expdate: expdate });
-    }
-  }, */
 };
 export default Mutation;

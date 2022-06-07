@@ -255,16 +255,6 @@ const Mutation = {
     }
   },
 
-  /* updateTotalExpc: async (parent, args, { userId }, info) => {
-    const imchop = await Imchop.find({ name: "นำเข้า" });
-
-    const exp = await TotalExpdate.findById(args.totalday);
-
-    const expdate = dayjs().add(exp.totalday, "d").toISOString();
-
-    for (let i = 0; i < imchop.length; i++) {
-      await Imchop.findByIdAndUpdate(imchop[i].id, { Expdate: expdate });
-    }
-  }, */
+  
 };
 export default Mutation;

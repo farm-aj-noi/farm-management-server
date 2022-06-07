@@ -234,17 +234,6 @@ const Mutation = {
     }
   },
 
-  /* updateTotalExph: async (parent, args, { userId }, info) => {
-    const imhalve = await Imhalve.find({ name: "นำเข้า" });
-
-    const exp = await TotalExpdate.findById(args.totalday);
-
-    for (let i = 0; i < imhalve.length; i++) {
-      const expdate = dayjs(imhalve[i].importdate)
-        .add(exp.totalday, "d")
-        .toISOString();
-      await Imhalve.findByIdAndUpdate(imhalve[i].id, { Expdate: expdate });
-    }
-  }, */
+  
 };
 export default Mutation;

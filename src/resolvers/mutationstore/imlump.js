@@ -261,16 +261,6 @@ const Mutation = {
     }
   },
 
-  /* updateTotalExpl: async (parent, args, { userId }, info) => {
-    const imlump = await Imlump.find({ name: "นำเข้า" });
-
-    const exp = await TotalExpdate.findById(args.totalday);
-
-    const expdate = dayjs().add(exp.totalday, "d").toISOString();
-
-    for (let i = 0; i < imlump.length; i++) {
-      await Imlump.findByIdAndUpdate(imlump[i].id, { Expdate: expdate });
-    }
-  }, */
+  
 };
 export default Mutation;
