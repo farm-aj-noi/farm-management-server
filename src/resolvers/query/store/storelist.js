@@ -131,6 +131,7 @@ const Query = {
           namefarmer: item.halve.imslaughter.namefarmer,
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
+          Expdate: item.Expdate
         };
         returnData.push(data);
       }
@@ -149,6 +150,7 @@ const Query = {
           namefarmer: item.quarter.imslaughter.namefarmer,
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
+          Expdate: item.Expdate
         };
         returnData.push(data);
       }
@@ -170,6 +172,7 @@ const Query = {
           shelfid: item.shelf.id,
           shelf: item.shelf.shelfname,
           basket: item.basket,
+          Expdate: item.Expdate
         };
         returnData.push(data);
       }
@@ -191,6 +194,7 @@ const Query = {
           shelfid: item.shelf.id,
           shelf: item.shelf.shelfname,
           basket: item.basket,
+          Expdate: item.Expdate
         };
         returnData.push(data);
       }
@@ -247,6 +251,7 @@ const Query = {
         scrap: item.entrail.scrap,
         beefroom: item.beefroom.roomname,
         beefroomid: item.beefroom.id,
+        Expdate: item.Expdate
       };
       returnData.push(data);
     }
