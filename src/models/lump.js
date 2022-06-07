@@ -19,6 +19,9 @@ const lumpSchema = new mongoose.Schema({
   sendAt: {
     type: Date,
   },
+  Productstatus: {
+    type: String,
+  },
   status: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",

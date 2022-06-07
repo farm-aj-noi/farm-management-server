@@ -18,13 +18,13 @@ const Mutation = {
       throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
-    const currentRoom = await Imhalve.find();
+    /* const currentRoom = await Imhalve.find();
     const isRoomExist =
       currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
 
     if (isRoomExist) {
       throw new Error("บาร์โค้ดของคุณซ้ำ");
-    }
+    } */
 
     const date = dayjs();
 
@@ -56,6 +56,10 @@ const Mutation = {
 
     const isRoomEmpty = totalhalve.length == totalbeef;
 
+    const exp = await TotalExpdate.findById("629eeaa60931a4ec74bc75fd")
+    const Dateexp = dayjs().add(exp.dayH, "d").toISOString();
+
+
     if (isRoomEmpty) {
       throw new Error("ห้องของคุณเต็มกรุณาเพิ่มประเภทจัดเก็บ");
     }
@@ -76,6 +80,7 @@ const Mutation = {
         userName: username.name,
         storestatus: statusIM,
         beefroom: args.beefroom,
+        Expdate: Dateexp
       });
 
       const store = await BeefStore.findById(args.beefstore);
@@ -229,7 +234,7 @@ const Mutation = {
     }
   },
 
-  updateTotalExph: async (parent, args, { userId }, info) => {
+  /* updateTotalExph: async (parent, args, { userId }, info) => {
     const imhalve = await Imhalve.find({ name: "นำเข้า" });
 
     const exp = await TotalExpdate.findById(args.totalday);
@@ -240,6 +245,6 @@ const Mutation = {
         .toISOString();
       await Imhalve.findByIdAndUpdate(imhalve[i].id, { Expdate: expdate });
     }
-  },
+  }, */
 };
 export default Mutation;

@@ -300,6 +300,9 @@ type Query {
 
   allproducttype: [Producttype]
 
+  lumptoProduct: [Lump]
+  choptoProduct: [Chop]
+
   allproduct(
     producttype: String
     productroom: String
@@ -335,7 +338,6 @@ type Query {
 
   cardImP: [Improduct]
   cardExP: [Improduct]
-  
 }
 
 type Mutation {
@@ -692,12 +694,13 @@ type Mutation {
 
   createExpdatesetting(totalday: String): ExpdateSetting
 
-  createTotalExp(totalday: String): TotalExpdate
-  updateTotalExph(totalday: String): Imhalve
-  updateTotalExpq(totalday: String): Imquarter
-  updateTotalExpl(totalday: String): Imlump
-  updateTotalExpc(totalday: String): Imchop
-  updateTotalExpe(totalday: String): Imentrail
+  createTotalExp(
+    dayH: Int
+    dayQ: Int
+    dayL: Int
+    dayC: Int
+    dayE: Int
+  ): TotalExpdate
 
   deleteBeefroom(id: ID): Beefroom
   deleteShelf(id: ID): Shelf
@@ -746,10 +749,7 @@ type Mutation {
     pbasket: String
   ): Improduct
 
-  createExproduct(
-    barcode: String
-    storestatus: String
-  ): Improduct
+  createExproduct(barcode: String, storestatus: String): Improduct
 
   createProductroom(roomname: String): Productroom
   createFreezer(freezername: String, productroom: String): Freezer
@@ -1129,6 +1129,7 @@ type Lump {
   quarter: Quarter!
   chops: [Chop]
   transports: [Transport]
+  Productstatus: String
 }
 
 type Chop {
@@ -1145,6 +1146,7 @@ type Chop {
   beeftype: Beeftype!
   lump: Lump!
   transports: [Transport]
+  Productstatus: String
 }
 
 type Entrail {
@@ -1467,7 +1469,11 @@ type ExpdateSetting {
 
 type TotalExpdate {
   id: ID
-  totalday: String
+  dayH: Int
+  dayQ: Int
+  dayL: Int
+  dayC: Int
+  dayE: Int
 }
 
 type Producttype {

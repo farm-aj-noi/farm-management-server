@@ -63,6 +63,13 @@ const Mutation = {
 
     const basket = await Basket.findById(args.basket);
 
+    const exp = await TotalExpdate.findById("629eeaa60931a4ec74bc75fd")
+    const Dateexp = dayjs().add(exp.dayC, "d").toISOString();
+
+    if (args.storestatus == "62821d931768cd521052118b") {
+      await Chop.findByIdAndUpdate(chop.id, { Productstatus: "รอแปรรูป" });
+    }
+
     if (isRoomEmpty) {
       throw new Error("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
     }
@@ -85,6 +92,7 @@ const Mutation = {
         beefroom: args.beefroom,
         shelf: args.shelf,
         basket: basket.basketname,
+        Expdate: Dateexp,
       });
 
       const store = await BeefStore.findById(args.beefstore);
@@ -247,7 +255,7 @@ const Mutation = {
     }
   },
 
-  updateTotalExpc: async (parent, args, { userId }, info) => {
+  /* updateTotalExpc: async (parent, args, { userId }, info) => {
     const imchop = await Imchop.find({ name: "นำเข้า" });
 
     const exp = await TotalExpdate.findById(args.totalday);
@@ -257,6 +265,6 @@ const Mutation = {
     for (let i = 0; i < imchop.length; i++) {
       await Imchop.findByIdAndUpdate(imchop[i].id, { Expdate: expdate });
     }
-  },
+  }, */
 };
 export default Mutation;

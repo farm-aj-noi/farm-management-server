@@ -53,6 +53,9 @@ const Mutation = {
 
     const isRoomEmpty = totalquarter.length == totalbeef;
 
+    const exp = await TotalExpdate.findById("629eeaa60931a4ec74bc75fd")
+    const Dateexp = dayjs().add(exp.dayQ, "d").toISOString();
+
     if (isRoomEmpty) {
       throw new Error("ห้องของคุณเต็มกรุณาเพิ่มประเภทจัดเก็บ");
     }
@@ -73,6 +76,7 @@ const Mutation = {
         userName: username.name,
         storestatus: statusIM,
         beefroom: args.beefroom,
+        Expdate: Dateexp,
       });
 
       const store = await BeefStore.findById(args.beefstore);
@@ -216,7 +220,7 @@ const Mutation = {
     }
   },
 
-  updateTotalExpq: async (parent, args, { userId }, info) => {
+  /* updateTotalExpq: async (parent, args, { userId }, info) => {
     const imquarter = await Imquarter.find({ name: "นำเข้า" });
 
     const exp = await TotalExpdate.findById(args.totalday);
@@ -226,6 +230,6 @@ const Mutation = {
     for (let i = 0; i < imquarter.length; i++) {
       await Imquarter.findByIdAndUpdate(imquarter[i].id, { Expdate: expdate });
     }
-  },
+  }, */
 };
 export default Mutation;

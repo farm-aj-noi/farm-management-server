@@ -9,6 +9,8 @@ import Pbasket from "../../../models/Productstore/pbasket";
 import Typekeep2 from "../../../models/Productstore/typekeep2";
 import ExpdateSetting2 from "../../../models/Productstore/expdatesetting2";
 import dayjs from "dayjs";
+import Lump from "../../../models/lump";
+import Chop from "../../../models/chop";
 
 const Query = {
   listunit: async (parent, args, context, info) => {
@@ -428,6 +430,20 @@ const Query = {
         path: "freezer",
       });
     return cursor;
+  },
+
+  lumptoProduct: async (parent, args, context, info) => {
+    const cursor = Lump.find({
+      Productstatus: "รอแปรรูป"
+    })
+    return cursor
+  },
+
+  choptoProduct: async (parent, args, context, info) => {
+    const cursor = Chop.find({
+      Productstatus: "รอแปรรูป"
+    })
+    return cursor
   },
 };
 export default Query;

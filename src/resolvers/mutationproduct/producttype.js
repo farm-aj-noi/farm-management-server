@@ -1,5 +1,8 @@
 import Producttype from "../../models/Productstore/producttype";
 import Unit from "../../models/Productstore/unit";
+import Beefproduct from "../../models/Productstore/beefproduct";
+import Improduct from "../../models/Productstore/improduct";
+import dayjs from "dayjs";
 
 const Mutation = {
   createProducttype: async (parent, args, { userId }, info) => {
@@ -30,7 +33,7 @@ const Mutation = {
     let product = await Producttype.findById(producttype.id).populate({
       path: "unit",
     });
-    return product
+    return product;
   },
 
   updateProducttype: async (parent, args, { userId }, info) => {
@@ -53,6 +56,27 @@ const Mutation = {
       nameEN: !!nameEN ? nameEN : producttype.nameEN,
       BBE: !!BBE ? BBE : producttype.BBE,
     };
+
+    const beefproduct = await Beefproduct.find({ producttype: args.id });
+
+    for (let i = 0; i < beefproduct.length; i++) {
+      const expdate = dayjs(beefproduct[i].MFG)
+        .add(producttype.BBE, "d")
+        .toISOString();
+      await Beefproduct.findByIdAndUpdate(beefproduct[i].id, {
+        BBE: expdate,
+      });
+
+      const improduct = await Improduct.find({
+        name: "นำเข้า",
+        producttype: args.id,
+      });
+      for (let r = 0; r < improduct.length; r++) {
+        await Improduct.findByIdAndUpdate(improduct[r].id, {
+          Expdate: expdate,
+        });
+      }
+    }
 
     await Producttype.findByIdAndUpdate(id, updateInfo);
 

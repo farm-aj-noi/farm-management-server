@@ -22,6 +22,9 @@ const chopSchema = new mongoose.Schema({
   BBE: {
     type: Date,
   },
+  Productstatus: {
+    type: String,
+  },
   status: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",
