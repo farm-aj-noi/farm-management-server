@@ -4,13 +4,31 @@ const Mutation = {
   createExpdatesetting: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.totalday) {
-      throw new Error("Please provide all required fields.");
-    }
-
     return await ExpdateSetting.create({
-      totalday: args.totalday,
+      ...args
     });
   },
+
+  updateExpdatesetting: async (parent, args, { userId }, info) => {
+    const { dayH, dayQ, dayL, dayC, dayE } = args;
+
+    const id = "629efd0e5cd8bb0418a587bf";
+    const totalexp = await ExpdateSetting.findById(id);
+
+    const updateInfo = {
+      dayH: !!dayH ? dayH : totalexp.dayH,
+      dayQ: !!dayQ ? dayQ : totalexp.dayQ,
+      dayL: !!dayL ? dayL : totalexp.dayL,
+      dayC: !!dayC ? dayC : totalexp.dayC,
+      dayE: !!dayE ? dayE : totalexp.dayE,
+    };
+
+    await ExpdateSetting.findByIdAndUpdate(id, updateInfo);
+
+    const updatedFinish = await ExpdateSetting.findById(id);
+    return updatedFinish;
+
+  }
+  
 };
 export default Mutation;

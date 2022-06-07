@@ -270,11 +270,11 @@ type Query {
   allBasket(id: ID): [Basket]
   Baskets: [Basket]
 
-  Card8h(exp: String): [Imhalve]
-  Card8q(exp: String): [Imquarter]
-  Card8l(exp: String): [Imlump]
-  Card8c(exp: String): [Imchop]
-  Card8e(exp: String): [Imentrail]
+  Card8h: [Imhalve]
+  Card8q: [Imquarter]
+  Card8l: [Imlump]
+  Card8c: [Imchop]
+  Card8e: [Imentrail]
 
   Card9: [RequestExport]
 
@@ -295,7 +295,7 @@ type Query {
   Totalexpdate: [TotalExpdate]
   listChillroom: [Chillroom]
   listExpSetting: [ExpdateSetting]
-  
+
   # ///////////////////////////////////////////////////
   listunit: [Unit]
 
@@ -693,7 +693,21 @@ type Mutation {
 
   createBasket(beefroom: String, shelf: String, basketname: String): Basket
 
-  createExpdatesetting(totalday: String): ExpdateSetting
+  createExpdatesetting(
+    dayH: Int
+    dayQ: Int
+    dayL: Int
+    dayC: Int
+    dayE: Int
+  ): ExpdateSetting
+
+  updateExpdatesetting(
+    dayH: Int
+    dayQ: Int
+    dayL: Int
+    dayC: Int
+    dayE: Int
+  ): ExpdateSetting
 
   createTotalExp(
     dayH: Int
@@ -1474,7 +1488,11 @@ type RequestExport {
 
 type ExpdateSetting {
   id: ID
-  totalday: String
+  dayH: Int
+  dayQ: Int
+  dayL: Int
+  dayC: Int
+  dayE: Int
 }
 
 type TotalExpdate {

@@ -1021,16 +1021,15 @@ const Query = {
   },
 
   Card8h: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById(args.exp);
-    const y = find.totalday;
-    const x = Number(y);
+    const find = await ExpdateSetting.findById("629efd0e5cd8bb0418a587bf");
+    const day = find.dayH;
 
     const cursor = await Imhalve.find({
       name: "นำเข้า",
       $or: [
         {
           Expdate: {
-            $lte: dayjs().startOf("D").add(x, "d"),
+            $lte: dayjs().startOf("D").add(day, "d"),
             $gte: dayjs().startOf("D"),
           },
         },
@@ -1071,16 +1070,15 @@ const Query = {
   },
 
   Card8q: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById(args.exp);
-    const y = find.totalday;
-    const x = Number(y);
+    const find = await ExpdateSetting.findById("629efd0e5cd8bb0418a587bf");
+    const day = find.dayQ;
 
     const cursor = await Imquarter.find({
       name: "นำเข้า",
       $or: [
         {
           Expdate: {
-            $lte: dayjs().startOf("D").add(x, "d"),
+            $lte: dayjs().startOf("D").add(day, "d"),
             $gte: dayjs().startOf("D"),
           },
         },
@@ -1121,16 +1119,15 @@ const Query = {
   },
 
   Card8l: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById(args.exp);
-    const y = find.totalday;
-    const x = Number(y);
+    const find = await ExpdateSetting.findById("629efd0e5cd8bb0418a587bf");
+    const day = find.dayL;
 
     const cursor = await Imlump.find({
       name: "นำเข้า",
       $or: [
         {
           Expdate: {
-            $lte: dayjs().startOf("D").add(x, "d"),
+            $lte: dayjs().startOf("D").add(day, "d"),
             $gte: dayjs().startOf("D"),
           },
         },
@@ -1170,16 +1167,15 @@ const Query = {
   },
 
   Card8c: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById(args.exp);
-    const y = find.totalday;
-    const x = Number(y);
+    const find = await ExpdateSetting.findById("629efd0e5cd8bb0418a587bf");
+    const day = find.dayC;
 
     const cursor = await Imchop.find({
       name: "นำเข้า",
       $or: [
         {
           Expdate: {
-            $lte: dayjs().startOf("D").add(x, "d"),
+            $lte: dayjs().startOf("D").add(day, "d"),
             $gte: dayjs().startOf("D"),
           },
         },
@@ -1219,16 +1215,15 @@ const Query = {
   },
 
   Card8e: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById(args.exp);
-    const y = find.totalday;
-    const x = Number(y);
+    const find = await ExpdateSetting.findById("629efd0e5cd8bb0418a587bf");
+    const day = find.dayE;
 
     const cursor = await Imentrail.find({
       name: "นำเข้า",
       $or: [
         {
           Expdate: {
-            $lte: dayjs().startOf("D").add(x, "d"),
+            $lte: dayjs().startOf("D").add(day, "d"),
             $gte: dayjs().startOf("D"),
           },
         },
