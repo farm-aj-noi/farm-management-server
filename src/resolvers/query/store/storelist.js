@@ -1021,9 +1021,9 @@ const Query = {
   },
 
   Card8h: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById("629efd0e5cd8bb0418a587bf");
+    const find = await ExpdateSetting.findById("629f3729a96c14e8f1f2473b");
     const day = find.dayH;
-
+    
     const cursor = await Imhalve.find({
       name: "นำเข้า",
       $or: [
@@ -1070,7 +1070,7 @@ const Query = {
   },
 
   Card8q: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById("629efd0e5cd8bb0418a587bf");
+    const find = await ExpdateSetting.findById("629f3729a96c14e8f1f2473b");
     const day = find.dayQ;
 
     const cursor = await Imquarter.find({
@@ -1119,7 +1119,7 @@ const Query = {
   },
 
   Card8l: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById("629efd0e5cd8bb0418a587bf");
+    const find = await ExpdateSetting.findById("629f3729a96c14e8f1f2473b");
     const day = find.dayL;
 
     const cursor = await Imlump.find({
@@ -1167,7 +1167,7 @@ const Query = {
   },
 
   Card8c: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById("629efd0e5cd8bb0418a587bf");
+    const find = await ExpdateSetting.findById("629f3729a96c14e8f1f2473b");
     const day = find.dayC;
 
     const cursor = await Imchop.find({
@@ -1215,7 +1215,7 @@ const Query = {
   },
 
   Card8e: async (parent, args, context, info) => {
-    const find = await ExpdateSetting.findById("629efd0e5cd8bb0418a587bf");
+    const find = await ExpdateSetting.findById("629f3729a96c14e8f1f2473b");
     const day = find.dayE;
 
     const cursor = await Imentrail.find({
