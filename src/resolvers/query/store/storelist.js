@@ -131,7 +131,8 @@ const Query = {
           namefarmer: item.halve.imslaughter.namefarmer,
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
-          Expdate: item.Expdate
+          Expdate: item.Expdate,
+          exp: dayjs(item.Expdate).format('YYYYMMDD').toString()
         };
         returnData.push(data);
       }
@@ -150,7 +151,8 @@ const Query = {
           namefarmer: item.quarter.imslaughter.namefarmer,
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
-          Expdate: item.Expdate
+          Expdate: item.Expdate,
+          exp: dayjs(item.Expdate).format('YYYYMMDD').toString()
         };
         returnData.push(data);
       }
@@ -172,7 +174,8 @@ const Query = {
           shelfid: item.shelf.id,
           shelf: item.shelf.shelfname,
           basket: item.basket,
-          Expdate: item.Expdate
+          Expdate: item.Expdate,
+          exp: dayjs(item.Expdate).format('YYYYMMDD').toString()
         };
         returnData.push(data);
       }
@@ -194,7 +197,8 @@ const Query = {
           shelfid: item.shelf.id,
           shelf: item.shelf.shelfname,
           basket: item.basket,
-          Expdate: item.Expdate
+          Expdate: item.Expdate,
+          exp: dayjs(item.Expdate).format('YYYYMMDD').toString()
         };
         returnData.push(data);
       }
@@ -211,6 +215,9 @@ const Query = {
     }
     if (args.shelf) {
       returnData = returnData.filter((e) => e.shelfid == args.shelf);
+    }
+    if (args.expdate) {
+      returnData = returnData.filter((e) => e.exp == args.expdate);
     }
     return returnData;
   },
@@ -251,8 +258,15 @@ const Query = {
         scrap: item.entrail.scrap,
         beefroom: item.beefroom.roomname,
         beefroomid: item.beefroom.id,
-        Expdate: item.Expdate
+        Expdate: item.Expdate,
+        exp: dayjs(item.Expdate).format('YYYYMMDD').toString()
       };
+      if (args.beefroom) {
+        returnData = returnData.filter((e) => e.beefroomid == args.beefroom);
+      }
+      if (args.expdate) {
+        returnData = returnData.filter((e) => e.exp == args.expdate);
+      }
       returnData.push(data);
     }
     returnData.sort((a, b) => b.importdate - a.importdate);

@@ -15,16 +15,6 @@ const Mutation = {
   createImlump: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (
-      !args.barcode ||
-      !args.beefstore ||
-      !args.beefroom ||
-      !args.shelf ||
-      !args.basket
-    ) {
-      throw new Error("กรุณากรอกบาร์โค้ด");
-    }
-
     const currentRoom = await Imlump.find();
     const isRoomExist =
       currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
@@ -55,6 +45,10 @@ const Mutation = {
 
     const typebeef = await Typekeep.findOne({ _id: y, beeftype: type });
 
+    if (typebeef == null) {
+      throw new Error("ไม่พบประเภทจัดเก็บในห้องนี้");
+    }
+
     const findtype = typebeef.beeftype.toString();
 
     const totalbeef = typebeef.totalbeef.toString();
@@ -63,7 +57,7 @@ const Mutation = {
 
     const basket = await Basket.findById(args.basket);
 
-    const exp = await TotalExpdate.findById("629eeaa60931a4ec74bc75fd")
+    const exp = await TotalExpdate.findById("629eeaa60931a4ec74bc75fd");
     const Dateexp = dayjs().add(exp.dayL, "d").toISOString();
 
     if (isRoomEmpty) {
@@ -88,7 +82,7 @@ const Mutation = {
         beefroom: args.beefroom,
         shelf: args.shelf,
         basket: basket.basketname,
-        Expdate: Dateexp
+        Expdate: Dateexp,
       });
 
       const store = await BeefStore.findById(args.beefstore);
@@ -260,7 +254,5 @@ const Mutation = {
       return test;
     }
   },
-
-  
 };
 export default Mutation;

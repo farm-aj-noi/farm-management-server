@@ -14,17 +14,13 @@ const Mutation = {
   createImHalve: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.beefstore || !args.beefroom) {
-      throw new Error("กรุณากรอกบาร์โค้ด");
-    }
-
-    /* const currentRoom = await Imhalve.find();
+    const currentRoom = await Imhalve.find();
     const isRoomExist =
       currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
 
     if (isRoomExist) {
       throw new Error("บาร์โค้ดของคุณซ้ำ");
-    } */
+    }
 
     const date = dayjs();
 
@@ -50,15 +46,18 @@ const Mutation = {
 
     const typebeef = await Typekeep.findOne({ _id: y, beeftype: type });
 
+    if (typebeef == null) {
+      throw new Error("ไม่พบประเภทจัดเก็บในห้องนี้");
+    }
+
     const findtype = typebeef.beeftype.toString();
 
     const totalbeef = typebeef.totalbeef.toString();
 
     const isRoomEmpty = totalhalve.length == totalbeef;
 
-    const exp = await TotalExpdate.findById("629eeaa60931a4ec74bc75fd")
+    const exp = await TotalExpdate.findById("629eeaa60931a4ec74bc75fd");
     const Dateexp = dayjs().add(exp.dayH, "d").toISOString();
-
 
     if (isRoomEmpty) {
       throw new Error("ห้องของคุณเต็มกรุณาเพิ่มประเภทจัดเก็บ");
@@ -80,7 +79,7 @@ const Mutation = {
         userName: username.name,
         storestatus: statusIM,
         beefroom: args.beefroom,
-        Expdate: Dateexp
+        Expdate: Dateexp,
       });
 
       const store = await BeefStore.findById(args.beefstore);
@@ -233,7 +232,5 @@ const Mutation = {
       return test;
     }
   },
-
-  
 };
 export default Mutation;

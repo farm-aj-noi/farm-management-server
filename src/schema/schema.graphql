@@ -160,9 +160,10 @@ type Query {
     type: String
     beefroom: String
     shelf: String
+    expdate: String
   ): [List]
 
-  listentrail(beefroom: String): [EntrailList]
+  listentrail(beefroom: String, expdate: String): [EntrailList]
 
   imhalveSearch(
     startdate: String
@@ -1394,6 +1395,7 @@ type List {
   beefroomid: String
   shelfid: String
   Expdate: Date
+  exp: String
 }
 
 type EntrailList {
@@ -1414,6 +1416,8 @@ type EntrailList {
   scrap: String
   beefroom: String
   beefroomid: String
+  Expdate: Date
+  exp: String
 }
 
 type importList {
