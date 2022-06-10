@@ -132,7 +132,7 @@ const Query = {
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).format('YYYYMMDD').toString()
+          exp: dayjs(item.Expdate).format("YYYYMMDD").toString(),
         };
         returnData.push(data);
       }
@@ -152,7 +152,7 @@ const Query = {
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).format('YYYYMMDD').toString()
+          exp: dayjs(item.Expdate).format("YYYYMMDD").toString(),
         };
         returnData.push(data);
       }
@@ -175,7 +175,7 @@ const Query = {
           shelf: item.shelf.shelfname,
           basket: item.basket,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).format('YYYYMMDD').toString()
+          exp: dayjs(item.Expdate).format("YYYYMMDD").toString(),
         };
         returnData.push(data);
       }
@@ -198,7 +198,7 @@ const Query = {
           shelf: item.shelf.shelfname,
           basket: item.basket,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).format('YYYYMMDD').toString()
+          exp: dayjs(item.Expdate).format("YYYYMMDD").toString(),
         };
         returnData.push(data);
       }
@@ -259,7 +259,7 @@ const Query = {
         beefroom: item.beefroom.roomname,
         beefroomid: item.beefroom.id,
         Expdate: item.Expdate,
-        exp: dayjs(item.Expdate).format('YYYYMMDD').toString()
+        exp: dayjs(item.Expdate).format("YYYYMMDD").toString(),
       };
       if (args.beefroom) {
         returnData = returnData.filter((e) => e.beefroomid == args.beefroom);
@@ -1037,7 +1037,7 @@ const Query = {
   Card8h: async (parent, args, context, info) => {
     const find = await ExpdateSetting.findById("629f3729a96c14e8f1f2473b");
     const day = find.dayH;
-    
+
     const cursor = await Imhalve.find({
       name: "นำเข้า",
       $or: [
@@ -1176,6 +1176,9 @@ const Query = {
       })
       .populate({
         path: "beefroom",
+      })
+      .populate({
+        path: "shelf",
       });
     return cursor;
   },
@@ -1224,6 +1227,9 @@ const Query = {
       })
       .populate({
         path: "beefroom",
+      })
+      .populate({
+        path: "shelf",
       });
     return cursor;
   },
@@ -1258,6 +1264,9 @@ const Query = {
       })
       .populate({
         path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
       });
     return cursor;
   },
