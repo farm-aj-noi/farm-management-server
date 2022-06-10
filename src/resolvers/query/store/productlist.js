@@ -237,6 +237,7 @@ const Query = {
     const x = Number(y);
 
     const cursor = await Improduct.find({
+      storestatus: "5f448d5d4ef8ed48806f1b53",
       name: "นำเข้า",
       $or: [
         {

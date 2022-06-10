@@ -166,6 +166,11 @@ const Mutation = {
       barcode: args.barcode,
     });
 
+    const e = await Improduct.findOne({
+      barcode: args.barcode,
+      name: "นำเข้า"
+    });
+
     const finduser = userId;
     const username = await User.findById(finduser);
 
@@ -180,6 +185,8 @@ const Mutation = {
     if (find) {
       throw new Error("ซากโคผ่าเสี้ยวนี้ถูกนำออกไปเเล้ว");
     }
+
+    await Improduct.findByIdAndUpdate(e.id, {storestatus: "62a30cdccb9cda7371a7cd7f"});
 
     if (product) {
       const improduct = await Improduct.create({

@@ -17,7 +17,7 @@ import ExpdateSetting from "../../../models/Beefstore/expdatesetting";
 import TotalExpdate from "../../../models/Beefstore/totalexpdate";
 import Typekeep from "../../../models/Beefstore/typekeep";
 import Chillroom from "../../../models/Beefstore/chillroom";
-import "dayjs/locale/th";
+
 
 const Query = {
   liststore: async (parent, args, context, info) => {
@@ -133,7 +133,7 @@ const Query = {
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).locale("th").format('YYYY-MM-DD').toString()
+          exp: dayjs(item.Expdate).format('YYYY-MM-DD').toString()
         };
         returnData.push(data);
       }
@@ -153,7 +153,7 @@ const Query = {
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).locale("th").format('YYYY-MM-DD').toString()
+          exp: dayjs(item.Expdate).format('YYYY-MM-DD').toString()
         };
         returnData.push(data);
       }
@@ -176,7 +176,7 @@ const Query = {
           shelf: item.shelf.shelfname,
           basket: item.basket,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).locale("th").format('YYYY-MM-DD').toString()
+          exp: dayjs(item.Expdate).format('YYYY-MM-DD').toString()
         };
         returnData.push(data);
       }
@@ -199,7 +199,7 @@ const Query = {
           shelf: item.shelf.shelfname,
           basket: item.basket,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).locale("th").format('YYYY-MM-DD').toString()
+          exp: dayjs(item.Expdate).format('YYYY-MM-DD').toString()
         };
         returnData.push(data);
       }
@@ -260,7 +260,7 @@ const Query = {
         beefroom: item.beefroom.roomname,
         beefroomid: item.beefroom.id,
         Expdate: item.Expdate,
-        exp: dayjs(item.Expdate).locale("th").format("YYYYMMDD").toString(),
+        exp: dayjs(item.Expdate).format("YYYYMMDD").toString(),
       };
       if (args.beefroom) {
         returnData = returnData.filter((e) => e.beefroomid == args.beefroom);
@@ -331,8 +331,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         importdate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -393,8 +393,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         importdate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -455,8 +455,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         exportdate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -516,8 +516,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         exportdate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -586,8 +586,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         importdate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -651,8 +651,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         exportdate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -721,8 +721,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         importdate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -786,8 +786,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         exportdate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -834,8 +834,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         importdate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -882,8 +882,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         exportdate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -922,8 +922,8 @@ const Query = {
     if (args.startdate) {
       cursor.find({
         chilldate: {
-          $gte: dayjs(args.startdate).locale("th").add(0, "d").startOf("D"),
-          $lt: dayjs(args.enddate).locale("th").add(0, "d").endOf("D"),
+          $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
         },
       });
     }
@@ -1045,13 +1045,13 @@ const Query = {
       $or: [
         {
           Expdate: {
-            $lte: dayjs().locale("th").startOf("D").add(day, "d"),
-            $gte: dayjs().locale("th").startOf("D"),
+            $lte: dayjs().startOf("D").add(day, "d"),
+            $gte: dayjs().startOf("D"),
           },
         },
         {
           Expdate: {
-            $lte: dayjs().locale("th").startOf("D"),
+            $lte: dayjs().startOf("D"),
           },
         },
       ],
@@ -1095,13 +1095,13 @@ const Query = {
       $or: [
         {
           Expdate: {
-            $lte: dayjs().locale("th").startOf("D").add(day, "d"),
-            $gte: dayjs().locale("th").startOf("D"),
+            $lte: dayjs().startOf("D").add(day, "d"),
+            $gte: dayjs().startOf("D"),
           },
         },
         {
           Expdate: {
-            $lte: dayjs().locale("th").startOf("D"),
+            $lte: dayjs().startOf("D"),
           },
         },
       ],
@@ -1145,13 +1145,13 @@ const Query = {
       $or: [
         {
           Expdate: {
-            $lte: dayjs().locale("th").startOf("D").add(day, "d"),
-            $gte: dayjs().locale("th").startOf("D"),
+            $lte: dayjs().startOf("D").add(day, "d"),
+            $gte: dayjs().startOf("D"),
           },
         },
         {
           Expdate: {
-            $lte: dayjs().locale("th").startOf("D"),
+            $lte: dayjs().startOf("D"),
           },
         },
       ],
@@ -1197,13 +1197,13 @@ const Query = {
       $or: [
         {
           Expdate: {
-            $lte: dayjs().locale("th").startOf("D").add(day, "d"),
-            $gte: dayjs().locale("th").startOf("D"),
+            $lte: dayjs().startOf("D").add(day, "d"),
+            $gte: dayjs().startOf("D"),
           },
         },
         {
           Expdate: {
-            $lte: dayjs().locale("th").startOf("D"),
+            $lte: dayjs().startOf("D"),
           },
         },
       ],
@@ -1249,13 +1249,13 @@ const Query = {
       $or: [
         {
           Expdate: {
-            $lte: dayjs().locale("th").startOf("D").add(day, "d"),
-            $gte: dayjs().locale("th").startOf("D"),
+            $lte: dayjs().startOf("D").add(day, "d"),
+            $gte: dayjs().startOf("D"),
           },
         },
         {
           Expdate: {
-            $lte: dayjs().locale("th").startOf("D"),
+            $lte: dayjs().startOf("D"),
           },
         },
       ],
@@ -1280,8 +1280,8 @@ const Query = {
   Card9: async (parent, args, context, info) => {
     const cursor = await RequestExport.find({
       chilldateEnd: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       chillstatus: "6284ad91fbfac22364a6e431",
     })
@@ -1311,8 +1311,8 @@ const Query = {
   Card10: async (parent, args, context, info) => {
     const cursor = await Chill.find({
       chilldateEnd: {
-        $gte: dayjs(new Date()).locale("th").startOf("D").format("YYYY-MM-DDTHH:mm:ssZ[Z]"),
-        $lt: dayjs(new Date()).locale("th").endOf("D").format("YYYY-MM-DDTHH:mm:ssZ[Z]"),
+        $gte: dayjs(new Date()).startOf("D").format("YYYY-MM-DDTHH:mm:ssZ[Z]"),
+        $lt: dayjs(new Date()).endOf("D").format("YYYY-MM-DDTHH:mm:ssZ[Z]"),
       },
     }).populate({
       path: "chillday",
@@ -1323,8 +1323,8 @@ const Query = {
   CardImh: async (parent, args, context, info) => {
     const cursor = await Imhalve.find({
       importdate: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำเข้า",
     })
@@ -1358,8 +1358,8 @@ const Query = {
   CardImq: async (parent, args, context, info) => {
     const cursor = await Imquarter.find({
       importdate: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำเข้า",
     })
@@ -1393,8 +1393,8 @@ const Query = {
   CardIml: async (parent, args, context, info) => {
     const cursor = await Imlump.find({
       importdate: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำเข้า",
     })
@@ -1428,8 +1428,8 @@ const Query = {
   CardImc: async (parent, args, context, info) => {
     const cursor = await Imchop.find({
       importdate: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำเข้า",
     })
@@ -1463,8 +1463,8 @@ const Query = {
   CardIme: async (parent, args, context, info) => {
     const cursor = await Imentrail.find({
       importdate: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำเข้า",
     })
@@ -1485,8 +1485,8 @@ const Query = {
   CardExh: async (parent, args, context, info) => {
     const cursor = await Imhalve.find({
       exportdate: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำออก",
     })
@@ -1525,8 +1525,8 @@ const Query = {
   CardExq: async (parent, args, context, info) => {
     const cursor = await Imquarter.find({
       exportdate: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำออก",
     })
@@ -1560,8 +1560,8 @@ const Query = {
   CardExl: async (parent, args, context, info) => {
     const cursor = await Imlump.find({
       exportdate: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำออก",
     })
@@ -1595,8 +1595,8 @@ const Query = {
   CardExc: async (parent, args, context, info) => {
     const cursor = await Imchop.find({
       exportdate: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำออก",
     })
@@ -1630,8 +1630,8 @@ const Query = {
   CardExe: async (parent, args, context, info) => {
     const cursor = await Imentrail.find({
       exportdate: {
-        $gte: dayjs(new Date()).locale("th").startOf("D"),
-        $lt: dayjs(new Date()).locale("th").endOf("D"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
       name: "นำออก",
     })
