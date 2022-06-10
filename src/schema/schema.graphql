@@ -271,7 +271,7 @@ type Query {
   allBasket(id: ID): [Basket]
   Baskets: [Basket]
 
-  Card8h: [BeefStore]
+  Card8h: [Imhalve]
   Card8q: [Imquarter]
   Card8l: [Imlump]
   Card8c: [Imchop]
