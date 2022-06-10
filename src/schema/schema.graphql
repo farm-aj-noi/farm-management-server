@@ -340,6 +340,10 @@ type Query {
 
   cardImP: [Improduct]
   cardExP: [Improduct]
+
+  listhalvegrade: [Halve]  
+  Cowgrade(id: ID!): listhalvegrade
+
 }
 
 type Mutation {
