@@ -25,9 +25,6 @@ const imhalveSchema = new mongoose.Schema({
   Expdate: {
     type: Date,
   },
-  count: {
-    type: String,
-  },
   beefroom: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Beefroom",

@@ -80,7 +80,6 @@ const Mutation = {
         storestatus: statusIM,
         beefroom: args.beefroom,
         Expdate: Dateexp,
-        count: "0",
       });
 
       const store = await BeefStore.findById(args.beefstore);
@@ -177,7 +176,7 @@ const Mutation = {
       throw new Error("ซากโคผ่าเสี้ยวนี้ถูกนำออกไปเเล้ว");
     }
     
-    await Imhalve.findByIdAndUpdate(e.id, {count: "1"});
+    await Imhalve.findByIdAndUpdate(e.id, {storestatus: "62a30cdccb9cda7371a7cd7f"});
 
     if (halve) {
       const imhalve = await Imhalve.create({

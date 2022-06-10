@@ -1264,7 +1264,6 @@ type Imhalve {
   beefroom: Beefroom
   exporter: String
   Expdate: Date
-  count: String
 }
 
 type Imquarter {

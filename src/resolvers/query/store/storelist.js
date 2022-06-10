@@ -1039,7 +1039,7 @@ const Query = {
     const day = find.dayH;
 
     const cursor = await Imhalve.find({
-      count: "0",
+      storestatus: "5f448d5d4ef8ed48806f1b53",
       name: "นำเข้า",
       $or: [
         {
