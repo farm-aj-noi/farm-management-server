@@ -271,7 +271,7 @@ type Query {
   allBasket(id: ID): [Basket]
   Baskets: [Basket]
 
-  Card8h: [Imhalve]
+  Card8h: [BeefStore]
   Card8q: [Imquarter]
   Card8l: [Imlump]
   Card8c: [Imchop]
@@ -1264,6 +1264,7 @@ type Imhalve {
   beefroom: Beefroom
   exporter: String
   Expdate: Date
+  count: String
 }
 
 type Imquarter {
