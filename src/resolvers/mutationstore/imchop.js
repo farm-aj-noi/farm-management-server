@@ -165,6 +165,11 @@ const Mutation = {
       barcode: args.barcode,
     });
 
+    const e = await Imchop.findOne({
+      barcode: args.barcode,
+      name: "นำเข้า"
+    });
+
     const exporter = await RequestExport.findById(args.exporter);
 
     const findfarmer = chop.imslaughter;
@@ -184,6 +189,8 @@ const Mutation = {
     if (find) {
       throw new Error("ชิ้นเนื้อถูกนำออกไปเเล้ว");
     }
+
+    await Imchop.findByIdAndUpdate(e.id, {storestatus: "62a30cdccb9cda7371a7cd7f"});
 
     if (chop) {
       const imchop = await Imchop.create({
