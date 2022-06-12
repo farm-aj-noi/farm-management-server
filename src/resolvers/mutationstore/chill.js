@@ -24,11 +24,16 @@ const Mutation = {
 
     const dateEnd = dayjs().add(chillday, "day").toISOString();
 
-    /* let result = await Imhalve.findOneAndUpdate({
-        barcode: args.barcode},
-        {storestatus: statusCh }) */
+    const check =
+      (await Chill.findOne({
+        barcode: args.barcode,
+      }).countDocuments()) > 0;
 
-    //await Imhalve.findOneAndUpdate({barcode: args.barcode},{storestatus : statusCh})
+    if (check) {
+      throw new Error("ซากโคผ่าเสี้ยวนี้ถูกบ่มไปเเล้ว");
+    }
+
+    await Halve.findByIdAndUpdate(halve.id, { chillstatus: statusCh });
 
     const chill = await Chill.create({
       halve: halve,
@@ -91,14 +96,22 @@ const Mutation = {
 
     const statusCh = "6284ad91fbfac22364a6e431";
 
+    const halve = await Halve.findOne({
+      chill: args.id,
+    });
+
     await Chill.findByIdAndUpdate(id, { chillstatus: statusCh });
+
     if (checkchilldate) {
       const statusCh = "6284ad91fbfac22364a6e431";
+
+      await Halve.findByIdAndUpdate(halve.id, { chillstatus: statusCh });
 
       await Chill.findByIdAndUpdate(id, { chillstatus: statusCh });
     } else {
       throw new Error("ซากโคผ่าซีกกำลังบ่ม");
     }
+
     const updatedFinish = await Chill.findById(id).populate({
       path: "chillstatus",
     });
