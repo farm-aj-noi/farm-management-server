@@ -342,7 +342,7 @@ type Query {
   cardExP: [Improduct]
 
   listhalvegrade: [Halve]  
-  Cowgrade(id: ID!): listhalvegrade
+  Cowgrade(id: ID!): [Halve]
 
 }
 
