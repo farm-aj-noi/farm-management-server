@@ -35,6 +35,10 @@ const halveSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Beeftype",
   },
+  chillstatus: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Status",
+  },
   quarters: [
     {
       type: mongoose.Schema.Types.ObjectId,
