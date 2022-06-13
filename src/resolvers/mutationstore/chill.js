@@ -109,7 +109,9 @@ const Mutation = {
 
       await Chill.findByIdAndUpdate(id, { chillstatus: statusCh });
     } else {
+
       throw new Error("ซากโคผ่าซีกกำลังบ่ม");
+      
     }
 
     const updatedFinish = await Chill.findById(id).populate({
