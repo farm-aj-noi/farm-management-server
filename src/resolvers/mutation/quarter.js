@@ -17,18 +17,6 @@ const Mutation = {
       throw new Error("Please provide all required fields.");
     }
 
-    /* const halves = await Halve.findOne({
-      _id: args.halve
-    })
-    const check = halves.sendAt == null
-    if(check){
-      throw new Error("ซากโคผ่าซีกยังไม่ผ่านการบ่ม.");
-    }
-
-    console.log(!check)
-    return */
-   
-
     //check count reset
     const SettingResetdate = await Setting.findOne({});
     const chaeckDate = await parseInt(dayjs().format("YYYYMMDD").toString());
