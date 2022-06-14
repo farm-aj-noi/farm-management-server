@@ -139,7 +139,7 @@ const Mutation = {
 
     const e = await Imquarter.findOne({
       barcode: args.barcode,
-      name: "นำเข้า"
+      name: "นำเข้า",
     });
 
     const exporter = await RequestExport.findById(args.exporter);
@@ -162,7 +162,11 @@ const Mutation = {
       throw new Error("ซากโคสี่เสี้ยวนี้ถูกนำออกไปเเล้ว");
     }
 
-    await Imquarter.findByIdAndUpdate(e.id, {storestatus: "62a30cdccb9cda7371a7cd7f"});
+    await Imquarter.findByIdAndUpdate(e.id, {
+      storestatus: "62a30cdccb9cda7371a7cd7f",
+    });
+
+    await Quarter.findByIdAndUpdate(quarter.id, { sendAt: date });
 
     if (quarter) {
       const imquarter = await Imquarter.create({

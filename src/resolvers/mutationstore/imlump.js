@@ -163,7 +163,7 @@ const Mutation = {
 
     const e = await Imlump.findOne({
       barcode: args.barcode,
-      name: "นำเข้า"
+      name: "นำเข้า",
     });
 
     const exporter = await RequestExport.findById(args.exporter);
@@ -191,7 +191,11 @@ const Mutation = {
       throw new Error("ก้อนเนื้อนี้ถูกนำออกไปเเล้ว");
     }
 
-    await Imlump.findByIdAndUpdate(e.id, {storestatus: "62a30cdccb9cda7371a7cd7f"});
+    await Imlump.findByIdAndUpdate(e.id, {
+      storestatus: "62a30cdccb9cda7371a7cd7f",
+    });
+
+    await Lump.findByIdAndUpdate(lump.id, { sendAt: date });
 
     if (lump) {
       const imlump = await Imlump.create({
