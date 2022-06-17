@@ -11,7 +11,7 @@ import Counter from '../../models/identitycounter'
 const Mutation = {
   createQuarter: async (parent, args, { userId }, info) => {
     // Check if user logged in
-    if (!userId) throw new Error("Please log in.");
+    //if (!userId) throw new Error("Please log in.");
 
     if (!args.weight || !args.imslaughter || !args.beeftype || !args.halve) {
       throw new Error("Please provide all required fields.");

@@ -152,7 +152,7 @@ const Mutation = {
 
     const e = await Imhalve.findOne({
       barcode: args.barcode,
-      name: "นำเข้า"
+      name: "นำเข้า",
     });
 
     const exporter = await RequestExport.findById(args.exporter);
@@ -174,8 +174,12 @@ const Mutation = {
     if (find) {
       throw new Error("ซากโคผ่าเสี้ยวนี้ถูกนำออกไปเเล้ว");
     }
-    
-    await Imhalve.findByIdAndUpdate(e.id, {storestatus: "62a30cdccb9cda7371a7cd7f"});
+
+    await Imhalve.findByIdAndUpdate(e.id, {
+      storestatus: "62a30cdccb9cda7371a7cd7f",
+    });
+
+    await Halve.findByIdAndUpdate(halve.id, { sendAt: date });
 
     if (halve) {
       const imhalve = await Imhalve.create({
