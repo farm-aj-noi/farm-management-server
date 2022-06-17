@@ -336,7 +336,7 @@ type Query {
 
   alltypkeep2: [Typekeep2]
 
-  card8product(exp: String): [Improduct]
+  card8product: [Improduct]
 
   cardImP: [Improduct]
   cardExP: [Improduct]
@@ -802,7 +802,13 @@ type Mutation {
   updatePbasket(id: ID, basketname: String): Pbasket
   updateFreezer(id: ID, freezername: String): Freezer
 
-  createExpdatesetting2(totalday: String): ExpdateSetting2
+  createExpdatesetting2(day: Int): ExpdateSetting2
+
+  updateExpdatesetting2(
+    id: ID
+    day: Int
+  ): ExpdateSetting2
+  
 }
 
 scalar Date
@@ -1602,9 +1608,11 @@ type ListProduct {
   producttypeid: String
   productroomid: String
   freezerid: String
+  MFGdate: Date
+  BBEdate: Date
 }
 
 type ExpdateSetting2 {
   id: ID
-  totalday: String
+  day: Int
 }

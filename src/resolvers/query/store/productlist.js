@@ -74,6 +74,8 @@ const Query = {
         freezerid: item.freezer.id,
         freezer: item.freezer.freezername,
         pbasket: item.pbasket,
+        MFGdate: item.beefproduct.MFG,
+        BBEdate: item.beefproduct.BBE,
       };
       returnData.push(data);
     }
@@ -232,9 +234,8 @@ const Query = {
   },
 
   card8product: async (parent, args, context, info) => {
-    const find = await ExpdateSetting2.findById(args.exp);
-    const y = find.totalday;
-    const x = Number(y);
+    const find = await ExpdateSetting2.findById("62ac62cc97dad53b30895a97");
+    const day = find.day;
 
     const cursor = await Improduct.find({
       storestatus: "5f448d5d4ef8ed48806f1b53",
@@ -242,7 +243,7 @@ const Query = {
       $or: [
         {
           Expdate: {
-            $lte: dayjs().startOf("D").add(x, "d"),
+            $lte: dayjs().startOf("D").add(day, "d"),
             $gte: dayjs().startOf("D"),
           },
         },

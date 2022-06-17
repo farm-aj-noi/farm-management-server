@@ -7,7 +7,6 @@ import User from "../../models/user";
 import Beefroom from "../../models/Beefstore/beefroom";
 import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
-import ExpdateSetting from "../../models/Beefstore/expdatesetting";
 import TotalExpdate from "../../models/Beefstore/totalexpdate";
 
 const Mutation = {
