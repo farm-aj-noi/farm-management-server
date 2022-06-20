@@ -25,6 +25,9 @@ const imhalveSchema = new mongoose.Schema({
   Expdate: {
     type: Date,
   },
+  chillroom: {
+    type: String,
+  },
   beefroom: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Beefroom",
@@ -41,15 +44,11 @@ const imhalveSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Beeftype",
   },
-  chill: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Chill",
-  },
+
   storestatus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",
   },
-
 });
 const Imhalve = mongoose.model("Imhalve", imhalveSchema);
 

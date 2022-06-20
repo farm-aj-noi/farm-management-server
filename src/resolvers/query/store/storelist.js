@@ -18,7 +18,6 @@ import TotalExpdate from "../../../models/Beefstore/totalexpdate";
 import Typekeep from "../../../models/Beefstore/typekeep";
 import Chillroom from "../../../models/Beefstore/chillroom";
 
-
 const Query = {
   liststore: async (parent, args, context, info) => {
     const cursor = await BeefStore.find({})
@@ -118,7 +117,7 @@ const Query = {
 
     if (cursor.length) {
       for (const item of cursor[0].imhalves) {
-        //console.log(item.beefroom.id)
+        //console.log(item.chill.chillroom)
         let data = {
           beeftypeid: item.halve.beeftype.id,
           id: "ซากโคผ่าซีก",
@@ -133,7 +132,8 @@ const Query = {
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).format('YYYY-MM-DD').toString()
+          chillroom: item.chillroom,
+          exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
       }
@@ -153,7 +153,7 @@ const Query = {
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).format('YYYY-MM-DD').toString()
+          exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
       }
@@ -176,7 +176,7 @@ const Query = {
           shelf: item.shelf.shelfname,
           basket: item.basket,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).format('YYYY-MM-DD').toString()
+          exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
       }
@@ -199,7 +199,7 @@ const Query = {
           shelf: item.shelf.shelfname,
           basket: item.basket,
           Expdate: item.Expdate,
-          exp: dayjs(item.Expdate).format('YYYY-MM-DD').toString()
+          exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
       }

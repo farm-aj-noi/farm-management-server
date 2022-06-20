@@ -1276,7 +1276,7 @@ type Imhalve {
   beefroom: Beefroom
   exporter: String
   Expdate: Date
-  chill: Chill
+  chillroom: String
 }
 
 type Imquarter {
@@ -1409,6 +1409,7 @@ type List {
   shelfid: String
   Expdate: Date
   exp: String
+  chillroom: String
 }
 
 type EntrailList {
