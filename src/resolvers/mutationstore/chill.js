@@ -2,6 +2,7 @@ import Chill from "../../models/Beefstore/chill";
 import dayjs from "dayjs";
 import Halve from "../../models/halve";
 import Chillday from "../../models/Beefstore/chillday";
+import Imhalve from "../../models/Beefstore/imhalve";
 
 const Mutation = {
   createChill: async (parent, args, { userId }, info) => {
@@ -16,6 +17,10 @@ const Mutation = {
     const halve = await Halve.findOne({
       barcode: args.barcode,
     });
+
+    const imhalve = await Imhalve.findOne({
+      barcode: args.barcode
+    })
 
     const find = await Chillday.findById(args.chillday);
     const chillday = Number(find.day);
@@ -55,6 +60,14 @@ const Mutation = {
     }
     await halves.save();
 
+    const imhalves = await Imhalve.findById(imhalve.id);
+    if (!imhalves.chill) {
+      imhalves.chill = [chill];
+    } else {
+      imhalves.chill.push(chill);
+    }
+    await imhalves.save();
+
     let test = Chill.findById(chill.id)
       .populate({
         path: "halve",
@@ -67,6 +80,9 @@ const Mutation = {
       .populate({
         path: "halve",
         populate: { path: "status" },
+      })
+      .populate({
+        path: "chill",
       })
       .populate({
         path: "chillroom",

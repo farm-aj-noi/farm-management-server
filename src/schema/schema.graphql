@@ -1276,6 +1276,7 @@ type Imhalve {
   beefroom: Beefroom
   exporter: String
   Expdate: Date
+  chill: Chill
 }
 
 type Imquarter {

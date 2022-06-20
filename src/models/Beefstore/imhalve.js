@@ -50,7 +50,6 @@ const imhalveSchema = new mongoose.Schema({
     ref: "Status",
   },
 
-  //idห้อง
 });
 const Imhalve = mongoose.model("Imhalve", imhalveSchema);
 

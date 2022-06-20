@@ -307,6 +307,9 @@ const Query = {
       .populate({
         path: "beefroom",
       })
+      .populate({
+        path: "chill",
+      })
       .sort({ importdate: "DESC" });
     if (args.beeftype) {
       cursor.find({
