@@ -13,6 +13,7 @@ import Halve from "../../../models/halve";
 import RequestExport from "../../../models/Beefstore/requestexport";
 import Chillday from "../../../models/Beefstore/chillday";
 import Basket from "../../../models/Beefstore/basket";
+import ExpdateSetting from "../../../models/Beefstore/expdatesetting";
 
 const Query = {
   liststore: async (parent, args, context, info) => {
@@ -365,10 +366,6 @@ const Query = {
         path: "user",
         populate: { path: "imhalves" },
       })
-      /* .populate({
-        path: "user",
-        populate: {path: "curings"}
-      }) */
       .populate({
         path: "halve",
         populate: { path: "status" },
@@ -394,11 +391,6 @@ const Query = {
       .populate({
         path: "exporter",
       })
-
-      /* .populate({
-        path: "halve",
-        populate: {path: "curing", populate: {path: "cureroom"}}
-      }) */
       .sort({ exportdate: "DESC" });
     if (args.beeftype) {
       cursor.find({
@@ -413,6 +405,11 @@ const Query = {
     if (args.userName) {
       cursor.find({
         userName: args.userName,
+      });
+    }
+    if (args.exporter) {
+      cursor.find({
+        exporter: args.exporter,
       });
     }
     if (args.startdate) {
@@ -472,6 +469,11 @@ const Query = {
     if (args.userName) {
       cursor.find({
         userName: args.userName,
+      });
+    }
+    if (args.exporter) {
+      cursor.find({
+        exporter: args.exporter,
       });
     }
     if (args.startdate) {
@@ -597,6 +599,11 @@ const Query = {
         userName: args.userName,
       });
     }
+    if (args.exporter) {
+      cursor.find({
+        exporter: args.exporter,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         exportdate: {
@@ -720,6 +727,11 @@ const Query = {
         userName: args.userName,
       });
     }
+    if (args.exporter) {
+      cursor.find({
+        exporter: args.exporter,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         exportdate: {
@@ -809,6 +821,11 @@ const Query = {
         userName: args.userName,
       });
     }
+    if (args.exporter) {
+      cursor.find({
+        exporter: args.exporter,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         exportdate: {
@@ -843,7 +860,6 @@ const Query = {
       .populate({
         path: "chillday",
       })
-
       .sort({ chilldate: "DESC" });
     if (args.beeftype) {
       cursor.find({
@@ -949,13 +965,24 @@ const Query = {
   },
 
   Card8: async (parent, args, context, info) => {
-    const cursor = await Imhalve.find({
-      almostExpdate: {
-        $gte: dayjs(new Date()).startOf("D"),
-        $lt: dayjs(new Date()).endOf("D"),
-      },
-    });
-    return cursor;
+    const find = await ExpdateSetting.findById(args.exp);
+    const y = find.totalday;
+    const x = Number(y);
+    const datenow = dayjs().format("YYYYMMDD").toString();
+    const expdate = dayjs().add(x, "days").format("YYYYMMDD").toString();
+    /* console.log(expdate)
+    return */
+
+    if (datenow >= expdate) {
+      const cursor = await Imhalve.find({
+        name: "นำเข้า",
+        almostExpdate: {
+          $gte: dayjs().startOf("D"),
+          $lt: dayjs().endOf("D"),
+        },
+      });
+      return cursor;
+    }
   },
 
   Card9: async (parent, args, context, info) => {

@@ -172,6 +172,7 @@ type Query {
     beeftype: String
     namefarmer: String
     userName: String
+    exporter: String
   ): [Imhalve]
 
   imquartSearch(
@@ -188,6 +189,7 @@ type Query {
     beeftype: String
     namefarmer: String
     userName: String
+    exporter: String
   ): [Imquarter]
 
   imlumpSearch(
@@ -204,6 +206,7 @@ type Query {
     beeftype: String
     namefarmer: String
     userName: String
+    exporter: String
   ): [Imlump]
 
   imchopSearch(
@@ -220,6 +223,7 @@ type Query {
     beeftype: String
     namefarmer: String
     userName: String
+    exporter: String
   ): [Imchop]
 
   imentrailSearch(
@@ -234,6 +238,7 @@ type Query {
     enddate: String
     namefarmer: String
     userName: String
+    exporter: String
   ): [Imentrail]
 
   listchill(startdate: String, enddate: String, beeftype: String): [Chill]
@@ -252,7 +257,7 @@ type Query {
 
   allBasket(id: ID): [Basket]
 
-  Card8: [Imhalve]
+  Card8(exp: String): [Imhalve]
   Card9: [RequestExport]
 
   CardImh: [Imhalve]

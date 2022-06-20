@@ -193,7 +193,7 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: args.storestatus,
-        exporter: exporter,
+        exporter: exporter.name,
       });
 
       let result = await BeefStore.findByIdAndUpdate(
