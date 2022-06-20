@@ -344,6 +344,7 @@ type Query {
   listhalvegrade: [Halve]  
   Cowgrade(id: ID!): [Halve]
   
+  listExpSetting2: [ExpdateSetting2]
 
 }
 

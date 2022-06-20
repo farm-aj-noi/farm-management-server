@@ -447,5 +447,11 @@ const Query = {
     })
     return cursor
   },
+
+  listExpSetting2: async (parent, args, context, info) => {
+    const cursor = await ExpdateSetting2.find({});
+    return cursor
+  },
+  
 };
 export default Query;
