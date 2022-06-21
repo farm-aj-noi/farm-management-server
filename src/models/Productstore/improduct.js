@@ -19,6 +19,9 @@ const improductSchema = new mongoose.Schema({
   pbasket: {
     type: String,
   },
+  exporter: {
+    type: String,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

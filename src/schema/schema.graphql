@@ -341,9 +341,9 @@ type Query {
   cardImP: [Improduct]
   cardExP: [Improduct]
 
-  listhalvegrade: [Halve]  
+  listhalvegrade: [Halve]
   Cowgrade(id: ID!): [Halve]
-  
+
   listExpSetting2: [ExpdateSetting2]
   ProductTracking(barcode: String): Beefproduct
 
@@ -683,6 +683,7 @@ type Mutation {
   createRequestExport(
     name: String
     beeftype: String
+    status: String
     quantity: String
   ): RequestExport
   deleteRequest(id: ID): RequestExport
@@ -783,7 +784,11 @@ type Mutation {
     pbasket: String
   ): Improduct
 
-  createExproduct(barcode: String, storestatus: String): Improduct
+  createExproduct(
+    barcode: String
+    storestatus: String
+    exporter: String
+  ): Improduct
 
   createProductroom(roomname: String): Productroom
   createFreezer(freezername: String, productroom: String): Freezer
@@ -812,10 +817,7 @@ type Mutation {
 
   createExpdatesetting2(day: Int): ExpdateSetting2
 
-  updateExpdatesetting2(
-    id: ID
-    day: Int
-  ): ExpdateSetting2
+  updateExpdatesetting2(id: ID, day: Int): ExpdateSetting2
 
   createProductTransport(
     date: String
@@ -824,7 +826,14 @@ type Mutation {
     note: String
     barcode: String!
   ): ProductTransport
-  
+
+  createRequestExportP(
+    name: String
+    producttype: String
+    status: String
+    quantity: String
+  ): RequestExportP
+  deleteRequestP(id: ID): RequestExportP
 }
 
 scalar Date
@@ -1513,6 +1522,7 @@ type RequestExport {
   id: ID!
   name: String
   beeftype: Beeftype
+  status: Status
   quantity: String
   requestdate: Date
 }
@@ -1581,6 +1591,7 @@ type Improduct {
   productroom: Productroom
   freezer: Freezer
   pbasket: String
+  exporter: String
 }
 
 type Productroom {
@@ -1643,4 +1654,13 @@ type ProductTransport {
   place: String!
   note: String
   beefproduct: Beefproduct
+}
+
+type RequestExportP {
+  id: ID!
+  name: String
+  producttype: Producttype
+  status: Status
+  quantity: String
+  requestdate: Date
 }

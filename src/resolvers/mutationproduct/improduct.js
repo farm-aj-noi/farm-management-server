@@ -8,6 +8,7 @@ import ProductStore from "../../models/Productstore/productstore";
 import Freezer from "../../models/Productstore/freezer";
 import Pbasket from "../../models/Productstore/pbasket";
 import Producttype from "../../models/Productstore/producttype";
+import RequestExportP from "../../models/Productstore/requestexportp";
 
 const Mutation = {
   createImproduct: async (parent, args, { userId }, info) => {
@@ -152,7 +153,7 @@ const Mutation = {
   createExproduct: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
 
-    if (!args.barcode || !args.storestatus) {
+    if (!args.barcode || !args.storestatus || !args.exporter) {
       throw new Error("กรุณากรอกข้อมูลให้ครบ");
     }
 
@@ -170,6 +171,8 @@ const Mutation = {
       barcode: args.barcode,
       name: "นำเข้า"
     });
+
+    const exporter = await RequestExportP.findById(args.exporter)
 
     const finduser = userId;
     const username = await User.findById(finduser);
@@ -198,6 +201,7 @@ const Mutation = {
         producttype: product.producttype,
         userName: username.name,
         storestatus: args.storestatus,
+        exporter: exporter.name,
       });
 
       let result = await ProductStore.findByIdAndUpdate(

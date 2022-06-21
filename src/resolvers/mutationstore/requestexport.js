@@ -1,20 +1,23 @@
 import RequestExport from "../../models/Beefstore/requestexport";
 import dayjs from "dayjs";
 import Beeftype from "../../models/beeftype";
+import Status from "../../models/status";
 
 const Mutation = {
   createRequestExport: async (parent, args, { userId }, info) => {
-    if (!args.name || !args.beeftype || !args.quantity) {
+    if (!args.name || !args.beeftype || !args.quantity || !args.status) {
       throw new Error("Please provide all required fields.");
     }
 
     const date = dayjs();
 
     const beeftype = await Beeftype.findById(args.beeftype);
+    const status = await Status.findById(args.status)
 
     const req = await RequestExport.create({
       name: args.name,
       beeftype: beeftype,
+      status: status,
       quantity: args.quantity,
       requestdate: date,
     });

@@ -46,6 +46,7 @@ import Pbasket from '../mutationproduct/pbasket'
 import Typekeep2 from '../mutationproduct/typekeep2'
 import ExpdateSetting2 from '../mutationproduct/expdatesetting2'
 import ProductTransport from '../mutationproduct/producttransport'
+import RequestExportP from '../mutationproduct/requestexportp'
 
 export default _.merge(
     allin,
@@ -95,5 +96,6 @@ export default _.merge(
     Pbasket,
     Typekeep2,
     ExpdateSetting2,
-    ProductTransport
+    ProductTransport,
+    RequestExportP
 )

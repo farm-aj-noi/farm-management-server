@@ -14,11 +14,11 @@ const RequestExportSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",
   },
-  beeftype: {
+  producttype: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Beeftype",
+    ref: "Producttype",
   },
 });
 
-const RequestExport = mongoose.model("RequestExport", RequestExportSchema);
-export default RequestExport;
+const RequestExportP = mongoose.model("RequestExportP", RequestExportSchema);
+export default RequestExportP;
