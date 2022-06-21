@@ -436,22 +436,55 @@ const Query = {
 
   lumptoProduct: async (parent, args, context, info) => {
     const cursor = Lump.find({
-      Productstatus: "รอแปรรูป"
-    })
-    return cursor
+      Productstatus: "รอแปรรูป",
+    });
+    return cursor;
   },
 
   choptoProduct: async (parent, args, context, info) => {
     const cursor = Chop.find({
-      Productstatus: "รอแปรรูป"
-    })
-    return cursor
+      Productstatus: "รอแปรรูป",
+    });
+    return cursor;
   },
 
   listExpSetting2: async (parent, args, context, info) => {
     const cursor = await ExpdateSetting2.find({});
-    return cursor
+    return cursor;
   },
-  
+
+  ProductTracking: async (parent, args, context, info) => {
+    const cursor = await Beefproduct.findOne({
+      barcode: args.barcode,
+    })
+      .populate({
+        path: "producttype",
+      })
+      .populate({
+        path: "status",
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "chop",
+        populate: { path: "imslaughter" },
+      });
+    return cursor;
+  },
+
+  ProductTrace: async (parent, args, context, info) => {
+    const cursor = await Beefproduct.findOne({
+      barcode: args.barcode,
+    })
+      .populate({
+        path: "producttype",
+      })
+      .populate({
+        path: "producttransport",
+      });
+    return cursor;
+  },
 };
 export default Query;

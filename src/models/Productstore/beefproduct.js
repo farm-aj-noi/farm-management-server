@@ -30,6 +30,10 @@ const beefproductSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Lump",
   }],
+  producttransport: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ProductTransport",
+  }],
 });
 
 beefproductSchema.plugin(autoIncrement, {

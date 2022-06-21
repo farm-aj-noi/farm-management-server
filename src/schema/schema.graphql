@@ -345,7 +345,9 @@ type Query {
   Cowgrade(id: ID!): [Halve]
   
   listExpSetting2: [ExpdateSetting2]
+  ProductTracking(barcode: String): Beefproduct
 
+  ProductTrace(barcode: String): Beefproduct
 }
 
 type Mutation {
@@ -814,6 +816,14 @@ type Mutation {
     id: ID
     day: Int
   ): ExpdateSetting2
+
+  createProductTransport(
+    date: String
+    name: String!
+    place: String!
+    note: String
+    barcode: String!
+  ): ProductTransport
   
 }
 
@@ -1549,6 +1559,7 @@ type Beefproduct {
   producttype: Producttype
   chop: [Chop]
   lump: [Lump]
+  producttransport: [ProductTransport]
 }
 
 type ProductStore {
@@ -1623,4 +1634,13 @@ type ListProduct {
 type ExpdateSetting2 {
   id: ID
   day: Int
+}
+
+type ProductTransport {
+  id: ID!
+  date: Date!
+  name: String!
+  place: String!
+  note: String
+  beefproduct: Beefproduct
 }
