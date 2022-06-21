@@ -348,6 +348,10 @@ type Query {
   ProductTracking(barcode: String): Beefproduct
 
   ProductTrace(barcode: String): Beefproduct
+
+  listRequestExP: [RequestExportP]
+  Card9product: [RequestExportP]
+
 }
 
 type Mutation {

@@ -1282,32 +1282,11 @@ const Query = {
 
   Card9: async (parent, args, context, info) => {
     const cursor = await RequestExport.find({
-      chilldateEnd: {
+      requestdate: {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-      chillstatus: "6284ad91fbfac22364a6e431",
-    })
-      .populate({
-        path: "user",
-      })
-      .populate({
-        path: "halve",
-        populate: { path: "beeftype" },
-      })
-      .populate({
-        path: "halve",
-        populate: { path: "imslaughter" },
-      })
-      .populate({
-        path: "chillstatus",
-      })
-      .populate({
-        path: "chillroom",
-      })
-      .populate({
-        path: "chillday",
-      });
+    });
     return cursor;
   },
 

@@ -11,6 +11,7 @@ import ExpdateSetting2 from "../../../models/Productstore/expdatesetting2";
 import dayjs from "dayjs";
 import Lump from "../../../models/lump";
 import Chop from "../../../models/chop";
+import RequestExportP from "../../../models/Productstore/requestexportp";
 
 const Query = {
   listunit: async (parent, args, context, info) => {
@@ -484,6 +485,25 @@ const Query = {
       .populate({
         path: "producttransport",
       });
+    return cursor;
+  },
+
+  listRequestExP: async (parent, args, context, info) => {
+    const cursor = RequestExportP.find({})
+      .populate({
+        path: "producttype",
+      })
+      .sort({ requestdate: "DESC" });
+    return cursor;
+  },
+
+  Card9product: async (parent, args, context, info) => {
+    const cursor = await RequestExportP.find({
+      requestdate: {
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+    });
     return cursor;
   },
 };
