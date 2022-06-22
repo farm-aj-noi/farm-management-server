@@ -503,6 +503,11 @@ const Query = {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
+    }).populate({
+      path: "producttype",
+    })
+    .populate({
+      path: "status",
     });
     return cursor;
   },

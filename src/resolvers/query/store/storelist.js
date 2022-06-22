@@ -1286,7 +1286,13 @@ const Query = {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-    });
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "status",
+      });
     return cursor;
   },
 
