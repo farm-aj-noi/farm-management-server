@@ -199,6 +199,11 @@ const Query = {
     }
   },
 
+  allFreezer: (parent, args, context, info) => {
+    const cursor = Freezer.find({});
+    return cursor;
+  },
+
   allpbasket: async (parent, args, context, info) => {
     if (!args.id) {
       const cursor = [];
@@ -469,8 +474,16 @@ const Query = {
         populate: { path: "imslaughter" },
       })
       .populate({
+        path: "lump",
+        populate: { path: "beeftype" },
+      })
+      .populate({
         path: "chop",
         populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "chop",
+        populate: { path: "beeftype" },
       });
     return cursor;
   },
@@ -503,12 +516,13 @@ const Query = {
         $gte: dayjs(new Date()).startOf("D"),
         $lt: dayjs(new Date()).endOf("D"),
       },
-    }).populate({
-      path: "producttype",
     })
-    .populate({
-      path: "status",
-    });
+      .populate({
+        path: "producttype",
+      })
+      .populate({
+        path: "status",
+      });
     return cursor;
   },
 };

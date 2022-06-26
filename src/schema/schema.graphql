@@ -1565,7 +1565,7 @@ type Unit {
 
 type Beefproduct {
   id: ID
-  weight: String
+  weight: Float
   barcode: String
   MFG: Date
   BBE: Date

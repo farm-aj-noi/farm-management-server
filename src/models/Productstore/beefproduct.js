@@ -3,7 +3,7 @@ import { autoIncrement } from "mongoose-plugin-autoinc";
 
 const beefproductSchema = new mongoose.Schema({
   weight: {
-    type: String,
+    type: Number,
   },
   barcode: {
     type: String,
