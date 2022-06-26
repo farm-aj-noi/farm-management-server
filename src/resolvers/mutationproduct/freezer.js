@@ -31,11 +31,10 @@ const Mutation = {
   },
   deleteFreezer: async (parent, args, { userId }, info) => {
     const freezer = await Freezer.findById(args.id);
-
-    const room = await Productroom.findOne({ freezer: args.id });
+    
+    const room = await Productroom.findOne({freezer : args.id });
+    
     const rooms = room.id;
-
-    const type = await Typekeep2.findOne({ freezer: args.id });
 
     let result = await Productroom.findByIdAndUpdate(
       {
@@ -43,10 +42,6 @@ const Mutation = {
       },
       { $pull: { freezer: freezer.id } }
     );
-
-    if (type.freezer !== null) {
-      await Typekeep2.findByIdAndDelete(type.id);
-    }
 
     const deletefreezer = await Freezer.findByIdAndDelete(args.id);
 
