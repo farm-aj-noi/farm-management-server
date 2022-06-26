@@ -200,7 +200,9 @@ const Query = {
   },
 
   allFreezer: (parent, args, context, info) => {
-    const cursor = Freezer.find({});
+    const cursor = Freezer.find({}).populate({
+      path: "productroom"
+    });
     return cursor;
   },
 
