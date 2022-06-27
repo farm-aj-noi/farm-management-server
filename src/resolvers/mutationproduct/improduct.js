@@ -24,13 +24,13 @@ const Mutation = {
       throw new Error("กรุณากรอกบาร์โค้ด");
     }
 
-     const currentRoom = await Improduct.find();
+    const currentRoom = await Improduct.find();
     const isRoomExist =
       currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
 
-    if (isRoomExist) {
-      throw new Error("บาร์โค้ดของคุณซ้ำ");
-    }
+    // if (isRoomExist) {
+    //   throw new Error("บาร์โค้ดของคุณซ้ำ");
+    // }
 
     const date = dayjs();
 
@@ -43,35 +43,7 @@ const Mutation = {
     const finduser = userId;
     const username = await User.findById(finduser);
 
-    const freezer = await Freezer.findById(args.freezer);
-    const y = freezer.typekeep2;
-    const total = freezer.beefproduct;
-
-    const type = beefproduct.producttype.toString();
-
-    const typebeef = await Typekeep2.findOne({ _id: y, producttype: type });
-
-    const findtype = typebeef.producttype.toString();
-
-    const totalbeef = typebeef.totalproduct.toString();
-
-    const isRoomEmpty = total.length == totalbeef;
-
     const pbasket = await Pbasket.findById(args.pbasket);
-
-    const producttype = await Producttype.findById(type);
-
-    //const exp = dayjs(beefproduct.MFG).add(producttype.BBE, "d").toISOString();
-
-    await Beefproduct.findByIdAndUpdate(beefproduct.id, { status: statusIM });
-
-    if (isRoomEmpty) {
-      throw new Error("ตู้แช่ของคุณเต็มกรุณาเพิ่มตู้");
-    }
-
-    if (type !== findtype) {
-      throw new Error("กรุณานำเข้าประเภทผลิตภัณฑ์ให้ถูกต้อง");
-    }
 
     const improduct = await Improduct.create({
       name: "นำเข้า",
@@ -169,10 +141,10 @@ const Mutation = {
 
     const e = await Improduct.findOne({
       barcode: args.barcode,
-      name: "นำเข้า"
+      name: "นำเข้า",
     });
 
-    const exporter = await RequestExportP.findById(args.exporter)
+    const exporter = await RequestExportP.findById(args.exporter);
 
     const finduser = userId;
     const username = await User.findById(finduser);
@@ -189,7 +161,9 @@ const Mutation = {
       throw new Error("ซากโคผ่าเสี้ยวนี้ถูกนำออกไปเเล้ว");
     }
 
-    await Improduct.findByIdAndUpdate(e.id, {storestatus: "62a30cdccb9cda7371a7cd7f"});
+    await Improduct.findByIdAndUpdate(e.id, {
+      storestatus: "62a30cdccb9cda7371a7cd7f",
+    });
 
     if (product) {
       const improduct = await Improduct.create({
@@ -219,38 +193,38 @@ const Mutation = {
       );
 
       let test = await Improduct.findById(improduct.id)
-      .populate({
-        path: "user",
-        populate: { path: "improducts" },
-      })
-      .populate({
-        path: "beefproduct",
-        populate: { path: "producttype" },
-      })
-      .populate({
-        path: "beefproduct",
-        populate: { path: "status" },
-      })
-      .populate({
-        path: "beefproduct",
-        populate: { path: "chop", populate: { path: "imslaughter" } },
-      })
-      .populate({
-        path: "beefproduct",
-        populate: { path: "lump", populate: { path: "imslaughter" } },
-      })
-      .populate({
-        path: "producttype",
-      })
-      .populate({
-        path: "storestatus",
-      })
-      .populate({
-        path: "productroom",
-      })
-      .populate({
-        path: "freezer",
-      });
+        .populate({
+          path: "user",
+          populate: { path: "improducts" },
+        })
+        .populate({
+          path: "beefproduct",
+          populate: { path: "producttype" },
+        })
+        .populate({
+          path: "beefproduct",
+          populate: { path: "status" },
+        })
+        .populate({
+          path: "beefproduct",
+          populate: { path: "chop", populate: { path: "imslaughter" } },
+        })
+        .populate({
+          path: "beefproduct",
+          populate: { path: "lump", populate: { path: "imslaughter" } },
+        })
+        .populate({
+          path: "producttype",
+        })
+        .populate({
+          path: "storestatus",
+        })
+        .populate({
+          path: "productroom",
+        })
+        .populate({
+          path: "freezer",
+        });
 
       return test;
     }

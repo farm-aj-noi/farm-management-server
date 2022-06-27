@@ -62,6 +62,7 @@ const Query = {
     var returnData = [];
 
     for (const item of result[0].improduct) {
+      
       let data = {
         barcode: item.barcode,
         status: item.storestatus.nameTH,

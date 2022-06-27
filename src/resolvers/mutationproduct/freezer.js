@@ -1,6 +1,5 @@
 import Freezer from "../../models/Productstore/freezer";
 import Productroom from "../../models/Productstore/productroom";
-import Typekeep2 from "../../models/Productstore/typekeep2";
 
 const Mutation = {
   createFreezer: async (parent, args, { userId }, info) => {

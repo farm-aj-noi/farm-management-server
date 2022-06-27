@@ -838,6 +838,8 @@ type Mutation {
     quantity: String
   ): RequestExportP
   deleteRequestP(id: ID): RequestExportP
+
+  deleteUnit(id: ID): Unit
 }
 
 scalar Date
