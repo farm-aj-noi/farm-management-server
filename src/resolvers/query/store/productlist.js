@@ -62,7 +62,6 @@ const Query = {
     var returnData = [];
 
     for (const item of result[0].improduct) {
-      
       let data = {
         barcode: item.barcode,
         status: item.storestatus.nameTH,
@@ -202,7 +201,7 @@ const Query = {
 
   allFreezer: (parent, args, context, info) => {
     const cursor = Freezer.find({}).populate({
-      path: "productroom"
+      path: "productroom",
     });
     return cursor;
   },
@@ -526,6 +525,24 @@ const Query = {
       .populate({
         path: "status",
       });
+    return cursor;
+  },
+
+  LumpForProduct: async (parent, args, context, info) => {
+    const cursor = await Lump.find({
+      Productstatus: "62b95aab1b771c3d8ae74a04",
+    }).populate({
+      path: "beeftype",
+    });
+    return cursor;
+  },
+
+  ChopForProduct: async (parent, args, context, info) => {
+    const cursor = await Chop.find({
+      Productstatus: "62b95aab1b771c3d8ae74a04",
+    }).populate({
+      path: "beeftype",
+    });
     return cursor;
   },
 };

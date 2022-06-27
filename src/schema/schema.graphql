@@ -352,6 +352,9 @@ type Query {
   listRequestExP: [RequestExportP]
   Card9product: [RequestExportP]
 
+  LumpForProduct: [Lump]
+  ChopForProduct: [Chop]
+
 }
 
 type Mutation {
@@ -1193,7 +1196,7 @@ type Lump {
   quarter: Quarter!
   chops: [Chop]
   transports: [Transport]
-  Productstatus: String
+  Productstatus: Status
 }
 
 type Chop {
@@ -1210,7 +1213,7 @@ type Chop {
   beeftype: Beeftype!
   lump: Lump!
   transports: [Transport]
-  Productstatus: String
+  Productstatus: Status
 }
 
 type Entrail {

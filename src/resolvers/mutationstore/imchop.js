@@ -60,10 +60,6 @@ const Mutation = {
     const exp = await TotalExpdate.findById("629eeaa60931a4ec74bc75fd");
     const Dateexp = dayjs().add(exp.dayC, "d").toISOString();
 
-    if (args.storestatus == "62821d931768cd521052118b") {
-      await Chop.findByIdAndUpdate(chop.id, { Productstatus: "รอแปรรูป" });
-    }
-
     if (isRoomEmpty) {
       throw new Error("ชั้นของคุณเต็มกรุณาเพิ่มชั้น");
     }
@@ -167,7 +163,7 @@ const Mutation = {
 
     const e = await Imchop.findOne({
       barcode: args.barcode,
-      name: "นำเข้า"
+      name: "นำเข้า",
     });
 
     const exporter = await RequestExport.findById(args.exporter);
@@ -190,7 +186,13 @@ const Mutation = {
       throw new Error("ชิ้นเนื้อถูกนำออกไปเเล้ว");
     }
 
-    await Imchop.findByIdAndUpdate(e.id, {storestatus: "62a30cdccb9cda7371a7cd7f"});
+    const check = args.storestatus == "62821d931768cd521052118b";
+
+    if (check) {
+      await Chop.findByIdAndUpdate(chop.id, {
+        Productstatus: "62b95aab1b771c3d8ae74a04",
+      });
+    }
 
     if (chop) {
       const imchop = await Imchop.create({

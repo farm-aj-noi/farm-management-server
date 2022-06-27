@@ -177,10 +177,6 @@ const Mutation = {
     const room = exlump.beefroom;
     const shelf = exlump.shelf;
 
-    if (args.storestatus == "62821d931768cd521052118b") {
-      await Lump.findByIdAndUpdate(lump.id, { Productstatus: "รอแปรรูป" });
-    }
-
     const find =
       (await Imlump.findOne({
         barcode: args.barcode,
@@ -194,6 +190,12 @@ const Mutation = {
     await Imlump.findByIdAndUpdate(e.id, {
       storestatus: "62a30cdccb9cda7371a7cd7f",
     });
+
+    const check = args.storestatus == "62821d931768cd521052118b"
+    
+    if(check){
+      await Lump.findByIdAndUpdate(lump.id, {Productstatus: "62b95aab1b771c3d8ae74a04"})
+    }
 
     await Lump.findByIdAndUpdate(lump.id, { sendAt: date });
 
