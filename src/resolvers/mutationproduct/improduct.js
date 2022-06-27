@@ -28,9 +28,9 @@ const Mutation = {
     const isRoomExist =
       currentRoom.findIndex((prod) => prod.barcode == args.barcode) > -1;
 
-    // if (isRoomExist) {
-    //   throw new Error("บาร์โค้ดของคุณซ้ำ");
-    // }
+    if (isRoomExist) {
+      throw new Error("บาร์โค้ดของคุณซ้ำ");
+    }
 
     const date = dayjs();
 
