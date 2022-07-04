@@ -7,7 +7,6 @@ import Counter from "../../models/identitycounter";
 import Lump from "../../models/lump";
 import Chop from "../../models/chop";
 
-
 const Mutation = {
   createBeefproduct: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
@@ -92,7 +91,10 @@ const Mutation = {
 
     const product = await Beefproduct.findById(args.id);
 
-    if (args.lump) {
+    const checklump = args.lump == null;
+    const checkchop = args.chop == null;
+
+    if (!checklump) {
       if (findl) {
         throw new Error("ข้อมูลก้อนเนื้อซ้ำ");
       }
@@ -102,7 +104,9 @@ const Mutation = {
         product.lump.push(lump);
       }
       await product.save();
-    } else {
+    }
+
+    if (!checkchop) {
       if (findc) {
         throw new Error("ข้อมูลชิ้นเนื้อซ้ำ");
       }
