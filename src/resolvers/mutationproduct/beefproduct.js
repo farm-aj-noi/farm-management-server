@@ -74,11 +74,12 @@ const Mutation = {
       });
   },
   updateBeefProduct: async (parent, args, { userId }, info) => {
+    
     const lump = await Lump.findOne({
-      barcode: args.lump
+      barcode: args.barcode
     });
     const chop = await Chop.findOne({
-      barcode: args.chop
+      barcode: args.barcode
     });
 
     const findl =
@@ -95,10 +96,7 @@ const Mutation = {
 
     const product = await Beefproduct.findById(args.id);
 
-    const checklump = args.lump == null;
-    const checkchop = args.chop == null;
-
-    if (!checklump) {
+    if (lump) {
       if (findl) {
         throw new Error("ข้อมูลก้อนเนื้อซ้ำ");
       }
@@ -114,7 +112,7 @@ const Mutation = {
       });
     }
 
-    if (!checkchop) {
+    if (chop) {
       if (findc) {
         throw new Error("ข้อมูลชิ้นเนื้อซ้ำ");
       }

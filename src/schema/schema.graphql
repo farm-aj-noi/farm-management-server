@@ -782,7 +782,7 @@ type Mutation {
   createBeefproduct(weight: Int, producttype: String): Beefproduct
   createProductstore: ProductStore
 
-  updateBeefProduct(id: ID!, lump: String, chop: String): Beefproduct
+  updateBeefProduct(id: ID!, barcode: String): Beefproduct
 
   createImproduct(
     barcode: String
