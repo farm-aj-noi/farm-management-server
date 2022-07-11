@@ -74,8 +74,12 @@ const Mutation = {
       });
   },
   updateBeefProduct: async (parent, args, { userId }, info) => {
-    const lump = await Lump.findById(args.lump);
-    const chop = await Chop.findById(args.chop);
+    const lump = await Lump.findOne({
+      barcode: args.lump
+    });
+    const chop = await Chop.findOne({
+      barcode: args.chop
+    });
 
     const findl =
       (await Beefproduct.findOne({
@@ -104,6 +108,10 @@ const Mutation = {
         product.lump.push(lump);
       }
       await product.save();
+
+      await Lump.findByIdAndUpdate(lump.id, {
+        Productstatus: "62b95adc1b771c3d8ae74a05",
+      });
     }
 
     if (!checkchop) {
@@ -116,6 +124,11 @@ const Mutation = {
         product.chop.push(chop);
       }
       await product.save();
+
+      await Chop.findByIdAndUpdate(chop.id, {
+        Productstatus: "62b95adc1b771c3d8ae74a05",
+      });
+      
     }
 
     const updatedFinish = await Beefproduct.findById(args.id)
