@@ -545,5 +545,15 @@ const Query = {
     });
     return cursor;
   },
+
+  ProductSearch: async (parent, args, context, info) => {
+    const cursor = await Beefproduct.find({
+      _id: args.id
+    })
+    .populate({
+      path: "producttype",
+    });
+    return cursor;
+  },
 };
 export default Query;

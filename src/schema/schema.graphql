@@ -354,7 +354,8 @@ type Query {
 
   LumpForProduct: [Lump]
   ChopForProduct: [Chop]
-
+  
+  ProductSearch(id: ID): [Beefproduct]
 }
 
 type Mutation {
