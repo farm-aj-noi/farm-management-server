@@ -548,9 +548,10 @@ const Query = {
 
   ProductSearch: async (parent, args, context, info) => {
     const cursor = await Beefproduct.find({})
-    .populate({
-      path: "producttype",
-    });
+      .populate({
+        path: "producttype",
+      })
+      .sort({ MFG: "DESC" });
     return cursor;
   },
 };
