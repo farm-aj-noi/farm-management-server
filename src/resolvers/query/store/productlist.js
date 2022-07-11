@@ -528,30 +528,38 @@ const Query = {
     return cursor;
   },
 
-  LumpForProduct: async (parent, args, context, info) => {
-    const cursor = await Lump.find({
-      Productstatus: "62b95aab1b771c3d8ae74a04",
-    }).populate({
-      path: "beeftype",
-    });
-    return cursor;
-  },
-
-  ChopForProduct: async (parent, args, context, info) => {
-    const cursor = await Chop.find({
-      Productstatus: "62b95aab1b771c3d8ae74a04",
-    }).populate({
-      path: "beeftype",
-    });
-    return cursor;
-  },
-
   ProductSearch: async (parent, args, context, info) => {
     const cursor = await Beefproduct.find({})
       .populate({
         path: "producttype",
       })
       .sort({ MFG: "DESC" });
+    return cursor;
+  },
+
+  ProductSearch2: async (parent, args, context, info) => {
+    const cursor = await Beefproduct.find({
+      _id: args.id
+    })
+      .populate({
+        path: "producttype",
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "imslaughter" }
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "beeftype" }
+      })
+      .populate({
+        path: "chop",
+        populate: { path: "imslaughter" }
+      })
+      .populate({
+        path: "chop",
+        populate: { path: "beeftype" }
+      })
     return cursor;
   },
 };

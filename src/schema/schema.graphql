@@ -351,11 +351,9 @@ type Query {
 
   listRequestExP: [RequestExportP]
   Card9product: [RequestExportP]
-
-  LumpForProduct: [Lump]
-  ChopForProduct: [Chop]
   
   ProductSearch: [Beefproduct]
+  ProductSearch2(id: ID): [Beefproduct]
 }
 
 type Mutation {
