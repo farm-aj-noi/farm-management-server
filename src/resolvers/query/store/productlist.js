@@ -547,9 +547,7 @@ const Query = {
   },
 
   ProductSearch: async (parent, args, context, info) => {
-    const cursor = await Beefproduct.find({
-      _id: args.id
-    })
+    const cursor = await Beefproduct.find({})
     .populate({
       path: "producttype",
     });
