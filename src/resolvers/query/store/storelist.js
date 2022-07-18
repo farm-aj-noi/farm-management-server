@@ -256,7 +256,7 @@ const Query = {
     console.log(result);
     for (const item of result[0].imentrails) {
       let data = {
-        id: "เครื่องใน",
+        id: item.id,
         barcode: item.barcode,
         importdate: item.importdate,
         cownum: item.entrail.imslaughter.numcow,
