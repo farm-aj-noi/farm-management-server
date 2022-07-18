@@ -255,5 +255,17 @@ const Mutation = {
       return test;
     }
   },
+  updateInfoC: async (parent, args, { userId }, info) => {
+    const imchop = await Imchop.findById(args.id);
+
+    const updateInfo = {
+      info: args.info,
+    };
+
+    await Imchop.findByIdAndUpdate(imchop.id, updateInfo);
+    
+    const updatedFinish = await Imchop.findById(imchop.id);
+    return updatedFinish;
+  },
 };
 export default Mutation;

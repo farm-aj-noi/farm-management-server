@@ -242,5 +242,17 @@ const Mutation = {
       return test;
     }
   },
+  updateInfoH: async (parent, args, { userId }, info) => {
+    const imhalve = await Imhalve.findById(args.id);
+
+    const updateInfo = {
+      info: args.info,
+    };
+
+    await Imhalve.findByIdAndUpdate(imhalve.id, updateInfo);
+    
+    const updatedFinish = await Imhalve.findById(imhalve.id);
+    return updatedFinish;
+  },
 };
 export default Mutation;

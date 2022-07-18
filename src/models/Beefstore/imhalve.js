@@ -28,6 +28,9 @@ const imhalveSchema = new mongoose.Schema({
   chillroom: {
     type: String,
   },
+  info: {
+    type: String,
+  },
   beefroom: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Beefroom",

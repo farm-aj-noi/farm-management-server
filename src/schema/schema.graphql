@@ -774,6 +774,12 @@ type Mutation {
   updateBasket(id: ID, basketname: String): Basket
   updateShelf(id: ID, shelfname: String): Shelf
 
+  updateInfoH(id: ID, info: String):Imhalve
+  updateInfoQ(id: ID, info: String):Imquarter
+  updateInfoL(id: ID, info: String):Imlump
+  updateInfoC(id: ID, info: String):Imchop
+  updateInfoE(id: ID, info: String):Imentrail
+
   #//////////////////////////////////////////////////////////////
   createProducttype(
     code: String!
@@ -1322,6 +1328,7 @@ type Imhalve {
   exporter: String
   Expdate: Date
   chillroom: String
+  info: String
 }
 
 type Imquarter {
@@ -1340,6 +1347,7 @@ type Imquarter {
   beefroom: Beefroom
   exporter: String
   Expdate: Date
+  info: String
 }
 
 type Imlump {
@@ -1360,6 +1368,7 @@ type Imlump {
   basket: String
   exporter: String
   Expdate: Date
+  info: String
 }
 
 type Imchop {
@@ -1380,6 +1389,7 @@ type Imchop {
   basket: String
   exporter: String
   Expdate: Date
+  info: String
 }
 
 type Imentrail {
@@ -1397,6 +1407,7 @@ type Imentrail {
   beefroom: Beefroom
   exporter: String
   Expdate: Date
+  info: String
 }
 
 type Chill {

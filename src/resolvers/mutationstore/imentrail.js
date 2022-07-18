@@ -184,7 +184,18 @@ const Mutation = {
       return test;
     }
   },
+  updateInfoE: async (parent, args, { userId }, info) => {
+    const imentrail = await Imentrail.findById(args.id);
 
+    const updateInfo = {
+      info: args.info,
+    };
+
+    await Imentrail.findByIdAndUpdate(imentrail.id, updateInfo);
+    
+    const updatedFinish = await Imentrail.findById(imentrail.id);
+    return updatedFinish;
+  },
   
 };
 export default Mutation;

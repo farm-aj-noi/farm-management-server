@@ -25,6 +25,9 @@ const imentrailSchema = new mongoose.Schema({
   exporter: {
     type: String,
   },
+  info: {
+    type: String,
+  },
   beefroom: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Beefroom",
