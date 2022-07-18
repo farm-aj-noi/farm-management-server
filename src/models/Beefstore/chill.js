@@ -10,6 +10,9 @@ const chillSchema = new mongoose.Schema({
   barcode: {
     type: String,
   },
+  name: {
+    type: String,
+  },
   chillday: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Chillday",

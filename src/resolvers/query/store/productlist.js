@@ -63,6 +63,7 @@ const Query = {
 
     for (const item of result[0].improduct) {
       let data = {
+        id: item.id,
         barcode: item.barcode,
         status: item.storestatus.nameTH,
         producttypeid: item.producttype.id,
@@ -539,27 +540,27 @@ const Query = {
 
   ProductSearch2: async (parent, args, context, info) => {
     const cursor = await Beefproduct.find({
-      _id: args.id
+      _id: args.id,
     })
       .populate({
         path: "producttype",
       })
       .populate({
         path: "lump",
-        populate: { path: "imslaughter" }
+        populate: { path: "imslaughter" },
       })
       .populate({
         path: "lump",
-        populate: { path: "beeftype" }
+        populate: { path: "beeftype" },
       })
       .populate({
         path: "chop",
-        populate: { path: "imslaughter" }
+        populate: { path: "imslaughter" },
       })
       .populate({
         path: "chop",
-        populate: { path: "beeftype" }
-      })
+        populate: { path: "beeftype" },
+      });
     return cursor;
   },
 };

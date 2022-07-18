@@ -255,7 +255,13 @@ type Query {
     exporter: String
   ): [Imentrail]
 
-  listchill(startdate: String, enddate: String, beeftype: String): [Chill]
+  listchill(
+    startdate: String
+    enddate: String
+    beeftype: String
+    startdate2: String
+    enddate2: String
+  ): [Chill]
 
   allRoom: [Beefroom]
   TypeRoom(beefroom: String): [Typekeep]
@@ -351,7 +357,7 @@ type Query {
 
   listRequestExP: [RequestExportP]
   Card9product: [RequestExportP]
-  
+
   ProductSearch: [Beefproduct]
   ProductSearch2(id: ID): [Beefproduct]
 }
@@ -1393,6 +1399,7 @@ type Chill {
   chillstatus: Status
   beeftype: Beeftype
   chillday: Chillday
+  name: String
 }
 
 type Chillroom {
@@ -1419,7 +1426,8 @@ type EntrailStore {
 }
 
 type List {
-  id: String
+  id: ID
+  beefname: String
   barcode: String
   status: String
   cownum: String
@@ -1634,6 +1642,7 @@ type Typekeep2 {
 }
 
 type ListProduct {
+  id: ID
   barcode: String
   status: String
   producttype: String

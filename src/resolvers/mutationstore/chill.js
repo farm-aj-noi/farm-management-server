@@ -4,6 +4,7 @@ import Halve from "../../models/halve";
 import Chillday from "../../models/Beefstore/chillday";
 import Imhalve from "../../models/Beefstore/imhalve";
 import Chillroom from "../../models/Beefstore/chillroom";
+import User from "../../models/user";
 
 const Mutation = {
   createChill: async (parent, args, { userId }, info) => {
@@ -23,6 +24,8 @@ const Mutation = {
       barcode: args.barcode
     })
 
+    const finduser = userId;
+    const username = await User.findById(finduser)
     const find = await Chillday.findById(args.chillday);
     const chillday = Number(find.day);
 
@@ -47,15 +50,16 @@ const Mutation = {
     await Imhalve.findByIdAndUpdate(imhalve.id, {chillroom: roomnum})
 
     const chill = await Chill.create({
+      barcode: args.barcode,
       halve: halve,
       beeftype: halve.beeftype,
       chillroom: args.chillroom,
       chilldateStart: DateNow,
       chilldateEnd: dateEnd,
       chillday: find,
-      user: userId,
-      barcode: args.barcode,
       chillstatus: statusCh,
+      user: userId,
+      name: username.name
     });
 
     const halves = await Halve.findById(halve.id);

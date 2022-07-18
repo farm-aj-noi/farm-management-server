@@ -119,8 +119,9 @@ const Query = {
       for (const item of cursor[0].imhalves) {
         //console.log(item.chill.chillroom)
         let data = {
+          id: item.id,
           beeftypeid: item.halve.beeftype.id,
-          id: "ซากโคผ่าซีก",
+          beefname: "ซากโคผ่าซีก",
           barcode: item.barcode,
           weightwarm: item.halve.weightwarm,
           importdate: item.importdate,
@@ -140,8 +141,9 @@ const Query = {
       ////////////////////////////////////////////////////////////
       for (const item of cursor[0].imquarters) {
         let data = {
+          id: item.id,
           beeftypeid: item.quarter.beeftype.id,
-          id: "ซากโคสี่เสี้ยว",
+          beefname: "ซากโคสี่เสี้ยว",
           barcode: item.barcode,
           importdate: item.importdate,
           weight: item.quarter.weight,
@@ -160,8 +162,9 @@ const Query = {
       ////////////////////////////////////////////////////////////
       for (const item of cursor[0].imlumps) {
         let data = {
+          id: item.id,
           beeftypeid: item.lump.beeftype.id,
-          id: "ก้อนเนื้อ",
+          beefname: "ก้อนเนื้อ",
           barcode: item.barcode,
           importdate: item.importdate,
           weight: item.lump.weight,
@@ -183,8 +186,9 @@ const Query = {
       ////////////////////////////////////////////////////////////
       for (const item of cursor[0].imchops) {
         let data = {
+          id: item.id,
           beeftypeid: item.chop.beeftype.id,
-          id: "ชิ้นเนื้อ",
+          beefname: "ชิ้นเนื้อ",
           barcode: item.barcode,
           importdate: item.importdate,
           weight: item.chop.weight,
@@ -209,7 +213,7 @@ const Query = {
       returnData = returnData.filter((e) => e.beeftypeid == args.beeftype);
     }
     if (args.type) {
-      returnData = returnData.filter((e) => e.id == args.type);
+      returnData = returnData.filter((e) => e.beefname == args.type);
     }
     if (args.beefroom) {
       returnData = returnData.filter((e) => e.beefroomid == args.beefroom);
@@ -924,9 +928,17 @@ const Query = {
     }
     if (args.startdate) {
       cursor.find({
-        chilldate: {
+        chilldateStart: {
           $gte: dayjs(args.startdate).add(0, "d").startOf("D"),
           $lt: dayjs(args.enddate).add(0, "d").endOf("D"),
+        },
+      });
+    }
+    if (args.startdate2) {
+      cursor.find({
+        chilldateEnd: {
+          $gte: dayjs(args.startdate2).add(0, "d").startOf("D"),
+          $lt: dayjs(args.enddate2).add(0, "d").endOf("D"),
         },
       });
     }
