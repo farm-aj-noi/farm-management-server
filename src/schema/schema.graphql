@@ -161,6 +161,8 @@ type Query {
     beefroom: String
     shelf: String
     expdate: String
+    cownum: String
+    basket: String
   ): [List]
 
   listentrail(beefroom: String, expdate: String): [EntrailList]
@@ -181,6 +183,7 @@ type Query {
     namefarmer: String
     userName: String
     exporter: String
+    exportstatus: String
   ): [Imhalve]
 
   imquartSearch(
@@ -199,6 +202,7 @@ type Query {
     namefarmer: String
     userName: String
     exporter: String
+    exportstatus: String
   ): [Imquarter]
 
   imlumpSearch(
@@ -209,6 +213,7 @@ type Query {
     userName: String
     beefroom: String
     shelf: String
+    basket: String
   ): [Imlump]
 
   exportlump(
@@ -218,6 +223,7 @@ type Query {
     namefarmer: String
     userName: String
     exporter: String
+    exportstatus: String
   ): [Imlump]
 
   imchopSearch(
@@ -228,6 +234,7 @@ type Query {
     userName: String
     beefroom: String
     shelf: String
+    basket: String
   ): [Imchop]
 
   exportchop(
@@ -237,6 +244,7 @@ type Query {
     namefarmer: String
     userName: String
     exporter: String
+    exportstatus: String
   ): [Imchop]
 
   imentrailSearch(
@@ -253,6 +261,7 @@ type Query {
     namefarmer: String
     userName: String
     exporter: String
+    exportstatus: String
   ): [Imentrail]
 
   listchill(
@@ -261,6 +270,7 @@ type Query {
     beeftype: String
     startdate2: String
     enddate2: String
+    name: String
   ): [Chill]
 
   allRoom: [Beefroom]
@@ -331,6 +341,7 @@ type Query {
     enddate: String
     producttype: String
     userName: String
+    exportstatus: String
   ): [Improduct]
 
   allproductroom: [Productroom]

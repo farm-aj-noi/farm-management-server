@@ -224,6 +224,12 @@ const Query = {
     if (args.expdate) {
       returnData = returnData.filter((e) => e.exp == args.expdate);
     }
+    if (args.cownum) {
+      returnData = returnData.filter((e) => e.cownum == args.cownum);
+    }
+    if (args.basket) {
+      returnData = returnData.filter((e) => e.basket == args.basket);
+    }
     return returnData;
   },
 
@@ -459,6 +465,11 @@ const Query = {
         exporter: args.exporter,
       });
     }
+    if (args.exportstatus) {
+      cursor.find({
+        storestatus: args.exportstatus,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         exportdate: {
@@ -518,6 +529,11 @@ const Query = {
     if (args.exporter) {
       cursor.find({
         exporter: args.exporter,
+      });
+    }
+    if (args.exportstatus) {
+      cursor.find({
+        storestatus: args.exportstatus,
       });
     }
     if (args.startdate) {
@@ -590,6 +606,11 @@ const Query = {
         shelf: args.shelf,
       });
     }
+    if (args.basket) {
+      cursor.find({
+        basket: args.basket,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         importdate: {
@@ -653,6 +674,11 @@ const Query = {
     if (args.exporter) {
       cursor.find({
         exporter: args.exporter,
+      });
+    }
+    if (args.exportstatus) {
+      cursor.find({
+        storestatus: args.exportstatus,
       });
     }
     if (args.startdate) {
@@ -725,6 +751,11 @@ const Query = {
         shelf: args.shelf,
       });
     }
+    if (args.basket) {
+      cursor.find({
+        basket: args.basket,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         importdate: {
@@ -790,6 +821,11 @@ const Query = {
         exporter: args.exporter,
       });
     }
+    if (args.exportstatus) {
+      cursor.find({
+        storestatus: args.exportstatus,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         exportdate: {
@@ -816,6 +852,9 @@ const Query = {
       })
       .populate({
         path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
       })
       .sort({ importdate: "DESC" });
     if (args.beeftype) {
@@ -886,6 +925,11 @@ const Query = {
         exporter: args.exporter,
       });
     }
+    if (args.exportstatus) {
+      cursor.find({
+        storestatus: args.exportstatus,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         exportdate: {
@@ -940,6 +984,11 @@ const Query = {
           $gte: dayjs(args.startdate2).add(0, "d").startOf("D"),
           $lt: dayjs(args.enddate2).add(0, "d").endOf("D"),
         },
+      });
+    }
+    if (args.name) {
+      cursor.find({
+        name: args.name,
       });
     }
     return cursor;
