@@ -78,6 +78,7 @@ const Query = {
         pbasket: item.pbasket,
         MFGdate: item.beefproduct.MFG,
         BBEdate: item.beefproduct.BBE,
+        info: item.info,
       };
       returnData.push(data);
     }

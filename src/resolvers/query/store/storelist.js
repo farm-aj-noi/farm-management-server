@@ -134,6 +134,7 @@ const Query = {
           beefroom: item.beefroom.roomname,
           Expdate: item.Expdate,
           chillroom: item.chillroom,
+          info: item.info,
           exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
@@ -155,6 +156,7 @@ const Query = {
           beefroomid: item.beefroom.id,
           beefroom: item.beefroom.roomname,
           Expdate: item.Expdate,
+          info: item.info,
           exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
@@ -179,6 +181,7 @@ const Query = {
           shelf: item.shelf.shelfname,
           basket: item.basket,
           Expdate: item.Expdate,
+          info: item.info,
           exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
@@ -203,6 +206,7 @@ const Query = {
           shelf: item.shelf.shelfname,
           basket: item.basket,
           Expdate: item.Expdate,
+          info: item.info,
           exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
@@ -270,6 +274,7 @@ const Query = {
         beefroom: item.beefroom.roomname,
         beefroomid: item.beefroom.id,
         Expdate: item.Expdate,
+        info: item.info,
         exp: dayjs(item.Expdate).format("YYYYMMDD").toString(),
       };
       returnData.push(data);

@@ -1473,6 +1473,7 @@ type List {
   Expdate: Date
   exp: String
   chillroom: String
+  info: String
 }
 
 type EntrailList {
@@ -1495,6 +1496,7 @@ type EntrailList {
   beefroomid: String
   Expdate: Date
   exp: String
+  info: String
 }
 
 type importList {
@@ -1685,6 +1687,7 @@ type ListProduct {
   freezerid: String
   MFGdate: Date
   BBEdate: Date
+  info: String
 }
 
 type ExpdateSetting2 {
