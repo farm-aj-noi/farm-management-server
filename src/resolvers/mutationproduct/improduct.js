@@ -229,5 +229,17 @@ const Mutation = {
       return test;
     }
   },
+  updateInfoP: async (parent, args, { userId }, info) => {
+    const improduct = await Improduct.findById(args.id);
+
+    const updateInfo = {
+      info: args.info,
+    };
+
+    await Improduct.findByIdAndUpdate(improduct.id, updateInfo);
+    
+    const updatedFinish = await Improduct.findById(improduct.id);
+    return updatedFinish;
+  },
 };
 export default Mutation;

@@ -96,6 +96,9 @@ const Query = {
     if (args.freezer) {
       returnData = returnData.filter((e) => e.freezerid == args.freezer);
     }
+    if (args.pbasket) {
+      returnData = returnData.filter((e) => e.pbasket == args.pbasket);
+    }
 
     return returnData;
   },
@@ -155,6 +158,11 @@ const Query = {
     if (args.freezer) {
       cursor.find({
         freezer: args.freezer,
+      });
+    }
+    if (args.pbasket) {
+      cursor.find({
+        pbasket: args.pbasket,
       });
     }
     if (args.startdate) {

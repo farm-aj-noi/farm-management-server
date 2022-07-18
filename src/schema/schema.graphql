@@ -165,7 +165,7 @@ type Query {
     basket: String
   ): [List]
 
-  listentrail(beefroom: String, expdate: String): [EntrailList]
+  listentrail(beefroom: String, expdate: String, cownum: String): [EntrailList]
 
   imhalveSearch(
     startdate: String
@@ -325,6 +325,7 @@ type Query {
     producttype: String
     productroom: String
     freezer: String
+    pbasket: String
   ): [ListProduct]
 
   improductSearch(
@@ -334,6 +335,7 @@ type Query {
     userName: String
     productroom: String
     freezer: String
+    pbasket: String
   ): [Improduct]
 
   exproductSearch(
@@ -371,6 +373,8 @@ type Query {
 
   ProductSearch: [Beefproduct]
   ProductSearch2(id: ID): [Beefproduct]
+
+  
 }
 
 type Mutation {
@@ -774,11 +778,11 @@ type Mutation {
   updateBasket(id: ID, basketname: String): Basket
   updateShelf(id: ID, shelfname: String): Shelf
 
-  updateInfoH(id: ID, info: String):Imhalve
-  updateInfoQ(id: ID, info: String):Imquarter
-  updateInfoL(id: ID, info: String):Imlump
-  updateInfoC(id: ID, info: String):Imchop
-  updateInfoE(id: ID, info: String):Imentrail
+  updateInfoH(id: ID, info: String): Imhalve
+  updateInfoQ(id: ID, info: String): Imquarter
+  updateInfoL(id: ID, info: String): Imlump
+  updateInfoC(id: ID, info: String): Imchop
+  updateInfoE(id: ID, info: String): Imentrail
 
   #//////////////////////////////////////////////////////////////
   createProducttype(
@@ -865,6 +869,7 @@ type Mutation {
   deleteRequestP(id: ID): RequestExportP
 
   deleteUnit(id: ID): Unit
+  updateInfoP(id: ID, info: String): [Improduct]
 }
 
 scalar Date
@@ -1630,6 +1635,7 @@ type Improduct {
   freezer: Freezer
   pbasket: String
   exporter: String
+  info: String
 }
 
 type Productroom {

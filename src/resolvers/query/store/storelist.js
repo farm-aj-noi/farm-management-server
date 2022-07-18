@@ -272,13 +272,17 @@ const Query = {
         Expdate: item.Expdate,
         exp: dayjs(item.Expdate).format("YYYYMMDD").toString(),
       };
+      returnData.push(data);
+
       if (args.beefroom) {
         returnData = returnData.filter((e) => e.beefroomid == args.beefroom);
       }
       if (args.expdate) {
         returnData = returnData.filter((e) => e.exp == args.expdate);
       }
-      returnData.push(data);
+      if (args.cownum) {
+        returnData = returnData.filter((e) => e.cownum == args.cownum);
+      }
     }
     returnData.sort((a, b) => b.importdate - a.importdate);
     if (args.beefroom) {
