@@ -22,6 +22,9 @@ const improductSchema = new mongoose.Schema({
   exporter: {
     type: String,
   },
+  info: {
+    type: String,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

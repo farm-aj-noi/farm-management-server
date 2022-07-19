@@ -235,10 +235,12 @@ const Mutation = {
     const updateInfo = {
       info: args.info,
     };
+    
 
     await Improduct.findByIdAndUpdate(improduct.id, updateInfo);
     
     const updatedFinish = await Improduct.findById(improduct.id);
+    
     return updatedFinish;
   },
 };

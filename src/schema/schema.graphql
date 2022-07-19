@@ -869,7 +869,7 @@ type Mutation {
   deleteRequestP(id: ID): RequestExportP
 
   deleteUnit(id: ID): Unit
-  updateInfoP(id: ID, info: String): [Improduct]
+  updateInfoP(id: ID info: String): Improduct
 }
 
 scalar Date
