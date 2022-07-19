@@ -313,6 +313,10 @@ type Query {
   listChillroom: [Chillroom]
   listExpSetting: [ExpdateSetting]
 
+  halveLeft: [Imhalve]
+  halveRight: [Imhalve]
+
+
   # ///////////////////////////////////////////////////
   listunit: [Unit]
 

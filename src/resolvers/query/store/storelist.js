@@ -1721,6 +1721,30 @@ const Query = {
     const cursor = await ExpdateSetting.find({});
     return cursor;
   },
+
+  halveLeft: async (parent, args, context, info) => {
+    const cursor = await Imhalve.find({
+      name: "นำออก",
+      beeftype: "5f1000e28d55662dcc23d95e",
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+    });
+    return cursor;
+  },
+
+  halveRight: async (parent, args, context, info) => {
+    const cursor = await Imhalve.find({
+      name: "นำออก",
+      beeftype: "5f1000ee8d55662dcc23d960",
+      exportdate: {
+        $lte: dayjs(new Date).startOf("D"),
+        /* $gte: dayjs().endOf("M"), */
+      },
+    });
+    return cursor;
+  },
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;
