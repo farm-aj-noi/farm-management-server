@@ -47,6 +47,7 @@ import Typekeep2 from '../mutationproduct/typekeep2'
 import ExpdateSetting2 from '../mutationproduct/expdatesetting2'
 import ProductTransport from '../mutationproduct/producttransport'
 import RequestExportP from '../mutationproduct/requestexportp'
+import Topbeef from '../mutationstore/topbeef'
 
 export default _.merge(
     allin,
@@ -97,5 +98,6 @@ export default _.merge(
     Typekeep2,
     ExpdateSetting2,
     ProductTransport,
-    RequestExportP
+    RequestExportP,
+    Topbeef,
 )

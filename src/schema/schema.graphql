@@ -316,7 +316,9 @@ type Query {
   halveLeft: [Imhalve]
   halveRight: [Imhalve]
 
+  top10beef2: [topBeefstore]
 
+  top10beef: [topBeefstore]
   # ///////////////////////////////////////////////////
   listunit: [Unit]
 
@@ -787,6 +789,8 @@ type Mutation {
   updateInfoL(id: ID, info: String): Imlump
   updateInfoC(id: ID, info: String): Imchop
   updateInfoE(id: ID, info: String): Imentrail
+
+  createTopbeef: topBeefdata
 
   #//////////////////////////////////////////////////////////////
   createProducttype(
@@ -1715,4 +1719,17 @@ type RequestExportP {
   status: Status
   quantity: String
   requestdate: Date
+}
+
+type topBeefstore {
+  name: String
+  count: Int
+}
+
+type topBeefdata {
+  id: ID
+  halve: [Imhalve]
+  quarter: [Imquarter]
+  lump: [Imlump]
+  chop: [Imchop]
 }

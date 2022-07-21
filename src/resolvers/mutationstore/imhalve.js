@@ -8,6 +8,7 @@ import Beefroom from "../../models/Beefstore/beefroom";
 import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
 import TotalExpdate from "../../models/Beefstore/totalexpdate";
+import Topbeef from "../../models/Beefstore/topbeef";
 
 const Mutation = {
   createImHalve: async (parent, args, { userId }, info) => {
@@ -194,6 +195,14 @@ const Mutation = {
         storestatus: args.storestatus,
         exporter: exporter.name,
       });
+
+      const topbeef = await Topbeef.findById("62d6ef197e3de314f7df7593");
+      if (!topbeef.halve) {
+        topbeef.halve = [imhalve];
+      } else {
+        topbeef.halve.push(imhalve);
+      }
+      await topbeef.save();
 
       let result = await BeefStore.findByIdAndUpdate(
         {
