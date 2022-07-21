@@ -572,5 +572,53 @@ const Query = {
       });
     return cursor;
   },
+
+  top10product: async (parent, args, context, info) => {
+    const cursor1 = await Improduct.find({
+      name: "นำออก",
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("month"),
+        $lt: dayjs(new Date()),
+      },
+    });
+    
+    const producttype = await Producttype.find();
+
+    let bigarray = [...cursor1];
+
+    let data = [];
+
+    for (const key1 in producttype) {
+      if (Object.hasOwnProperty.call(producttype, key1)) {
+        const e1 = producttype[key1];
+        //console.log(e1.id);
+        for (const key2 in bigarray) {
+          if (Object.hasOwnProperty.call(bigarray, key2)) {
+            const e2 = bigarray[key2];
+            //console.log(e2)
+            if (e1.id == e2.producttype) {
+              const checkIndex = data.findIndex((e) => e.id == e1.id);
+              if (checkIndex == -1) {
+                data.push({
+                  id: e1.id,
+                  nameth: e1.nameTH,
+                  nameen: e1.nameEN,
+                  count: 1,
+                });
+              }
+              else{
+                data[checkIndex].count++
+              }
+            }
+          }
+        }
+      }
+    }
+
+    //console.log(data)
+
+    data.sort((a, b) => b.count - a.count);
+    return data;
+  },
 };
 export default Query;

@@ -8,7 +8,6 @@ import Beefroom from "../../models/Beefstore/beefroom";
 import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
 import TotalExpdate from "../../models/Beefstore/totalexpdate";
-import Topbeef from "../../models/Beefstore/topbeef";
 
 const Mutation = {
   createImQuarter: async (parent, args, { userId }, info) => {

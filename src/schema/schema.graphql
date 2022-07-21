@@ -313,12 +313,8 @@ type Query {
   listChillroom: [Chillroom]
   listExpSetting: [ExpdateSetting]
 
-  halveLeft: [Imhalve]
-  halveRight: [Imhalve]
-
-  top10beef2: [topBeefstore]
-
   top10beef: [topBeefstore]
+  
   # ///////////////////////////////////////////////////
   listunit: [Unit]
 
@@ -380,7 +376,7 @@ type Query {
   ProductSearch: [Beefproduct]
   ProductSearch2(id: ID): [Beefproduct]
 
-  
+  top10product: [topProductstore]
 }
 
 type Mutation {
@@ -789,8 +785,6 @@ type Mutation {
   updateInfoL(id: ID, info: String): Imlump
   updateInfoC(id: ID, info: String): Imchop
   updateInfoE(id: ID, info: String): Imentrail
-
-  createTopbeef: topBeefdata
 
   #//////////////////////////////////////////////////////////////
   createProducttype(
@@ -1722,14 +1716,14 @@ type RequestExportP {
 }
 
 type topBeefstore {
-  name: String
+  nameth: String
+  nameen: String
   count: Int
 }
 
-type topBeefdata {
-  id: ID
-  halve: [Imhalve]
-  quarter: [Imquarter]
-  lump: [Imlump]
-  chop: [Imchop]
+type topProductstore {
+  nameth: String
+  nameen: String
+  count: Int
 }
+

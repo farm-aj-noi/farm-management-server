@@ -17,7 +17,6 @@ import ExpdateSetting from "../../../models/Beefstore/expdatesetting";
 import TotalExpdate from "../../../models/Beefstore/totalexpdate";
 import Typekeep from "../../../models/Beefstore/typekeep";
 import Chillroom from "../../../models/Beefstore/chillroom";
-import Topbeef from "../../../models/Beefstore/topbeef";
 import Beeftype from "../../../models/beeftype";
 
 const Query = {
@@ -1724,94 +1723,62 @@ const Query = {
     return cursor;
   },
 
-  halveLeft: async (parent, args, context, info) => {
-    const cursor = await Imhalve.find({
-      name: "นำออก",
-      beeftype: "5f1000e28d55662dcc23d95e",
-      exportdate: {
-        $gte: dayjs(new Date()).startOf("D"),
-        $lt: dayjs(new Date()).endOf("D"),
-      },
-    });
-    return cursor;
-  },
-
-  halveRight: async (parent, args, context, info) => {
-    const cursor = await Imhalve.find({
-      name: "นำออก",
-      beeftype: "5f1000ee8d55662dcc23d960",
-      exportdate: {
-        $lte: dayjs(new Date()).startOf("D"),
-        /* $gte: dayjs().endOf("M"), */
-      },
-    });
-    return cursor;
-  },
-
-  top10beef2: async (parent, args, context, info) => {
-    const cursor = await Topbeef.find({});
-  },
-
   top10beef: async (parent, args, context, info) => {
     const cursor1 = await Imhalve.find({
       name: "นำออก",
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("month"),
+        $lt: dayjs(new Date()),
+      },
     });
     const cursor2 = await Imquarter.find({
       name: "นำออก",
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("month"),
+        $lt: dayjs(new Date()),
+      },
     });
-    /* const cursor3 = await Imlump.find({
+    const cursor3 = await Imlump.find({
       name: "นำออก",
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("month"),
+        $lt: dayjs(new Date()),
+      },
     });
     const cursor4 = await Imchop.find({
       name: "นำออก",
-    }); */
-    const type = await Beeftype
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("month"),
+        $lt: dayjs(new Date()),
+      },
+    });
+    
+    const beeftype = await Beeftype.find();
 
-    let bigarray = [cursor1, cursor2 /* cursor3, cursor4 */];
+    let bigarray = [...cursor1, ...cursor2,  ...cursor3, ...cursor4 ];
 
-    let test = [
-      {
-        name: "ซากซ้าย",
-        count: 0,
-      },
-      {
-        name: "ซากขวา",
-        count: 0,
-      },
-      {
-        name: "ซากซ้าย-ขาหน้า",
-        count: 0,
-      },
-      {
-        name: "ซากซ้าย-ขาหลัง",
-        count: 0,
-      },
-      {
-        name: "ซากขวา-ขาหลัง",
-        count: 0,
-      },
-      {
-        name: "ซากขวา-ขาหลัง",
-        count: 0,
-      },
-    ];
+    let data = [];
 
-    for (const key in type) {
-      if (Object.hasOwnProperty.call(type, key)) {
-        const e1 = type[key];
+    for (const key1 in beeftype) {
+      if (Object.hasOwnProperty.call(beeftype, key1)) {
+        const e1 = beeftype[key1];
+        //console.log(e1.id);
         for (const key2 in bigarray) {
           if (Object.hasOwnProperty.call(bigarray, key2)) {
             const e2 = bigarray[key2];
-            if (e1 == e2) {
-              let check = test.findIndex((e) => e.name == e1);
-              if (check > -1) {
-                test.push({
-                  name: e1,
+            //console.log(e2)
+            if (e1.id == e2.beeftype) {
+              const checkIndex = data.findIndex((e) => e.id == e1.id);
+              if (checkIndex == -1) {
+                data.push({
+                  id: e1.id,
+                  nameth: e1.nameTH,
+                  nameen: e1.nameEN,
                   count: 1,
                 });
               }
-              {
-                test[check].count++;
+              else{
+                data[checkIndex].count++
               }
             }
           }
@@ -1819,9 +1786,13 @@ const Query = {
       }
     }
 
-    test.sort((a, b) => b.count - a.count);
-    return test;
+    //console.log(data)
+
+    data.sort((a, b) => b.count - a.count);
+    return data;
   },
+
+  
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;
