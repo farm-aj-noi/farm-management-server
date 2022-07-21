@@ -8,6 +8,7 @@ import Beefroom from "../../models/Beefstore/beefroom";
 import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
 import TotalExpdate from "../../models/Beefstore/totalexpdate";
+import Topbeef from "../../models/Beefstore/topbeef";
 
 const Mutation = {
   createImQuarter: async (parent, args, { userId }, info) => {
@@ -181,6 +182,14 @@ const Mutation = {
         storestatus: args.storestatus,
         exporter: exporter.name,
       });
+
+      const topbeef = await Topbeef.findById("62d6ef197e3de314f7df7593");
+      if (!topbeef.quarter) {
+        topbeef.quarter = [imquarter];
+      } else {
+        topbeef.quarter.push(imquarter);
+      }
+      await topbeef.save();
 
       let result = await BeefStore.findByIdAndUpdate(
         {

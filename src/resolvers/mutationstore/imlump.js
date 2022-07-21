@@ -10,6 +10,7 @@ import Typekeep from "../../models/Beefstore/typekeep";
 import RequestExport from "../../models/Beefstore/requestexport";
 import Basket from "../../models/Beefstore/basket";
 import TotalExpdate from "../../models/Beefstore/totalexpdate";
+import Topbeef from "../../models/Beefstore/topbeef";
 
 const Mutation = {
   createImlump: async (parent, args, { userId }, info) => {
@@ -212,6 +213,14 @@ const Mutation = {
         storestatus: args.storestatus,
         exporter: exporter.name,
       });
+
+      const topbeef = await Topbeef.findById("62d6ef197e3de314f7df7593");
+      if (!topbeef.lump) {
+        topbeef.lump = [imlump];
+      } else {
+        topbeef.lump.push(imlump);
+      }
+      await topbeef.save();
 
       let result = await BeefStore.findByIdAndUpdate(
         {

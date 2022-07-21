@@ -17,6 +17,8 @@ import ExpdateSetting from "../../../models/Beefstore/expdatesetting";
 import TotalExpdate from "../../../models/Beefstore/totalexpdate";
 import Typekeep from "../../../models/Beefstore/typekeep";
 import Chillroom from "../../../models/Beefstore/chillroom";
+import Topbeef from "../../../models/Beefstore/topbeef";
+import Beeftype from "../../../models/beeftype";
 
 const Query = {
   liststore: async (parent, args, context, info) => {
@@ -1739,11 +1741,86 @@ const Query = {
       name: "นำออก",
       beeftype: "5f1000ee8d55662dcc23d960",
       exportdate: {
-        $lte: dayjs(new Date).startOf("D"),
+        $lte: dayjs(new Date()).startOf("D"),
         /* $gte: dayjs().endOf("M"), */
       },
     });
     return cursor;
+  },
+
+  top10beef2: async (parent, args, context, info) => {
+    const cursor = await Topbeef.find({});
+  },
+
+  top10beef: async (parent, args, context, info) => {
+    const cursor1 = await Imhalve.find({
+      name: "นำออก",
+    });
+    const cursor2 = await Imquarter.find({
+      name: "นำออก",
+    });
+    /* const cursor3 = await Imlump.find({
+      name: "นำออก",
+    });
+    const cursor4 = await Imchop.find({
+      name: "นำออก",
+    }); */
+    const type = await Beeftype
+
+    let bigarray = [cursor1, cursor2 /* cursor3, cursor4 */];
+
+    let test = [
+      {
+        name: "ซากซ้าย",
+        count: 0,
+      },
+      {
+        name: "ซากขวา",
+        count: 0,
+      },
+      {
+        name: "ซากซ้าย-ขาหน้า",
+        count: 0,
+      },
+      {
+        name: "ซากซ้าย-ขาหลัง",
+        count: 0,
+      },
+      {
+        name: "ซากขวา-ขาหลัง",
+        count: 0,
+      },
+      {
+        name: "ซากขวา-ขาหลัง",
+        count: 0,
+      },
+    ];
+
+    for (const key in type) {
+      if (Object.hasOwnProperty.call(type, key)) {
+        const e1 = type[key];
+        for (const key2 in bigarray) {
+          if (Object.hasOwnProperty.call(bigarray, key2)) {
+            const e2 = bigarray[key2];
+            if (e1 == e2) {
+              let check = test.findIndex((e) => e.name == e1);
+              if (check > -1) {
+                test.push({
+                  name: e1,
+                  count: 1,
+                });
+              }
+              {
+                test[check].count++;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    test.sort((a, b) => b.count - a.count);
+    return test;
   },
 };
 //5f0fdb4b02b40c2ab8506563
