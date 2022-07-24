@@ -314,7 +314,7 @@ type Query {
   listExpSetting: [ExpdateSetting]
 
   top10beef: [topBeefstore]
-  
+
   # ///////////////////////////////////////////////////
   listunit: [Unit]
 
@@ -871,7 +871,7 @@ type Mutation {
   deleteRequestP(id: ID): RequestExportP
 
   deleteUnit(id: ID): Unit
-  updateInfoP(id: ID info: String): Improduct
+  updateInfoP(id: ID, info: String): Improduct
 }
 
 scalar Date
@@ -1726,4 +1726,3 @@ type topProductstore {
   nameen: String
   count: Int
 }
-

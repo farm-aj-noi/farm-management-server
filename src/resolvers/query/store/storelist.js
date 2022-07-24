@@ -1752,10 +1752,10 @@ const Query = {
         $lt: dayjs(new Date()),
       },
     });
-    
+
     const beeftype = await Beeftype.find();
 
-    let bigarray = [...cursor1, ...cursor2,  ...cursor3, ...cursor4 ];
+    let bigarray = [...cursor1, ...cursor2, ...cursor3, ...cursor4];
 
     let data = [];
 
@@ -1776,9 +1776,8 @@ const Query = {
                   nameen: e1.nameEN,
                   count: 1,
                 });
-              }
-              else{
-                data[checkIndex].count++
+              } else {
+                data[checkIndex].count++;
               }
             }
           }
@@ -1791,8 +1790,6 @@ const Query = {
     data.sort((a, b) => b.count - a.count);
     return data;
   },
-
-  
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;

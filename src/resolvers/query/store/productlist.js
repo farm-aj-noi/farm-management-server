@@ -581,7 +581,7 @@ const Query = {
         $lt: dayjs(new Date()),
       },
     });
-    
+
     const producttype = await Producttype.find();
 
     let bigarray = [...cursor1];
@@ -605,9 +605,8 @@ const Query = {
                   nameen: e1.nameEN,
                   count: 1,
                 });
-              }
-              else{
-                data[checkIndex].count++
+              } else {
+                data[checkIndex].count++;
               }
             }
           }
