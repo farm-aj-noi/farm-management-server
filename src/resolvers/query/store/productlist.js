@@ -496,7 +496,11 @@ const Query = {
       .populate({
         path: "chop",
         populate: { path: "beeftype" },
-      });
+      })
+      .populate({
+        path: "producttransport"
+      })
+      ;
     return cursor;
   },
 
@@ -581,7 +585,7 @@ const Query = {
         $lt: dayjs(new Date()),
       },
     });
-    
+
     const producttype = await Producttype.find();
 
     let bigarray = [...cursor1];
@@ -606,7 +610,7 @@ const Query = {
                   count: 1,
                 });
               }
-              else{
+              else {
                 data[checkIndex].count++
               }
             }
