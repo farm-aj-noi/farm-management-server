@@ -609,15 +609,9 @@ const Query = {
                   nameen: e1.nameEN,
                   count: 1,
                 });
-<<<<<<< HEAD
               } else {
                 data[checkIndex].count++;
-=======
-              }
-              else {
-                data[checkIndex].count++
->>>>>>> 1ead21eb5a4b4e62276b6409a4b97a77ce7f6221
-              }
+              }            
             }
           }
         }
