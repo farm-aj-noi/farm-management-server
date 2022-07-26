@@ -846,7 +846,7 @@ type Mutation {
   uppdatetypekeep2(id: ID, totalproduct: String): Typekeep2
 
   deletetypekeep2(id: ID): Typekeep2
-  updateProductroom(id: ID, productroomname: String): Productroom
+  updateProductroom(id: ID, roomname: String): Productroom
   updatePbasket(id: ID, basketname: String): Pbasket
   updateFreezer(id: ID, freezername: String): Freezer
 
