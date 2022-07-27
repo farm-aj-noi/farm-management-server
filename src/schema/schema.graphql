@@ -163,6 +163,7 @@ type Query {
     expdate: String
     cownum: String
     basket: String
+    grade: String
   ): [List]
 
   listentrail(beefroom: String, expdate: String, cownum: String): [EntrailList]
@@ -1476,6 +1477,7 @@ type List {
   exp: String
   chillroom: String
   info: String
+  grade: String
 }
 
 type EntrailList {
