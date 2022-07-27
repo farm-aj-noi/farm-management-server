@@ -1291,18 +1291,18 @@ const Query = {
     })
       .populate({
         path: "user",
-        populate: { path: "imlumps" },
+        populate: { path: "imchops" },
       })
       .populate({
-        path: "lump",
+        path: "chop",
         populate: { path: "status" },
       })
       .populate({
-        path: "lump",
+        path: "chop",
         populate: { path: "imslaughter" },
       })
       .populate({
-        path: "lump",
+        path: "chop",
         populate: { path: "beeftype" },
       })
       .populate({
