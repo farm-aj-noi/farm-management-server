@@ -136,6 +136,7 @@ const Query = {
           Expdate: item.Expdate,
           chillroom: item.chillroom,
           info: item.info,
+          grade: item.halve.imslaughter.grade,
           exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
@@ -158,6 +159,7 @@ const Query = {
           beefroom: item.beefroom.roomname,
           Expdate: item.Expdate,
           info: item.info,
+          grade: item.quarter.imslaughter.grade,
           exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
@@ -183,6 +185,7 @@ const Query = {
           basket: item.basket,
           Expdate: item.Expdate,
           info: item.info,
+          grade: item.lump.imslaughter.grade,
           exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
@@ -208,6 +211,7 @@ const Query = {
           basket: item.basket,
           Expdate: item.Expdate,
           info: item.info,
+          grade: item.chop.imslaughter.grade,
           exp: dayjs(item.Expdate).format("YYYY-MM-DD").toString(),
         };
         returnData.push(data);
@@ -234,6 +238,9 @@ const Query = {
     }
     if (args.basket) {
       returnData = returnData.filter((e) => e.basket == args.basket);
+    }
+    if (args.grade) {
+      returnData = returnData.filter((e) => e.grade == args.grade);
     }
     return returnData;
   },
@@ -1370,8 +1377,8 @@ const Query = {
   Card10: async (parent, args, context, info) => {
     const cursor = await Chill.find({
       chilldateEnd: {
-        $gte: dayjs(new Date()).startOf("D"),
-        $lt: dayjs(new Date()).endOf("D"),
+        $gte: dayjs(new Date()).startOf("D").format("YYYY-MM-DDTHH:mm:ssZ[Z]"),
+        $lt: dayjs(new Date()).endOf("D").format("YYYY-MM-DDTHH:mm:ssZ[Z]"),
       },
     }).populate({
       path: "chillday",
