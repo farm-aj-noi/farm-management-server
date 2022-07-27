@@ -1544,6 +1544,9 @@ const Query = {
       })
       .populate({
         path: "storestatus",
+      })
+      .populate({
+        path: "beefroom",
       });
     return cursor;
   },
