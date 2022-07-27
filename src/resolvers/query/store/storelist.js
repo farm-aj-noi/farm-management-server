@@ -1488,6 +1488,9 @@ const Query = {
       })
       .populate({
         path: "beefroom",
+      })
+      .populate({
+        path: "shelf",
       });
     return cursor;
   },
@@ -1523,6 +1526,9 @@ const Query = {
       })
       .populate({
         path: "beefroom",
+      })
+      .populate({
+        path: "shelf",
       });
     return cursor;
   },
