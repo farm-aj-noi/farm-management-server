@@ -182,14 +182,6 @@ const Mutation = {
         exporter: exporter.name,
       });
 
-      const topbeef = await Topbeef.findById("62d6ef197e3de314f7df7593");
-      if (!topbeef.quarter) {
-        topbeef.quarter = [imquarter];
-      } else {
-        topbeef.quarter.push(imquarter);
-      }
-      await topbeef.save();
-
       let result = await BeefStore.findByIdAndUpdate(
         {
           _id: "6284d7035415c34e54b2fc2c",
