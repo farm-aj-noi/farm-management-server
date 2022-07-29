@@ -807,7 +807,7 @@ type Mutation {
   deleteProducttype(id: ID): Producttype
 
   createUnit(name: String): Unit
-  createBeefproduct(weight: Int, producttype: String): Beefproduct
+  createBeefproduct(weight: Float, producttype: String): Beefproduct
   createProductstore: ProductStore
 
   updateBeefProduct(id: ID!, barcode: String): Beefproduct
@@ -1610,7 +1610,7 @@ type Unit {
 
 type Beefproduct {
   id: ID
-  weight: Int
+  weight: Float
   barcode: String
   MFG: Date
   BBE: Date
