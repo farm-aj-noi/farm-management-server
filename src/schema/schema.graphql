@@ -1696,6 +1696,8 @@ type ListProduct {
   MFGdate: Date
   BBEdate: Date
   info: String
+  mfg: String
+  bbe: String
 }
 
 type ExpdateSetting2 {
