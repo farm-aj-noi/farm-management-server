@@ -350,6 +350,7 @@ type Query {
     producttype: String
     userName: String
     exportstatus: String
+    exporter: String
   ): [Improduct]
 
   allproductroom: [Productroom]

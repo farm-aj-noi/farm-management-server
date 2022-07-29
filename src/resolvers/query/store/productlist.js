@@ -366,6 +366,11 @@ const Query = {
         userName: args.userName,
       });
     }
+    if (args.exporter) {
+      cursor.find({
+        exporter: args.exporter,
+      });
+    }
     if (args.startdate) {
       cursor.find({
         exportdate: {
