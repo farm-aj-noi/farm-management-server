@@ -331,7 +331,7 @@ type Query {
     pbasket: String
     code: String
     mfgdate: String
-    expdate: String
+    bbedate: String
   ): [ListProduct]
 
   improductSearch(

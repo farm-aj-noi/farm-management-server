@@ -79,8 +79,8 @@ const Query = {
         MFGdate: item.beefproduct.MFG,
         BBEdate: item.beefproduct.BBE,
         info: item.info,
-        mfg: dayjs(item.MFGdate).format("YYYY-MM-DD").toString(),
-        bbe: dayjs(item.BBEdate).format("YYYY-MM-DD").toString(),
+        mfg: dayjs(item.beefproduct.MFG).format("YYYY-MM-DD").toString(),
+        bbe: dayjs(item.beefproduct.BBE).format("YYYY-MM-DD").toString(),
       };
       returnData.push(data);
     }
@@ -108,10 +108,10 @@ const Query = {
     if (args.mfgdate) {
       returnData = returnData.filter((e) => e.mfg == args.mfgdate);
     }
-    if (args.expdate) {
-      returnData = returnData.filter((e) => e.bbe == args.expdate);
+    if (args.bbedate) {
+      returnData = returnData.filter((e) => e.bbe == args.bbedate);
     }
-
+    
     return returnData;
   },
 
