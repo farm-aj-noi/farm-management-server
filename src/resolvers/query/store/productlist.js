@@ -100,6 +100,15 @@ const Query = {
     if (args.pbasket) {
       returnData = returnData.filter((e) => e.pbasket == args.pbasket);
     }
+    if (args.code) {
+      returnData = returnData.filter((e) => e.code == args.code);
+    }
+    if (args.mfgdate) {
+      returnData = returnData.filter((e) => e.MFGdate == args.mfgdate);
+    }
+    if (args.expdate) {
+      returnData = returnData.filter((e) => e.BBEdate == args.expdate);
+    }
 
     return returnData;
   },

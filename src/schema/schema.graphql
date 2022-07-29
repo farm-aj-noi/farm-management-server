@@ -329,6 +329,9 @@ type Query {
     productroom: String
     freezer: String
     pbasket: String
+    code: String
+    mfgdate: String
+    expdate: String
   ): [ListProduct]
 
   improductSearch(
