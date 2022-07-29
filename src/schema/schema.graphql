@@ -1642,6 +1642,7 @@ type Improduct {
   pbasket: String
   exporter: String
   info: String
+  userName: String
 }
 
 type Productroom {

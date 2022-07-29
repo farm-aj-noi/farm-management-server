@@ -25,6 +25,9 @@ const improductSchema = new mongoose.Schema({
   info: {
     type: String,
   },
+  userName: {
+    type: String,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
