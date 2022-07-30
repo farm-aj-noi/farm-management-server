@@ -37,7 +37,7 @@ const Query = {
         return cursor
     },
 
-
+//sawaddekab
 }
 
 export default Query;
