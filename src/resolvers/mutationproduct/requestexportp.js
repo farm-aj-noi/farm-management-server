@@ -5,9 +5,9 @@ import Producttype from "../../models/Productstore/producttype";
 
 const Mutation = {
   createRequestExportP: async (parent, args, { userId }, info) => {
-    if (!args.name || !args.producttype || !args.quantity || !args.status) {
-      throw new Error("Please provide all required fields.");
-    }
+    // if (!args.name || !args.producttype || !args.quantity || !args.status) {
+    //   throw new Error("Please provide all required fields.");
+    // }
 
     const date = dayjs();
 
