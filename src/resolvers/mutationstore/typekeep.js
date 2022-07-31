@@ -14,30 +14,6 @@ const Mutation = {
     const room = await Beefroom.findById(args.beefroom);
     const findshelf = await Shelf.findById(args.shelf);
 
-    
-    if (args.beefroom) {
-
-      // for (let i = 0; i < check1.length; i++) {
-      //   let x = check1[0].beeftype;
-      //   const check = x !== check1[i].beeftype
-      //   if (check) {
-      //     throw new Error("ประเภทชิ้นเนื้อซ้ำ");
-      //   }
-      //   console.log(x !== check1[i].beeftype);
-      // }
-
-      const check =
-      (await Typekeep.findOne({
-        beefroom: args.beefroom,
-      }).countDocuments()) > 0;
-
-    if (check) {
-      throw new Error("ประเภทชิ้นเนื้อซ้ำ");
-    }
-    
-      
-    }
-    return
     const keep = await Typekeep.create({
       totalbeef: args.totalbeef,
       beeftype: beeftype,
