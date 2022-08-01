@@ -315,7 +315,8 @@ type Query {
   listExpSetting: [ExpdateSetting]
 
   top10beef: [topBeefstore]
-  beefGraph: [beefImgraph]
+  beefGraph(startdate: String
+    enddate: String): [beefImgraph]
 
   # ///////////////////////////////////////////////////
   listunit: [Unit]
@@ -1738,8 +1739,7 @@ type topProductstore {
 }
 
 type beefImgraph {
-  jan: Int
-  feb: Int
-  mar: Int
-  
+  day: String,
+  export: Int,
+  import: Int
 }

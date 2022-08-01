@@ -1807,10 +1807,70 @@ const Query = {
     return data;
   },
   beefGraph: async (parent, args, context, info) => {
+    let startdate = args.startdate
+    let enddate = args.enddate
+    let _filter = {
+      $or: [
+        {
+          importdate: {
+            $gte: dayjs(startdate).startOf("D"),
+            $lt: dayjs(enddate).endOf("D"),
+          },
+        },
+        {
+          exportdate: {
+            $gte: dayjs(startdate).startOf("D"),
+            $lt: dayjs(enddate).endOf("D"),
+          },
+        },
+      ],
+    };
+    const cursor1 = await Imhalve.find(_filter);
+    const cursor2 = await Imquarter.find(_filter);
+    const cursor3 = await Imlump.find(_filter);
+    const cursor4 = await Imchop.find(_filter);
+
+    let bigarray = [...cursor1, ...cursor2, ...cursor3, ...cursor4];
+
+    let data = [];
     
+    let start = dayjs(startdate).startOf("D")
+    let end = dayjs(enddate).endOf("D")
 
+    console.log(bigarray)
+    let test = 0;
+    do {
+      let list = {
+        day: start.format("YYYY-MM-DD").toString(),
+        import: 0,
+        export: 0
+        
+      }
+      for (let index = 0; index < bigarray.length; index++) {
+        const e = bigarray[index];
+        if(e.name == 'นำออก'){
+          if(dayjs(e.exportdate) >= start && dayjs(e.exportdate) <= dayjs(start).endOf("D")){
+            console.log('out')
+            list.export++;
+          }
+        } else if( e.name == 'นำเข้า') {
+          if(dayjs(e.importdate) >= start && dayjs(e.importdate) <= dayjs(start).endOf("D")){
+            console.log('im')
 
+            list.import++;
+          }
+        }
+      }
 
+      data.push(list);
+
+      start  = dayjs(start).add(1,'day')
+      test++
+      console.log(test + " " + start);
+    } while (start <= end);
+
+    console.log(data)
+    return data;
   },
 };
 //5f0fdb4b02b40c2ab8506563
