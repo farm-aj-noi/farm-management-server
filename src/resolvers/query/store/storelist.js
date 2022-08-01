@@ -1806,6 +1806,12 @@ const Query = {
     data.sort((a, b) => b.count - a.count);
     return data;
   },
+  beefGraph: async (parent, args, context, info) => {
+    
+
+
+
+  },
 };
 //5f0fdb4b02b40c2ab8506563
 export default Query;
