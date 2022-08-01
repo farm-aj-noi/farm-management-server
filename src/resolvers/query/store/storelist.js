@@ -1806,6 +1806,7 @@ const Query = {
     data.sort((a, b) => b.count - a.count);
     return data;
   },
+
   beefGraph: async (parent, args, context, info) => {
     let startdate = args.startdate
     let enddate = args.enddate
@@ -1829,8 +1830,8 @@ const Query = {
     const cursor2 = await Imquarter.find(_filter);
     const cursor3 = await Imlump.find(_filter);
     const cursor4 = await Imchop.find(_filter);
-
-    let bigarray = [...cursor1, ...cursor2, ...cursor3, ...cursor4];
+    const cursor5 = await Imentrail.find(_filter);
+ 
 
     let data = [];
     
