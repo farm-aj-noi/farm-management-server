@@ -17,6 +17,7 @@ const Query = {
         .populate({
             path: "imslaughter"
         })
+        
         return cursor
     },
     Cowgrade: async (parent, args, context, info) => {
@@ -37,8 +38,7 @@ const Query = {
         return cursor
     },
 
-//sawaddekab
-//wajadai
+
 }
 
 export default Query;
