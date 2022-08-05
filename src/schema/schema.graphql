@@ -315,8 +315,7 @@ type Query {
   listExpSetting: [ExpdateSetting]
 
   top10beef: [topBeefstore]
-  beefGraph(startdate: String
-    enddate: String): [beefImgraph]
+  beefGraph(startdate: String, enddate: String): [beefImgraph]
 
   # ///////////////////////////////////////////////////
   listunit: [Unit]
@@ -384,6 +383,7 @@ type Query {
   ProductSearch2(id: ID): [Beefproduct]
 
   top10product: [topProductstore]
+  productGraph(startdate: String, enddate: String): [productImgraph]
 }
 
 type Mutation {
@@ -1739,7 +1739,13 @@ type topProductstore {
 }
 
 type beefImgraph {
-  day: String,
-  export: Int,
+  day: String
+  export: Int
+  import: Int
+}
+
+type productImgraph {
+  day: String
+  export: Int
   import: Int
 }

@@ -1832,13 +1832,14 @@ const Query = {
     const cursor4 = await Imchop.find(_filter);
     const cursor5 = await Imentrail.find(_filter);
  
+    let bigarray = [...cursor1, ...cursor2, ...cursor3, ...cursor4, ...cursor5];
 
     let data = [];
     
     let start = dayjs(startdate).startOf("D")
     let end = dayjs(enddate).endOf("D")
 
-    console.log(bigarray)
+    //console.log(bigarray)
     let test = 0;
     do {
       let list = {
