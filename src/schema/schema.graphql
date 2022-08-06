@@ -1285,6 +1285,16 @@ type Tracking {
   age: String
   weightcow: Float
   transports: [Transport]
+  offal: String
+  toe: String
+  head: String
+  skin: String
+  liver: String
+  fat: String
+  onkale: String
+  tail: String
+  gallbladder: String
+  scrap: String
 }
 
 type Ad_provinces {
