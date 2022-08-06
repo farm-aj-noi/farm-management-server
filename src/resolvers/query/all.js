@@ -1381,7 +1381,11 @@ treatSearch: (parent, args, context, info) =>
         path: "chops",
         populate: { path: "transports" },
         // populate: { path: "beeftype" },
-      });
+      })
+      .populate({
+        path: "entrails",
+        populate: { path: "transports" },
+      })
 
     return cursor;
   },

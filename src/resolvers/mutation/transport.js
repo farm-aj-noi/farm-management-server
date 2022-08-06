@@ -10,6 +10,7 @@ import Beeftype from "../../models/beeftype";
 import Setting from "../../models/setting";
 import Counter from "../../models/identitycounter";
 import Transport from "../../models/transport";
+import Entrail from "../../models/entrail";
 
 const Mutation = {
   createTransport: async (parent, args, { userId }, info) => {
@@ -113,6 +114,27 @@ const Mutation = {
       return Transport.findById(transport.id);
     }
 
+    const entrail = await Entrail.findOne({
+      barcode: args.barcode,
+    });
+    if(entrail){
+      const transport = await Transport.create({
+        date: date,
+        name: args.name,
+        place: args.place,
+        note: args.note,
+        entrail: entrail.id,
+      });
+
+      const link = await Entrail.findById(entrail.id);
+      if (!link.transports) {
+        link.transports = [transport];
+      } else {
+        link.transports.push(transport);
+      }
+      await link.save();
+      return Transport.findById(transport.id);
+    }
   },
 };
 

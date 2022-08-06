@@ -30,6 +30,10 @@ const transportSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Halve",
   },
+  entrail: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Entrail",
+  },
 });
 
 const Transport = mongoose.model("Transport", transportSchema);

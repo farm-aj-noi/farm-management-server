@@ -57,6 +57,12 @@ const entrailSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  transports: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Transport",
+    },
+  ],
 });
 
 entrailSchema.plugin(autoIncrement, {
