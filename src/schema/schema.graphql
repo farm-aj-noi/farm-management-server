@@ -272,6 +272,7 @@ type Query {
     startdate2: String
     enddate2: String
     name: String
+    chillstatus: String
   ): [Chill]
 
   allRoom: [Beefroom]

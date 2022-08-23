@@ -1008,6 +1008,11 @@ const Query = {
         name: args.name,
       });
     }
+    if (args.chillstatus) {
+      cursor.find({
+        chillstatus: args.chillstatus,
+      });
+    }
     return cursor;
   },
 
