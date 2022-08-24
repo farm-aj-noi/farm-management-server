@@ -1170,6 +1170,42 @@ treatSearch: (parent, args, context, info) =>
         transports: halve.transports,
       };
     }
+    //----------------------------------------------
+    const entrail = await Entrail.findOne({
+      barcode: args.barcode,
+    })
+    .populate({
+      path: "imslaughter",
+      populate: {path: "entrails"}
+    })
+    .populate({
+      path: "status",
+    })
+    .populate({
+      path: "transports",
+    })
+    if(entrail){
+      return{
+        barcode: entrail.barcode,
+        farmer: entrail.imslaughter.namefarmer,
+        numcow: entrail.imslaughter.numcow,
+        numkun: entrail.imslaughter.numkun,
+        pun: entrail.imslaughter.pun,
+        transports: entrail.transports,
+        offal: entrail.offal,
+        toe: entrail.toe,
+        head: entrail.head,
+        skin: entrail.skin,
+        liver: entrail.liver,
+        fat: entrail.fat,
+        onkale: entrail.onkale,
+        tail: entrail.tail,
+        gallbladder: entrail.gallbladder,
+        scrap: entrail.scrap,
+        MFG: entrail.createdAt,
+        BBE: null,
+      }
+    }
     return { barcode: null };
   },
   SlipChop: async (parent, args, context, info) => {
@@ -1345,7 +1381,11 @@ treatSearch: (parent, args, context, info) =>
         path: "chops",
         populate: { path: "transports" },
         // populate: { path: "beeftype" },
-      });
+      })
+      .populate({
+        path: "entrails",
+        populate: { path: "transports" },
+      })
 
     return cursor;
   },

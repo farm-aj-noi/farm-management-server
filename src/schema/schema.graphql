@@ -272,6 +272,7 @@ type Query {
     startdate2: String
     enddate2: String
     name: String
+    chillstatus: String
   ): [Chill]
 
   allRoom: [Beefroom]
@@ -1047,6 +1048,7 @@ type Transport {
   lump: Lump
   quarter: Quarter
   halve: Halve
+  entrail: Entrail
 }
 
 type Drug {
@@ -1268,6 +1270,7 @@ type Entrail {
   createdAt: Date!
   user: User!
   imslaughter: Imslaughter!
+  transports: [Transport]
 }
 
 type Tracking {
@@ -1285,6 +1288,16 @@ type Tracking {
   age: String
   weightcow: Float
   transports: [Transport]
+  offal: String
+  toe: String
+  head: String
+  skin: String
+  liver: String
+  fat: String
+  onkale: String
+  tail: String
+  gallbladder: String
+  scrap: String
 }
 
 type Ad_provinces {
