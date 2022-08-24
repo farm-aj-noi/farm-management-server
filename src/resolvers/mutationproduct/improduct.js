@@ -51,7 +51,7 @@ const Mutation = {
       user: userId,
       beefproduct: beefproduct,
       barcode: args.barcode,
-      storestatus: beefproduct.status,
+      storestatus: statusIM,
       producttype: beefproduct.producttype,
       userName: username.name,
       productroom: args.productroom,

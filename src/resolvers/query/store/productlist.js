@@ -265,7 +265,7 @@ const Query = {
   card8product: async (parent, args, context, info) => {
     const find = await ExpdateSetting2.findById("62ac62cc97dad53b30895a97");
     const day = find.day;
-
+    
     const cursor = await Improduct.find({
       storestatus: "5f448d5d4ef8ed48806f1b53",
       name: "นำเข้า",
