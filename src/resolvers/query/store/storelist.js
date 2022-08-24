@@ -1382,8 +1382,8 @@ const Query = {
   Card10: async (parent, args, context, info) => {
     const cursor = await Chill.find({
       chilldateEnd: {
-        $gte: dayjs(new Date()).startOf("D").format("YYYY-MM-DDTHH:mm:ssZ[Z]"),
-        $lt: dayjs(new Date()).endOf("D").format("YYYY-MM-DDTHH:mm:ssZ[Z]"),
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
       },
     }).populate({
       path: "chillday",
