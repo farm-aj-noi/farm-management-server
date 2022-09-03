@@ -1813,8 +1813,8 @@ const Query = {
   },
 
   beefGraph: async (parent, args, context, info) => {
-    let startdate = args.startdate
-    let enddate = args.enddate
+    let startdate = args.startdate;
+    let enddate = args.enddate;
     let _filter = {
       $or: [
         {
@@ -1836,13 +1836,13 @@ const Query = {
     const cursor3 = await Imlump.find(_filter);
     const cursor4 = await Imchop.find(_filter);
     const cursor5 = await Imentrail.find(_filter);
- 
+
     let bigarray = [...cursor1, ...cursor2, ...cursor3, ...cursor4, ...cursor5];
 
     let data = [];
-    
-    let start = dayjs(startdate).startOf("D")
-    let end = dayjs(enddate).endOf("D")
+
+    let start = dayjs(startdate).startOf("D");
+    let end = dayjs(enddate).endOf("D");
 
     //console.log(bigarray)
     let test = 0;
@@ -1850,19 +1850,24 @@ const Query = {
       let list = {
         day: start.format("YYYY-MM-DD").toString(),
         import: 0,
-        export: 0
-        
-      }
+        export: 0,
+      };
       for (let index = 0; index < bigarray.length; index++) {
         const e = bigarray[index];
-        if(e.name == 'นำออก'){
-          if(dayjs(e.exportdate) >= start && dayjs(e.exportdate) <= dayjs(start).endOf("D")){
-            console.log('out')
+        if (e.name == "นำออก") {
+          if (
+            dayjs(e.exportdate) >= start &&
+            dayjs(e.exportdate) <= dayjs(start).endOf("D")
+          ) {
+            console.log("out");
             list.export++;
           }
-        } else if( e.name == 'นำเข้า') {
-          if(dayjs(e.importdate) >= start && dayjs(e.importdate) <= dayjs(start).endOf("D")){
-            console.log('im')
+        } else if (e.name == "นำเข้า") {
+          if (
+            dayjs(e.importdate) >= start &&
+            dayjs(e.importdate) <= dayjs(start).endOf("D")
+          ) {
+            console.log("im");
 
             list.import++;
           }
@@ -1871,13 +1876,34 @@ const Query = {
 
       data.push(list);
 
-      start  = dayjs(start).add(1,'day')
-      test++
+      start = dayjs(start).add(1, "day");
+      test++;
       console.log(test + " " + start);
     } while (start <= end);
 
-    console.log(data)
+    console.log(data);
     return data;
+  },
+
+  stockgraph: async (parent, args, context, info) => {
+    const cursor = BeefStore.find({})
+    .populate({
+      path: "imhalves",
+      populate: { path: "halve" },
+    })
+    .populate({
+        path: "imquarters",
+        populate: { path: "quarter" },
+      })
+    .populate({
+      path: "imlumps",
+      populate: { path: "lump" },
+    })
+    .populate({
+      path: "imchops",
+      populate: { path: "chop" },
+    })
+    return cursor;
   },
 };
 //5f0fdb4b02b40c2ab8506563

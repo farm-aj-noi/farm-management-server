@@ -317,6 +317,7 @@ type Query {
 
   top10beef: [topBeefstore]
   beefGraph(startdate: String, enddate: String): [beefImgraph]
+  stockgraph: [BeefStore]
 
   # ///////////////////////////////////////////////////
   listunit: [Unit]
@@ -1761,4 +1762,9 @@ type productImgraph {
   day: String
   export: Int
   import: Int
+}
+
+type productstock {
+  nameth: String
+  count: Int
 }

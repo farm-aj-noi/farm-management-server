@@ -111,7 +111,7 @@ const Query = {
     if (args.bbedate) {
       returnData = returnData.filter((e) => e.bbe == args.bbedate);
     }
-    
+
     return returnData;
   },
 
@@ -265,7 +265,7 @@ const Query = {
   card8product: async (parent, args, context, info) => {
     const find = await ExpdateSetting2.findById("62ac62cc97dad53b30895a97");
     const day = find.day;
-    
+
     const cursor = await Improduct.find({
       storestatus: "5f448d5d4ef8ed48806f1b53",
       name: "นำเข้า",
@@ -514,9 +514,8 @@ const Query = {
         populate: { path: "beeftype" },
       })
       .populate({
-        path: "producttransport"
-      })
-      ;
+        path: "producttransport",
+      });
     return cursor;
   },
 
@@ -627,7 +626,7 @@ const Query = {
                 });
               } else {
                 data[checkIndex].count++;
-              }            
+              }
             }
           }
         }
@@ -640,9 +639,9 @@ const Query = {
     return data;
   },
 
-  productGraph:  async (parent, args, context, info) => {
-    let startdate = args.startdate
-    let enddate = args.enddate
+  productGraph: async (parent, args, context, info) => {
+    let startdate = args.startdate;
+    let enddate = args.enddate;
     let _filter = {
       $or: [
         {
@@ -660,14 +659,13 @@ const Query = {
       ],
     };
     const cursor1 = await Improduct.find(_filter);
-    
- 
+
     let bigarray = [...cursor1];
 
     let data = [];
-    
-    let start = dayjs(startdate).startOf("D")
-    let end = dayjs(enddate).endOf("D")
+
+    let start = dayjs(startdate).startOf("D");
+    let end = dayjs(enddate).endOf("D");
 
     //console.log(bigarray)
     let test = 0;
@@ -675,19 +673,24 @@ const Query = {
       let list = {
         day: start.format("YYYY-MM-DD").toString(),
         import: 0,
-        export: 0
-        
-      }
+        export: 0,
+      };
       for (let index = 0; index < bigarray.length; index++) {
         const e = bigarray[index];
-        if(e.name == 'นำออก'){
-          if(dayjs(e.exportdate) >= start && dayjs(e.exportdate) <= dayjs(start).endOf("D")){
-            console.log('out')
+        if (e.name == "นำออก") {
+          if (
+            dayjs(e.exportdate) >= start &&
+            dayjs(e.exportdate) <= dayjs(start).endOf("D")
+          ) {
+            console.log("out");
             list.export++;
           }
-        } else if( e.name == 'นำเข้า') {
-          if(dayjs(e.importdate) >= start && dayjs(e.importdate) <= dayjs(start).endOf("D")){
-            console.log('im')
+        } else if (e.name == "นำเข้า") {
+          if (
+            dayjs(e.importdate) >= start &&
+            dayjs(e.importdate) <= dayjs(start).endOf("D")
+          ) {
+            console.log("im");
 
             list.import++;
           }
@@ -696,13 +699,21 @@ const Query = {
 
       data.push(list);
 
-      start  = dayjs(start).add(1,'day')
-      test++
+      start = dayjs(start).add(1, "day");
+      test++;
       console.log(test + " " + start);
     } while (start <= end);
 
-    console.log(data)
+    console.log(data);
     return data;
+  },
+
+  stockgraphp: async (parent, args, context, info) => {
+    const cursor = await ProductStore.find({}).populate({
+      path: "improduct",
+      populate: { path: "beefproduct", populate: { path: "producttype" } },
+    });
+    return cursor;
   },
 };
 export default Query;
