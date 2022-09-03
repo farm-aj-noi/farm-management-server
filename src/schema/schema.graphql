@@ -386,8 +386,6 @@ type Query {
 
   top10product: [topProductstore]
   productGraph(startdate: String, enddate: String): [productImgraph]
-  stockgraphp: [ProductStore]
-  stockgraphp1: [productstock]
 }
 
 type Mutation {

@@ -715,46 +715,5 @@ const Query = {
     });
     return cursor;
   },
-
-  stockgraphp1: async (parent, args, context, info) => {
-    const cursor1 = await ProductStore.find({}).populate({
-      path: "improduct",
-      populate: { path: "beefproduct", populate: { path: "producttype" } },
-    });
-
-    const producttype = await Producttype.find();
-
-    let bigarray = [...cursor1];
-
-    let data = [];
-
-    for (const key1 in producttype) {
-      if (Object.hasOwnProperty.call(producttype, key1)) {
-        const e1 = producttype[key1];
-        //console.log(e1.id);
-        for (const key2 in bigarray) {
-          if (Object.hasOwnProperty.call(bigarray, key2)) {
-            const e2 = bigarray[key2];
-            //console.log(e2)
-            if (e1.id == e2.producttype) {
-              const checkIndex = data.findIndex((e) => e.id == e1.id);
-              if (checkIndex == -1) {
-                data.push({
-                  id: e1.id,
-                  nameth: e1.nameTH,
-                  nameen: e1.nameEN,
-                  count: 1,
-                });
-              } else {
-                data[checkIndex].count++;
-              }
-            }
-          }
-        }
-      }
-    }
-    data.sort((a, b) => b.count - a.count);
-    return data;
-  },
 };
 export default Query;
