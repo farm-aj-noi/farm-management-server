@@ -1892,9 +1892,9 @@ const Query = {
       populate: { path: "halve" },
     })
     .populate({
-      path: "imquarters",
-      populate: { path: "quarter" },
-    })
+        path: "imquarters",
+        populate: { path: "quarter" },
+      })
     .populate({
       path: "imlumps",
       populate: { path: "lump" },
