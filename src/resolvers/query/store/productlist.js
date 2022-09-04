@@ -708,12 +708,6 @@ const Query = {
     return data;
   },
 
-  stockgraphp: async (parent, args, context, info) => {
-    const cursor = await ProductStore.find({}).populate({
-      path: "improduct",
-      populate: { path: "beefproduct", populate: { path: "producttype" } },
-    });
-    return cursor;
-  },
+  
 };
 export default Query;
