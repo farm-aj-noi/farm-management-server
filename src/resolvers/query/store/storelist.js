@@ -1087,7 +1087,8 @@ const Query = {
   },
 
   listChillday: async (parent, args, context, info) => {
-    const cursor = Chillday.find({});
+    const cursor = Chillday.find({}).sort({ day: "ASC" });
+    
     return cursor;
   },
 
@@ -1887,22 +1888,22 @@ const Query = {
 
   stockgraph: async (parent, args, context, info) => {
     const cursor = BeefStore.find({})
-    .populate({
-      path: "imhalves",
-      populate: { path: "halve" },
-    })
-    .populate({
+      .populate({
+        path: "imhalves",
+        populate: { path: "halve" },
+      })
+      .populate({
         path: "imquarters",
         populate: { path: "quarter" },
       })
-    .populate({
-      path: "imlumps",
-      populate: { path: "lump" },
-    })
-    .populate({
-      path: "imchops",
-      populate: { path: "chop" },
-    })
+      .populate({
+        path: "imlumps",
+        populate: { path: "lump" },
+      })
+      .populate({
+        path: "imchops",
+        populate: { path: "chop" },
+      });
     return cursor;
   },
 };
