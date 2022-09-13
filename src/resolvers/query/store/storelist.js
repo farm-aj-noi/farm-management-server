@@ -981,7 +981,7 @@ const Query = {
       .populate({
         path: "chillday",
       })
-      .sort({ chilldate: "DESC" });
+      .sort({ chilldateStart: "DESC" });
     if (args.beeftype) {
       cursor.find({
         beeftype: args.beeftype,
