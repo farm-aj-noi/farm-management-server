@@ -708,6 +708,40 @@ const Query = {
     return data;
   },
 
-  
+ /*  reportproduct10: async (parent, args, context, info) => {
+    const cursor1 = await Improduct.find({
+      name: "นำออก",
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("month"),
+        $lt: dayjs(new Date()),
+      },
+    }).populate({
+      path: "beefproduct",
+      populate: { path: "producttype" },
+    })
+    .populate({
+      path: "producttype",
+    });
+
+    let returndata = [];
+
+    for (const item of cursor1) {
+      let data = {
+        id: item.id,
+        barcode: item.barcode,
+        producttype: item.producttype.nameTH,
+        code: item.producttype.code,
+        weight: item.beefproduct.weight,
+        exportdate: item.exportdate,
+        MFGdate: item.beefproduct.MFG,
+        BBEdate: item.beefproduct.BBE,
+        exporter: item.exporter,
+        userName: item.userName,
+      };
+      returndata.push(data);
+    }
+    returndata.sort((a, b) => b.exportdate - a.exportdate);
+    return returndata;
+  }, */
 };
 export default Query;

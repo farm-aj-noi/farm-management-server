@@ -796,6 +796,8 @@ type Mutation {
   updateInfoC(id: ID, info: String): Imchop
   updateInfoE(id: ID, info: String): Imentrail
 
+  createReportSet(logo: String, address: String): reportSetting
+
   #//////////////////////////////////////////////////////////////
   createProducttype(
     code: String!
@@ -1742,6 +1744,7 @@ type RequestExportP {
 }
 
 type topBeefstore {
+  id: ID
   nameth: String
   nameen: String
   count: Int
@@ -1768,4 +1771,11 @@ type productImgraph {
 type productstock {
   nameth: String
   count: Int
+}
+
+
+
+type reportSetting {
+  logo: String
+  address: String
 }

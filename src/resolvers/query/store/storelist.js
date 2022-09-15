@@ -1088,7 +1088,7 @@ const Query = {
 
   listChillday: async (parent, args, context, info) => {
     const cursor = Chillday.find({}).sort({ day: "ASC" });
-    
+
     return cursor;
   },
 
@@ -1808,7 +1808,7 @@ const Query = {
     }
 
     //console.log(data)
-
+    //console.log(bigarray);
     data.sort((a, b) => b.count - a.count);
     return data;
   },
@@ -1906,6 +1906,183 @@ const Query = {
       });
     return cursor;
   },
+
+  /* reportbeef10: async (parent, args, context, info) => {
+    const cursor1 = await Imhalve.find({
+      name: "นำออก",
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("month"),
+        $lt: dayjs(new Date()),
+      },
+    })
+      .populate({
+        path: "halve",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "halve",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      });
+    const cursor2 = await Imquarter.find({
+      name: "นำออก",
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("month"),
+        $lt: dayjs(new Date()),
+      },
+    })
+      .populate({
+        path: "quarter",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "quarter",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      });
+    const cursor3 = await Imlump.find({
+      name: "นำออก",
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("month"),
+        $lt: dayjs(new Date()),
+      },
+    })
+      .populate({
+        path: "lump",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "lump",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      });
+    const cursor4 = await Imchop.find({
+      name: "นำออก",
+      exportdate: {
+        $gte: dayjs(new Date()).startOf("month"),
+        $lt: dayjs(new Date()),
+      },
+    })
+      .populate({
+        path: "chop",
+        populate: { path: "status" },
+      })
+      .populate({
+        path: "chop",
+        populate: { path: "imslaughter" },
+      })
+      .populate({
+        path: "chop",
+        populate: { path: "beeftype" },
+      })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "storestatus",
+      });
+
+    let returndata = [];
+
+    for (const item of cursor1) {
+      let data = {
+        id: item.id,
+        beeftype: item.halve.beeftype.nameTH,
+        exportdate: item.exporter,
+        numkun: item.halve.imslaughter.numkun,
+        code: item.halve.beeftype.code,
+        exportdate: item.exportdate,
+        barcode: item.barcode,
+        status: item.storestatus.nameTH,
+        weight: item.halve.weightwarm,
+        exporter: item.exporter,
+        userName: item.userName,
+      };
+      returndata.push(data);
+    }
+    //////////////////////////////////
+    for (const item of cursor2) {
+      let data = {
+        id: item.id,
+        beeftype: item.quarter.beeftype.nameTH,
+        exportdate: item.exporter,
+        numkun: item.quarter.imslaughter.numkun,
+        code: item.quarter.beeftype.code,
+        exportdate: item.exportdate,
+        barcode: item.barcode,
+        status: item.storestatus.nameTH,
+        weight: item.quarter.weight,
+        exporter: item.exporter,
+        userName: item.userName,
+      };
+      returndata.push(data);
+    }
+    //////////////////////////////////
+    for (const item of cursor3) {
+      let data = {
+        id: item.id,
+        beeftype: item.lump.beeftype.nameTH,
+        exportdate: item.exporter,
+        numkun: item.lump.imslaughter.numkun,
+        code: item.lump.beeftype.code,
+        exportdate: item.exportdate,
+        barcode: item.barcode,
+        status: item.storestatus.nameTH,
+        weight: item.lump.weight,
+        exporter: item.exporter,
+        userName: item.userName,
+      };
+      returndata.push(data);
+    }
+    //////////////////////////////////
+    for (const item of cursor4) {
+      let data = {
+        id: item.id,
+        beeftype: item.chop.beeftype.nameTH,
+        exportdate: item.exporter,
+        numkun: item.chop.imslaughter.numkun,
+        code: item.chop.beeftype.code,
+        exportdate: item.exportdate,
+        barcode: item.barcode,
+        status: item.storestatus.nameTH,
+        weight: item.chop.weight,
+        exporter: item.exporter,
+        userName: item.userName,
+      };
+      returndata.push(data);
+    }
+    //////////////////////////////////
+    returndata.sort((a, b) => b.exportdate - a.exportdate);
+    return returndata;
+  }, */
 };
+
 //5f0fdb4b02b40c2ab8506563
 export default Query;
