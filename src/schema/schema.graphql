@@ -318,7 +318,7 @@ type Query {
   top10beef: [topBeefstore]
   beefGraph(startdate: String, enddate: String): [beefImgraph]
   stockgraph: [BeefStore]
-
+  reportlogo: [reportSetting]
   # ///////////////////////////////////////////////////
   listunit: [Unit]
 
@@ -884,6 +884,7 @@ type Mutation {
 
   deleteUnit(id: ID): Unit
   updateInfoP(id: ID, info: String): Improduct
+  updateLogo(logo: String, address: String): reportSetting
 }
 
 scalar Date
