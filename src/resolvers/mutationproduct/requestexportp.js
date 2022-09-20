@@ -40,5 +40,18 @@ const Mutation = {
 
     return request;
   },
+
+  updateRequestP: async (parent, args, { userId }, info) => {
+    const { id } = args;
+
+    const statusChange = "63299201e09fd895642f3cab";
+
+    await RequestExportP.findByIdAndUpdate(id, { status: statusChange });
+
+    const updateInfo = await RequestExportP.findById(id).populate({
+      path: "status",
+    });
+    return updateInfo;
+  },
 };
 export default Mutation;

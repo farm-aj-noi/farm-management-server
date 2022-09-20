@@ -12,7 +12,7 @@ const Mutation = {
     const date = dayjs();
 
     const beeftype = await Beeftype.findById(args.beeftype);
-    const status = await Status.findById(args.status)
+    const status = await Status.findById(args.status);
 
     const req = await RequestExport.create({
       name: args.name,
@@ -35,6 +35,19 @@ const Mutation = {
     const request = await RequestExport.findByIdAndDelete(id);
 
     return request;
+  },
+
+  updateRequestB: async (parent, args, { userId }, info) => {
+    const { id } = args;
+
+    const statusChange = "63299201e09fd895642f3cab";
+
+    await RequestExport.findByIdAndUpdate(id, { status: statusChange });
+
+    const updateInfo = await RequestExport.findById(id).populate({
+      path: "status",
+    });
+    return updateInfo;
   },
 };
 export default Mutation;

@@ -387,6 +387,9 @@ type Query {
   top10product: [topProductstore]
   productGraph(startdate: String, enddate: String): [productImgraph]
   
+  listToSaleB: [RequestExport]
+  listToSaleP: [RequestExportP]
+  
 }
 
 type Mutation {
@@ -798,6 +801,8 @@ type Mutation {
 
   createReportSet(logo: String, address: String): reportSetting
 
+  updateRequestB(id: ID,): RequestExport
+
   #//////////////////////////////////////////////////////////////
   createProducttype(
     code: String!
@@ -885,6 +890,7 @@ type Mutation {
   deleteUnit(id: ID): Unit
   updateInfoP(id: ID, info: String): Improduct
   updateLogo(logo: String, address: String): reportSetting
+  updateRequestP(id: ID,): RequestExportP
 }
 
 scalar Date

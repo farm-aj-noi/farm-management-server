@@ -1912,6 +1912,13 @@ const Query = {
     const cursor = await ReportSet.find({});
     return cursor;
   },
+
+  listToSaleB: async (parent, args, context, info) => {
+    const cursor = await RequestExport.find({
+      status: "6280fac6d3dbf7345093676f",
+    });
+    return cursor;
+  },
 };
 
 //5f0fdb4b02b40c2ab8506563
