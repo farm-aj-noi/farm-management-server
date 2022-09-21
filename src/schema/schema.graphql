@@ -1800,5 +1800,6 @@ type ProductForSale {
   barcode: String
   weight: Float
   Expdate: Date
+  MFGdate: Date
   info: String
 }

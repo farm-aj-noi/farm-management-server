@@ -732,6 +732,7 @@ const Query = {
         barcode: item.barcode,
         weight: item.beefproduct.weight,
         Expdate: item.beefproduct.BBE,
+        MFGdate: item.beefproduct.MFG,
         info: item.info,
       };
       returnData.push(data);
