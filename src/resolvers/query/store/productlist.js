@@ -537,6 +537,9 @@ const Query = {
       .populate({
         path: "producttype",
       })
+      .populate({
+        path: "status",
+      })
       .sort({ requestdate: "DESC" });
     return cursor;
   },

@@ -1083,6 +1083,9 @@ const Query = {
       .populate({
         path: "beeftype",
       })
+      .populate({
+        path: "status",
+      })
       .sort({ requestdate: "DESC" });
     return cursor;
   },
