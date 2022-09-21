@@ -711,8 +711,33 @@ const Query = {
     return data;
   },
 
-  storeSale: async (parent, args, context, info) => {
-    
-  }
+  productSale: async (parent, args, context, info) => {
+    const cursor = await Improduct.find({
+      name: "นำออก",
+      storestatus: "6280fac6d3dbf7345093676f",
+    }).populate({
+      path: "producttype",
+    })
+    .populate({
+      path: "beefproduct",
+    });
+   
+    var returnData = [];
+
+    for (const item of cursor) {
+      let data = {
+        id: item.id,
+        producttype: item.producttype.nameTH,
+        code: item.producttype.code,
+        barcode: item.barcode,
+        weight: item.beefproduct.weight,
+        Expdate: item.beefproduct.BBE,
+        info: item.info,
+      };
+      returnData.push(data);
+    }
+    return returnData;
+  },
+  
 };
 export default Query;

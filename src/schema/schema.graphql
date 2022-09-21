@@ -372,7 +372,7 @@ type Query {
 
   listhalvegrade: [Halve]
   Cowgrade(id: ID!): [Halve]
-
+  
   listExpSetting2: [ExpdateSetting2]
   ProductTracking(barcode: String): Beefproduct
 
@@ -724,8 +724,8 @@ type Mutation {
   createRequestExport(
     name: String
     beeftype: String
+    grade: String
     status: String
-    quantity: String
   ): RequestExport
   deleteRequest(id: ID): RequestExport
 
@@ -882,7 +882,6 @@ type Mutation {
     name: String
     producttype: String
     status: String
-    quantity: String
   ): RequestExportP
   deleteRequestP(id: ID): RequestExportP
 
@@ -1600,8 +1599,8 @@ type RequestExport {
   id: ID!
   name: String
   beeftype: Beeftype
+  grade: String
   status: Status
-  quantity: String
   requestdate: Date
 }
 
@@ -1745,7 +1744,6 @@ type RequestExportP {
   name: String
   producttype: Producttype
   status: Status
-  quantity: String
   requestdate: Date
 }
 
@@ -1785,6 +1783,7 @@ type reportSetting {
 }
 
 type BeefForSale {
+  id: ID
   beeftype: String
   code: String
   barcode: String
@@ -1795,10 +1794,10 @@ type BeefForSale {
 }
 
 type ProductForSale {
-  beeftype: String
+  id: ID
+  producttype: String
   code: String
   barcode: String
-  weightwarm: Float
   weight: Float
   Expdate: Date
   info: String

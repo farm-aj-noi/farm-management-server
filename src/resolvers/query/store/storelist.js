@@ -1917,30 +1917,102 @@ const Query = {
   },
 
   storeSale: async (parent, args, context, info) => {
-    const cursor = await Imhalve.find({
-      status: ""
+    const cursor1 = await Imhalve.find({
+      name: "นำออก",
+      storestatus: "6280fac6d3dbf7345093676f",
     })
       .populate({
-        path: "imhalves",
-        populate: { path: "halve" },
+        path: "beeftype",
       })
       .populate({
-        path: "imhalves",
-        populate: { path: "storestatus" },
+        path: "halve",
+      });
+    const cursor2 = await Imquarter.find({
+      name: "นำออก",
+      storestatus: "6280fac6d3dbf7345093676f",
+    })
+      .populate({
+        path: "beeftype",
       })
       .populate({
-        path: "imhalves",
-        populate: { path: "halve", populate: { path: "imslaughter" } },
+        path: "quarter",
+      });
+    const cursor3 = await Imlump.find({
+      name: "นำออก",
+      storestatus: "6280fac6d3dbf7345093676f",
+    })
+      .populate({
+        path: "beeftype",
       })
       .populate({
-        path: "imhalves",
-        populate: { path: "halve", populate: { path: "beeftype" } },
+        path: "lump",
+      });
+    const cursor4 = await Imchop.find({
+      name: "นำออก",
+      storestatus: "6280fac6d3dbf7345093676f",
+    })
+      .populate({
+        path: "beeftype",
       })
       .populate({
-        path: "imhalves",
-        populate: { path: "beefroom" },
-      })
-  }
+        path: "chop",
+      });
+
+    var returnData = [];
+
+    for (const item of cursor1) {
+      let data = {
+        id: item.id,
+        beeftype: item.beeftype.nameTH,
+        code: item.beeftype.code,
+        barcode: item.barcode,
+        weightwarm: item.halve.weightwarm,
+        Expdate: item.Expdate,
+        info: item.info,
+      };
+      returnData.push(data);
+    }
+    ////////////////////////
+    for (const item of cursor2) {
+      let data = {
+        id: item.id,
+        beeftype: item.beeftype.nameTH,
+        code: item.beeftype.code,
+        barcode: item.barcode,
+        weight: item.quarter.weight,
+        Expdate: item.Expdate,
+        info: item.info,
+      };
+      returnData.push(data);
+    }
+    //////////////////////
+    for (const item of cursor3) {
+      let data = {
+        id: item.id,
+        beeftype: item.beeftype.nameTH,
+        code: item.beeftype.code,
+        barcode: item.barcode,
+        weight: item.lump.weight,
+        Expdate: item.Expdate,
+        info: item.info,
+      };
+      returnData.push(data);
+    }
+    ///////////////////////
+    for (const item of cursor4) {
+      let data = {
+        id: item.id,
+        beeftype: item.beeftype.nameTH,
+        code: item.beeftype.code,
+        barcode: item.barcode,
+        weight: item.chop.weight,
+        Expdate: item.Expdate,
+        info: item.info,
+      };
+      returnData.push(data);
+    }
+    return returnData;
+  },
 };
 
 //5f0fdb4b02b40c2ab8506563
