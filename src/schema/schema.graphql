@@ -726,6 +726,7 @@ type Mutation {
     beeftype: String
     grade: String
     status: String
+    typemeat: String
   ): RequestExport
   deleteRequest(id: ID): RequestExport
 
@@ -1611,6 +1612,7 @@ type RequestExport {
   grade: String
   status: Status
   requestdate: Date
+  typemeat: String
 }
 
 type ExpdateSetting {

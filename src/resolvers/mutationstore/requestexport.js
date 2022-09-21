@@ -5,7 +5,7 @@ import Status from "../../models/status";
 
 const Mutation = {
   createRequestExport: async (parent, args, { userId }, info) => {
-    if (!args.name || !args.beeftype || !args.status || !args.grade) {
+    if (!args.name || !args.beeftype || !args.status || !args.grade || !args.typemeat) {
       throw new Error("Please provide all required fields.");
     }
     
@@ -20,6 +20,7 @@ const Mutation = {
       grade: args.grade,
       status: status,
       requestdate: date,
+      typemeat: args.typemeat
     });
 
     let data = RequestExport.findById(req.id).populate({
