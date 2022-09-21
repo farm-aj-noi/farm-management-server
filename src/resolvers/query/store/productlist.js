@@ -705,10 +705,10 @@ const Query = {
 
       start = dayjs(start).add(1, "day");
       test++;
-      console.log(test + " " + start);
+      //console.log(test + " " + start);
     } while (start <= end);
 
-    console.log(data);
+    //console.log(data);
     return data;
   },
 

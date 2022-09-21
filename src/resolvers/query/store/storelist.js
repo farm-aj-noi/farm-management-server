@@ -262,7 +262,7 @@ const Query = {
       });
 
     var returnData = [];
-    console.log(result);
+    //console.log(result);
     for (const item of result[0].imentrails) {
       let data = {
         id: item.id,
@@ -1864,7 +1864,7 @@ const Query = {
             dayjs(e.exportdate) >= start &&
             dayjs(e.exportdate) <= dayjs(start).endOf("D")
           ) {
-            console.log("out");
+            //console.log("out");
             list.export++;
           }
         } else if (e.name == "นำเข้า") {
@@ -1872,7 +1872,7 @@ const Query = {
             dayjs(e.importdate) >= start &&
             dayjs(e.importdate) <= dayjs(start).endOf("D")
           ) {
-            console.log("im");
+            //console.log("im");
 
             list.import++;
           }
@@ -1883,10 +1883,10 @@ const Query = {
 
       start = dayjs(start).add(1, "day");
       test++;
-      console.log(test + " " + start);
+      //console.log(test + " " + start);
     } while (start <= end);
 
-    console.log(data);
+    //console.log(data);
     return data;
   },
 
