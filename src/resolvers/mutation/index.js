@@ -48,6 +48,7 @@ import ExpdateSetting2 from '../mutationproduct/expdatesetting2'
 import ProductTransport from '../mutationproduct/producttransport'
 import RequestExportP from '../mutationproduct/requestexportp'
 import ReportSet from '../mutationstore/reportset'
+import RequestProduct from '../mutationproduct/requestproduct'
 
 export default _.merge(
     allin,
@@ -99,5 +100,6 @@ export default _.merge(
     ExpdateSetting2,
     ProductTransport,
     RequestExportP,
-    ReportSet
+    ReportSet,
+    RequestProduct,
 )

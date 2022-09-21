@@ -372,7 +372,7 @@ type Query {
 
   listhalvegrade: [Halve]
   Cowgrade(id: ID!): [Halve]
-  
+
   listExpSetting2: [ExpdateSetting2]
   ProductTracking(barcode: String): Beefproduct
 
@@ -386,7 +386,7 @@ type Query {
 
   top10product: [topProductstore]
   productGraph(startdate: String, enddate: String): [productImgraph]
-  
+
   storeSale: [BeefForSale]
   productSale: [ProductForSale]
 }
@@ -800,7 +800,7 @@ type Mutation {
 
   createReportSet(logo: String, address: String): reportSetting
 
-  updateRequestB(id: ID,): RequestExport
+  updateRequestB(id: ID): RequestExport
 
   #//////////////////////////////////////////////////////////////
   createProducttype(
@@ -888,7 +888,16 @@ type Mutation {
   deleteUnit(id: ID): Unit
   updateInfoP(id: ID, info: String): Improduct
   updateLogo(logo: String, address: String): reportSetting
-  updateRequestP(id: ID,): RequestExportP
+  updateRequestP(id: ID): RequestExportP
+
+  createRequestProduct(
+    name: String
+    typemeat: String
+    beeftype: String
+  ): RequestProduct
+
+  updateRequestProduct(id: ID): RequestProduct
+  deleteRequestProduct(id: ID): RequestProduct
 }
 
 scalar Date
@@ -1802,4 +1811,13 @@ type ProductForSale {
   Expdate: Date
   MFGdate: Date
   info: String
+}
+
+type RequestProduct {
+  id: ID
+  name: String
+  typemeat: String
+  beeftype: Beeftype
+  requestdate: Date
+  status: Status
 }
