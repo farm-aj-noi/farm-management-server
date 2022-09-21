@@ -389,6 +389,8 @@ type Query {
 
   storeSale: [BeefForSale]
   productSale: [ProductForSale]
+
+  CardProcess: [RequestProduct]
 }
 
 type Mutation {

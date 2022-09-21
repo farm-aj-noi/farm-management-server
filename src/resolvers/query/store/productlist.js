@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import Lump from "../../../models/lump";
 import Chop from "../../../models/chop";
 import RequestExportP from "../../../models/Productstore/requestexportp";
+import RequestProduct from "../../../models/Productstore/requestproduct";
 
 const Query = {
   listunit: async (parent, args, context, info) => {
@@ -738,6 +739,22 @@ const Query = {
       returnData.push(data);
     }
     return returnData;
+  },
+
+  CardProcess: async (parent, args, context, info) => {
+    const cursor = await RequestProduct.find({
+      requestdate: {
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "status",
+      });
+    return cursor;
   },
   
 };
