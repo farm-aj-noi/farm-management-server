@@ -711,11 +711,8 @@ const Query = {
     return data;
   },
 
-  listToSaleP: async (parent, args, context, info) => {
-    const cursor = await RequestExportP.find({
-      status: "6280fac6d3dbf7345093676f",
-    });
-    return cursor;
-  },
+  storeSale: async (parent, args, context, info) => {
+    
+  }
 };
 export default Query;

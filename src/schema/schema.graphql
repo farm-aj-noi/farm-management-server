@@ -387,9 +387,8 @@ type Query {
   top10product: [topProductstore]
   productGraph(startdate: String, enddate: String): [productImgraph]
   
-  listToSaleB: [RequestExport]
-  listToSaleP: [RequestExportP]
-  
+  storeSale: [BeefForSale]
+  productSale: [ProductForSale]
 }
 
 type Mutation {
@@ -1780,9 +1779,27 @@ type productstock {
   count: Int
 }
 
-
-
 type reportSetting {
   logo: String
   address: String
+}
+
+type BeefForSale {
+  beeftype: String
+  code: String
+  barcode: String
+  weightwarm: Float
+  weight: Float
+  Expdate: Date
+  info: String
+}
+
+type ProductForSale {
+  beeftype: String
+  code: String
+  barcode: String
+  weightwarm: Float
+  weight: Float
+  Expdate: Date
+  info: String
 }

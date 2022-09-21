@@ -1916,12 +1916,31 @@ const Query = {
     return cursor;
   },
 
-  listToSaleB: async (parent, args, context, info) => {
-    const cursor = await RequestExport.find({
-      status: "6280fac6d3dbf7345093676f",
-    });
-    return cursor;
-  },
+  storeSale: async (parent, args, context, info) => {
+    const cursor = await Imhalve.find({
+      status: ""
+    })
+      .populate({
+        path: "imhalves",
+        populate: { path: "halve" },
+      })
+      .populate({
+        path: "imhalves",
+        populate: { path: "storestatus" },
+      })
+      .populate({
+        path: "imhalves",
+        populate: { path: "halve", populate: { path: "imslaughter" } },
+      })
+      .populate({
+        path: "imhalves",
+        populate: { path: "halve", populate: { path: "beeftype" } },
+      })
+      .populate({
+        path: "imhalves",
+        populate: { path: "beefroom" },
+      })
+  }
 };
 
 //5f0fdb4b02b40c2ab8506563
