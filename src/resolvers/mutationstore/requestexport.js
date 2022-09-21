@@ -5,10 +5,10 @@ import Status from "../../models/status";
 
 const Mutation = {
   createRequestExport: async (parent, args, { userId }, info) => {
-    if (!args.name || !args.beeftype || !args.status) {
+    if (!args.name || !args.beeftype || !args.status || !args.grade) {
       throw new Error("Please provide all required fields.");
     }
-
+    
     const date = dayjs();
 
     const beeftype = await Beeftype.findById(args.beeftype);
