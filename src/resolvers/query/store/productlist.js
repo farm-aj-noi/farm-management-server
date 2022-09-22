@@ -756,6 +756,18 @@ const Query = {
       });
     return cursor;
   },
+
+  listRequestProduct: async (parent, args, context, info) => {
+    const cursor = await RequestProduct.find({
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "status",
+      }).sort({ requestdate: "DESC" });
+    return cursor;
+  }
   
 };
 export default Query;
