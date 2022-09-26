@@ -116,7 +116,7 @@ const Mutation = {
       name: "นำเข้า"
     });
 
-    const exporter = await RequestExport.findById(args.exporter);
+    //const exporter = await RequestExport.findById(args.exporter);
 
     const findfarmer = entrail.imslaughter;
     const farmerName = await Imslaughter.findById(findfarmer);
@@ -148,7 +148,8 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: args.storestatus,
-        exporter: exporter.name,
+        exporter: args.exporter,
+        Expdate: e.Expdate,
       });
 
       let result = await EntrailStore.findByIdAndUpdate(

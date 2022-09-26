@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 
-const RequestExportSchema = new mongoose.Schema({
+const RequestProductSchema = new mongoose.Schema({
   name: {
+    type: String,
+  },
+  typemeat: {
     type: String,
   },
   requestdate: {
@@ -11,11 +14,11 @@ const RequestExportSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",
   },
-  producttype: {
+  beeftype: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Producttype",
+    ref: "Beeftype",
   },
 });
 
-const RequestExportP = mongoose.model("RequestExportP", RequestExportSchema);
-export default RequestExportP;
+const RequestProduct = mongoose.model("RequestProduct", RequestProductSchema);
+export default RequestProduct;

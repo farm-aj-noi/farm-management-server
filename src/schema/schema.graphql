@@ -318,7 +318,7 @@ type Query {
   top10beef: [topBeefstore]
   beefGraph(startdate: String, enddate: String): [beefImgraph]
   stockgraph: [BeefStore]
-
+  reportlogo: [reportSetting]
   # ///////////////////////////////////////////////////
   listunit: [Unit]
 
@@ -386,6 +386,12 @@ type Query {
 
   top10product: [topProductstore]
   productGraph(startdate: String, enddate: String): [productImgraph]
+
+  storeSale: [BeefForSale]
+  productSale: [ProductForSale]
+
+  CardProcess: [RequestProduct]
+  listRequestProduct: [RequestProduct]
 }
 
 type Mutation {
@@ -721,8 +727,9 @@ type Mutation {
   createRequestExport(
     name: String
     beeftype: String
+    grade: String
     status: String
-    quantity: String
+    typemeat: String
   ): RequestExport
   deleteRequest(id: ID): RequestExport
 
@@ -794,6 +801,10 @@ type Mutation {
   updateInfoL(id: ID, info: String): Imlump
   updateInfoC(id: ID, info: String): Imchop
   updateInfoE(id: ID, info: String): Imentrail
+
+  createReportSet(logo: String, address: String): reportSetting
+
+  updateRequestB(id: ID): RequestExport
 
   #//////////////////////////////////////////////////////////////
   createProducttype(
@@ -875,17 +886,30 @@ type Mutation {
     name: String
     producttype: String
     status: String
-    quantity: String
   ): RequestExportP
   deleteRequestP(id: ID): RequestExportP
 
   deleteUnit(id: ID): Unit
   updateInfoP(id: ID, info: String): Improduct
+<<<<<<< HEAD
 
   """
   /////////////////////////////////////////
   """
   createGrade(pic: String): Grading
+=======
+  updateLogo(logo: String, address: String): reportSetting
+  updateRequestP(id: ID): RequestExportP
+
+  createRequestProduct(
+    name: String
+    typemeat: String
+    beeftype: String
+  ): RequestProduct
+
+  updateRequestProduct(id: ID): RequestProduct
+  deleteRequestProduct(id: ID): RequestProduct
+>>>>>>> 9c4ae8d1b80873c72daee31e3c12587f8fb12293
 }
 
 scalar Date
@@ -1598,9 +1622,10 @@ type RequestExport {
   id: ID!
   name: String
   beeftype: Beeftype
+  grade: String
   status: Status
-  quantity: String
   requestdate: Date
+  typemeat: String
 }
 
 type ExpdateSetting {
@@ -1743,11 +1768,11 @@ type RequestExportP {
   name: String
   producttype: Producttype
   status: Status
-  quantity: String
   requestdate: Date
 }
 
 type topBeefstore {
+  id: ID
   nameth: String
   nameen: String
   count: Int
@@ -1787,4 +1812,38 @@ type Grading {
   ExpertName5: String
   ExpertGrade: String
   SystemGrade: String
+type reportSetting {
+  logo: String
+  address: String
+}
+
+type BeefForSale {
+  id: ID
+  beeftype: String
+  code: String
+  barcode: String
+  weightwarm: Float
+  weight: Float
+  Expdate: Date
+  info: String
+}
+
+type ProductForSale {
+  id: ID
+  producttype: String
+  code: String
+  barcode: String
+  weight: Float
+  Expdate: Date
+  MFGdate: Date
+  info: String
+}
+
+type RequestProduct {
+  id: ID
+  name: String
+  typemeat: String
+  beeftype: Beeftype
+  requestdate: Date
+  status: Status
 }

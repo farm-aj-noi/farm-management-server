@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import Lump from "../../../models/lump";
 import Chop from "../../../models/chop";
 import RequestExportP from "../../../models/Productstore/requestexportp";
+import RequestProduct from "../../../models/Productstore/requestproduct";
 
 const Query = {
   listunit: async (parent, args, context, info) => {
@@ -537,6 +538,9 @@ const Query = {
       .populate({
         path: "producttype",
       })
+      .populate({
+        path: "status",
+      })
       .sort({ requestdate: "DESC" });
     return cursor;
   },
@@ -701,19 +705,69 @@ const Query = {
 
       start = dayjs(start).add(1, "day");
       test++;
-      console.log(test + " " + start);
+      //console.log(test + " " + start);
     } while (start <= end);
 
-    console.log(data);
+    //console.log(data);
     return data;
   },
 
-  /* stockgraphp: async (parent, args, context, info) => {
-    const cursor = await ProductStore.find({}).populate({
-      path: "improduct",
-      populate: { path: "beefproduct", populate: { path: "producttype" } },
+  productSale: async (parent, args, context, info) => {
+    const cursor = await Improduct.find({
+      name: "นำออก",
+      storestatus: "6280fac6d3dbf7345093676f",
+    }).populate({
+      path: "producttype",
+    })
+    .populate({
+      path: "beefproduct",
     });
+   
+    var returnData = [];
+
+    for (const item of cursor) {
+      let data = {
+        id: item.id,
+        producttype: item.producttype.nameTH,
+        code: item.producttype.code,
+        barcode: item.barcode,
+        weight: item.beefproduct.weight,
+        Expdate: item.beefproduct.BBE,
+        MFGdate: item.beefproduct.MFG,
+        info: item.info,
+      };
+      returnData.push(data);
+    }
+    return returnData;
+  },
+
+  CardProcess: async (parent, args, context, info) => {
+    const cursor = await RequestProduct.find({
+      requestdate: {
+        $gte: dayjs(new Date()).startOf("D"),
+        $lt: dayjs(new Date()).endOf("D"),
+      },
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "status",
+      });
     return cursor;
-  }, */
+  },
+
+  listRequestProduct: async (parent, args, context, info) => {
+    const cursor = await RequestProduct.find({
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "status",
+      }).sort({ requestdate: "DESC" });
+    return cursor;
+  }
+  
 };
 export default Query;

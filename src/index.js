@@ -5,9 +5,11 @@ import mongoose from "mongoose";
 
 import server from "./server";
 
+
 // const { MONGO_USER, MONGO_PASSWORD, MONGO_DB, PORT } = process.env...  d
 
 const PORT = process.env.PORT || 9000;
+const bodyParser = require("body-parser");
 
 const createServer = async () => {
   try {
@@ -19,6 +21,9 @@ const createServer = async () => {
     mongoose.set("useFindAndModify", false);
 
     const app = express();
+    app.use(bodyParser.json({ limit: '50mb' }));
+    app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+    app.use(express.json());
     server.applyMiddleware({ app });
 
     app.listen({ port: PORT }, () =>

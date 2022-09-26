@@ -56,7 +56,7 @@ const Mutation = {
 
     const password = await bcrypt.hash(args.password, 10);
 
-    const roleId = "5f9aafb614611d05d4600724";
+    const roleId = "6322c7c321ae3659646f9620";
 
     const user = await User.create({ ...args, email, password, role: roleId });
 

@@ -18,6 +18,7 @@ import TotalExpdate from "../../../models/Beefstore/totalexpdate";
 import Typekeep from "../../../models/Beefstore/typekeep";
 import Chillroom from "../../../models/Beefstore/chillroom";
 import Beeftype from "../../../models/beeftype";
+import ReportSet from "../../../models/Beefstore/reportset";
 
 const Query = {
   liststore: async (parent, args, context, info) => {
@@ -261,7 +262,7 @@ const Query = {
       });
 
     var returnData = [];
-    console.log(result);
+    //console.log(result);
     for (const item of result[0].imentrails) {
       let data = {
         id: item.id,
@@ -981,7 +982,7 @@ const Query = {
       .populate({
         path: "chillday",
       })
-      .sort({ chilldate: "DESC" });
+      .sort({ chilldateStart: "DESC" });
     if (args.beeftype) {
       cursor.find({
         beeftype: args.beeftype,
@@ -1082,12 +1083,16 @@ const Query = {
       .populate({
         path: "beeftype",
       })
+      .populate({
+        path: "status",
+      })
       .sort({ requestdate: "DESC" });
     return cursor;
   },
 
   listChillday: async (parent, args, context, info) => {
-    const cursor = Chillday.find({});
+    const cursor = Chillday.find({}).sort({ day: "ASC" });
+
     return cursor;
   },
 
@@ -1807,7 +1812,7 @@ const Query = {
     }
 
     //console.log(data)
-
+    //console.log(bigarray);
     data.sort((a, b) => b.count - a.count);
     return data;
   },
@@ -1859,7 +1864,7 @@ const Query = {
             dayjs(e.exportdate) >= start &&
             dayjs(e.exportdate) <= dayjs(start).endOf("D")
           ) {
-            console.log("out");
+            //console.log("out");
             list.export++;
           }
         } else if (e.name == "นำเข้า") {
@@ -1867,7 +1872,7 @@ const Query = {
             dayjs(e.importdate) >= start &&
             dayjs(e.importdate) <= dayjs(start).endOf("D")
           ) {
-            console.log("im");
+            //console.log("im");
 
             list.import++;
           }
@@ -1878,33 +1883,137 @@ const Query = {
 
       start = dayjs(start).add(1, "day");
       test++;
-      console.log(test + " " + start);
+      //console.log(test + " " + start);
     } while (start <= end);
 
-    console.log(data);
+    //console.log(data);
     return data;
   },
 
   stockgraph: async (parent, args, context, info) => {
     const cursor = BeefStore.find({})
-    .populate({
-      path: "imhalves",
-      populate: { path: "halve" },
-    })
-    .populate({
+      .populate({
+        path: "imhalves",
+        populate: { path: "halve" },
+      })
+      .populate({
         path: "imquarters",
         populate: { path: "quarter" },
       })
-    .populate({
-      path: "imlumps",
-      populate: { path: "lump" },
-    })
-    .populate({
-      path: "imchops",
-      populate: { path: "chop" },
-    })
+      .populate({
+        path: "imlumps",
+        populate: { path: "lump" },
+      })
+      .populate({
+        path: "imchops",
+        populate: { path: "chop" },
+      });
     return cursor;
   },
+
+  reportlogo: async (parent, args, context, info) => {
+    const cursor = await ReportSet.find({});
+    return cursor;
+  },
+
+  storeSale: async (parent, args, context, info) => {
+    const cursor1 = await Imhalve.find({
+      name: "นำออก",
+      storestatus: "6280fac6d3dbf7345093676f",
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "halve",
+      });
+    const cursor2 = await Imquarter.find({
+      name: "นำออก",
+      storestatus: "6280fac6d3dbf7345093676f",
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "quarter",
+      });
+    const cursor3 = await Imlump.find({
+      name: "นำออก",
+      storestatus: "6280fac6d3dbf7345093676f",
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "lump",
+      });
+    const cursor4 = await Imchop.find({
+      name: "นำออก",
+      storestatus: "6280fac6d3dbf7345093676f",
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "chop",
+      });
+
+    var returnData = [];
+
+    for (const item of cursor1) {
+      let data = {
+        id: item.id,
+        beeftype: item.beeftype.nameTH,
+        code: item.beeftype.code,
+        barcode: item.barcode,
+        weightwarm: item.halve.weightwarm,
+        Expdate: item.Expdate,
+        info: item.info,
+      };
+      returnData.push(data);
+    }
+    ////////////////////////
+    for (const item of cursor2) {
+      let data = {
+        id: item.id,
+        beeftype: item.beeftype.nameTH,
+        code: item.beeftype.code,
+        barcode: item.barcode,
+        weight: item.quarter.weight,
+        Expdate: item.Expdate,
+        info: item.info,
+      };
+      returnData.push(data);
+    }
+    //////////////////////
+    for (const item of cursor3) {
+      let data = {
+        id: item.id,
+        beeftype: item.beeftype.nameTH,
+        code: item.beeftype.code,
+        barcode: item.barcode,
+        weight: item.lump.weight,
+        Expdate: item.Expdate,
+        info: item.info,
+      };
+      returnData.push(data);
+    }
+    ///////////////////////
+    for (const item of cursor4) {
+      let data = {
+        id: item.id,
+        beeftype: item.beeftype.nameTH,
+        code: item.beeftype.code,
+        barcode: item.barcode,
+        weight: item.chop.weight,
+        Expdate: item.Expdate,
+        info: item.info,
+      };
+      returnData.push(data);
+    }
+    return returnData;
+  },
 };
+
 //5f0fdb4b02b40c2ab8506563
 export default Query;

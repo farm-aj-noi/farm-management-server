@@ -4,7 +4,10 @@ const RequestExportSchema = new mongoose.Schema({
   name: {
     type: String,
   },
-  quantity: {
+  grade: {
+    type: String,
+  },
+  typemeat: {
     type: String,
   },
   requestdate: {

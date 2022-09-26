@@ -155,7 +155,7 @@ const Mutation = {
       name: "นำเข้า",
     });
 
-    const exporter = await RequestExport.findById(args.exporter);
+    //const exporter = await RequestExport.findById(args.exporter);
 
     const f = halve.imslaughter;
     const farmerName = await Imslaughter.findById(f);
@@ -192,7 +192,8 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: args.storestatus,
-        exporter: exporter.name,
+        exporter: args.exporter,
+        Expdate: e.Expdate,
       });
 
       let result = await BeefStore.findByIdAndUpdate(
@@ -250,7 +251,7 @@ const Mutation = {
     };
 
     await Imhalve.findByIdAndUpdate(imhalve.id, updateInfo);
-    
+
     const updatedFinish = await Imhalve.findById(imhalve.id);
     return updatedFinish;
   },

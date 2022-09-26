@@ -166,7 +166,7 @@ const Mutation = {
       name: "นำเข้า",
     });
 
-    const exporter = await RequestExport.findById(args.exporter);
+    //const exporter = await RequestExport.findById(args.exporter);
 
     const findfarmer = lump.imslaughter;
     const farmerName = await Imslaughter.findById(findfarmer);
@@ -191,10 +191,12 @@ const Mutation = {
       storestatus: "62a30cdccb9cda7371a7cd7f",
     });
 
-    const check = args.storestatus == "62821d931768cd521052118b"
-    
-    if(check){
-      await Lump.findByIdAndUpdate(lump.id, {Productstatus: "62b95aab1b771c3d8ae74a04"})
+    const check = args.storestatus == "62821d931768cd521052118b";
+
+    if (check) {
+      await Lump.findByIdAndUpdate(lump.id, {
+        Productstatus: "62b95aab1b771c3d8ae74a04",
+      });
     }
 
     await Lump.findByIdAndUpdate(lump.id, { sendAt: date });
@@ -210,7 +212,8 @@ const Mutation = {
         namefarmer: farmerName.namefarmer,
         userName: username.name,
         storestatus: args.storestatus,
-        exporter: exporter.name,
+        exporter: args.exporter,
+        Expdate: e.Expdate,
       });
 
       let result = await BeefStore.findByIdAndUpdate(
@@ -275,7 +278,7 @@ const Mutation = {
     };
 
     await Imlump.findByIdAndUpdate(imlump.id, updateInfo);
-    
+
     const updatedFinish = await Imlump.findById(imlump.id);
     return updatedFinish;
   },
