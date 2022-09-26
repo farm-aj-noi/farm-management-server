@@ -386,7 +386,6 @@ type Query {
 
   top10product: [topProductstore]
   productGraph(startdate: String, enddate: String): [productImgraph]
- 
 }
 
 type Mutation {
@@ -882,6 +881,11 @@ type Mutation {
 
   deleteUnit(id: ID): Unit
   updateInfoP(id: ID, info: String): Improduct
+
+  """
+  /////////////////////////////////////////
+  """
+  createGrade(pic: String): Grading
 }
 
 scalar Date
@@ -1204,6 +1208,8 @@ type Halve {
   transports: [Transport]
   chill: [Chill]
   chillstatus: Status
+  grade: [Grading]
+  gradestatus: Status
 }
 
 type Quarter {
@@ -1768,4 +1774,17 @@ type productImgraph {
 type productstock {
   nameth: String
   count: Int
+}
+
+type Grading {
+  id: ID
+  pic: String
+  userName: String
+  ExpertName1: String
+  ExpertName2: String
+  ExpertName3: String
+  ExpertName4: String
+  ExpertName5: String
+  ExpertGrade: String
+  SystemGrade: String
 }

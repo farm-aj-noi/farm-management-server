@@ -104,6 +104,7 @@ const Mutation = {
 
     const statusId = "5f1155b2f34d6036d0515e3e";
     const beeftypeId = "5f1000e28d55662dcc23d95e";
+    const gradeId = "63315bdbc1bc490068807e03"
 
     // ทดสอบนำเข้า
     const DateNow = dayjs().toISOString();
@@ -113,6 +114,7 @@ const Mutation = {
       createdAt: DateNow,
       status: statusId,
       beeftype: beeftypeId,
+      gradestatus: gradeId,
       user: userId,
     });
 
@@ -182,6 +184,7 @@ const Mutation = {
 
     const statusId = "5f1155b2f34d6036d0515e3e";
     const beeftypeId = "5f1000ee8d55662dcc23d960";
+    const gradeId = "63315bdbc1bc490068807e03"
 
     // ทดสอบนำเข้า
     const DateNow = dayjs().toISOString();
@@ -191,6 +194,7 @@ const Mutation = {
       createdAt: DateNow,
       status: statusId,
       beeftype: beeftypeId,
+      gradestatus: gradeId,
       user: userId,
     });
 
