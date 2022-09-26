@@ -1812,6 +1812,8 @@ type Grading {
   ExpertName5: String
   ExpertGrade: String
   SystemGrade: String
+}
+
 type reportSetting {
   logo: String
   address: String
