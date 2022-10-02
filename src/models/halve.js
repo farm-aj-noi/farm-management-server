@@ -57,12 +57,12 @@ const halveSchema = new mongoose.Schema({
       ref: "Chill",
     },
   ],
-  grade: [
+  grade:[
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Grading",
-    },
-  ],
+    }],
+  
   gradestatus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Status",

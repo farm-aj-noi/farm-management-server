@@ -392,6 +392,11 @@ type Query {
 
   CardProcess: [RequestProduct]
   listRequestProduct: [RequestProduct]
+
+  # ///////////////////////////////////////////////////
+
+  listGrade(id: ID): [Grading]
+  historyGrade: [Halve]
 }
 
 type Mutation {
@@ -891,13 +896,22 @@ type Mutation {
 
   deleteUnit(id: ID): Unit
   updateInfoP(id: ID, info: String): Improduct
-<<<<<<< HEAD
 
   """
   /////////////////////////////////////////
   """
-  createGrade(pic: String): Grading
-=======
+  createGrade(pic: String, halve: String, SystemGrade: String): Grading
+
+  updateGrading(
+    id: ID
+    ExpertName1: String
+    ExpertName2: String
+    ExpertName3: String
+    ExpertName4: String
+    ExpertName5: String
+    ExpertGrade: String
+  ): Grading
+
   updateLogo(logo: String, address: String): reportSetting
   updateRequestP(id: ID): RequestExportP
 
@@ -909,7 +923,6 @@ type Mutation {
 
   updateRequestProduct(id: ID): RequestProduct
   deleteRequestProduct(id: ID): RequestProduct
->>>>>>> 9c4ae8d1b80873c72daee31e3c12587f8fb12293
 }
 
 scalar Date
@@ -1812,6 +1825,7 @@ type Grading {
   ExpertName5: String
   ExpertGrade: String
   SystemGrade: String
+  Halve: Halve
 }
 
 type reportSetting {

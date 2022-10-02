@@ -28,6 +28,10 @@ const GradingSchema = new mongoose.Schema({
   SystemGrade: {
     type: String,
   },
+  Halve: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Halve",
+  },
 });
 
 const Grading = mongoose.model("Grading", GradingSchema);
