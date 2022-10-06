@@ -21,6 +21,7 @@ const Query = {
 
     return cursor;
   },
+
   Cowgrade: async (parent, args, context, info) => {
     const cursor = Halve.find({
       _id: args.id,
@@ -40,12 +41,14 @@ const Query = {
       });
     return cursor;
   },
+
   listGrade: async (parent, args, context, info) => {
     const cursor = Grading.find({
       _id: args.id,
     });
     return cursor;
   },
+
   historyGrade: async (parent, args, context, info) => {
     const cursor = Halve.find({
       gradestatus: "63315c03c1bc490068807e04",
@@ -65,6 +68,7 @@ const Query = {
       });
     return cursor;
   },
+
   finalGrade: async (parent, args, context, info) => {
     const cursor = Halve.find({
       gradestatus: "633d4b62060eb95494a85ad3",
@@ -84,6 +88,26 @@ const Query = {
       });
     return cursor;
   },
+
+  /* finalGrade: async (parent, args, context, info) => {
+    const cursor = Halve.find({
+      gradestatus: "633d4b62060eb95494a85ad3",
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "chill",
+        populate: { path: "chillroom" },
+      })
+      .populate({
+        path: "imslaughter",
+      })
+      .populate({
+        path: "grade",
+      });
+    return cursor;
+  }, */
 };
 
 export default Query;
