@@ -397,6 +397,8 @@ type Query {
 
   listGrade(id: ID): [Grading]
   historyGrade: [Halve]
+  finalGrade: [Halve]
+
 }
 
 type Mutation {

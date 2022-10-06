@@ -45,6 +45,10 @@ const Mutation = {
       ExpertGrade,
     } = args;
 
+    const halve = await Halve.findOne({ grade: args.id });
+    const halves = halve.id
+
+    const statusGr = "633d4b62060eb95494a85ad3";
     const update = await Grading.findById(args.id);
 
     const updateInfo = {
@@ -55,6 +59,8 @@ const Mutation = {
       ExpertName5: !!ExpertName5 ? ExpertName5 : update.ExpertName5,
       ExpertGrade: !!ExpertGrade ? ExpertGrade : update.ExpertGrade,
     };
+
+    await Halve.findByIdAndUpdate(halves, { gradestatus: statusGr });
 
     await Grading.findByIdAndUpdate(args.id, updateInfo);
     const updatedFinish = await Grading.findById(args.id);

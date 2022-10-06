@@ -1,6 +1,5 @@
 import Grading from "../../../models/Grade/grading";
 import Halve from "../../../models/halve";
-import Imslaughter from "../../../models/imslaughter";
 
 const Query = {
   listhalvegrade: async (parent, args, context, info) => {
@@ -50,6 +49,25 @@ const Query = {
   historyGrade: async (parent, args, context, info) => {
     const cursor = Halve.find({
       gradestatus: "63315c03c1bc490068807e04",
+    })
+      .populate({
+        path: "beeftype",
+      })
+      .populate({
+        path: "chill",
+        populate: { path: "chillroom" },
+      })
+      .populate({
+        path: "imslaughter",
+      })
+      .populate({
+        path: "grade",
+      });
+    return cursor;
+  },
+  finalGrade: async (parent, args, context, info) => {
+    const cursor = Halve.find({
+      gradestatus: "633d4b62060eb95494a85ad3",
     })
       .populate({
         path: "beeftype",
