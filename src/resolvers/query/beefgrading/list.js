@@ -1,5 +1,6 @@
 import Grading from "../../../models/Grade/grading";
 import Halve from "../../../models/halve";
+import GradeLogo from "../../../models/Grade/gradelogo";
 
 const Query = {
   listhalvegrade: async (parent, args, context, info) => {
@@ -108,6 +109,11 @@ const Query = {
       });
     return cursor;
   }, */
+
+  gradeLogo: async (parent, args, context, info) => {
+    const cursor = await GradeLogo.find({});
+    return cursor;
+  },
 };
 
 export default Query;

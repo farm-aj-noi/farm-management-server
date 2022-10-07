@@ -398,7 +398,7 @@ type Query {
   listGrade(id: ID): [Grading]
   historyGrade: [Halve]
   finalGrade (id: ID): [Halve]
-
+  gradeLogo: [GradeLogo]
 }
 
 type Mutation {
@@ -925,6 +925,9 @@ type Mutation {
 
   updateRequestProduct(id: ID): RequestProduct
   deleteRequestProduct(id: ID): RequestProduct
+
+  CreateGradeLogo(logo: String, address: String): GradeLogo
+  updateGradeLogo(logo: String, address: String): GradeLogo
 }
 
 scalar Date
@@ -1864,4 +1867,9 @@ type RequestProduct {
   beeftype: Beeftype
   requestdate: Date
   status: Status
+}
+
+type GradeLogo {
+  logo: String
+  address: String
 }

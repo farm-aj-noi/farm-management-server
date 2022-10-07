@@ -50,6 +50,7 @@ import RequestExportP from '../mutationproduct/requestexportp'
 import Grading from '../mutationgrade/grading'
 import ReportSet from '../mutationstore/reportset'
 import RequestProduct from '../mutationproduct/requestproduct'
+import GradeLogo from '../mutationgrade/gradelogo'
 
 export default _.merge(
     allin,
@@ -104,4 +105,5 @@ export default _.merge(
     Grading,
     ReportSet,
     RequestProduct,
+    GradeLogo,
 )
