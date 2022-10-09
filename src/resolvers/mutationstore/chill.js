@@ -21,11 +21,11 @@ const Mutation = {
     });
 
     const imhalve = await Imhalve.findOne({
-      barcode: args.barcode
-    })
+      barcode: args.barcode,
+    });
 
     const finduser = userId;
-    const username = await User.findById(finduser)
+    const username = await User.findById(finduser);
     const find = await Chillday.findById(args.chillday);
     const chillday = Number(find.day);
 
@@ -45,12 +45,12 @@ const Mutation = {
 
     await Halve.findByIdAndUpdate(halve.id, { chillstatus: statusCh });
 
-    await Imhalve.findByIdAndUpdate(imhalve.id, { storestatus: statusSt});
+    await Imhalve.findByIdAndUpdate(imhalve.id, { storestatus: statusSt });
 
-    const room = await Chillroom.findById(args.chillroom)
-    const roomnum = room.roomnum
-    
-    await Imhalve.findByIdAndUpdate(imhalve.id, {chillroom: roomnum})
+    const room = await Chillroom.findById(args.chillroom);
+    const roomnum = room.roomnum;
+
+    await Imhalve.findByIdAndUpdate(imhalve.id, { chillroom: roomnum });
 
     const chill = await Chill.create({
       barcode: args.barcode,
@@ -62,7 +62,7 @@ const Mutation = {
       chillday: find,
       chillstatus: statusCh,
       user: userId,
-      name: username.name
+      name: username.name,
     });
 
     const halves = await Halve.findById(halve.id);
@@ -72,8 +72,6 @@ const Mutation = {
       halves.chill.push(chill);
     }
     await halves.save();
-
-
 
     let test = Chill.findById(chill.id)
       .populate({
@@ -126,22 +124,20 @@ const Mutation = {
 
     const imhalve = await Imhalve.findOne({
       halve: halve.id,
-      name: "นำเข้า"
-    })
+      name: "นำเข้า",
+    });
 
     await Chill.findByIdAndUpdate(id, { chillstatus: statusCh });
-    await Imhalve.findByIdAndUpdate(imhalve.id, { storestatus: statusSt});
+    await Imhalve.findByIdAndUpdate(imhalve.id, { storestatus: statusSt });
 
     if (checkchilldate) {
       const statusCh = "6284ad91fbfac22364a6e431";
 
       await Halve.findByIdAndUpdate(halve.id, { chillstatus: statusCh });
-
+      await Imhalve.findByIdAndUpdate(imhalve.id, { storestatus: statusSt });
       await Chill.findByIdAndUpdate(id, { chillstatus: statusCh });
     } else {
-
       throw new Error("ซากโคผ่าซีกกำลังบ่ม");
-      
     }
 
     const updatedFinish = await Chill.findById(id).populate({
