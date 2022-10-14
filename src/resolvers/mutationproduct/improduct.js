@@ -144,7 +144,7 @@ const Mutation = {
       name: "นำเข้า",
     });
 
-    const exporter = await RequestExportP.findById(args.exporter);
+    //const exporter = await RequestExportP.findById(args.exporter);
 
     const finduser = userId;
     const username = await User.findById(finduser);
@@ -175,7 +175,7 @@ const Mutation = {
         producttype: product.producttype,
         userName: username.name,
         storestatus: args.storestatus,
-        exporter: exporter.name,
+        exporter: args.exporter,
       });
       
       let result = await ProductStore.findByIdAndUpdate(
