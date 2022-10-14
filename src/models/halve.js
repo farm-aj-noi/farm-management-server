@@ -51,10 +51,22 @@ const halveSchema = new mongoose.Schema({
       ref: "Transport",
     },
   ],
-  chill: [{
+  chill: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Chill",
+    },
+  ],
+  grade:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Grading",
+    }],
+  
+  gradestatus: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Chill",
-  }],
+    ref: "Status",
+  },
 });
 
 halveSchema.plugin(autoIncrement, {

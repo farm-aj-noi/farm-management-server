@@ -392,6 +392,13 @@ type Query {
 
   CardProcess: [RequestProduct]
   listRequestProduct: [RequestProduct]
+
+  # ///////////////////////////////////////////////////
+
+  listGrade(id: ID): [Grading]
+  historyGrade: [Halve]
+  finalGrade (id: ID): [Halve]
+  gradeLogo: [GradeLogo]
 }
 
 type Mutation {
@@ -891,6 +898,22 @@ type Mutation {
 
   deleteUnit(id: ID): Unit
   updateInfoP(id: ID, info: String): Improduct
+
+  """
+  /////////////////////////////////////////
+  """
+  createGrade(pic: String, halve: String, SystemGrade: String): Grading
+
+  updateGrading(
+    id: ID
+    ExpertName1: String
+    ExpertName2: String
+    ExpertName3: String
+    ExpertName4: String
+    ExpertName5: String
+    ExpertGrade: String
+  ): Grading
+
   updateLogo(logo: String, address: String): reportSetting
   updateRequestP(id: ID): RequestExportP
 
@@ -902,6 +925,9 @@ type Mutation {
 
   updateRequestProduct(id: ID): RequestProduct
   deleteRequestProduct(id: ID): RequestProduct
+
+  CreateGradeLogo(logo: String, address: String): GradeLogo
+  updateGradeLogo(logo: String, address: String): GradeLogo
 }
 
 scalar Date
@@ -1171,7 +1197,7 @@ type Imslaughter {
   statuscow: String
   weight: Float
   price: Float
-  grade: String
+  grade: String!
   fees: Float
   "ข้อมูลติดตัวโค"
   group: String!
@@ -1224,6 +1250,8 @@ type Halve {
   transports: [Transport]
   chill: [Chill]
   chillstatus: Status
+  grade: [Grading]
+  gradestatus: Status
 }
 
 type Quarter {
@@ -1791,6 +1819,20 @@ type productstock {
   count: Int
 }
 
+type Grading {
+  id: ID
+  pic: String
+  userName: String
+  ExpertName1: String
+  ExpertName2: String
+  ExpertName3: String
+  ExpertName4: String
+  ExpertName5: String
+  ExpertGrade: String
+  SystemGrade: String
+  Halve: Halve
+}
+
 type reportSetting {
   logo: String
   address: String
@@ -1825,4 +1867,9 @@ type RequestProduct {
   beeftype: Beeftype
   requestdate: Date
   status: Status
+}
+
+type GradeLogo {
+  logo: String
+  address: String
 }

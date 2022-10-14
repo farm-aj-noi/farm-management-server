@@ -47,8 +47,10 @@ import Typekeep2 from '../mutationproduct/typekeep2'
 import ExpdateSetting2 from '../mutationproduct/expdatesetting2'
 import ProductTransport from '../mutationproduct/producttransport'
 import RequestExportP from '../mutationproduct/requestexportp'
+import Grading from '../mutationgrade/grading'
 import ReportSet from '../mutationstore/reportset'
 import RequestProduct from '../mutationproduct/requestproduct'
+import GradeLogo from '../mutationgrade/gradelogo'
 
 export default _.merge(
     allin,
@@ -100,6 +102,8 @@ export default _.merge(
     ExpdateSetting2,
     ProductTransport,
     RequestExportP,
+    Grading,
     ReportSet,
     RequestProduct,
+    GradeLogo,
 )
