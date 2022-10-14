@@ -158,7 +158,7 @@ const Mutation = {
       }).countDocuments()) > 0;
 
     if (find) {
-      throw new Error("ซากโคผ่าเสี้ยวนี้ถูกนำออกไปเเล้ว");
+      throw new Error("ผลิตภัณฑ์นี้ถูกนำออกไปเเล้ว");
     }
 
     await Improduct.findByIdAndUpdate(e.id, {
