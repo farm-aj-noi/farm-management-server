@@ -1281,7 +1281,7 @@ const Query = {
   Card8c: async (parent, args, context, info) => {
     const find = await ExpdateSetting.findById("629f3729a96c14e8f1f2473b");
     const day = find.dayC;
-
+    
     const cursor = await Imchop.find({
       storestatus: "5f448d5d4ef8ed48806f1b53",
       name: "นำเข้า",

@@ -186,6 +186,10 @@ const Mutation = {
       throw new Error("ชิ้นเนื้อถูกนำออกไปเเล้ว");
     }
 
+    await Imchop.findByIdAndUpdate(e.id, {
+      storestatus: "62a30cdccb9cda7371a7cd7f",
+    });
+
     const check = args.storestatus == "62821d931768cd521052118b";
 
     if (check) {
