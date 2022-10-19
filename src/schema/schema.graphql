@@ -1197,7 +1197,7 @@ type Imslaughter {
   statuscow: String
   weight: Float
   price: Float
-  grade: String!
+  grade: String
   fees: Float
   "ข้อมูลติดตัวโค"
   group: String!
