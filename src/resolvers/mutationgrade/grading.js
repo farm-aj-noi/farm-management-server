@@ -16,6 +16,7 @@ const Mutation = {
 
     const grading = await Grading.create({
       pic: args.pic,
+      pic1: args.pic1,
       userName: user.name,
       Halve: args.halve,
       SystemGrade: args.SystemGrade,

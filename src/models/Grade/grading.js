@@ -4,6 +4,9 @@ const GradingSchema = new mongoose.Schema({
   pic: {
     type: String,
   },
+  pic1: {
+    type: String,
+  },
   userName: {
     type: String,
   },
