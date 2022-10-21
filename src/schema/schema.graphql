@@ -902,7 +902,7 @@ type Mutation {
   """
   /////////////////////////////////////////
   """
-  createGrade(pic: String, halve: String, SystemGrade: String): Grading
+  createGrade(pic: String, pic1: String, halve: String, SystemGrade: String): Grading
 
   updateGrading(
     id: ID
@@ -1822,6 +1822,7 @@ type productstock {
 type Grading {
   id: ID
   pic: String
+  pic1: String
   userName: String
   ExpertName1: String
   ExpertName2: String
@@ -1873,3 +1874,4 @@ type GradeLogo {
   logo: String
   address: String
 }
+
