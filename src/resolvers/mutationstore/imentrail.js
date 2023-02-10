@@ -89,7 +89,6 @@ const Mutation = {
         .populate({
           path: "beefroom",
         });
-      console.log(test);
       return test;
     }
   },

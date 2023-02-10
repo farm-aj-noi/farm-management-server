@@ -6,7 +6,6 @@ import Imslaughter from "../../models/imslaughter";
 import User from "../../models/user";
 import Beefroom from "../../models/Beefstore/beefroom";
 import Typekeep from "../../models/Beefstore/typekeep";
-import RequestExport from "../../models/Beefstore/requestexport";
 import TotalExpdate from "../../models/Beefstore/totalexpdate";
 
 const Mutation = {
@@ -23,7 +22,7 @@ const Mutation = {
 
     const date = dayjs();
 
-    //const test = await Imhalve.find( {name: "นำเข้า"} ).count()
+    //const response = await Imhalve.find( {name: "นำเข้า"} ).count()
 
     const halve = await Halve.findOne({
       barcode: args.barcode,
@@ -38,22 +37,19 @@ const Mutation = {
     const username = await User.findById(finduser);
 
     const room = await Beefroom.findById(args.beefroom);
-    const y = room.typekeep;
     const totalhalve = room.halve;
 
     const type = halve.beeftype.toString();
 
-    const typebeef = await Typekeep.findOne({ _id: y, beeftype: type });
+    const typebeef = await Typekeep.findOne({ _id: room.typekeep, beeftype: type });
 
     if (typebeef == null) {
       throw new Error("ไม่พบประเภทจัดเก็บในห้องนี้");
     }
 
-    const findtype = typebeef.beeftype.toString();
-
     const totalbeef = typebeef.totalbeef.toString();
 
-    const isRoomEmpty = totalhalve.length == totalbeef;
+    const isRoomEmpty = totalhalve.length === totalbeef;
 
     const exp = await TotalExpdate.findById("629eeaa60931a4ec74bc75fd");
     const Dateexp = dayjs().add(exp.dayH, "d").toISOString();
@@ -61,6 +57,8 @@ const Mutation = {
     if (isRoomEmpty) {
       throw new Error("ห้องของคุณเต็มกรุณาเพิ่มประเภทจัดเก็บ");
     }
+
+    const findtype = typebeef.beeftype.toString();
 
     if (type !== findtype) {
       throw new Error("กรุณานำเข้าประเภทชิ้นเนื้อให้ถูกต้อง");
@@ -97,7 +95,7 @@ const Mutation = {
       }
       await rooms.save();
 
-      let test = await Imhalve.findById(imhalve.id)
+      let response = await Imhalve.findById(imhalve.id)
         .populate({
           path: "user",
           populate: { path: "imhalves" },
@@ -128,8 +126,8 @@ const Mutation = {
           path: "beefroom",
         });
 
-      console.log(test);
-      return test;
+      console.log(response);
+      return response;
     }
   },
 
@@ -210,7 +208,7 @@ const Mutation = {
         { $pull: { halve: halve } }
       );
 
-      let test = await Imhalve.findById(imhalve.id)
+      let response = await Imhalve.findById(imhalve.id)
         .populate({
           path: "user",
           populate: { path: "imhalves" },
@@ -240,7 +238,7 @@ const Mutation = {
           path: "shelf",
         });
 
-      return test;
+      return response;
     }
   },
   updateInfoH: async (parent, args, { userId }, info) => {

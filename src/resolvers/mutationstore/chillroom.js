@@ -3,7 +3,6 @@ import Chillroom from "../../models/Beefstore/chillroom";
 const Mutation = {
   creatChillroom: async (parent, args, { userId }, info) => {
     if (!userId) throw new Error("Please log in.");
-    console.log(args);
 
     if (!args.roomnum) {
       throw new Error("Please provide required field.");

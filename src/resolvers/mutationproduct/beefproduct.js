@@ -17,7 +17,7 @@ const Mutation = {
 
     const SettingResetdate = await Setting.findOne({});
 
-    const checkDate = await parseInt(dayjs().format("YYYYMMDD").toString());
+    const checkDate = parseInt(dayjs().format("YYYYMMDD").toString());
     if (SettingResetdate.dateResetCountP < checkDate) {
       await Beefproduct.resetCount();
       await Setting.findByIdAndUpdate(SettingResetdate.id, {

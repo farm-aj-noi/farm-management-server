@@ -36,7 +36,7 @@ const Mutation = {
       }
     }
 
-    if (args.dayQ) {
+    else if (args.dayQ) {
       const imquarter = await Imquarter.find({ name: "นำเข้า" });
       for (let i = 0; i < imquarter.length; i++) {
         const exp = dayjs(imquarter[i].importdate)
@@ -46,7 +46,7 @@ const Mutation = {
       }
     }
 
-    if (args.dayL) {
+    else if (args.dayL) {
       const imlump = await Imlump.find({ name: "นำเข้า" });
       for (let i = 0; i < imlump.length; i++) {
         const exp = dayjs(imlump[i].importdate)
@@ -56,7 +56,7 @@ const Mutation = {
       }
     }
 
-    if (args.dayC) {
+    else if (args.dayC) {
       const imchop = await Imchop.find({ name: "นำเข้า" });
       for (let i = 0; i < imchop.length; i++) {
         const exp = dayjs(imchop[i].importdate)

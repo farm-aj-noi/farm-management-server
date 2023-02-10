@@ -109,7 +109,7 @@ const Mutation = {
       }
       await shelfs.save();
 
-      let test = await Imlump.findById(imlump.id)
+      let response = await Imlump.findById(imlump.id)
         .populate({
           path: "user",
           populate: { path: "imlumps" },
@@ -138,9 +138,7 @@ const Mutation = {
         .populate({
           path: "shelf",
         });
-
-      console.log(test);
-      return test;
+      return response;
     }
   },
 
@@ -237,7 +235,7 @@ const Mutation = {
         { $pull: { lump: lump } }
       );
 
-      let test = await Imlump.findById(imlump.id)
+      let response = await Imlump.findById(imlump.id)
         .populate({
           path: "user",
           populate: { path: "imlumps" },
@@ -267,7 +265,7 @@ const Mutation = {
           path: "shelf",
         });
 
-      return test;
+      return response;
     }
   },
   updateInfoL: async (parent, args, { userId }, info) => {

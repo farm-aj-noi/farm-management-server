@@ -118,7 +118,6 @@ const Mutation = {
         path: "freezer",
       });
 
-    console.log(test);
     return test;
   },
 
