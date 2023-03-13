@@ -86,6 +86,7 @@ const Mutation = {
         store.imhalves.push(imhalve);
       }
       await store.save();
+      //
 
       const rooms = await Beefroom.findById(args.beefroom);
       if (!rooms.halve) {
